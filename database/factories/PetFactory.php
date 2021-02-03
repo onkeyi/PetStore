@@ -22,7 +22,7 @@ class PetFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->lastName,
+            'name' => 'DOG_' . $this->faker->numberBetween(1, 5000),
             'user_id' => $this->faker->numberBetween(1, 50),
             'category_id' => $this->faker->numberBetween(1, 50),
             'status' => $this->faker->randomElement(['available', 'pending', 'sold']),
