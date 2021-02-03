@@ -2,12 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
-use Illuminate\Http\Request;
 use App\Models\User;
+
 use Auth;
 
-class CheckApiToken
+class CheckApiToken extends Middleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +17,7 @@ class CheckApiToken
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next, ...$guards)
     {
         if (!empty(trim($request->bearerToken()))) {
             if (User::where('id', Auth::guard('sanctum')->id())->exists()) {

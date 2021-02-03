@@ -50,6 +50,7 @@ class Handler extends ExceptionHandler
 
     public function handler($request, Throwable $exception)
     {
+        dd($exception);
         if ($exception instanceof MethodNotAllowedHttpException) {
             return response()->json(['status' => 'error', 'message' => 'The specified method for the request is invalid'], 405);
         }
@@ -61,5 +62,7 @@ class Handler extends ExceptionHandler
         if ($exception instanceof HttpException) {
             return response()->json($exception->getMessage(), $exception->getStatusCode());
         }
+
+        return response()->json($exception, $exception->getStatusCode());
     }
 }

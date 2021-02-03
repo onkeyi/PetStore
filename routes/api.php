@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\PetController;
+use \App\Http\Controllers\api\StoreController;
 use \App\Http\Controllers\AuthController;
 
 /*
@@ -18,6 +19,8 @@ use \App\Http\Controllers\AuthController;
 
 Route::get('pet/findByStatus', [PetController::class, 'findByStatus']);
 Route::apiResource('pet', PetController::class, ['only' => ['index',  'show']]);
+Route::post('login', [AuthController::class, 'login']);
+Route::post('user', [AuthController::class, 'register']);
 
 Route::middleware('auth')->group(
     function () {
@@ -25,7 +28,6 @@ Route::middleware('auth')->group(
         Route::put('pet/{pet}', [PetController::class, 'update']);
         Route::delete('pet/{pet}', [PetController::class, 'destroy']);
         Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
-
         Route::post('store/order', [StoreController::class, 'order']);
         Route::get('store/order/{orderId}', [StoreController::class, 'getOrder']);
         Route::delete('store/order/{orderId}', [StoreController::class, 'deleteOrder']);
@@ -36,9 +38,6 @@ Route::middleware('auth')->group(
         Route::post('user/{username}', [AuthController::class, 'getUserByName']);
         Route::put('user/{username}', [AuthController::class, 'updateUserByName']);
         Route::delete('user/{username}', [AuthController::class, 'deleteUserByName']);
+        Route::get('logout', [AuthController::class, 'logout']);
     }
 );
-
-Route::post('login', [AuthController::class, 'login']);
-Route::get('logout', [AuthController::class, 'logout']);
-Route::post('user', [AuthController::class, 'register']);

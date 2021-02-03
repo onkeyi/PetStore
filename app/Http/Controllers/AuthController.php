@@ -41,6 +41,14 @@ class AuthController extends Controller
             ]);
         }
     }
+    public function logout()
+    {
+        $user = Auth::guard('sanctum')->user();
+        $user->tokens()->delete();
+        return response()->json([
+            'message' => 'Logout success.'
+        ]);
+    }
 
     public function createWithArray()
     {
