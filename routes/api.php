@@ -29,8 +29,8 @@ Route::middleware('auth')->group(
         Route::delete('pet/{pet}', [PetController::class, 'destroy']);
         Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
         Route::post('store/order', [StoreController::class, 'order']);
-        Route::get('store/order/{orderId}', [StoreController::class, 'getOrder']);
-        Route::delete('store/order/{orderId}', [StoreController::class, 'deleteOrder']);
+        Route::get('store/order/{order}', [StoreController::class, 'getOrder']);
+        Route::delete('store/order/{order}', [StoreController::class, 'deleteOrder']);
         Route::get('store/inventory', [StoreController::class, 'inventory']);
 
         Route::post('user/createWithArray', [AuthController::class, 'createWithArray']);

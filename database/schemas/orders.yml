@@ -2,6 +2,7 @@ orders:
   columns:
     id: bigIncrements
     pet_id: bigInteger
+    user_id: bigInteger
     quantity:
       type: integer
       default: 1

@@ -16,6 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('pet_id');
+            $table->bigInteger('user_id');
             $table->integer('quantity')->default(1);
             $table->dateTime('ship_date');
             $table->enum('status', ['placed', 'approved', 'delivered']);
