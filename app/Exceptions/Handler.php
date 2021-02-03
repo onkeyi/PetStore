@@ -50,13 +50,24 @@ class Handler extends ExceptionHandler
 
     public function handler($request, Throwable $exception)
     {
-        dd($exception);
         if ($exception instanceof MethodNotAllowedHttpException) {
-            return response()->json(['status' => 'error', 'message' => 'The specified method for the request is invalid'], 405);
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'The specified method for the request is invalid'
+                ],
+                405
+            );
         }
 
         if ($exception instanceof ModelNotFoundException) {
-            return response()->json(['status' => 'error', 'message' => 'Not Found'], 404);
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Not Found'
+                ],
+                404
+            );
         }
 
         if ($exception instanceof HttpException) {
