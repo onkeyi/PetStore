@@ -25,7 +25,7 @@ class AuthRegisterRequest extends ApiRequest
     {
         return [
             'name' => 'required',
-            'email' => ['required', 'email'],
+            'email' => ['required', 'unique:users'],
             'password' => ['required', 'min:6']
         ];
     }
