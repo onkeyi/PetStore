@@ -17,10 +17,14 @@ use \App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('pet/findByStatus', [PetController::class, 'findByStatus']);
+
 Route::apiResource('pet', PetController::class, ['only' => ['index',  'show']]);
+Route::get('pet/findByStatus', [PetController::class, 'findByStatus']);
+
 Route::post('login', [AuthController::class, 'login']);
 Route::post('user', [AuthController::class, 'register']);
+Route::post('user/createWithArray', [AuthController::class, 'createWithArray']);
+Route::post('user/createWithList', [AuthController::class, 'createWithList']);
 
 Route::middleware('auth')->group(
     function () {
@@ -28,16 +32,17 @@ Route::middleware('auth')->group(
         Route::put('pet/{pet}', [PetController::class, 'update']);
         Route::delete('pet/{pet}', [PetController::class, 'destroy']);
         Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
+
+        Route::apiResource('store', StoreController::class, ['only' => ['index',  'show']]);
         Route::post('store/order', [StoreController::class, 'order']);
         Route::get('store/order/{order}', [StoreController::class, 'getOrder']);
         Route::delete('store/order/{order}', [StoreController::class, 'deleteOrder']);
         Route::get('store/inventory', [StoreController::class, 'inventory']);
 
-        Route::post('user/createWithArray', [AuthController::class, 'createWithArray']);
-        Route::post('user/createWithList', [AuthController::class, 'createWithList']);
-        Route::post('user/{username}', [AuthController::class, 'getUserByName']);
+        Route::get('user/{username}', [AuthController::class, 'getUserByName']);
         Route::put('user/{username}', [AuthController::class, 'updateUserByName']);
         Route::delete('user/{username}', [AuthController::class, 'deleteUserByName']);
+
         Route::get('logout', [AuthController::class, 'logout']);
     }
 );
