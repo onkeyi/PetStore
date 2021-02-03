@@ -1,0 +1,8 @@
+pet_photo_urls:
+  columns:
+    id: true
+    pet_id: bigInteger
+    photo_url:
+      type: string
+      unique: true
+    timestamps: true

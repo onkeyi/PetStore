@@ -1,0 +1,13 @@
+pets:
+  columns:
+    id: true
+    user_id: bigInteger
+    category_id: bigInteger
+    name: string
+    status:
+      type: enum
+      args: ['available', 'pending', 'sold']
+    description:
+      type: string
+      default: nullable
+    timestamps: true

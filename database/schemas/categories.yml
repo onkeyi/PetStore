@@ -1,0 +1,4 @@
+categories:
+  columns:
+    id: true
+    name: string

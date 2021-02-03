@@ -1,0 +1,25 @@
+users:
+  columns:
+    id: bigIncrements
+    name: string
+    first_name:
+      type: string
+      nullable: true
+    last_name:
+      type: string
+      nullable: true
+    email:
+      type: string
+      unique: true
+    email_verified_at:
+      type: timestamp
+      nullable: true
+    password: string
+    phone:
+      type: string
+      nullable: true
+    user_status:
+      type: tinyInteger
+      default: true
+    rememberToken: true
+    timestamps: true

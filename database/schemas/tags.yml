@@ -1,0 +1,6 @@
+tags:
+  columns:
+    id: true
+    name:
+      type: string
+      unique: true

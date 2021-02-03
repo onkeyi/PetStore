@@ -1,0 +1,15 @@
+orders:
+  columns:
+    id: bigIncrements
+    pet_id: bigInteger
+    quantity:
+      type: integer
+      default: 1
+    ship_date: dateTime
+    status:
+        type: enum
+        args: ['placed', 'approved', 'delivered']
+    complete:
+      type: tinyInteger
+      default: false
+    timestamps: true

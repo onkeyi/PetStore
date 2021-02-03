@@ -1,0 +1,11 @@
+pet_tags:
+  columns:
+    pet_id: bigInteger
+    tag_id: integer
+    timestamps: true
+  indexes:
+    pet_tag_index:
+      columns:
+        - tag_id
+        - pet_id
+      type: primary
