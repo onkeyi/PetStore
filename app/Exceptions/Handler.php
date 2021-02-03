@@ -74,6 +74,6 @@ class Handler extends ExceptionHandler
             return response()->json($exception->getMessage(), $exception->getStatusCode());
         }
 
-        return response()->json($exception, $exception->getStatusCode());
+        return response($exception->getMessage());
     }
 }
