@@ -17,9 +17,11 @@ use \App\Http\Controllers\AuthController;
 */
 
 
-Route::apiResource('pet', PetController::class, ['only' => ['index',  'show']]);
+// Route::apiResource('pet', PetController::class, ['only' => ['index',  'show']]);
 Route::get('pet/findByStatus', [PetController::class, 'findByStatus']);
 Route::get('pet/findByTags', [PetController::class, 'findByTags']);
+Route::get('pet/{pet}', [PetController::class, 'show']);
+Route::get('pet', [PetController::class, 'index']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('user', [AuthController::class, 'register']);
