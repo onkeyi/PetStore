@@ -24,9 +24,9 @@ class OrderRequest extends ApiRequest
     public function rules()
     {
         return [
-            'pet_id' => ['require', 'exists:pets,id'],
-            'quantity' => ['require', 'numeric'],
-            'shop_date' => 'require',
+            'pet_id' => ['required', 'exists:pets,id'],
+            'quantity' => ['required', 'numeric', 'gt:0'],
+            'ship_date' => ['required', 'after:tomorrow'],
             'stauts' => 'in:"placed","approved","delivered"'
         ];
     }

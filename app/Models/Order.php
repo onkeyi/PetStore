@@ -9,16 +9,16 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $visible = ['id', 'quantity', 'ship_date', 'user', 'pet', 'status'];
-    protected $fillable = [];
+    protected $visible = ['id', 'quantity', 'ship_date', 'orderUser', 'pet', 'status'];
+    protected $fillable = ['quantity', 'ship_date', 'pet_id', 'user_id', 'status'];
 
-    public function user()
+    public function orderUser()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
     public function pet()
     {
-        return $this->hasOne(Pet::class, 'id', 'pet_id');
+        return $this->hasOne(Pet::class, 'id', 'pet_id')->with(['tags', 'photoUrls', 'owner']);
     }
 }

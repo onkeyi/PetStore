@@ -11,7 +11,6 @@ use App\Models\PetTag;
 use App\Http\Requests\PetStoreRequest;
 use App\Http\Requests\PetUpdateRequest;
 use App\Http\Requests\PetUploadImageRequest;
-use Auth;
 
 /**
  * Everything abou you pets.
@@ -38,7 +37,7 @@ class PetController extends ApiController
     {
         $validated = $request->validated();
         $pet = new Pet($validated);
-        $pet->user_id = Auth::guard('sanctum')->id();
+        $pet->user_id = $this->userId;
         $pet->category_id = $validated['category']['id'];
 
         $validated['id'] = DB::transaction(
@@ -65,7 +64,7 @@ class PetController extends ApiController
     public function show(Pet $pet)
     {
         return $this->successResponse(
-            $pet->load(['tags', 'photoUrls', 'category'])
+            $pet->load(['tags', 'photoUrls', 'category', 'owner'])
         );
     }
 

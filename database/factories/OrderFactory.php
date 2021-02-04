@@ -23,7 +23,7 @@ class OrderFactory extends Factory
     {
         return [
             'pet_id' => $this->faker->numberBetween(1, 50),
-            'user_id' => $this->faker->numberBetween(1, 50),
+            'user_id' => $this->faker->numberBetween(1, 10),
             'quantity' => $this->faker->numberBetween(1, 3),
             'ship_date' => $this->faker->dateTimeBetween('1day', '1year')->format('Y-m-d H:i'),
             'status' => $this->faker->randomElement(['placed', 'approved', 'delivered']),

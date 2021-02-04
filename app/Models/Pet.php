@@ -12,7 +12,7 @@ use App\Models\User;
 class Pet extends Model
 {
     use HasFactory;
-    protected $visible = ['id', 'name', 'tags', 'category', 'photoUrls', 'status', 'user'];
+    protected $visible = ['id', 'name', 'tags', 'category', 'photoUrls', 'status', 'owner'];
     protected $fillable = ['name', 'user_id', 'category_id', 'status'];
 
     public function tags()
@@ -31,8 +31,13 @@ class Pet extends Model
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
-    public function user()
+    public function owner()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function inventory()
+    {
+        return $this->groupBy('status');
     }
 }

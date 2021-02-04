@@ -11,3 +11,4 @@ pets:
       type: string
       default: nullable
     timestamps: true
+    softDeletes: true
