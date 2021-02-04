@@ -22,7 +22,7 @@ class PetTagFactory extends Factory
     public function definition()
     {
         return [
-            "tag_id" => $this->faker->numberBetween(1, 50),
+            "tag_id" => $this->faker->numberBetween(1, 10),
         ];
     }
 }
