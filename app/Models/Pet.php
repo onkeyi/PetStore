@@ -35,9 +35,4 @@ class Pet extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
-
-    public function inventory()
-    {
-        return $this->groupBy('status');
-    }
 }
