@@ -8,6 +8,7 @@ use App\Models\Pet;
 use App\Models\PetCategory;
 use App\Models\PetPhotoUrl;
 use App\Models\PetTag;
+use App\Models\Tag;
 use App\Http\Requests\PetStoreRequest;
 use App\Http\Requests\PetUpdateRequest;
 use App\Http\Requests\PetUploadImageRequest;
@@ -112,7 +113,7 @@ class PetController extends ApiController
                 $pet->delete();
                 PetTag::where('pet_id', $pet->id)->delete();
                 PetCategory::where('pet_id', $pet->id)->delete();
-                $petPhotoUrls = PetPhotoUrl::where('pet_id', $pet->id)->get();
+                $petPhotoUrls = PetPhotoUrl::where('pet_id', $pet->id)->pluck('photo_urls');
 
                 // TODO::
                 // delete file
@@ -141,6 +142,31 @@ class PetController extends ApiController
         return Pet::whereIn('status', $input['status'])
             ->with(['tags', 'category', 'photoUrls'])
             ->paginate(5);
+    }
+
+    /**
+     * Finds pets by tags.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function findByTags()
+    {
+        $input = Request::all();
+
+        if (!isset($input['tag']) || !is_array($input['tag'])) {
+            return $this->failedResponse('Invalid tag supplied', 400);
+        }
+
+        $tagIds = Tag::whereIn('name', $input['tag'])->pluck('id');
+
+        $result =  Pet::with(['tags', 'photoUrls', 'category', 'owner'])
+            ->whereHas(
+                'tags',
+                function ($query) use ($tagIds) {
+                    $query->whereIn('tag_id', $tagIds);
+                }
+            )->get();
+        return $this->successResponse($result);
     }
 
     /**
