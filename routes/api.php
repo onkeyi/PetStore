@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\api\PetController;
 use \App\Http\Controllers\api\StoreController;
@@ -25,6 +24,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('user', [AuthController::class, 'register']);
 Route::post('user/createWithArray', [AuthController::class, 'createWithArray']);
 Route::post('user/createWithList', [AuthController::class, 'createWithList']);
+Route::get('store/inventory', [StoreController::class, 'inventory']);
 
 Route::middleware('auth')->group(
     function () {
@@ -33,11 +33,10 @@ Route::middleware('auth')->group(
         Route::delete('pet/{pet}', [PetController::class, 'destroy']);
         Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
 
-        Route::apiResource('store', StoreController::class, ['only' => ['index',  'show']]);
+        Route::apiResource('store', StoreController::class, ['only' => ['index']]);
         Route::post('store/order', [StoreController::class, 'order']);
         Route::get('store/order/{order}', [StoreController::class, 'getOrder']);
         Route::delete('store/order/{order}', [StoreController::class, 'deleteOrder']);
-        Route::get('store/inventory', [StoreController::class, 'inventory']);
 
         Route::get('user/{username}', [AuthController::class, 'getUserByName']);
         Route::put('user/{username}', [AuthController::class, 'updateUserByName']);
