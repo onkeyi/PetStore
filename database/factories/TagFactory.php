@@ -23,7 +23,7 @@ class TagFactory extends Factory
     public function definition()
     {
         return [
-            "name" => 'TAG_' . Str::random(8),
+            "name" => 'TAG_' . Str::random(10),
         ];
     }
 }
