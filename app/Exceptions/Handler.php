@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
+use App\Exceptions\ApiKeyNotfoundException;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +49,16 @@ class Handler extends ExceptionHandler
 
     public function handler($request, Throwable $exception)
     {
+        if ($exception instanceof ApiKeyNotfoundException) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Authentication API-KEY error.'
+                ],
+                401
+            );
+        }
+
         if ($exception instanceof MethodNotAllowedHttpException) {
             return response()->json(
                 [
