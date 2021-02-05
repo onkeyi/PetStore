@@ -16,35 +16,37 @@ use \App\Http\Controllers\AuthController;
 |
 */
 
-
-// Route::apiResource('pet', PetController::class, ['only' => ['index',  'show']]);
-Route::get('pet/findByStatus', [PetController::class, 'findByStatus']);
-Route::get('pet/findByTags', [PetController::class, 'findByTags']);
-Route::get('pet/{pet}', [PetController::class, 'show']);
-Route::get('pet', [PetController::class, 'index']);
-
-Route::post('login', [AuthController::class, 'login']);
-Route::post('user', [AuthController::class, 'register']);
-Route::post('user/createWithArray', [AuthController::class, 'createWithArray']);
-Route::post('user/createWithList', [AuthController::class, 'createWithList']);
-Route::get('store/inventory', [StoreController::class, 'inventory']);
-
-Route::middleware('auth')->group(
+Route::middleware('apikey')->group(
     function () {
-        Route::post('pet', [PetController::class, 'store']);
-        Route::put('pet/{pet}', [PetController::class, 'update']);
-        Route::delete('pet/{pet}', [PetController::class, 'destroy']);
-        Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
+        Route::get('pet/findByStatus', [PetController::class, 'findByStatus']);
+        Route::get('pet/findByTags', [PetController::class, 'findByTags']);
+        Route::get('pet/{pet}', [PetController::class, 'show']);
+        Route::get('pet', [PetController::class, 'index']);
 
-        Route::apiResource('store', StoreController::class, ['only' => ['index']]);
-        Route::post('store/order', [StoreController::class, 'order']);
-        Route::get('store/order/{order}', [StoreController::class, 'getOrder']);
-        Route::delete('store/order/{order}', [StoreController::class, 'deleteOrder']);
+        Route::post('login', [AuthController::class, 'login']);
+        Route::post('user', [AuthController::class, 'register']);
+        Route::post('user/createWithArray', [AuthController::class, 'createWithArray']);
+        Route::post('user/createWithList', [AuthController::class, 'createWithList']);
+        Route::get('store/inventory', [StoreController::class, 'inventory']);
 
-        Route::get('user/{username}', [AuthController::class, 'getUserByName']);
-        Route::put('user/{username}', [AuthController::class, 'updateUserByName']);
-        Route::delete('user/{username}', [AuthController::class, 'deleteUserByName']);
+        Route::middleware('auth')->group(
+            function () {
+                Route::post('pet', [PetController::class, 'store']);
+                Route::put('pet/{pet}', [PetController::class, 'update']);
+                Route::delete('pet/{pet}', [PetController::class, 'destroy']);
+                Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
 
-        Route::get('logout', [AuthController::class, 'logout']);
+                Route::apiResource('store', StoreController::class, ['only' => ['index']]);
+                Route::post('store/order', [StoreController::class, 'order']);
+                Route::get('store/order/{order}', [StoreController::class, 'getOrder']);
+                Route::delete('store/order/{order}', [StoreController::class, 'deleteOrder']);
+
+                Route::get('user/{username}', [AuthController::class, 'getUserByName']);
+                Route::put('user/{username}', [AuthController::class, 'updateUserByName']);
+                Route::delete('user/{username}', [AuthController::class, 'deleteUserByName']);
+
+                Route::get('logout', [AuthController::class, 'logout']);
+            }
+        );
     }
 );
