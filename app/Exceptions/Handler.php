@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 use App\Exceptions\ApiKeyNotfoundException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -56,6 +57,16 @@ class Handler extends ExceptionHandler
                     'message' => 'Authentication API-KEY error.'
                 ],
                 401
+            );
+        }
+
+        if ($exception instanceof AuthorizationException) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'This action is unauthorized. '
+                ],
+                405
             );
         }
 
