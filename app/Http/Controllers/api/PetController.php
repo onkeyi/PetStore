@@ -76,12 +76,12 @@ class PetController extends ApiController
      * @param  \App\Models\Pet $pet
      * @return \Illuminate\Http\Response
      */
-    public function update(PetUpdateRequest $request, Pet $pet)
+    public function update(PetUpdateRequest $request)
     {
         $validated = $request->validated();
+        $pet = Pet::find($validated['id']);
         // pet policy.
         $this->authorize('update', $pet);
-
         DB::transaction(
             function () use ($validated, $pet) {
                 $pet->name = $validated['name'];
