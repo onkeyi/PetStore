@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Http\Requests\AuthRegisterRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\AuthLoginRequest;
-
 use App\Models\User;
-use App\Notifications\LoginNotification;
-
 
 class AuthController extends Controller
 {
-    public function register(AuthRegisterRequest $request)
+    public function registerNewUser(UserRegisterRequest $request)
     {
         $user = User::create([
             'name' => $request->name,
@@ -21,7 +18,7 @@ class AuthController extends Controller
 
         ]);
 
-        return response()->json($user);
+        return response()->json(['id' => $user->id]);
     }
 
     public function login(AuthLoginRequest $request)
@@ -34,39 +31,17 @@ class AuthController extends Controller
         )) {
             $user = Auth::user();
             $user->tokens()->delete();
-            $token = $user->createToken($user->email, ['server:update', 'server:read']);
-            // $user->notify(new LoginNotification());
+            $token = $user->createToken($user->email);
             return response()->json([
                 'token' => $token->plainTextToken
             ]);
         }
     }
+
     public function logout()
     {
         $user = Auth::guard('sanctum')->user();
         $user->tokens()->delete();
-        return response()->json([
-            'message' => 'Logout success.'
-        ]);
-    }
-
-    public function createWithArray()
-    {
-    }
-
-    public function createWithList()
-    {
-    }
-
-    public function getUserByName($username)
-    {
-    }
-
-    public function deleteUserByName($username)
-    {
-    }
-
-    public function updateUserByName($username)
-    {
+        return response('{}');
     }
 }

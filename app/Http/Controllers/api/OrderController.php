@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Requests\OrderRequest;
+use App\Http\Requests\OrderStoreRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\pet;
 use Carbon\Carbon;
 
-class StoreController extends ApiController
+class OrderController extends ApiController
 {
     public function index()
     {
@@ -20,7 +20,7 @@ class StoreController extends ApiController
         );
     }
 
-    public function order(OrderRequest $request)
+    public function addNewOrder(OrderStoreRequest $request)
     {
         $validated = $request->validated();
         $validated['user_id'] = $this->userId;
@@ -30,16 +30,20 @@ class StoreController extends ApiController
         return $this->successResponse($validated);
     }
 
-    public function getOrder(Order $order)
+    public function getOrderById(Order $order)
     {
         return $this->successResponse($order->load(['pet', 'orderUser']));
     }
 
-    public function deleteOrder(Order $order)
+    public function updateOrderById(Order $order)
     {
-        return ($order->user_id === $this->userId) ?
-            $this->successMessage('Delete order:' . $order->delete()) :
-            $this->failedResponse('Auth error', 405);
+        $this->authorize('update', $order);
+    }
+
+    public function deleteOrderById(Order $order)
+    {
+        $this->authorize('destroy', $order);
+        return $this->successResponse($order->delete());
     }
 
     public function inventory()

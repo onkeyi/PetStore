@@ -96,6 +96,9 @@ paths:
         ## Validations
           - email
           - password max 255
+        ## ロジック
+          - ユーザーの全てtoken削除
+          - 新しいToken生成
       responses:
         default:
           description: unexpected error
@@ -178,10 +181,8 @@ paths:
           content:
             applicaiton/json:
               schema:
-                properties:
-                  token:
-                    type: string
-                additionalProperties: false
+                type: object
+                default: {}
         '401':
           description: API-KEY 認証エラー
           content:
@@ -240,6 +241,12 @@ paths:
                   $ref: '#/components/schemas/user'
                 maxItems: 10
                 minItems: 0
+        '400':
+          description: パラメーターエラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
         '401':
           description: API-KEY 認証エラー
           content:
@@ -247,7 +254,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '403':
-          description: security error
+          description: Forbidden
           content:
             application/json:
               schema:
@@ -738,7 +745,7 @@ paths:
           schema:
             type: string
           in: query
-  /pets/findByTag:
+  /pets/findByTags:
     get:
       operationId: findPetByTag
       tags:

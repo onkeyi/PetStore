@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 use App\Exceptions\ApiKeyNotfoundException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Validation\ValidationException;
 
 class Handler extends ExceptionHandler
 {
@@ -54,9 +55,32 @@ class Handler extends ExceptionHandler
             return response()->json(
                 [
                     'status' => 'error',
-                    'message' => 'Authentication API-KEY error.'
+                    'message' => 'Authentication API-KEY error.',
+                    'code' => 401
                 ],
                 401
+            );
+        }
+
+        if ($exception instanceof ValidationException) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Validation error',
+                    'code' => 400
+                ],
+                400
+            );
+        }
+
+        if ($exception instanceof ParameterNotfoundException) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Parameter Not found',
+                    'code' => 400
+                ],
+                400
             );
         }
 
@@ -64,7 +88,19 @@ class Handler extends ExceptionHandler
             return response()->json(
                 [
                     'status' => 'error',
-                    'message' => 'This action is unauthorized. '
+                    'message' => 'This action is unauthorized. ',
+                    'code' => 405
+                ],
+                405
+            );
+        }
+
+        if ($exception instanceof PermissionException) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'This action is unauthorized. ',
+                    'code' => 405
                 ],
                 405
             );
@@ -74,7 +110,8 @@ class Handler extends ExceptionHandler
             return response()->json(
                 [
                     'status' => 'error',
-                    'message' => 'The specified method for the request is invalid'
+                    'message' => 'The specified method for the request is invalid',
+                    'code' => 405
                 ],
                 405
             );
@@ -84,16 +121,29 @@ class Handler extends ExceptionHandler
             return response()->json(
                 [
                     'status' => 'error',
-                    'message' => 'Not Found'
+                    'message' => 'Not Found',
+                    'code' => 404
                 ],
                 404
             );
         }
 
         if ($exception instanceof HttpException) {
-            return response()->json($exception->getMessage(), $exception->getStatusCode());
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => $exception->getMessage(),
+                    'code' => $exception->getStatusCode()
+                ]
+            );
         }
 
-        return response($exception->getMessage());
+        return response()->json(
+            [
+                'status' => 'error',
+                'message' => 'unexpected error' . $exception->getMessage(),
+                'code' => $exception->getStatusCode()
+            ]
+        );
     }
 }

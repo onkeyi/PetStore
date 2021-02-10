@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Exceptions\ParameterNotfoundException;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Pet;
 use App\Models\PetCategory;
 use App\Models\PetPhotoUrl;
@@ -20,7 +20,7 @@ use App\Http\Requests\PetUploadImageRequest;
 class PetController extends ApiController
 {
 
-    public function index()
+    public function getAllPets()
     {
         return $this->successResponse(
             Pet::with(['tags', 'category', 'photoUrls'])
@@ -35,7 +35,7 @@ class PetController extends ApiController
      * @param  \App\Http\Requests\PetStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PetStoreRequest $request)
+    public function addNewPet(PetStoreRequest $request)
     {
         $validated = $request->validated();
         $pet = new Pet($validated);
@@ -63,7 +63,7 @@ class PetController extends ApiController
      * @param  \App\Models\Pet  $pet
      * @return \Illuminate\Http\Response
      */
-    public function show(Pet $pet)
+    public function getPetById(Pet $pet)
     {
         return $this->successResponse(
             $pet->load(['tags', 'photoUrls', 'category', 'owner'])
@@ -77,15 +77,13 @@ class PetController extends ApiController
      * @param  \App\Models\Pet $pet
      * @return \Illuminate\Http\Response
      */
-    public function update(PetUpdateRequest $request)
+    public function updatePetById(PetUpdateRequest $request, Pet $pet)
     {
-        $validated = $request->validated();
-
-        $pet = Pet::find($validated['id']);
-
         if (!isset($pet)) {
-            throw new ModelNotFoundException();
+            throw new ParameterNotfoundException;
         }
+
+        $validated = $request->validated();
         // pet policy.
         $this->authorize('update', $pet);
         DB::transaction(
@@ -101,7 +99,7 @@ class PetController extends ApiController
             }
         );
 
-        return $this->successMessage('Pet Updated');
+        return $this->successMessage(['id' => $pet->id]);
     }
 
     /**
@@ -110,9 +108,9 @@ class PetController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pet $pet)
+    public function deletePetById(Pet $pet)
     {
-        $this->authorize('update', $pet);
+        $this->authorize('destroy', $pet);
 
         DB::transaction(
             function () use ($pet) {
@@ -140,12 +138,12 @@ class PetController extends ApiController
      */
     public function findByStatus()
     {
-        $input = Request::all();
+        $qeury = Request::all();
 
-        if (!isset($input['status']) || !is_array($input['status'])) {
-            return $this->failedResponse('Invalid status supplied', 400);
+        if (isset($query) || !isset($qeury['status']) || !is_array($qeury['status'])) {
+            throw new ParameterNotfoundException;
         }
-        return Pet::whereIn('status', $input['status'])
+        return Pet::whereIn('status', $qeury['status'])
             ->with(['tags', 'category', 'photoUrls'])
             ->paginate(5);
     }
@@ -157,13 +155,13 @@ class PetController extends ApiController
      */
     public function findByTags()
     {
-        $input = Request::all();
+        $qeury = Request::all();
 
-        if (!isset($input['tag']) || !is_array($input['tag'])) {
-            return $this->failedResponse('Invalid tag supplied', 400);
+        if (!isset($query) || !isset($qeury['tag']) || !is_array($qeury['tag'])) {
+            throw new ParameterNotfoundException;
         }
 
-        $tagIds = Tag::whereIn('name', $input['tag'])->pluck('id');
+        $tagIds = Tag::whereIn('name', $qeury['tag'])->pluck('id');
 
         $result =  Pet::with(['tags', 'photoUrls', 'category', 'owner'])
             ->whereHas(
@@ -173,6 +171,18 @@ class PetController extends ApiController
                 }
             )->paginate(5);
         return $this->successResponse($result);
+    }
+
+    public function findByCategory()
+    {
+        $qeury = Request::all();
+
+        if (!isset($query) || !isset($qeury['status']) || !is_array($qeury['status'])) {
+            throw new ParameterNotfoundException;
+        }
+        return Pet::whereIn('status', $qeury['status'])
+            ->with(['tags', 'category', 'photoUrls'])
+            ->paginate(5);
     }
 
     /**

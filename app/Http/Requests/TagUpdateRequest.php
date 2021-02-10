@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderRequest extends ApiRequest
+class TagUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class OrderRequest extends ApiRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,10 +24,7 @@ class OrderRequest extends ApiRequest
     public function rules()
     {
         return [
-            'pet_id' => ['required', 'exists:pets,id'],
-            'quantity' => ['required', 'numeric', 'gt:0'],
-            'ship_date' => ['required', 'after:tomorrow'],
-            'stauts' => 'in:"placed","approved","delivered"'
+            //
         ];
     }
 }
