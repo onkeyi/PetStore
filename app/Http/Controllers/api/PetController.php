@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Pet;
 use App\Models\PetCategory;
 use App\Models\PetPhotoUrl;
@@ -79,7 +80,12 @@ class PetController extends ApiController
     public function update(PetUpdateRequest $request)
     {
         $validated = $request->validated();
+
         $pet = Pet::find($validated['id']);
+
+        if (!isset($pet)) {
+            throw new ModelNotFoundException();
+        }
         // pet policy.
         $this->authorize('update', $pet);
         DB::transaction(
@@ -165,7 +171,7 @@ class PetController extends ApiController
                 function ($query) use ($tagIds) {
                     $query->whereIn('tag_id', $tagIds);
                 }
-            )->get();
+            )->paginate(5);
         return $this->successResponse($result);
     }
 

@@ -23,7 +23,7 @@ class PetUpdateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'id' => ['required', 'numeric', 'exists:pets'],
+            'id' => ['required', 'numeric'],
             'name' => ['required', 'max:20'],
             'status' => ['required', 'in:"available", "pending", "sold" '],
             'tags' => 'required',

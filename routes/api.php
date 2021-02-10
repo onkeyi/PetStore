@@ -18,21 +18,23 @@ use \App\Http\Controllers\AuthController;
 
 Route::middleware('apikey')->group(
     function () {
+
         Route::get('pet/findByStatus', [PetController::class, 'findByStatus']);
         Route::get('pet/findByTags', [PetController::class, 'findByTags']);
         Route::get('pet/{pet}', [PetController::class, 'show']);
         Route::get('pet', [PetController::class, 'index']);
-
+        /** USER */
         Route::post('login', [AuthController::class, 'login']);
         Route::post('user', [AuthController::class, 'register']);
         Route::post('user/createWithArray', [AuthController::class, 'createWithArray']);
         Route::post('user/createWithList', [AuthController::class, 'createWithList']);
+
         Route::get('store/inventory', [StoreController::class, 'inventory']);
 
         Route::middleware('auth')->group(
             function () {
                 Route::post('pet', [PetController::class, 'store']);
-                Route::put('pet/{pet}', [PetController::class, 'update']);
+                Route::put('pet', [PetController::class, 'update']);
                 Route::delete('pet/{pet}', [PetController::class, 'destroy']);
                 Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
 
