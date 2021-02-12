@@ -48,27 +48,33 @@ Route::middleware('apikey')->group(
                 Route::put('order/{order}', [OrderController::class, 'updateOrderById']);
                 Route::delete('order/{order}', [OrderController::class, 'deleteOrderById']);
 
-                /** Tag */
-                Route::get('tags', [TagController::class, 'getAllTags']);
-                Route::post('tag', [TagController::class, 'addNewTag']);
-                Route::get('tag/{tag}', [TagController::class, 'getTagById']);
-                Route::put('tag/{tag}', [TagController::class, 'updateTagById']);
-                Route::delete('tag/{tag}', [TagController::class, 'deleteTagById']);
-
-                /** Category */
-                Route::get('categories', [CategoryController::class, 'getAllCategories']);
-                Route::post('category', [CategoryController::class, 'addNewCategory']);
-                Route::get('category/{category}', [CateogryController::class, 'getCategoryById']);
-                Route::put('category/{category}', [CategoryController::class, 'updateCategoryById']);
-                Route::delete('category/{category}', [CategoryController::class, 'deleteCategoryById']);
-
                 /** USER  */
                 Route::get('user/{user}', [AuthController::class, 'getUserByName']);
                 Route::put('user/{user}', [UserController::class, 'updateUserById']);
-                Route::delete('user/{user}', [UserController::class, 'deleteUserById']);
+
                 /** logout */
                 Route::get('logout', [AuthController::class, 'logout']);
             }
         );
+
+        // Route::middleware('admin')->group(
+        // function () {
+        /** Tag */
+        Route::get('tags', [TagController::class, 'getAllTags']);
+        Route::post('tag', [TagController::class, 'addNewTag']);
+        Route::get('tag/{tag}', [TagController::class, 'getTagById']);
+        Route::put('tag/{tag}', [TagController::class, 'updateTagById']);
+        Route::delete('tag/{tag}', [TagController::class, 'deleteTagById']);
+
+        /** Category */
+        Route::get('categories', [CategoryController::class, 'getAllCategories']);
+        Route::post('category', [CategoryController::class, 'addNewCategory']);
+        Route::get('category/{category}', [CateogryController::class, 'getCategoryById']);
+        Route::put('category/{category}', [CategoryController::class, 'updateCategoryById']);
+        Route::delete('category/{category}', [CategoryController::class, 'deleteCategoryById']);
+
+        Route::delete('user/{user}', [UserController::class, 'deleteUserById']);
+        // }
+        // );
     }
 );

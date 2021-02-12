@@ -10,6 +10,7 @@ class ApiController extends Controller
 {
     use ApiResponse;
     var $userId;
+    var $maxPage = 20;
 
     public function __construct()
     {

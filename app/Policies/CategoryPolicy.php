@@ -18,17 +18,17 @@ class CategoryPolicy
     {
         //
     }
-    public function create(?Tag $tag)
+    public function create()
     {
         return Auth::guard('sanctum')->is_admin();
     }
 
-    public function update(?Tag $tag)
+    public function update()
     {
         return Auth::guard('sanctum')->is_admin();
     }
 
-    public function destroy(?Tag $tag)
+    public function destroy()
     {
         return Auth::guard('sanctum')->is_admin();
     }

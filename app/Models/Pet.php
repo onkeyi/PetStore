@@ -33,6 +33,6 @@ class Pet extends Model
 
     public function owner()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return $this->hasOne(User::class, 'id', 'user_id','user_status');
     }
 }

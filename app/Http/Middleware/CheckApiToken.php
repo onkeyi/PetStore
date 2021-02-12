@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Closure;
 use App\Models\User;
+use App\Exceptions\InvalideTokenException;
 
 use Auth;
 
@@ -24,6 +25,6 @@ class CheckApiToken extends Middleware
                 return $next($request);
             }
         }
-        return response()->json(['message' => 'Invalid Token'], 401);
+        throw new InvalideTokenException();
     }
 }

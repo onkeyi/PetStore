@@ -1,13 +1,7 @@
-users:
+admins:
   columns:
     id: bigIncrements
     name: string
-    first_name:
-      type: string
-      nullable: true
-    last_name:
-      type: string
-      nullable: true
     email:
       type: string
       unique: true
@@ -15,11 +9,12 @@ users:
       type: timestamp
       nullable: true
     password: string
-    phone:
-      type: string
-      nullable: true
-    status:
+    privilege:
+      type: enum
+      args: ['su', 'admin']
+    user_status:
       type: tinyInteger
       default: true
+    rememberToken: true
     timestamps: true
     softDeletes: true

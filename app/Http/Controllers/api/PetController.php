@@ -25,7 +25,7 @@ class PetController extends ApiController
         return $this->successResponse(
             Pet::with(['tags', 'category', 'photoUrls'])
                 ->orderBy('created_at', 'desc')
-                ->paginate(5)
+                ->paginate($this->maxPage)
         );
     }
 
@@ -128,7 +128,7 @@ class PetController extends ApiController
             }
         );
 
-        return $this->successMessage('Pet Deleted');
+        return $this->successMessage();
     }
 
     /**
@@ -138,14 +138,15 @@ class PetController extends ApiController
      */
     public function findByStatus()
     {
-        $qeury = Request::all();
 
-        if (isset($query) || !isset($qeury['status']) || !is_array($qeury['status'])) {
+        $query = Request::all();
+
+        if (isset($query) || !isset($query['status']) || !is_array($query['status'])) {
             throw new ParameterNotfoundException;
         }
-        return Pet::whereIn('status', $qeury['status'])
-            ->with(['tags', 'category', 'photoUrls'])
-            ->paginate(5);
+        return Pet::whereIn('status', $query['status'])
+            ->with(['tags', 'category', 'photoUrls','owner'])
+            ->paginate($this->maxPage)->appends(request()->query());
     }
 
     /**
@@ -169,20 +170,23 @@ class PetController extends ApiController
                 function ($query) use ($tagIds) {
                     $query->whereIn('tag_id', $tagIds);
                 }
-            )->paginate(5);
+            )->paginate($this->maxPage)->appends(request()->query());
         return $this->successResponse($result);
     }
 
     public function findByCategory()
     {
-        $qeury = Request::all();
+        $queryParam = Request::all();
 
-        if (!isset($query) || !isset($qeury['status']) || !is_array($qeury['status'])) {
+        if (!isset($queryParam) || !isset($queryParam['category'])) {
             throw new ParameterNotfoundException;
         }
-        return Pet::whereIn('status', $qeury['status'])
-            ->with(['tags', 'category', 'photoUrls'])
-            ->paginate(5);
+        return Pet::whereIn('category_id', function ($query) use ($queryParam) {
+            $query->select('id')
+                ->from('categories')
+                ->where('name', trim($queryParam['category']));
+        })->with(['tags', 'category', 'photoUrls','owner'])
+            ->paginate($this->maxPage)->appends(request()->query());
     }
 
     /**

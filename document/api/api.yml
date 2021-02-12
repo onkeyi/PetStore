@@ -1,10 +1,11 @@
 openapi: 3.0.3
 info:
-  title: PetStore OpenAPI
+  title: PetStore API
   version: '0.1'
   description: |-
-    openapi 仕様書:
-    https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md
+    ## Swagger PetStore  実装
+    - バックエンド： Laravel
+    - フロントエンド： Vue
 servers:
   - url: 'http://localhost/api/'
   - url: 'https://product/api/'
@@ -13,17 +14,17 @@ paths:
     post:
       operationId: registerNewUser
       tags:
-        - user
+        - User
       summary: 新規ユーザー登録
       description: |-
         新規ユーザー登録
         ## Permission
           - None
         ## Validations
-          - email: メールアドレスチェック
-          - name: 最大255文字
+          - email: メールアドレスチェック、Usersテーブル重複チェック
+          - name: 最大20文字
         ## Logic
-        登録成功するとメール通知
+          登録成功するとメール通知
       responses:
         default:
           description: unexpected error
@@ -32,12 +33,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
                 properties:
                   id:
+                    description: 新規登録ユーザーID
                     type: integer
                 additionalProperties: false
         '401':
@@ -71,7 +73,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -89,16 +91,16 @@ paths:
     post:
       operationId: login
       tags:
-        - user
+        - User
       summary: ログイン
       description: |-
         ログイン
         ## Validations
-          - email
-          - password max 255
+          - email: メールアドレスチェック
+          - password max 20
         ## ロジック
-          - ユーザーの全てtoken削除
-          - 新しいToken生成
+          - ユーザーToken削除
+          - 新しいToken成功生成
       responses:
         default:
           description: unexpected error
@@ -107,7 +109,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -146,7 +148,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -163,12 +165,12 @@ paths:
     get:
       operationId: logout
       tags:
-        - user
+        - User
       summary: ログアウト
       description: |-
         ログアウト処理
-        - client: token 削除
-        - server: ユーザーの全てtoken削除
+        - client: Token 削除
+        - server: ユーザーToken削除
       responses:
         default:
           description: unexpected error
@@ -177,7 +179,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -208,7 +210,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -218,7 +220,7 @@ paths:
     get:
       operationId: findUserByName
       tags:
-        - user
+        - User
       summary: ユーザー検索
       description: |-
         ユーザー名で検索
@@ -232,7 +234,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             application/json:
               schema:
@@ -272,7 +274,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -288,12 +290,11 @@ paths:
     put:
       operationId: updateUserById
       tags:
-        - user
+        - User
       summary: ユーザー情報更新
       description: |-
-        ユーザー情報更新
+        ユーザー情報更新項目
         - ユーザー名更新
-        - メールアドレス更新不可
         - ステータス更新
       responses:
         default:
@@ -303,7 +304,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -342,14 +343,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
       parameters:
         - schema:
-            type: string
+            type: integer
           name: userId
           in: path
           required: true
@@ -361,7 +362,7 @@ paths:
     delete:
       operationId: deleteUserById
       tags:
-        - user
+        - User
       summary: ユーザー削除
       description: |-
         ユーザー削除
@@ -374,7 +375,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -411,14 +412,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
       parameters:
         - schema:
-            type: string
+            type: integer
           name: userId
           in: path
           required: true
@@ -427,10 +428,10 @@ paths:
     post:
       operationId: addNewPet
       tags:
-        - pet
+        - Pet
       summary: ペット新規登録
       description: |
-        ペット登録
+        ペット新規登録
       responses:
         default:
           description: unexpected error
@@ -439,7 +440,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -472,7 +473,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -487,7 +488,7 @@ paths:
       operationId: getAllPets
       summary: ペット一覧取得
       tags:
-        - pet
+        - Pet
       responses:
         default:
           description: unexpected error
@@ -496,7 +497,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/unexpected'
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -514,7 +515,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -526,11 +527,11 @@ paths:
     get:
       operationId: getPetById
       tags:
-        - pet
+        - Pet
       summary: ペット情報取得
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -567,7 +568,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -581,13 +582,13 @@ paths:
     put:
       operationId: updatePetById
       tags:
-        - pet
+        - Pet
       summary: ペット情報更新
       description: |-
         更新処理
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -626,7 +627,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -645,11 +646,11 @@ paths:
     delete:
       operationId: deletePetById
       tags:
-        - pet
+        - Pet
       summary: ペット情報削除
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -686,7 +687,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -701,11 +702,11 @@ paths:
     get:
       operationId: findPetByCategory
       tags:
-        - pet
+        - Pet
       summary: カテゴリで検索
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -735,7 +736,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -749,13 +750,13 @@ paths:
     get:
       operationId: findPetByTag
       tags:
-        - pet
+        - Pet
       summary: タグで検索
       description: |-
         タグで検索
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -785,7 +786,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -799,11 +800,11 @@ paths:
     get:
       operationId: findPetByStatus
       tags:
-        - pet
+        - Pet
       summary: ステータスで検索
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -833,7 +834,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -847,13 +848,13 @@ paths:
     post:
       operationId: addNewCategory
       tags:
-        - category
+        - Category
       summary: カテゴリ新規登録
       description: |
         カテゴリ登録
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -873,7 +874,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -887,11 +888,11 @@ paths:
     get:
       operationId: getAllCategorys
       tags:
-        - category
+        - Category
       summary: カテゴリ一覧
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -921,7 +922,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -931,13 +932,13 @@ paths:
     put:
       operationId: updateCategoryById
       tags:
-        - category
+        - Category
       summary: カテゴリ更新
       description: |
         カテゴリ更新
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -969,7 +970,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -988,13 +989,13 @@ paths:
     get:
       operationId: getCategoryById
       tags:
-        - category
+        - Category
       summary: カテゴリ取得
       description: |
         カテゴリ取得
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -1012,7 +1013,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -1026,13 +1027,13 @@ paths:
     delete:
       operationId: deleteCategoryById
       tags:
-        - category
+        - Category
       summary: カテゴリ削除
       description: |
         カテゴリ削除
       responses:
         '200':
-          description: OK
+          description: 成功
         '401':
           description: API-KEY 認証エラー
           content:
@@ -1064,7 +1065,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -1076,17 +1077,199 @@ paths:
             type: integer
           in: path
           required: true
+  /tags:
+    get:
+      summary: Tag一覧
+      operationId: getAllTags
+      tags:
+        - Tag
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: '#/components/schemas/response_pegination'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+  /tag:
+    post:
+      summary: Tag 登録
+      operationId: addNewTag
+      tags:
+        - Tag
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      requestBody:
+        content:
+          applicaiton/json:
+            schema:
+              $ref: '#/components/schemas/tag'
+
+  /tag/{tagId}:
+    get:
+      summary:  Tag情報
+      tags:
+        - Tag
+      operationId: getTagById
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      parameters:
+        - name: tagId
+          schema:
+            type: integer
+          in: path
+          required: true
+    put:
+      summary: Tag情報更新
+      tags:
+        - Tag
+      operationId: updateTagById
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      parameters:
+        - name: tagId
+          schema:
+            type: integer
+          in: path
+          required: true
+      requestBody:
+        content:
+          applicaiton/json:
+            schema:
+              $ref: '#/components/schemas/tag'
+    delete:
+      summary: Tag情報削除
+      tags:
+        - Tag
+      operationId: deleteTagById
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: '#/components/schemas/category'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      parameters:
+        - name: tagId
+          schema:
+            type: integer
+          in: path
+          required: true
   /order:
     post:
       operationId: addNewOrder
       summary: オーダー登録
       tags:
-        - order
+        - Order
       description: |-
         オーダー登録
       responses:
         '200':
-          description: OK
+          description: 成功
         '401':
           description: API-KEY 認証エラー
           content:
@@ -1112,7 +1295,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -1126,11 +1309,11 @@ paths:
     get:
       operationId: getAllOrder
       tags:
-        - order
+        - Order
       summary: オーダー一覧取得
       responses:
         '200':
-          description: OK
+          description: 成功
           content:
             applicaiton/json:
               schema:
@@ -1160,7 +1343,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -1171,7 +1354,7 @@ paths:
       operationId: getOrderById
       summary: オーダー取得
       tags:
-        - order
+        - Order
       parameters:
         - name: orderId
           schema:
@@ -1180,7 +1363,7 @@ paths:
           required: true
       responses:
         '200':
-          description: OK
+          description: 成功
 
         '401':
           description: API-KEY 認証エラー
@@ -1213,7 +1396,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -1222,7 +1405,7 @@ paths:
       operationId: updateOrderById
       summary: オーダー更新
       tags:
-        - order
+        - Order
       parameters:
         - name: orderId
           schema:
@@ -1236,7 +1419,7 @@ paths:
               $ref: '#/components/schemas/order'
       responses:
         '200':
-          description: OK
+          description: 成功
 
         '401':
           description: API-KEY 認証エラー
@@ -1251,7 +1434,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -1260,10 +1443,10 @@ paths:
       operationId: deleteOrderById
       summary: オーダー削除
       tags:
-        - order
+        - Order
       responses:
         '200':
-          description: OK
+          description: 成功
 
         '401':
           description: API-KEY 認証エラー
@@ -1278,7 +1461,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/error400'
         '500':
-          description: server error.
+          description: サーバーエラー.
           content:
             application/json:
               schema:
@@ -1322,13 +1505,15 @@ components:
           type: string
         tags:
           type: array
-          maxItems: 10
+          maxItems: 20
           items:
             $ref: '#/components/schemas/tag'
         category:
           type: object
           $ref: '#/components/schemas/category'
-
+        owner:
+          type: object
+          $ref: '#/components/schemas/user'
     user:
       type: object
       properties:
@@ -1369,7 +1554,7 @@ components:
       type: object
       required:
         - name
-        - category
+        - Category
       properties:
         name:
           type: string
@@ -1377,12 +1562,12 @@ components:
           $ref: '#/components/schemas/category'
         photo_urls:
           type: array
-          maxItems: 10
+          maxItems: 20
           items:
             type: string
         tags:
           type: array
-          maxItems: 10
+          maxItems: 20
           items:
             title: tag
             $ref: '#/components/schemas/tag'
@@ -1391,7 +1576,7 @@ components:
       required:
         - id
         - name
-        - category
+        - Category
       properties:
         id:
           type: integer
@@ -1401,12 +1586,12 @@ components:
           $ref: '#/components/schemas/category'
         photo_urls:
           type: array
-          maxItems: 10
+          maxItems: 20
           items:
             type: string
         tags:
           type: array
-          maxItems: 10
+          maxItems: 20
           items:
             title: tag
             $ref: '#/components/schemas/tag'

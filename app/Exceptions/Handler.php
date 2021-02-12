@@ -51,11 +51,23 @@ class Handler extends ExceptionHandler
 
     public function handler($request, Throwable $exception)
     {
+
         if ($exception instanceof ApiKeyNotfoundException) {
             return response()->json(
                 [
                     'status' => 'error',
                     'message' => 'Authentication API-KEY error.',
+                    'code' => 401
+                ],
+                401
+            );
+        }
+
+        if ($exception instanceof InvalideTokenException) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Invalid token',
                     'code' => 401
                 ],
                 401
@@ -91,7 +103,7 @@ class Handler extends ExceptionHandler
                     'message' => 'This action is unauthorized. ',
                     'code' => 405
                 ],
-                405
+                403
             );
         }
 
@@ -100,9 +112,9 @@ class Handler extends ExceptionHandler
                 [
                     'status' => 'error',
                     'message' => 'This action is unauthorized. ',
-                    'code' => 405
+                    'code' => 403
                 ],
-                405
+                403
             );
         }
 
@@ -137,11 +149,22 @@ class Handler extends ExceptionHandler
                 ]
             );
         }
+        if (null !== $exception) {
+            if ($exception->getCode() === 0) {
+                return response()->json(
+                    [
+                        'status' => 'error',
+                        'message' => 'Internal Server error' . $exception->getMessage(),
+                        'code' => 500
+                    ]
+                );
+            }
+        }
 
         return response()->json(
             [
                 'status' => 'error',
-                'message' => 'unexpected error' . $exception->getMessage(),
+                'message' => 'unexpected error',
                 'code' => $exception->getStatusCode()
             ]
         );

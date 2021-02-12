@@ -2,26 +2,42 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
-use Illuminate\Http\Request;
+use App\Models\Category;
 
-class CategoryController extends Controller
+
+class CategoryController extends ApiController
 {
     public function getAllCategories()
     {
+        return $this->successResponse(
+            Category::orderBy('created_at', 'desc')
+                ->paginate($this->maxPage)
+        );
     }
 
     public function addNewCategory(CategoryStoreRequest $request)
     {
+        $this->authorize('create');
+        $validated = $request->validated();
+        $category = new Category($validated);
+        $id = $category->save();
+        return $this->successResponse(['id' => $id]);
     }
 
     public function updateCategoryById(CategoryUpdateRequest $request, Category $category)
     {
+        $this->authorize('update');
+        $validated = $request->validated();
+        $category->save($validated);
+        return $this->successResponse(['id' => $category->id]);
     }
 
     public function deleteCategoryById(Category $category)
     {
+        $this->authorize('destroy');
+        $category->delete();
+        return $this->successResponse();
     }
 }

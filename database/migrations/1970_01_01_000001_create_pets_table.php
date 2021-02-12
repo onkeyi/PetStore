@@ -21,6 +21,7 @@ class CreatePetsTable extends Migration
             $table->enum('status', ['available', 'pending', 'sold']);
             $table->string('description')->default('nullable');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
