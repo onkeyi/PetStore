@@ -12,9 +12,13 @@ class CategoryController extends ApiController
     public function getAllCategories()
     {
         return $this->successResponse(
-            Category::orderBy('created_at', 'desc')
+            Category::orderBy('id', 'desc')
                 ->paginate($this->maxPage)
         );
+    }
+
+    public function getCategoryById(Category $category) {
+        return $this->successResponse($category);
     }
 
     public function addNewCategory(CategoryStoreRequest $request)
