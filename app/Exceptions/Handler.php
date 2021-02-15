@@ -145,8 +145,8 @@ class Handler extends ExceptionHandler
                 [
                     'status' => 'error',
                     'message' => $exception->getMessage(),
-                    'code' => $exception->getStatusCode()
-                ]
+                    'code' => $exception->getStatusCode() ? $exception->getStatusCode() : -1
+                ],403
             );
         }
         if (null !== $exception) {
@@ -156,7 +156,7 @@ class Handler extends ExceptionHandler
                         'status' => 'error',
                         'message' => 'Internal Server error' . $exception->getMessage(),
                         'code' => 500
-                    ]
+                    ],500
                 );
             }
         }
@@ -164,8 +164,8 @@ class Handler extends ExceptionHandler
         return response()->json(
             [
                 'status' => 'error',
-                'message' => 'unexpected error',
-                'code' => $exception->getStatusCode()
+                'message' => 'unexpected error' . $exception->getMessage(),
+                'code' => $exception->getCode()
             ]
         );
     }
