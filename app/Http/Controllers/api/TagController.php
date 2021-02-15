@@ -4,15 +4,20 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Requests\TagStoreRequest;
 use App\Http\Requests\TagUpdateRequest;
+use App\Models\Tag;
 
 class TagController extends ApiController
 {
     public function getAllTags()
     {
         return $this->successResponse(
-            Tag::orderBy('created_at', 'desc')
+            Tag::orderBy('id', 'desc')
                 ->paginate(20)
         );
+    }
+
+    public function getTagById(Tag $tag) {
+        return $this->successResponse($tag);
     }
 
     //
