@@ -5,14 +5,11 @@ namespace App\Models;
 
 trait ApiResponse
 {
-    public function successMessage($message = '', $code = 200)
-    {
-        return response()->json(['message' => $message], $code);
-    }
 
-    public function successResponse($data = '', $code = 200)
+    public function successResponse($data = null, $code = 200)
     {
-        return response()->json($data, $code);
+
+        return response()->json($data ? $data : new \stdClass(), $code);
     }
 
     public function failedResponse($message = '', $code = 400)

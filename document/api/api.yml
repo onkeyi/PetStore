@@ -434,6 +434,7 @@ paths:
       summary: ペット新規登録
       description: |
         ペット新規登録
+        - イメージアップロードは　api/pet/uploadImage
       responses:
         default:
           description: unexpected error
@@ -748,6 +749,15 @@ paths:
           schema:
             type: string
           in: query
+  /pet/uploadImage:
+    get:
+      description: |-
+        イメージファイルアップロード
+        - tmpフォルダへ保存
+        - pet 新規登録、修正する成功時、 petsフォルダへ移動
+      responses:
+        '200':
+          description: OK
   /pets/findByTags:
     get:
       operationId: findPetByTag

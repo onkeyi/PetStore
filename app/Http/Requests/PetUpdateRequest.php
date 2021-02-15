@@ -28,7 +28,7 @@ class PetUpdateRequest extends ApiRequest
             'status' => ['required', 'in:"available", "pending", "sold" '],
             'tags' => 'required',
             // 'tags.*.id' => ['required', 'exists:tags'],
-            'tags.*.name' => ['required', 'max:20', 'distinct'],
+            //'tags.*.name' => ['required', 'max:20', 'distinct'],
             'category' => 'required',
             'category.id' => ['required', 'numeric', 'exists:categories,id'],
             'category.name' => ['required', 'max:20'],

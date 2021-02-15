@@ -23,7 +23,7 @@ class Pet extends Model
 
     public function photoUrls()
     {
-        return $this->hasMany(PetPhotoUrl::class);
+        return $this->hasMany(PetPhotoUrl::class, 'pet_id', 'id');
     }
 
     public function category()
@@ -33,6 +33,6 @@ class Pet extends Model
 
     public function owner()
     {
-        return $this->hasOne(User::class, 'id', 'user_id','user_status');
+        return $this->hasOne(User::class, 'id', 'user_id', 'status');
     }
 }

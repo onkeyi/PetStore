@@ -10,7 +10,7 @@ use Carbon\Carbon;
 
 class OrderController extends ApiController
 {
-    public function index()
+    public function getAllOrders()
     {
         return $this->successResponse(
             Order::where('user_id', $this->userId)

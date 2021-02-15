@@ -9,7 +9,7 @@ orders:
     ship_date: dateTime
     status:
         type: enum
-        args: ['placed', 'approved', 'delivered']
+        args: ['placed', 'approved', 'delivered'] # 未定、承認、配達
     complete:
       type: tinyInteger
       default: false

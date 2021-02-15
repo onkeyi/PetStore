@@ -25,24 +25,24 @@ Route::middleware('apikey')->group(
         Route::get('pet/findByTags', [PetController::class, 'findByTags']);
         Route::get('pet/findByCategory', [PetController::class, 'findByCategory']);
         Route::get('pet/{pet}', [PetController::class, 'getPetById']);
-        Route::get('pet', [PetController::class, 'getAllPets']);
+        Route::get('pets', [PetController::class, 'getAllPets']);
 
         /** USER */
         Route::post('login', [AuthController::class, 'login']);
         Route::post('user', [AuthController::class, 'registerNewUser']);
 
-        Route::get('store/inventory', [StoreController::class, 'inventory']);
+        Route::get('store/inventory', [OrderController::class, 'inventory']);
 
         Route::middleware('auth')->group(
             function () {
                 /** Pet */
-                Route::post('pet', [PetController::class, 'store']);
-                Route::put('pet', [PetController::class, 'update']);
-                Route::delete('pet/{pet}', [PetController::class, 'destroy']);
+                Route::post('pet', [PetController::class, 'addNewPet']);
+                Route::put('pet/{pet}', [PetController::class, 'updatePetById']);
+                Route::delete('pet/{pet}', [PetController::class, 'deletePetById']);
                 Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
 
                 /** Order */
-                Route::get('orders', [OrderController::class, 'getAllOrder']);
+                Route::get('orders', [OrderController::class, 'getAllOrders']);
                 Route::post('order', [OrderController::class, 'addNewOrder']);
                 Route::get('order/{order}', [OrderController::class, 'getOrderById']);
                 Route::put('order/{order}', [OrderController::class, 'updateOrderById']);

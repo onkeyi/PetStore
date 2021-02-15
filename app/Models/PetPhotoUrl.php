@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class PetPhotoUrl extends Model
 {
     use HasFactory;
-    protected $visible = ['url'];
-
+    protected $visible = ['photo_url'];
+    protected $fillable = ['pet_id', 'photo_url'];
     public function toArray()
     {
-        return $this->url;
+        return $this->photo_url;
     }
 }

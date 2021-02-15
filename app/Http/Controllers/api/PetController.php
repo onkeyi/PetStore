@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use Illuminate\Support\Facades\Storage;
 use App\Exceptions\ParameterNotfoundException;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,11 +46,20 @@ class PetController extends ApiController
         $validated['id'] = DB::transaction(
             function () use ($pet, $validated) {
                 $pet->save();
-
                 $tags = $validated['tags'];
                 // 1:n
                 foreach ($tags as $tag) {
                     $pet->tags()->create(['tag_id' => $tag['id'], 'pet_id' => $pet->id]);
+                }
+                $petPhotoUrls = $validated['photoUrls'];
+                if (isset($petPhotoUrls) && count($petPhotoUrls) > 0) {
+                    foreach ($petPhotoUrls as $photo) {
+                        // move file from tmp -> pets
+                        if (Storage::disk('public')->exists('tmp/' . $photo)) {
+                            Storage::disk('public')->move('tmp/' . $photo, 'pets/' . $photo);
+                        }
+                        $pet->photoUrls()->create(['pet_id' => $pet->id, 'photo_url' => $photo]);
+                    }
                 }
                 return $pet->id;
             }
@@ -96,6 +106,17 @@ class PetController extends ApiController
                 foreach ($tags as $tag) {
                     PetTag::create(['tag_id' => $tag['id'], 'pet_id' => $pet->id]);
                 }
+                $pet->photoUrls()->delete();
+                $petPhotoUrls = $validated['photoUrls'];
+                if (isset($petPhotoUrls) && count($petPhotoUrls) > 0) {
+                    foreach ($petPhotoUrls as $photo) {
+                        // move file from tmp -> pets
+                        if (Storage::disk('public')->exists('tmp/' . $photo)) {
+                            Storage::disk('public')->move('tmp/' . $photo, 'pets/' . $photo);
+                        }
+                        $pet->photoUrls()->create(['pet_id' => $pet->id, 'photo_url' => $photo]);
+                    }
+                }
             }
         );
 
@@ -116,19 +137,19 @@ class PetController extends ApiController
             function () use ($pet) {
                 $pet->delete();
                 PetTag::where('pet_id', $pet->id)->delete();
-                PetCategory::where('pet_id', $pet->id)->delete();
-                $petPhotoUrls = PetPhotoUrl::where('pet_id', $pet->id)->pluck('photo_urls');
-
-                // TODO::
+                $petPhotoUrls = PetPhotoUrl::where('pet_id', $pet->id)->pluck('photo_url');
                 // delete file
-                foreach ($petPhotoUrls as $petPhotUrl) {
+                foreach ($petPhotoUrls as $photo) {
+                    if (Storage::disk('public')->exists('pets/' . $photo)) {
+                        Storage::disk('public')->delete('pets/' . $photo);
+                    }
                 }
 
                 PetPhotoUrl::where('pet_id', $pet->id)->delete();
             }
         );
 
-        return $this->successMessage();
+        return $this->successResponse();
     }
 
     /**
@@ -141,11 +162,11 @@ class PetController extends ApiController
 
         $query = Request::all();
 
-        if (isset($query) || !isset($query['status']) || !is_array($query['status'])) {
+        if (!isset($query) || !isset($query['status']) || !is_array($query['status'])) {
             throw new ParameterNotfoundException;
         }
         return Pet::whereIn('status', $query['status'])
-            ->with(['tags', 'category', 'photoUrls','owner'])
+            ->with(['tags', 'category', 'photoUrls', 'owner'])
             ->paginate($this->maxPage)->appends(request()->query());
     }
 
@@ -185,7 +206,7 @@ class PetController extends ApiController
             $query->select('id')
                 ->from('categories')
                 ->where('name', trim($queryParam['category']));
-        })->with(['tags', 'category', 'photoUrls','owner'])
+        })->with(['tags', 'category', 'photoUrls', 'owner'])
             ->paginate($this->maxPage)->appends(request()->query());
     }
 
@@ -195,20 +216,18 @@ class PetController extends ApiController
      */
     public function uploadImage(PetUploadImageRequest $request)
     {
-        $uploadFolder = 'pets';
-        $uploadImg = $request->file('image');
+        $uploadImg = $request->file('file');
+
         if ($uploadImg->isValid()) {
+            $imageUploadPath = $uploadImg->store('tmp', 'public');
 
-            $imageUploadPath = $uploadImg->store($uploadFolder, 'storage');
-        } else {
             return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid Image file',
-            ], 400);
+                'file_name' =>  basename($imageUploadPath),
+            ], 200);
         }
-
         return response()->json([
-            'file_name' => $imageUploadPath,
-        ], 200);
+            'status' => 'error',
+            'message' => 'Invalid Image file',
+        ], 400);
     }
 }
