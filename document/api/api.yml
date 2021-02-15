@@ -6,6 +6,8 @@ info:
     ## Swagger PetStore  実装
     - バックエンド： Laravel
     - フロントエンド： Vue
+  license:
+    name: MIT
 servers:
   - url: 'http://localhost/api/'
   - url: 'https://product/api/'
@@ -1516,10 +1518,13 @@ components:
           $ref: '#/components/schemas/user'
     user:
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
           type: integer
-        user_nema:
+        nema:
           type: string
         email:
           type: string
@@ -1683,6 +1688,6 @@ components:
 
 security:
   - apiKey: []
-  - petstoreAuth:
+  - PetstoreAuth:
     - write:pets
     - read:pets
