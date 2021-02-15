@@ -69,7 +69,7 @@ Route::middleware('apikey')->group(
         /** Category */
         Route::get('categories', [CategoryController::class, 'getAllCategories']);
         Route::post('category', [CategoryController::class, 'addNewCategory']);
-        Route::get('category/{category}', [CateogryController::class, 'getCategoryById']);
+        Route::get('category/{category}', [CategoryController::class, 'getCategoryById']);
         Route::put('category/{category}', [CategoryController::class, 'updateCategoryById']);
         Route::delete('category/{category}', [CategoryController::class, 'deleteCategoryById']);
 
