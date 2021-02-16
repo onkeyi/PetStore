@@ -29,7 +29,7 @@ class UserController extends ApiController
 
     public function deleteUserById(User $user)
     {
-        $this->authorize('destroy', $user);
+        $this->authorize('delete', $user);
         $user->delete();
         return $this->successResponse();
     }

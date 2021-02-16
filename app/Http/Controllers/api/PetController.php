@@ -130,7 +130,7 @@ class PetController extends ApiController
      */
     public function deletePetById(Pet $pet)
     {
-        $this->authorize('destroy', $pet);
+        $this->authorize('delete', $pet);
 
         DB::transaction(
             function () use ($pet) {

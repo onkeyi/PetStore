@@ -28,7 +28,7 @@ class CategoryPolicy
         return Auth::guard('sanctum')->is_admin();
     }
 
-    public function destroy()
+    public function delete()
     {
         return Auth::guard('sanctum')->is_admin();
     }

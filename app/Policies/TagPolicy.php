@@ -24,7 +24,7 @@ class TagPolicy
         return Auth::guard('sanctum')->is_admin();
     }
 
-    public function destroy(?Tag $tag)
+    public function delete(?Tag $tag)
     {
         return Auth::guard('sanctum')->is_admin();
     }

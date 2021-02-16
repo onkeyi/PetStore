@@ -16,7 +16,8 @@ class TagController extends ApiController
         );
     }
 
-    public function getTagById(Tag $tag) {
+    public function getTagById(Tag $tag)
+    {
         return $this->successResponse($tag);
     }
 
@@ -40,7 +41,7 @@ class TagController extends ApiController
 
     public function deleteTagById(Tag $tag)
     {
-        $this->authorize('destory');
+        $this->authorize('delete', $tag);
         $tag->delete();
         return $this->successResponse();
     }

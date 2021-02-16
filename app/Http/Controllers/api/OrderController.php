@@ -42,7 +42,7 @@ class OrderController extends ApiController
 
     public function deleteOrderById(Order $order)
     {
-        $this->authorize('destroy', $order);
+        $this->authorize('delete', $order);
         return $this->successResponse($order->delete());
     }
 

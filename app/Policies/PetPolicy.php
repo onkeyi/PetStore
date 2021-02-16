@@ -20,12 +20,12 @@ class PetPolicy
         //
     }
 
-    public function update(?User $user, Pet $pet)
+    public function update(Pet $pet)
     {
         return Auth::guard('sanctum')->id() === $pet->user_id;
     }
 
-    public function destroy(?User $user, Pet $pet)
+    public function delete(Pet $pet)
     {
         return Auth::guard('sanctum')->id() === $pet->user_id;
     }

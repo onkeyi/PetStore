@@ -25,7 +25,7 @@ class OrderPolicy
         return Auth::guard('sanctum')->id() === $order->user_id;
     }
 
-    public function destroy(Order $order)
+    public function delete(Order $order)
     {
         return Auth::guard('sanctum')->id() === $order->user_id;
     }

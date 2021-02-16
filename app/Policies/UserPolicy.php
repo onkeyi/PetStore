@@ -24,7 +24,7 @@ class UserPolicy
         return Auth::guard('sanctum')->id() === $user->id;
     }
 
-    public function destroy(User $user)
+    public function delete(User $user)
     {
         return Auth::guard('sanctum')->id() === $user->id;
     }

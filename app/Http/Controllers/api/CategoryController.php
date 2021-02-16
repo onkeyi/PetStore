@@ -17,7 +17,8 @@ class CategoryController extends ApiController
         );
     }
 
-    public function getCategoryById(Category $category) {
+    public function getCategoryById(Category $category)
+    {
         return $this->successResponse($category);
     }
 
@@ -40,7 +41,7 @@ class CategoryController extends ApiController
 
     public function deleteCategoryById(Category $category)
     {
-        $this->authorize('destroy');
+        $this->authorize('delete', $category);
         $category->delete();
         return $this->successResponse();
     }
