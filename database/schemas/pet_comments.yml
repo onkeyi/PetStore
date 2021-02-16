@@ -1,0 +1,7 @@
+pet_comments:
+  columns:
+    id: true
+    pet_id: bigInteger
+    user_id: integer
+    comment: string
+    timestamps: true

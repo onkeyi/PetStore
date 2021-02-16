@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Requests\OrderStoreRequest;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\OrderStoreRequest;
 use App\Models\Order;
 use App\Models\pet;
 use Carbon\Carbon;

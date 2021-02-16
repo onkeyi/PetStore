@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tag::factory(50)->create();
         \App\Models\Category::factory(50)->create();
         \App\Models\Order::factory(150)->create();
+        \App\Models\PetComment::factory(50)->create();
         $pets = \App\Models\Pet::factory(50)->create();
-
         foreach ($pets as $pet) {
             \App\Models\PetTag::factory(1)->create(['pet_id' => $pet->id]);
             \App\Models\PetPhotoUrl::factory(1)->create(['pet_id' => $pet->id]);

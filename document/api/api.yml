@@ -12,6 +12,7 @@ servers:
   - url: 'http://localhost/api/'
   - url: 'https://product/api/'
 paths:
+
   /user:
     post:
       operationId: registerNewUser
@@ -425,7 +426,134 @@ paths:
           name: userId
           in: path
           required: true
-
+  /user/{userId}/pets:
+    get:
+      tags:
+        - User
+      operationId: getUserPets
+      description: |-
+        User pets.
+      responses:
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unexpected'
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/order'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '403':
+          description: security error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      parameters:
+        - schema:
+            type: integer
+          name: userId
+          in: path
+          required: true
+  /user/{userId}/orders:
+    get:
+      tags:
+        - User
+      operationId: getUserOrders
+      description: |-
+        User Orders
+      responses:
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unexpected'
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/order'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '403':
+          description: security error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      parameters:
+        - schema:
+            type: integer
+          name: userId
+          in: path
+          required: true
   /pet:
     post:
       operationId: addNewPet
@@ -434,6 +562,8 @@ paths:
       summary: ペット新規登録
       description: |
         ペット新規登録
+        - category は　categoriesから選択したID
+        - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録
         - イメージアップロードは　api/pet/uploadImage
       responses:
         default:
@@ -492,6 +622,8 @@ paths:
       summary: ペット一覧取得
       tags:
         - Pet
+      description: |-
+        stagusがavailableはorder可能
       responses:
         default:
           description: unexpected error
@@ -701,6 +833,178 @@ paths:
             type: integer
           in: path
           required: true
+  /pet/comment:
+    post:
+      tags:
+        - Pet
+      operationId: addNewPetComment
+      summary: post new comment
+      description: |-
+        comment post
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                type: object
+                default : {}
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '403':
+          description: security error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      requestBody:
+        content:
+          applicaiton/json:
+            schema:
+              $ref: '#/components/schemas/pet_comment'
+  /pet/{petId}/comment:
+    get:
+      tags:
+        - Pet
+      operationId: getCommentByPetId
+      summary: ペットコメント
+      description: |-
+        Pet comments.
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/pet_comment'
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '403':
+          description: security error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      parameters:
+        - name: petId
+          schema:
+            type: integer
+          in: path
+          required: true
+  /pet/comment/{petCommentId}:
+    delete:
+      operationId: deletePetCommentById
+      tags:
+        - Pet
+      summary: ペット情報削除
+      responses:
+        '200':
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                type: object
+                default : {}
+        '401':
+          description: API-KEY 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '403':
+          description: security error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '404':
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
+        '500':
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error500'
+      parameters:
+        - name: petCommentId
+          schema:
+            type: integer
+          in: path
+          required: true
   /pet/findByCategory:
     get:
       operationId: findPetByCategory
@@ -751,6 +1055,10 @@ paths:
           in: query
   /pet/uploadImage:
     get:
+      tags:
+        - Pet
+      operationId: uploadImage
+      summary: アップロードペットイメージ
       description: |-
         イメージファイルアップロード
         - tmpフォルダへ保存
@@ -1486,6 +1794,20 @@ paths:
           required: true
 components:
   schemas:
+    pet_comment:
+      type: object
+      properties:
+        id:
+          type: integer
+        pet_id:
+          type: integer
+        user_id:
+          type: integer
+        comment:
+          type: string
+        created_at:
+          type: string
+
     category:
       type: object
       properties:
@@ -1501,6 +1823,19 @@ components:
         pet:
           type: object
           $ref: '#/components/schemas/pet'
+        user:
+          type: object
+          $ref: '#/components/schemas/user'
+        quantity:
+          type: integer
+          default: 1
+        status:
+          type: integer
+        shop_date:
+          type: string
+        complete:
+          type: boolean
+          default: false
     tag:
       type: object
       properties:
@@ -1569,7 +1904,8 @@ components:
       type: object
       required:
         - name
-        - Category
+        - category
+        - phpto_urls
       properties:
         name:
           type: string

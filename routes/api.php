@@ -7,6 +7,8 @@ use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\TagController;
 use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\PetCommentController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,6 +27,8 @@ Route::middleware('apikey')->group(
         Route::get('pet/findByTags', [PetController::class, 'findByTags']);
         Route::get('pet/findByCategory', [PetController::class, 'findByCategory']);
         Route::get('pet/{pet}', [PetController::class, 'getPetById']);
+        Route::get('pet/{pet}/comment', [PetCommentController::class, 'getPetComments']);
+
         Route::get('pets', [PetController::class, 'getAllPets']);
 
         /** USER */
@@ -35,11 +39,15 @@ Route::middleware('apikey')->group(
 
         Route::middleware('auth')->group(
             function () {
+                Route::post('pet/{pet}/comment', [PetCommentController::class, 'addNewPetComment']);
+
                 /** Pet */
                 Route::post('pet', [PetController::class, 'addNewPet']);
                 Route::put('pet/{pet}', [PetController::class, 'updatePetById']);
                 Route::delete('pet/{pet}', [PetController::class, 'deletePetById']);
                 Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
+
+                Route::delete('pet/comment/{petComment}', [PetCommentController::class, 'deletePetCommentById']);
 
                 /** Order */
                 Route::get('orders', [OrderController::class, 'getAllOrders']);

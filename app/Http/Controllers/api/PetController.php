@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use Illuminate\Support\Facades\Storage;
-use App\Exceptions\ParameterNotfoundException;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\DB;
+use App\Exceptions\ParameterNotfoundException;
 use App\Models\Pet;
-use App\Models\PetCategory;
 use App\Models\PetPhotoUrl;
 use App\Models\PetTag;
 use App\Models\Tag;

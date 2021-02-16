@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PetUploadImageRequest extends ApiRequest
+class PetCommentStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class PetUploadImageRequest extends ApiRequest
     public function rules()
     {
         return [
-            'file' => 'required|image:jpeg,png,jpg|max:2048'
+            'pet_id' => 'required',
+            'comment' => ['required', 'max:200']
         ];
     }
 }

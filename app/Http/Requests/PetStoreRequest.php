@@ -29,8 +29,8 @@ class PetStoreRequest extends ApiRequest
             'tags' => 'required',
             'tags.*.name' => ['required', 'max:10', 'distinct'],
             'category' => 'required',
-            'category.name' => ['required', 'max:20'],
-            'photoUrls' => 'array' // add new pet after upload image.
+            'category.id' => ['required', 'max:20'],
+            'photoUrls' => ['required', 'array'] // add new pet after upload image.
         ];
     }
 }

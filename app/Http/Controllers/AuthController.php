@@ -42,6 +42,6 @@ class AuthController extends Controller
     {
         $user = Auth::guard('sanctum')->user();
         $user->tokens()->delete();
-        return response('{}');
+        return response(new \stdClass());
     }
 }

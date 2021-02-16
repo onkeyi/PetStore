@@ -32,7 +32,7 @@ class PetUpdateRequest extends ApiRequest
             'category' => 'required',
             'category.id' => ['required', 'numeric', 'exists:categories,id'],
             'category.name' => ['required', 'max:20'],
-            'photoUrls' => 'array'
+            'photoUrls' => ['required', 'array']
         ];
     }
 }
