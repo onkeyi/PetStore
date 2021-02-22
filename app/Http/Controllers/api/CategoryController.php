@@ -13,7 +13,7 @@ class CategoryController extends ApiController
     {
         return $this->successResponse(
             Category::orderBy('id', 'desc')
-                ->paginate($this->maxPage)
+                ->get()
         );
     }
 

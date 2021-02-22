@@ -6,10 +6,11 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Throwable;
-use App\Exceptions\ApiKeyNotfoundException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Validation\ValidationException;
+use Throwable;
+use App\Exceptions\ApiKeyNotfoundException;
+use App\Exceptions\UnauthorizedException;
 
 class Handler extends ExceptionHandler
 {
@@ -100,7 +101,7 @@ class Handler extends ExceptionHandler
             return response()->json(
                 [
                     'status' => 'error',
-                    'message' => 'This action is unauthorized. ',
+                    'message' =>  $exception->getMessage(),
                     'code' => 405
                 ],
                 403
@@ -111,7 +112,7 @@ class Handler extends ExceptionHandler
             return response()->json(
                 [
                     'status' => 'error',
-                    'message' => 'This action is unauthorized. ',
+                    'message' => 'This action is unauthorized.. ',
                     'code' => 403
                 ],
                 403
@@ -140,13 +141,25 @@ class Handler extends ExceptionHandler
             );
         }
 
+        if ($exception instanceof UnauthorizedException) {
+            return response()->json(
+                [
+                    'status' => 'error',
+                    'message' => 'Not Found',
+                    'code' => 401
+                ],
+                401
+            );
+        }
+
         if ($exception instanceof HttpException) {
             return response()->json(
                 [
                     'status' => 'error',
                     'message' => $exception->getMessage(),
                     'code' => $exception->getStatusCode() ? $exception->getStatusCode() : -1
-                ],403
+                ],
+                403
             );
         }
         if (null !== $exception) {
@@ -156,7 +169,8 @@ class Handler extends ExceptionHandler
                         'status' => 'error',
                         'message' => 'Internal Server error' . $exception->getMessage(),
                         'code' => 500
-                    ],500
+                    ],
+                    500
                 );
             }
         }

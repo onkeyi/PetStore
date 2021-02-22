@@ -1,0 +1,11 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+// Variables
+@import 'variables';
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+$body-bg: #000;
+$body-color: #111;
+// Then import Bootstrap an BootstrapVue SCSS files (order is important)
+@import '~bootstrap';
+@import '~bootstrap-vue';

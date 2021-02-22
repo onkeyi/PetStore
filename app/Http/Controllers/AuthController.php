@@ -6,6 +6,7 @@ use Auth;
 use App\Http\Requests\UserRegisterRequest;
 use App\Http\Requests\AuthLoginRequest;
 use App\Models\User;
+use App\Exceptions\UnauthorizedException;
 
 class AuthController extends Controller
 {
@@ -35,6 +36,8 @@ class AuthController extends Controller
             return response()->json([
                 'token' => $token->plainTextToken
             ]);
+        } else {
+            throw new UnauthorizedException;
         }
     }
 

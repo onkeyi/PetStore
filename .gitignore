@@ -15,3 +15,11 @@ yarn-error.log
 document/javascript/
 composer.lock
 .package.json.swp
+package-lock.json
+composer.lock
+client/pet_store_api/dist
+client/pet_store_api/.openapi-generator
+client/pet_store_api/node_modules
+webpack.mix.js
+composer.lock
+.gitignore

@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: PetStore API
-  version: '0.1'
+  version: '0.1.1'
   description: |-
     ## Swagger PetStore  実装
     - バックエンド： Laravel
@@ -10,9 +10,10 @@ info:
     name: MIT
 servers:
   - url: 'http://localhost/api/'
+    description: Developer server
   - url: 'https://product/api/'
+    description: Production Server
 paths:
-
   /user:
     post:
       operationId: registerNewUser
@@ -90,6 +91,8 @@ paths:
               name: 'test'
               email: 'test@test.com'
               password: 'password'
+      security:
+        - apiKey: []
   /login:
     post:
       operationId: login
@@ -132,6 +135,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error400'
+        '404':
+          description: User Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error400'
         '405':
           description: Method Not Allowed
           content:
@@ -164,6 +173,8 @@ paths:
               example:
                 email: 'test@test.com'
                 password: 'password'
+      security:
+        - apiKey: []
   /logout:
     get:
       operationId: logout
@@ -218,6 +229,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
+      security:
+        - apiKey: []
+        - bearer: []
 
   /user/findUserByName:
     get:
@@ -288,7 +302,8 @@ paths:
           name: username
           in: query
           required: true
-
+      security:
+        - apiKey: []
   /user/{userId}:
     put:
       operationId: updateUserById
@@ -362,6 +377,9 @@ paths:
             applicaiton/json:
               schema:
                 $ref: '#/components/schemas/user'
+      security:
+        - apiKey: []
+        - bearer: []
     delete:
       operationId: deleteUserById
       tags:
@@ -426,6 +444,9 @@ paths:
           name: userId
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /user/{userId}/pets:
     get:
       tags:
@@ -490,6 +511,9 @@ paths:
           name: userId
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /user/{userId}/orders:
     get:
       tags:
@@ -554,6 +578,9 @@ paths:
           name: userId
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /pet:
     post:
       operationId: addNewPet
@@ -616,6 +643,9 @@ paths:
           applicaiton/json:
             schema:
               $ref: '#/components/schemas/request_pet_store'
+      security:
+        - apiKey: []
+        - bearer: []
   /pets:
     get:
       operationId: getAllPets
@@ -714,6 +744,8 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - bearer: []
     put:
       operationId: updatePetById
       tags:
@@ -778,6 +810,8 @@ paths:
           applicaiton/json:
             schema:
               $ref: '#/components/schemas/request_pet_update'
+      security:
+        - apiKey: []
     delete:
       operationId: deletePetById
       tags:
@@ -833,6 +867,9 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /pet/comment:
     post:
       tags:
@@ -890,6 +927,9 @@ paths:
           applicaiton/json:
             schema:
               $ref: '#/components/schemas/pet_comment'
+      security:
+        - apiKey: []
+        - bearer: []
   /pet/{petId}/comment:
     get:
       tags:
@@ -949,6 +989,8 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
   /pet/comment/{petCommentId}:
     delete:
       operationId: deletePetCommentById
@@ -1005,6 +1047,9 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /pet/findByCategory:
     get:
       operationId: findPetByCategory
@@ -1053,6 +1098,8 @@ paths:
           schema:
             type: string
           in: query
+      security:
+        - apiKey: []
   /pet/uploadImage:
     get:
       tags:
@@ -1066,6 +1113,9 @@ paths:
       responses:
         '200':
           description: OK
+      security:
+        - apiKey: []
+        - bearer: []
   /pets/findByTags:
     get:
       operationId: findPetByTag
@@ -1116,6 +1166,8 @@ paths:
           in: query
           schema:
             type: string
+      security:
+        - apiKey: []
   /pets/findByStatus:
     get:
       operationId: findPetByStatus
@@ -1164,6 +1216,8 @@ paths:
           in: query
           schema:
             type: string
+      security:
+        - apiKey: []
   /category:
     post:
       operationId: addNewCategory
@@ -1204,6 +1258,9 @@ paths:
           applicaiton/json:
             schema:
               $ref: '#/components/schemas/category'
+      security:
+        - apiKey: []
+        - bearer: []
   /categories:
     get:
       operationId: getAllCategorys
@@ -1216,7 +1273,9 @@ paths:
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/response_pegination'
+                type: array
+                items:
+                  $ref: '#/components/schemas/category'
         '401':
           description: API-KEY 認証エラー
           content:
@@ -1247,7 +1306,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
-
+      security:
+        - apiKey: []
   /category/{categoryId}:
     put:
       operationId: updateCategoryById
@@ -1306,6 +1366,8 @@ paths:
             type: string
           in: path
           required: true
+      security:
+        - apiKey: []
     get:
       operationId: getCategoryById
       tags:
@@ -1344,6 +1406,8 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
     delete:
       operationId: deleteCategoryById
       tags:
@@ -1390,13 +1454,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
-
       parameters:
         - name: categoryId
           schema:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /tags:
     get:
       summary: Tag一覧
@@ -1428,6 +1494,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
+      security:
+        - apiKey: []
   /tag:
     post:
       summary: Tag 登録
@@ -1464,7 +1532,8 @@ paths:
           applicaiton/json:
             schema:
               $ref: '#/components/schemas/tag'
-
+      security:
+        - apiKey: []
   /tag/{tagId}:
     get:
       summary:  Tag情報
@@ -1502,6 +1571,8 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
     put:
       summary: Tag情報更新
       tags:
@@ -1543,6 +1614,9 @@ paths:
           applicaiton/json:
             schema:
               $ref: '#/components/schemas/tag'
+      security:
+        - apiKey: []
+        - bearer: []
     delete:
       summary: Tag情報削除
       tags:
@@ -1579,6 +1653,9 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /order:
     post:
       operationId: addNewOrder
@@ -1625,6 +1702,9 @@ paths:
           applicaiton/json:
             schema:
               $ref: '#/components/schemas/order'
+      security:
+        - apiKey: []
+        - bearer: []
   /orders:
     get:
       operationId: getAllOrder
@@ -1668,7 +1748,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
-
+      security:
+        - apiKey: []
   /order/{orderId}:
     get:
       operationId: getOrderById
@@ -1721,6 +1802,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
+      security:
+        - apiKey: []
     put:
       operationId: updateOrderById
       summary: オーダー更新
@@ -1740,7 +1823,6 @@ paths:
       responses:
         '200':
           description: 成功
-
         '401':
           description: API-KEY 認証エラー
           content:
@@ -1759,6 +1841,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/error500'
+      security:
+        - apiKey: []
+        - bearer: []
     delete:
       operationId: deleteOrderById
       summary: オーダー削除
@@ -1767,7 +1852,6 @@ paths:
       responses:
         '200':
           description: 成功
-
         '401':
           description: API-KEY 認証エラー
           content:
@@ -1792,6 +1876,9 @@ paths:
             type: integer
           in: path
           required: true
+      security:
+        - apiKey: []
+        - bearer: []
 components:
   schemas:
     pet_comment:
@@ -2027,13 +2114,11 @@ components:
       type: apiKey
       name: API-KEY
       in: header
-    petstoreAuth:
+    bearer:
       type: http
       scheme: bearer
       bearerFormat: bearer
 
 security:
   - apiKey: []
-  - PetstoreAuth:
-    - write:pets
-    - read:pets
+  - bearer: []

@@ -201,11 +201,8 @@ class PetController extends ApiController
         if (!isset($queryParam) || !isset($queryParam['category'])) {
             throw new ParameterNotfoundException;
         }
-        return Pet::whereIn('category_id', function ($query) use ($queryParam) {
-            $query->select('id')
-                ->from('categories')
-                ->where('name', trim($queryParam['category']));
-        })->with(['tags', 'category', 'photoUrls', 'owner'])
+        return Pet::where('category_id', $queryParam['category'])
+             ->with(['tags', 'category', 'photoUrls', 'owner'])
             ->paginate($this->maxPage)->appends(request()->query());
     }
 

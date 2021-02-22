@@ -19,7 +19,7 @@ class AuthenticateApiKey
     {
         $apiKeyValue = $request->header('API-KEY');
 
-        if (!isset($apiKeyValue) || env('API_KEY') !== $apiKeyValue) {
+        if (!isset($apiKeyValue) || env('MIX_API_KEY') !== $apiKeyValue) {
             throw new ApiKeyNotfoundException();
         }
         return $next($request);
