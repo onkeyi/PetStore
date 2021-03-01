@@ -16,7 +16,7 @@ class OrderController extends ApiController
             Order::where('user_id', $this->userId)
                 ->with(['pet', 'orderUser'])
                 ->orderBy('created_at', 'desc')
-                ->paginate($this->maxPage)
+                ->paginate(env('APP_PER_PAGE',18))
         );
     }
 

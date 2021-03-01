@@ -12,7 +12,7 @@ class TagController extends ApiController
     {
         return $this->successResponse(
             Tag::orderBy('id', 'desc')
-                ->paginate(20)
+                ->paginate(env('APP_PER_PAGE',18))
         );
     }
 

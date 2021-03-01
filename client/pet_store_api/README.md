@@ -148,8 +148,8 @@ Class | Method | HTTP request | Description
 *PetStoreApi.PetApi* | [**deletePetById**](docs/PetApi.md#deletePetById) | **DELETE** /pet/{petId} | ペット情報削除
 *PetStoreApi.PetApi* | [**deletePetCommentById**](docs/PetApi.md#deletePetCommentById) | **DELETE** /pet/comment/{petCommentId} | ペット情報削除
 *PetStoreApi.PetApi* | [**findPetByCategory**](docs/PetApi.md#findPetByCategory) | **GET** /pet/findByCategory | カテゴリで検索
-*PetStoreApi.PetApi* | [**findPetByStatus**](docs/PetApi.md#findPetByStatus) | **GET** /pets/findByStatus | ステータスで検索
-*PetStoreApi.PetApi* | [**findPetByTag**](docs/PetApi.md#findPetByTag) | **GET** /pets/findByTags | タグで検索
+*PetStoreApi.PetApi* | [**findPetByStatus**](docs/PetApi.md#findPetByStatus) | **GET** /pet/findByStatus | ステータスで検索
+*PetStoreApi.PetApi* | [**findPetByTag**](docs/PetApi.md#findPetByTag) | **GET** /pet/findByTags | タグで検索
 *PetStoreApi.PetApi* | [**getAllPets**](docs/PetApi.md#getAllPets) | **GET** /pets | ペット一覧取得
 *PetStoreApi.PetApi* | [**getCommentByPetId**](docs/PetApi.md#getCommentByPetId) | **GET** /pet/{petId}/comment | ペットコメント
 *PetStoreApi.PetApi* | [**getPetById**](docs/PetApi.md#getPetById) | **GET** /pet/{petId} | ペット情報取得

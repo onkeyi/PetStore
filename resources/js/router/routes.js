@@ -1,9 +1,13 @@
-
-import Login from '../pages/auth/login'
-import Home from '../pages/home'
+import LoginPage from '../pages/login'
+import StoreHomePage from '../pages/store-home'
+import UserRegisterPage from '../pages/user-register'
+import MyPage from '../pages/my-page'
+import PetDetailPage from '../pages/pet-detail'
 
 export default [
-  { path: '/', name: 'home', component: Home },
-{ path: '/home', name: 'home', component: Home },
-  { path: '/login', name: 'login', component: Login },
+    { path: '/', name: 'store-home', component: StoreHomePage },
+    { path: '/login', name: 'login', component: LoginPage },
+    { path: '/register', name: 'user-register', component: UserRegisterPage },
+    { path: '/detail', name: 'pet-detail', component: PetDetailPage },
+    { path: '/mypage', name: 'my-page', component: MyPage },
 ]

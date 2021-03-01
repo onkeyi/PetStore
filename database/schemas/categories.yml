@@ -2,3 +2,10 @@ categories:
   columns:
     id: true
     name: string
+    parent_id:
+      type: integer
+      default: -1
+    order:
+      type: integer
+      default: 0
+    created_at: dateTime

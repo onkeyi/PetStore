@@ -4,8 +4,145 @@
 @import 'variables';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-$body-bg: #000;
-$body-color: #111;
-// Then import Bootstrap an BootstrapVue SCSS files (order is important)
-@import '~bootstrap';
-@import '~bootstrap-vue';
+.store-header {
+    line-height: 1;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.store-header-logo {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: 2.25rem;
+}
+
+.store-header-logo:hover {
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+.display-4 {
+    font-size: 2.5rem;
+}
+
+@media (min-width: 768px) {
+    .display-4 {
+        font-size: 3rem;
+    }
+}
+
+.nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-scroller .nav-link {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: .875rem;
+}
+
+.flex-auto {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.h-250 {
+    height: 250px;
+}
+
+@media (min-width: 768px) {
+    .h-md-250 {
+        height: 250px;
+    }
+}
+
+
+/*
+ * Store name and description
+ */
+
+.store-title {
+    margin-bottom: 0;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.store-description {
+    font-size: 1.1rem;
+    color: #999;
+}
+
+@media (min-width: 40em) {
+    .store-title {
+        font-size: 3.5rem;
+    }
+}
+
+
+/* Pagination */
+
+.store-pagination {
+    margin-bottom: 4rem;
+}
+
+.store-pagination>.btn {
+    border-radius: 2rem;
+}
+
+
+/*
+ * Store posts
+ */
+
+.store-post {
+    margin-bottom: 4rem;
+}
+
+.store-post-title {
+    margin-bottom: .25rem;
+    font-size: 2.5rem;
+}
+
+.store-post-meta {
+    margin-bottom: 1.25rem;
+    color: #999;
+}
+
+
+/*
+ * Footer
+ */
+
+.store-footer {
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+.store-footer p:last-child {
+    margin-bottom: 0;
+}

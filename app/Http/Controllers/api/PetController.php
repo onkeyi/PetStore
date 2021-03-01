@@ -22,10 +22,17 @@ class PetController extends ApiController
 
     public function getAllPets()
     {
+        $query = Request::all();
+        $order = ['status','created_at'];
+        $orderBy = ($query
+                    && isset($query['order'])
+                    && in_array($query['order'],$order)) ? $query['order'] : 'created_at';
+        $sorted = ($query && isset($query['sorted'])) ? $query['sorted'] : 'desc';
+
         return $this->successResponse(
             Pet::with(['tags', 'category', 'photoUrls'])
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->maxPage)
+                ->orderBy($orderBy, $sorted)
+                ->paginate(env('APP_PER_PAGE',18))
         );
     }
 
@@ -166,7 +173,7 @@ class PetController extends ApiController
         }
         return Pet::whereIn('status', $query['status'])
             ->with(['tags', 'category', 'photoUrls', 'owner'])
-            ->paginate($this->maxPage)->appends(request()->query());
+            ->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
     }
 
     /**
@@ -178,20 +185,24 @@ class PetController extends ApiController
     {
         $qeury = Request::all();
 
-        if (!isset($query) || !isset($qeury['tag']) || !is_array($qeury['tag'])) {
+        if (!isset($qeury) || !isset($qeury['tag'])) {
             throw new ParameterNotfoundException;
         }
+        $tags = explode(',',$qeury['tag']);
 
-        $tagIds = Tag::whereIn('name', $qeury['tag'])->pluck('id');
+        $tagIds = Tag::whereIn('name', $tags)->pluck('id');
 
-        $result =  Pet::with(['tags', 'photoUrls', 'category', 'owner'])
-            ->whereHas(
-                'tags',
-                function ($query) use ($tagIds) {
-                    $query->whereIn('tag_id', $tagIds);
-                }
-            )->paginate($this->maxPage)->appends(request()->query());
-        return $this->successResponse($result);
+        if ($tagIds && count($tagIds) > 0) {
+            $result =  Pet::with(['tags', 'photoUrls', 'category', 'owner'])
+                ->whereHas(
+                    'tags',
+                    function ($query) use ($tagIds) {
+                        $query->whereIn('tag_id', $tagIds);
+                    }
+                )->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
+            return $this->successResponse($result);
+        }
+        return $this->successResponse();
     }
 
     public function findByCategory()
@@ -203,7 +214,7 @@ class PetController extends ApiController
         }
         return Pet::where('category_id', $queryParam['category'])
              ->with(['tags', 'category', 'photoUrls', 'owner'])
-            ->paginate($this->maxPage)->appends(request()->query());
+            ->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
     }
 
     /**

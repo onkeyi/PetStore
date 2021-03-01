@@ -258,6 +258,7 @@ export default class PetApi {
      * ステータスで検索
      * @param {Object} opts Optional parameters
      * @param {String} opts.status 
+     * @param {Number} opts.page 
      * @param {module:api/PetApi~findPetByStatusCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ResponsePegination}
      */
@@ -268,7 +269,8 @@ export default class PetApi {
       let pathParams = {
       };
       let queryParams = {
-        'status': opts['status']
+        'status': opts['status'],
+        'page': opts['page']
       };
       let headerParams = {
       };
@@ -280,7 +282,7 @@ export default class PetApi {
       let accepts = ['applicaiton/json', 'application/json'];
       let returnType = ResponsePegination;
       return this.apiClient.callApi(
-        '/pets/findByStatus', 'GET',
+        '/pet/findByStatus', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -299,6 +301,7 @@ export default class PetApi {
      * タグで検索
      * @param {Object} opts Optional parameters
      * @param {String} opts.tag 
+     * @param {Number} opts.page 
      * @param {module:api/PetApi~findPetByTagCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ResponsePegination}
      */
@@ -309,7 +312,8 @@ export default class PetApi {
       let pathParams = {
       };
       let queryParams = {
-        'tag': opts['tag']
+        'tag': opts['tag'],
+        'page': opts['page']
       };
       let headerParams = {
       };
@@ -321,7 +325,7 @@ export default class PetApi {
       let accepts = ['applicaiton/json', 'application/json'];
       let returnType = ResponsePegination;
       return this.apiClient.callApi(
-        '/pets/findByTags', 'GET',
+        '/pet/findByTags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null, callback
       );
@@ -338,15 +342,23 @@ export default class PetApi {
     /**
      * ペット一覧取得
      * stagusがavailableはorder可能
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.order 
+     * @param {String} opts.sorted 
+     * @param {Number} opts.page 
      * @param {module:api/PetApi~getAllPetsCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ResponsePegination}
      */
-    getAllPets(callback) {
+    getAllPets(opts, callback) {
+      opts = opts || {};
       let postBody = null;
 
       let pathParams = {
       };
       let queryParams = {
+        'order': opts['order'],
+        'sorted': opts['sorted'],
+        'page': opts['page']
       };
       let headerParams = {
       };

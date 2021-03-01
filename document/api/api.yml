@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: PetStore API
-  version: '0.1.1'
+  version: "0.1.1"
   description: |-
     ## Swagger PetStore  実装
     - バックエンド： Laravel
@@ -9,9 +9,9 @@ info:
   license:
     name: MIT
 servers:
-  - url: 'http://localhost/api/'
+  - url: "http://localhost/api/"
     description: Developer server
-  - url: 'https://product/api/'
+  - url: "https://product/api/"
     description: Production Server
 paths:
   /user:
@@ -35,8 +35,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
@@ -46,51 +46,51 @@ paths:
                     description: 新規登録ユーザーID
                     type: integer
                 additionalProperties: false
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '415':
+                $ref: "#/components/schemas/error400"
+        "415":
           description: Unsupported Media Type
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/request_auth_register'
+              $ref: "#/components/schemas/request_auth_register"
             example:
-              name: 'test'
-              email: 'test@test.com'
-              password: 'password'
+              name: "test"
+              email: "test@test.com"
+              password: "password"
       security:
         - apiKey: []
   /login:
@@ -113,8 +113,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
@@ -123,56 +123,56 @@ paths:
                   token:
                     type: string
                 additionalProperties: false
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: User Not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '415':
+                $ref: "#/components/schemas/error400"
+        "415":
           description: Unsupported Media Type
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
-          content:
-            applicaiton/json:
-              schema:
-                $ref: '#/components/schemas/request_auth_login'
-              example:
-                email: 'test@test.com'
-                password: 'password'
+        content:
+          applicaiton/json:
+            schema:
+              $ref: "#/components/schemas/request_auth_login"
+            example:
+              email: "test@test.com"
+              password: "password"
       security:
         - apiKey: []
   /logout:
@@ -191,44 +191,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: object
                 default: {}
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       security:
         - apiKey: []
         - bearer: []
@@ -249,53 +249,53 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/user'
+                  $ref: "#/components/schemas/user"
                 maxItems: 10
                 minItems: 0
-        '400':
+        "400":
           description: パラメーターエラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '401':
+                $ref: "#/components/schemas/error400"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: Forbidden
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - schema:
             type: string
@@ -320,8 +320,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
@@ -330,42 +330,42 @@ paths:
                   id:
                     type: integer
                 additionalProperties: false
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - schema:
             type: integer
@@ -373,10 +373,10 @@ paths:
           in: path
           required: true
       requestBody:
-          content:
-            applicaiton/json:
-              schema:
-                $ref: '#/components/schemas/user'
+        content:
+          applicaiton/json:
+            schema:
+              $ref: "#/components/schemas/user"
       security:
         - apiKey: []
         - bearer: []
@@ -394,50 +394,50 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: object
-                default : {}
-        '401':
+                default: {}
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - schema:
             type: integer
@@ -460,51 +460,51 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/order'
-        '401':
+                  $ref: "#/components/schemas/order"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - schema:
             type: integer
@@ -527,51 +527,51 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/order'
-        '401':
+                  $ref: "#/components/schemas/order"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - schema:
             type: integer
@@ -598,8 +598,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
@@ -608,41 +608,41 @@ paths:
                   id:
                     type: integer
                 additionalProperties: false
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '415':
+                $ref: "#/components/schemas/error400"
+        "415":
           description: Unsupported Media Type
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/request_pet_store'
+              $ref: "#/components/schemas/request_pet_store"
       security:
         - apiKey: []
         - bearer: []
@@ -660,31 +660,44 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unexpected'
-        '200':
+                $ref: "#/components/schemas/unexpected"
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/response_pegination'
-        '401':
+                $ref: "#/components/schemas/response_pegination"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
+      parameters:
+        - name: order
+          schema:
+            type: string
+          in: query
+        - name: sorted
+          schema:
+            type: string
+          in: query
+        - name: page
+          schema:
+            type: integer
+          in: query
       security:
         - apiKey: []
 
@@ -695,49 +708,49 @@ paths:
         - Pet
       summary: ペット情報取得
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: object
-                $ref: '#/components/schemas/pet'
-        '401':
+                $ref: "#/components/schemas/pet"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: petId
           schema:
@@ -754,7 +767,7 @@ paths:
       description: |-
         更新処理
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
@@ -763,42 +776,42 @@ paths:
                   id:
                     type: integer
                 additionalProperties: false
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: petId
           schema:
@@ -809,7 +822,7 @@ paths:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/request_pet_update'
+              $ref: "#/components/schemas/request_pet_update"
       security:
         - apiKey: []
     delete:
@@ -818,49 +831,49 @@ paths:
         - Pet
       summary: ペット情報削除
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: object
-                default : {}
-        '401':
+                default: {}
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: petId
           schema:
@@ -879,54 +892,54 @@ paths:
       description: |-
         comment post
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: object
-                default : {}
-        '401':
+                default: {}
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/pet_comment'
+              $ref: "#/components/schemas/pet_comment"
       security:
         - apiKey: []
         - bearer: []
@@ -939,50 +952,50 @@ paths:
       description: |-
         Pet comments.
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/pet_comment'
-        '401':
+                  $ref: "#/components/schemas/pet_comment"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: petId
           schema:
@@ -998,49 +1011,49 @@ paths:
         - Pet
       summary: ペット情報削除
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: object
-                default : {}
-        '401':
+                default: {}
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: petCommentId
           schema:
@@ -1057,42 +1070,42 @@ paths:
         - Pet
       summary: カテゴリで検索
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/response_pegination'
-        '401':
+                $ref: "#/components/schemas/response_pegination"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: category
           schema:
@@ -1111,12 +1124,12 @@ paths:
         - tmpフォルダへ保存
         - pet 新規登録、修正する成功時、 petsフォルダへ移動
       responses:
-        '200':
+        "200":
           description: OK
       security:
         - apiKey: []
         - bearer: []
-  /pets/findByTags:
+  /pet/findByTags:
     get:
       operationId: findPetByTag
       tags:
@@ -1125,97 +1138,105 @@ paths:
       description: |-
         タグで検索
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/response_pegination'
-        '401':
+                $ref: "#/components/schemas/response_pegination"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: tag
           in: query
           schema:
             type: string
+        - name: page
+          schema:
+            type: integer
+          in: query
       security:
         - apiKey: []
-  /pets/findByStatus:
+  /pet/findByStatus:
     get:
       operationId: findPetByStatus
       tags:
         - Pet
       summary: ステータスで検索
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/response_pegination'
-        '401':
+                $ref: "#/components/schemas/response_pegination"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: status
           in: query
           schema:
             type: string
+        - name: page
+          schema:
+            type: integer
+          in: query
       security:
         - apiKey: []
   /category:
@@ -1227,7 +1248,7 @@ paths:
       description: |
         カテゴリ登録
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
@@ -1235,29 +1256,29 @@ paths:
                 properties:
                   id:
                     type: integer
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/category'
+              $ref: "#/components/schemas/category"
       security:
         - apiKey: []
         - bearer: []
@@ -1268,44 +1289,44 @@ paths:
         - Category
       summary: カテゴリ一覧
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/category'
-        '401':
+                  $ref: "#/components/schemas/category"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       security:
         - apiKey: []
   /category/{categoryId}:
@@ -1317,7 +1338,7 @@ paths:
       description: |
         カテゴリ更新
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
@@ -1325,41 +1346,41 @@ paths:
                 properties:
                   id:
                     type: integer
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/category'
+              $ref: "#/components/schemas/category"
       parameters:
         - name: categoryId
           schema:
@@ -1376,30 +1397,30 @@ paths:
       description: |
         カテゴリ取得
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/category'
-        '401':
+                $ref: "#/components/schemas/category"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: categoryId
           schema:
@@ -1416,44 +1437,44 @@ paths:
       description: |
         カテゴリ削除
       responses:
-        '200':
+        "200":
           description: 成功
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: categoryId
           schema:
@@ -1470,30 +1491,30 @@ paths:
       tags:
         - Tag
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/response_pegination'
-        '401':
+                $ref: "#/components/schemas/response_pegination"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       security:
         - apiKey: []
   /tag:
@@ -1503,68 +1524,68 @@ paths:
       tags:
         - Tag
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/category'
-        '401':
+                $ref: "#/components/schemas/category"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/tag'
+              $ref: "#/components/schemas/tag"
       security:
         - apiKey: []
   /tag/{tagId}:
     get:
-      summary:  Tag情報
+      summary: Tag情報
       tags:
         - Tag
       operationId: getTagById
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/category'
-        '401':
+                $ref: "#/components/schemas/category"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: tagId
           schema:
@@ -1579,30 +1600,30 @@ paths:
         - Tag
       operationId: updateTagById
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/category'
-        '401':
+                $ref: "#/components/schemas/category"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: tagId
           schema:
@@ -1613,7 +1634,7 @@ paths:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/tag'
+              $ref: "#/components/schemas/tag"
       security:
         - apiKey: []
         - bearer: []
@@ -1623,30 +1644,30 @@ paths:
         - Tag
       operationId: deleteTagById
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/category'
-        '401':
+                $ref: "#/components/schemas/category"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: tagId
           schema:
@@ -1665,43 +1686,43 @@ paths:
       description: |-
         オーダー登録
       responses:
-        '200':
+        "200":
           description: 成功
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       requestBody:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/order'
+              $ref: "#/components/schemas/order"
       security:
         - apiKey: []
         - bearer: []
@@ -1712,42 +1733,42 @@ paths:
         - Order
       summary: オーダー一覧取得
       responses:
-        '200':
+        "200":
           description: 成功
           content:
             applicaiton/json:
               schema:
-                $ref: '#/components/schemas/response_pegination'
-        '401':
+                $ref: "#/components/schemas/response_pegination"
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       security:
         - apiKey: []
   /order/{orderId}:
@@ -1763,45 +1784,45 @@ paths:
           in: path
           required: true
       responses:
-        '200':
+        "200":
           description: 成功
 
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '403':
+                $ref: "#/components/schemas/error400"
+        "403":
           description: security error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '404':
+                $ref: "#/components/schemas/error400"
+        "404":
           description: Model not found.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '429':
+                $ref: "#/components/schemas/error400"
+        "429":
           description: Too Many Requests
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       security:
         - apiKey: []
     put:
@@ -1819,28 +1840,28 @@ paths:
         content:
           applicaiton/json:
             schema:
-              $ref: '#/components/schemas/order'
+              $ref: "#/components/schemas/order"
       responses:
-        '200':
+        "200":
           description: 成功
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       security:
         - apiKey: []
         - bearer: []
@@ -1850,26 +1871,26 @@ paths:
       tags:
         - Order
       responses:
-        '200':
+        "200":
           description: 成功
-        '401':
+        "401":
           description: API-KEY 認証エラー
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '405':
+                $ref: "#/components/schemas/error400"
+        "405":
           description: Method Not Allowed
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error400'
-        '500':
+                $ref: "#/components/schemas/error400"
+        "500":
           description: サーバーエラー.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error500'
+                $ref: "#/components/schemas/error500"
       parameters:
         - name: orderId
           schema:
@@ -1909,10 +1930,10 @@ components:
           type: integer
         pet:
           type: object
-          $ref: '#/components/schemas/pet'
+          $ref: "#/components/schemas/pet"
         user:
           type: object
-          $ref: '#/components/schemas/user'
+          $ref: "#/components/schemas/user"
         quantity:
           type: integer
           default: 1
@@ -1941,13 +1962,13 @@ components:
           type: array
           maxItems: 20
           items:
-            $ref: '#/components/schemas/tag'
+            $ref: "#/components/schemas/tag"
         category:
           type: object
-          $ref: '#/components/schemas/category'
+          $ref: "#/components/schemas/category"
         owner:
           type: object
-          $ref: '#/components/schemas/user'
+          $ref: "#/components/schemas/user"
     user:
       type: object
       required:
@@ -1997,7 +2018,7 @@ components:
         name:
           type: string
         category:
-          $ref: '#/components/schemas/category'
+          $ref: "#/components/schemas/category"
         photo_urls:
           type: array
           maxItems: 20
@@ -2008,7 +2029,7 @@ components:
           maxItems: 20
           items:
             title: tag
-            $ref: '#/components/schemas/tag'
+            $ref: "#/components/schemas/tag"
     request_pet_update:
       type: object
       required:
@@ -2021,7 +2042,7 @@ components:
         name:
           type: string
         category:
-          $ref: '#/components/schemas/category'
+          $ref: "#/components/schemas/category"
         photo_urls:
           type: array
           maxItems: 20
@@ -2032,7 +2053,7 @@ components:
           maxItems: 20
           items:
             title: tag
-            $ref: '#/components/schemas/tag'
+            $ref: "#/components/schemas/tag"
 
     response_pegination:
       type: object
@@ -2074,8 +2095,7 @@ components:
         data:
           type: array
           maxItems: 15
-          items:
-            {}
+          items: {}
     error400:
       type: object
       properties:

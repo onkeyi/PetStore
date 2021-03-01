@@ -1,18 +1,18 @@
-import Vue from 'vue'
-import Button from './Button'
-import Card from './Card'
-import SideBar from './SideBar'
-import { HasError, AlertError, AlertSuccess } from 'vform'
-import { VueLoading } from 'vue-loading-template'
+import Vue from 'vue';
+import PetCategoryNavbar from './PetCategoryNavbar';
+import HomePageHeader from './HomePageHeader';
+import MyPageHeader from './MyPageHeader';
+import OtherPageHeader from './OtherPageHeader';
+import PetList from './PetList';
+import PetListCard from './PetListCard';
 
 [
-    HasError,
-    AlertError,
-    AlertSuccess,
-    VueLoading,
-    Button,
-    SideBar,
-    Card
+    HomePageHeader,
+    MyPageHeader,
+    OtherPageHeader,
+    PetCategoryNavbar,
+    PetList,
+    PetListCard,
 ].forEach(Component => {
     Vue.component(Component.name, Component)
 })

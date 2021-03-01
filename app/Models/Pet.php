@@ -12,8 +12,8 @@ use App\Models\User;
 class Pet extends Model
 {
     use HasFactory;
-    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'owner'];
-    protected $fillable = ['name', 'user_id', 'category_id', 'status'];
+    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'owner','description'];
+    protected $fillable = ['name', 'user_id', 'category_id', 'status','description'];
 
     public function tags()
     {

@@ -9,8 +9,8 @@ Method | HTTP request | Description
 [**deletePetById**](PetApi.md#deletePetById) | **DELETE** /pet/{petId} | ペット情報削除
 [**deletePetCommentById**](PetApi.md#deletePetCommentById) | **DELETE** /pet/comment/{petCommentId} | ペット情報削除
 [**findPetByCategory**](PetApi.md#findPetByCategory) | **GET** /pet/findByCategory | カテゴリで検索
-[**findPetByStatus**](PetApi.md#findPetByStatus) | **GET** /pets/findByStatus | ステータスで検索
-[**findPetByTag**](PetApi.md#findPetByTag) | **GET** /pets/findByTags | タグで検索
+[**findPetByStatus**](PetApi.md#findPetByStatus) | **GET** /pet/findByStatus | ステータスで検索
+[**findPetByTag**](PetApi.md#findPetByTag) | **GET** /pet/findByTags | タグで検索
 [**getAllPets**](PetApi.md#getAllPets) | **GET** /pets | ペット一覧取得
 [**getCommentByPetId**](PetApi.md#getCommentByPetId) | **GET** /pet/{petId}/comment | ペットコメント
 [**getPetById**](PetApi.md#getPetById) | **GET** /pet/{petId} | ペット情報取得
@@ -305,7 +305,8 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.PetApi();
 let opts = {
-  'status': "status_example" // String | 
+  'status': "status_example", // String | 
+  'page': 56 // Number | 
 };
 apiInstance.findPetByStatus(opts, (error, data, response) => {
   if (error) {
@@ -322,6 +323,7 @@ apiInstance.findPetByStatus(opts, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **status** | **String**|  | [optional] 
+ **page** | **Number**|  | [optional] 
 
 ### Return type
 
@@ -358,7 +360,8 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.PetApi();
 let opts = {
-  'tag': "tag_example" // String | 
+  'tag': "tag_example", // String | 
+  'page': 56 // Number | 
 };
 apiInstance.findPetByTag(opts, (error, data, response) => {
   if (error) {
@@ -375,6 +378,7 @@ apiInstance.findPetByTag(opts, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tag** | **String**|  | [optional] 
+ **page** | **Number**|  | [optional] 
 
 ### Return type
 
@@ -392,7 +396,7 @@ Name | Type | Description  | Notes
 
 ## getAllPets
 
-> ResponsePegination getAllPets()
+> ResponsePegination getAllPets(opts)
 
 ペット一覧取得
 
@@ -410,7 +414,12 @@ apiKey.apiKey = 'YOUR API KEY';
 //apiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new PetStoreApi.PetApi();
-apiInstance.getAllPets((error, data, response) => {
+let opts = {
+  'order': "order_example", // String | 
+  'sorted': "sorted_example", // String | 
+  'page': 56 // Number | 
+};
+apiInstance.getAllPets(opts, (error, data, response) => {
   if (error) {
     console.error(error);
   } else {
@@ -421,7 +430,12 @@ apiInstance.getAllPets((error, data, response) => {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **order** | **String**|  | [optional] 
+ **sorted** | **String**|  | [optional] 
+ **page** | **Number**|  | [optional] 
 
 ### Return type
 
