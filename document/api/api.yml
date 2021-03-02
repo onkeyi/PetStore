@@ -3,16 +3,16 @@ info:
   title: PetStore API
   version: "0.1.1"
   description: |-
-    ## Swagger PetStore  実装
-    - バックエンド： Laravel
-    - フロントエンド： Vue
+    ## PetStore OpenAPI 設計
+    - バックエンド： Laravel v8.x
+    - フロントエンド： Vue v2.x ,LaravelMix v6.x
   license:
     name: MIT
 servers:
   - url: "http://localhost/api/"
-    description: Developer server
+    description: 開発サーバーURL
   - url: "https://product/api/"
-    description: Production Server
+    description: 本番サーバーURL
 paths:
   /user:
     post:
@@ -26,18 +26,22 @@ paths:
           - None
         ## Validations
           - email: メールアドレスチェック、Usersテーブル重複チェック
-          - name: 最大20文字
+
+          - name: 最大40文字
         ## Logic
-          登録成功するとメール通知
+          - 登録成功するとメール通知
+          - 通知メールのURLに email_verity.verity_string
+          - メールアドレスチェック後email_verified_at更新
+          - email_verified_atがnullではない場合、認証済みユーザーと認識する。
       responses:
         default:
-          description: unexpected error
+          description: その他エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/unexpected"
         "200":
-          description: 成功
+          description: 登録成功
           content:
             applicaiton/json:
               schema:
@@ -47,13 +51,13 @@ paths:
                     type: integer
                 additionalProperties: false
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -124,13 +128,13 @@ paths:
                     type: string
                 additionalProperties: false
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -200,13 +204,13 @@ paths:
                 type: object
                 default: {}
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -267,7 +271,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/error400"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -331,13 +335,13 @@ paths:
                     type: integer
                 additionalProperties: false
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -403,13 +407,13 @@ paths:
                 type: object
                 default: {}
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -470,13 +474,13 @@ paths:
                 items:
                   $ref: "#/components/schemas/order"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -537,13 +541,13 @@ paths:
                 items:
                   $ref: "#/components/schemas/order"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -609,7 +613,7 @@ paths:
                     type: integer
                 additionalProperties: false
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -668,7 +672,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/response_pegination"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -716,13 +720,13 @@ paths:
                 type: object
                 $ref: "#/components/schemas/pet"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -758,7 +762,7 @@ paths:
           in: path
           required: true
       security:
-        - bearer: []
+        - apiKey: []
     put:
       operationId: updatePetById
       tags:
@@ -777,13 +781,13 @@ paths:
                     type: integer
                 additionalProperties: false
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -825,6 +829,7 @@ paths:
               $ref: "#/components/schemas/request_pet_update"
       security:
         - apiKey: []
+        - bearer: []
     delete:
       operationId: deletePetById
       tags:
@@ -839,13 +844,13 @@ paths:
                 type: object
                 default: {}
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -900,13 +905,13 @@ paths:
                 type: object
                 default: {}
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -961,13 +966,13 @@ paths:
                 items:
                   $ref: "#/components/schemas/pet_comment"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1019,13 +1024,13 @@ paths:
                 type: object
                 default: {}
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1077,13 +1082,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/response_pegination"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1145,13 +1150,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/response_pegination"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1199,13 +1204,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/response_pegination"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1257,7 +1262,7 @@ paths:
                   id:
                     type: integer
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1298,13 +1303,13 @@ paths:
                 items:
                   $ref: "#/components/schemas/category"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1347,13 +1352,13 @@ paths:
                   id:
                     type: integer
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1404,7 +1409,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/category"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1440,13 +1445,13 @@ paths:
         "200":
           description: 成功
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1498,7 +1503,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/response_pegination"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1531,7 +1536,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/category"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1569,7 +1574,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/category"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1607,7 +1612,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/category"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1651,7 +1656,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/category"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1689,13 +1694,13 @@ paths:
         "200":
           description: 成功
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1740,13 +1745,13 @@ paths:
               schema:
                 $ref: "#/components/schemas/response_pegination"
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1788,13 +1793,13 @@ paths:
           description: 成功
 
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/error400"
         "403":
-          description: security error
+          description: セキュリティエラー
           content:
             application/json:
               schema:
@@ -1845,7 +1850,7 @@ paths:
         "200":
           description: 成功
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1874,7 +1879,7 @@ paths:
         "200":
           description: 成功
         "401":
-          description: API-KEY 認証エラー
+          description: <API-KEY> 認証エラー
           content:
             application/json:
               schema:
@@ -1956,7 +1961,11 @@ components:
       properties:
         id:
           type: integer
+        name:
+          type: string
         status:
+          type: string
+        description:
           type: string
         tags:
           type: array
@@ -1977,7 +1986,7 @@ components:
       properties:
         id:
           type: integer
-        nema:
+        name:
           type: string
         email:
           type: string

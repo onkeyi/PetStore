@@ -1,8 +1,8 @@
 {
   "name": "pet_store_api",
   "version": "0.1.1",
-  "description": "_Swagger_PetStore_____Laravel___Vue",
-  "license": "MIT",
+  "description": "_Swagger_PetStore__実装__バックエンド_Laravel__フロントエンド_Vue",
+  "license": "LICENSE",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",

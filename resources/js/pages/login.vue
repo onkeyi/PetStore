@@ -53,19 +53,14 @@ export default {
     onSubmit(event) {
       let opts = new RequestAuthLogin(this.email, this.password);
       let apiInstance = new UserApi();
-      let that = this;
       apiInstance.login(
-        { requestAuthLogin: opts },
-        function (error, data, response) {
-          if (error) {
-            that.errorMessage = error.message;
-            return;
-          }
-          that.accessToken = data.token;
+        { requestAuthLogin: opts }).then((data)=> {
+          this.accessToken = data.token;
           localStorage.setItem("accessToken", data.token);
-          that.$router.push("/");
-        }
-      );
+          this.$router.push("/");
+        },error =>{
+            this.errorMessage = error.message;
+        });
     },
   },
 };

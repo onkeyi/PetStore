@@ -43,22 +43,14 @@ export default class UserApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the deleteUserById operation.
-     * @callback module:api/UserApi~deleteUserByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
      * @param {Number} userId 
-     * @param {module:api/UserApi~deleteUserByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deleteUserById(userId, callback) {
+    deleteUserByIdWithHttpInfo(userId) {
       let postBody = null;
       // verify the required parameter 'userId' is set
       if (userId === undefined || userId === null) {
@@ -82,26 +74,31 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/user/{userId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findUserByName operation.
-     * @callback module:api/UserApi~findUserByNameCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/User>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ユーザー削除
+     * ユーザー削除 - softdelete
+     * @param {Number} userId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deleteUserById(userId) {
+      return this.deleteUserByIdWithHttpInfo(userId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ユーザー検索
      * ユーザー名で検索 - ユーザー名前後一致検索 - 結果がない場合、[]を返す。
      * @param {String} username 
-     * @param {module:api/UserApi~findUserByNameCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/User>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/User>} and HTTP response
      */
-    findUserByName(username, callback) {
+    findUserByNameWithHttpInfo(username) {
       let postBody = null;
       // verify the required parameter 'username' is set
       if (username === undefined || username === null) {
@@ -125,25 +122,30 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/user/findUserByName', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getUserOrders operation.
-     * @callback module:api/UserApi~getUserOrdersCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Order>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ユーザー検索
+     * ユーザー名で検索 - ユーザー名前後一致検索 - 結果がない場合、[]を返す。
+     * @param {String} username 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/User>}
      */
+    findUserByName(username) {
+      return this.findUserByNameWithHttpInfo(username)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * User Orders
      * @param {Number} userId 
-     * @param {module:api/UserApi~getUserOrdersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Order>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Order>} and HTTP response
      */
-    getUserOrders(userId, callback) {
+    getUserOrdersWithHttpInfo(userId) {
       let postBody = null;
       // verify the required parameter 'userId' is set
       if (userId === undefined || userId === null) {
@@ -167,25 +169,29 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/user/{userId}/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getUserPets operation.
-     * @callback module:api/UserApi~getUserPetsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Order>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * User Orders
+     * @param {Number} userId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
      */
+    getUserOrders(userId) {
+      return this.getUserOrdersWithHttpInfo(userId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * User pets.
      * @param {Number} userId 
-     * @param {module:api/UserApi~getUserPetsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Order>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Order>} and HTTP response
      */
-    getUserPets(userId, callback) {
+    getUserPetsWithHttpInfo(userId) {
       let postBody = null;
       // verify the required parameter 'userId' is set
       if (userId === undefined || userId === null) {
@@ -209,27 +215,31 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/user/{userId}/pets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the login operation.
-     * @callback module:api/UserApi~loginCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2001} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * User pets.
+     * @param {Number} userId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
      */
+    getUserPets(userId) {
+      return this.getUserPetsWithHttpInfo(userId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ログイン
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @param {module:api/UserApi~loginCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2001}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
-    login(opts, callback) {
+    loginWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['requestAuthLogin'];
 
@@ -249,25 +259,31 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/login', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the logout operation.
-     * @callback module:api/UserApi~logoutCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ログイン
+     * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
+    login(opts) {
+      return this.loginWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ログアウト
      * ログアウト処理 - client: Token 削除 - server: ユーザーToken削除
-     * @param {module:api/UserApi~logoutCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    logout(callback) {
+    logoutWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -286,27 +302,31 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/logout', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the registerNewUser operation.
-     * @callback module:api/UserApi~registerNewUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse200} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ログアウト
+     * ログアウト処理 - client: Token 削除 - server: ユーザーToken削除
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    logout() {
+      return this.logoutWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * 新規ユーザー登録
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック   - name: 最大20文字 ## Logic   登録成功するとメール通知
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @param {module:api/UserApi~registerNewUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
-    registerNewUser(opts, callback) {
+    registerNewUserWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['requestAuthRegister'];
 
@@ -326,17 +346,24 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/user', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateUserById operation.
-     * @callback module:api/UserApi~updateUserByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2002} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * 新規ユーザー登録
+     * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック   - name: 最大20文字 ## Logic   登録成功するとメール通知
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
+    registerNewUser(opts) {
+      return this.registerNewUserWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ユーザー情報更新
@@ -344,10 +371,9 @@ export default class UserApi {
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @param {module:api/UserApi~updateUserByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
-    updateUserById(userId, opts, callback) {
+    updateUserByIdWithHttpInfo(userId, opts) {
       opts = opts || {};
       let postBody = opts['user'];
       // verify the required parameter 'userId' is set
@@ -372,8 +398,23 @@ export default class UserApi {
       return this.apiClient.callApi(
         '/user/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * ユーザー情報更新
+     * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
+     * @param {Number} userId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/User} opts.user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     */
+    updateUserById(userId, opts) {
+      return this.updateUserByIdWithHttpInfo(userId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

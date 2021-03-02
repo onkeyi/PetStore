@@ -33,13 +33,12 @@ let apiInstance = new PetStoreApi.TagApi();
 let opts = {
   'tag': new PetStoreApi.Tag() // Tag | 
 };
-apiInstance.addNewTag(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.addNewTag(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -85,13 +84,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.TagApi();
 let tagId = 56; // Number | 
-apiInstance.deleteTagById(tagId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteTagById(tagId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -133,13 +131,12 @@ apiKey.apiKey = 'YOUR API KEY';
 //apiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new PetStoreApi.TagApi();
-apiInstance.getAllTags((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAllTags().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -179,13 +176,12 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.TagApi();
 let tagId = 56; // Number | 
-apiInstance.getTagById(tagId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getTagById(tagId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -234,13 +230,12 @@ let tagId = 56; // Number |
 let opts = {
   'tag': new PetStoreApi.Tag() // Tag | 
 };
-apiInstance.updateTagById(tagId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateTagById(tagId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

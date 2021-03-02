@@ -36,23 +36,15 @@ export default class CategoryApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the addNewCategory operation.
-     * @callback module:api/CategoryApi~addNewCategoryCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * カテゴリ新規登録
      * カテゴリ登録 
      * @param {Object} opts Optional parameters
      * @param {module:model/Category} opts.category 
-     * @param {module:api/CategoryApi~addNewCategoryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    addNewCategory(opts, callback) {
+    addNewCategoryWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['category'];
 
@@ -72,25 +64,32 @@ export default class CategoryApi {
       return this.apiClient.callApi(
         '/category', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteCategoryById operation.
-     * @callback module:api/CategoryApi~deleteCategoryByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * カテゴリ新規登録
+     * カテゴリ登録 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Category} opts.category 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    addNewCategory(opts) {
+      return this.addNewCategoryWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * カテゴリ削除
      * カテゴリ削除 
      * @param {Number} categoryId 
-     * @param {module:api/CategoryApi~deleteCategoryByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteCategoryById(categoryId, callback) {
+    deleteCategoryByIdWithHttpInfo(categoryId) {
       let postBody = null;
       // verify the required parameter 'categoryId' is set
       if (categoryId === undefined || categoryId === null) {
@@ -114,24 +113,29 @@ export default class CategoryApi {
       return this.apiClient.callApi(
         '/category/{categoryId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getAllCategorys operation.
-     * @callback module:api/CategoryApi~getAllCategorysCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Category>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * カテゴリ削除
+     * カテゴリ削除 
+     * @param {Number} categoryId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteCategoryById(categoryId) {
+      return this.deleteCategoryByIdWithHttpInfo(categoryId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * カテゴリ一覧
-     * @param {module:api/CategoryApi~getAllCategorysCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Category>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Category>} and HTTP response
      */
-    getAllCategorys(callback) {
+    getAllCategorysWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -150,26 +154,29 @@ export default class CategoryApi {
       return this.apiClient.callApi(
         '/categories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getCategoryById operation.
-     * @callback module:api/CategoryApi~getCategoryByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * カテゴリ一覧
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Category>}
      */
+    getAllCategorys() {
+      return this.getAllCategorysWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * カテゴリ取得
      * カテゴリ取得 
      * @param {Number} categoryId 
-     * @param {module:api/CategoryApi~getCategoryByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
-    getCategoryById(categoryId, callback) {
+    getCategoryByIdWithHttpInfo(categoryId) {
       let postBody = null;
       // verify the required parameter 'categoryId' is set
       if (categoryId === undefined || categoryId === null) {
@@ -193,17 +200,23 @@ export default class CategoryApi {
       return this.apiClient.callApi(
         '/category/{categoryId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateCategoryById operation.
-     * @callback module:api/CategoryApi~updateCategoryByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * カテゴリ取得
+     * カテゴリ取得 
+     * @param {Number} categoryId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
+    getCategoryById(categoryId) {
+      return this.getCategoryByIdWithHttpInfo(categoryId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * カテゴリ更新
@@ -211,10 +224,9 @@ export default class CategoryApi {
      * @param {String} categoryId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Category} opts.category 
-     * @param {module:api/CategoryApi~updateCategoryByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    updateCategoryById(categoryId, opts, callback) {
+    updateCategoryByIdWithHttpInfo(categoryId, opts) {
       opts = opts || {};
       let postBody = opts['category'];
       // verify the required parameter 'categoryId' is set
@@ -239,8 +251,23 @@ export default class CategoryApi {
       return this.apiClient.callApi(
         '/category/{categoryId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * カテゴリ更新
+     * カテゴリ更新 
+     * @param {String} categoryId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Category} opts.category 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    updateCategoryById(categoryId, opts) {
+      return this.updateCategoryByIdWithHttpInfo(categoryId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

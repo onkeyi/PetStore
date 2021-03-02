@@ -2912,14 +2912,6 @@ var ApiClient = /*#__PURE__*/function () {
       return ApiClient.convertToType(data, returnType);
     }
     /**
-     * Callback function to receive the result of the operation.
-     * @callback module:ApiClient~callApiCallback
-     * @param {String} error Error message, if any.
-     * @param data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
      * Invokes the REST service using the supplied settings and parameters.
      * @param {String} path The base URL to invoke.
      * @param {String} httpMethod The HTTP method to use.
@@ -2934,17 +2926,14 @@ var ApiClient = /*#__PURE__*/function () {
      * @param {(String|Array|ObjectFunction)} returnType The required type to return; can be a string for simple types or the
      * constructor for a complex type.
      * @param {String} apiBasePath base path defined in the operation/path level to override the default one
-     * @param {module:ApiClient~callApiCallback} callback The callback function.
-     * @returns {Object} The SuperAgent request object.
+     * @returns {Promise} A {@link https://www.promisejs.org/|Promise} object.
      */
 
   }, {
     key: "callApi",
-    value: function callApi(path, httpMethod, pathParams, queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts, returnType, apiBasePath, callback) {
+    value: function callApi(path, httpMethod, pathParams, queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts, returnType, apiBasePath) {
       var _this3 = this;
 
-      console.log('PATH', path);
-      console.log('PARAM', queryParams);
       var url = this.buildUrl(path, pathParams, apiBasePath);
       var request = (0, _superagent["default"])(httpMethod, url);
 
@@ -3033,30 +3022,38 @@ var ApiClient = /*#__PURE__*/function () {
         }
       }
 
-      request.end(function (error, response) {
-        console.log('callback', callback);
-        console.log(response);
+      return new Promise(function (resolve, reject) {
+        request.end(function (error, response) {
+          if (error) {
+            var err = {};
 
-        if (callback) {
-          var data = null;
+            if (response) {
+              err.status = response.status;
+              err.statusText = response.statusText;
+              err.body = response.body;
+              err.response = response;
+            }
 
-          if (!error) {
+            err.error = error;
+            reject(err);
+          } else {
             try {
-              data = _this3.deserialize(response, returnType);
+              var data = _this3.deserialize(response, returnType);
 
               if (_this3.enableCookies && typeof window === 'undefined') {
                 _this3.agent._saveCookies(response);
               }
+
+              resolve({
+                data: data,
+                response: response
+              });
             } catch (err) {
-              error = err;
+              reject(err);
             }
           }
-
-          console.log('call callback :' + path, data);
-          callback(error, data, response);
-        }
+        });
       });
-      return request;
     }
     /**
     * Parses an ISO-8601 string representation or epoch representation of a date value.
@@ -3350,26 +3347,17 @@ var CategoryApi = /*#__PURE__*/function () {
     this.apiClient = apiClient || _ApiClient["default"].instance;
   }
   /**
-   * Callback function to receive the result of the addNewCategory operation.
-   * @callback module:api/CategoryApi~addNewCategoryCallback
-   * @param {String} error Error message, if any.
-   * @param {Object} data The data returned by the service call.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
    * カテゴリ新規登録
    * カテゴリ登録 
    * @param {Object} opts Optional parameters
    * @param {module:model/Category} opts.category 
-   * @param {module:api/CategoryApi~addNewCategoryCallback} callback The callback function, accepting three arguments: error, data, response
-   * data is of type: {@link Object}
+   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
    */
 
 
   _createClass(CategoryApi, [{
-    key: "addNewCategory",
-    value: function addNewCategory(opts, callback) {
+    key: "addNewCategoryWithHttpInfo",
+    value: function addNewCategoryWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = opts['category'];
       var pathParams = {};
@@ -3380,26 +3368,33 @@ var CategoryApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = Object;
-      return this.apiClient.callApi('/category', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/category', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the deleteCategoryById operation.
-     * @callback module:api/CategoryApi~deleteCategoryByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * カテゴリ新規登録
+     * カテゴリ登録 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Category} opts.category 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
+  }, {
+    key: "addNewCategory",
+    value: function addNewCategory(opts) {
+      return this.addNewCategoryWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * カテゴリ削除
      * カテゴリ削除 
      * @param {Number} categoryId 
-     * @param {module:api/CategoryApi~deleteCategoryByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
 
   }, {
-    key: "deleteCategoryById",
-    value: function deleteCategoryById(categoryId, callback) {
+    key: "deleteCategoryByIdWithHttpInfo",
+    value: function deleteCategoryByIdWithHttpInfo(categoryId) {
       var postBody = null; // verify the required parameter 'categoryId' is set
 
       if (categoryId === undefined || categoryId === null) {
@@ -3416,25 +3411,30 @@ var CategoryApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json'];
       var returnType = null;
-      return this.apiClient.callApi('/category/{categoryId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/category/{categoryId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getAllCategorys operation.
-     * @callback module:api/CategoryApi~getAllCategorysCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Category>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * カテゴリ一覧
-     * @param {module:api/CategoryApi~getAllCategorysCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Category>}
+     * カテゴリ削除
+     * カテゴリ削除 
+     * @param {Number} categoryId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
 
   }, {
-    key: "getAllCategorys",
-    value: function getAllCategorys(callback) {
+    key: "deleteCategoryById",
+    value: function deleteCategoryById(categoryId) {
+      return this.deleteCategoryByIdWithHttpInfo(categoryId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * カテゴリ一覧
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Category>} and HTTP response
+     */
+
+  }, {
+    key: "getAllCategorysWithHttpInfo",
+    value: function getAllCategorysWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
       var queryParams = {};
@@ -3444,27 +3444,30 @@ var CategoryApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = [_Category["default"]];
-      return this.apiClient.callApi('/categories', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/categories', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getCategoryById operation.
-     * @callback module:api/CategoryApi~getCategoryByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * カテゴリ一覧
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Category>}
      */
 
+  }, {
+    key: "getAllCategorys",
+    value: function getAllCategorys() {
+      return this.getAllCategorysWithHttpInfo().then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * カテゴリ取得
      * カテゴリ取得 
      * @param {Number} categoryId 
-     * @param {module:api/CategoryApi~getCategoryByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
 
   }, {
-    key: "getCategoryById",
-    value: function getCategoryById(categoryId, callback) {
+    key: "getCategoryByIdWithHttpInfo",
+    value: function getCategoryByIdWithHttpInfo(categoryId) {
       var postBody = null; // verify the required parameter 'categoryId' is set
 
       if (categoryId === undefined || categoryId === null) {
@@ -3481,29 +3484,34 @@ var CategoryApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _Category["default"];
-      return this.apiClient.callApi('/category/{categoryId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/category/{categoryId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the updateCategoryById operation.
-     * @callback module:api/CategoryApi~updateCategoryByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * カテゴリ取得
+     * カテゴリ取得 
+     * @param {Number} categoryId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
 
+  }, {
+    key: "getCategoryById",
+    value: function getCategoryById(categoryId) {
+      return this.getCategoryByIdWithHttpInfo(categoryId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * カテゴリ更新
      * カテゴリ更新 
      * @param {String} categoryId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Category} opts.category 
-     * @param {module:api/CategoryApi~updateCategoryByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
 
   }, {
-    key: "updateCategoryById",
-    value: function updateCategoryById(categoryId, opts, callback) {
+    key: "updateCategoryByIdWithHttpInfo",
+    value: function updateCategoryByIdWithHttpInfo(categoryId, opts) {
       opts = opts || {};
       var postBody = opts['category']; // verify the required parameter 'categoryId' is set
 
@@ -3521,7 +3529,23 @@ var CategoryApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = Object;
-      return this.apiClient.callApi('/category/{categoryId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/category/{categoryId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * カテゴリ更新
+     * カテゴリ更新 
+     * @param {String} categoryId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Category} opts.category 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+
+  }, {
+    key: "updateCategoryById",
+    value: function updateCategoryById(categoryId, opts) {
+      return this.updateCategoryByIdWithHttpInfo(categoryId, opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
     }
   }]);
 
@@ -3604,25 +3628,17 @@ var OrderApi = /*#__PURE__*/function () {
     this.apiClient = apiClient || _ApiClient["default"].instance;
   }
   /**
-   * Callback function to receive the result of the addNewOrder operation.
-   * @callback module:api/OrderApi~addNewOrderCallback
-   * @param {String} error Error message, if any.
-   * @param data This operation does not return a value.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
    * オーダー登録
    * オーダー登録
    * @param {Object} opts Optional parameters
    * @param {module:model/Order} opts.order 
-   * @param {module:api/OrderApi~addNewOrderCallback} callback The callback function, accepting three arguments: error, data, response
+   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
    */
 
 
   _createClass(OrderApi, [{
-    key: "addNewOrder",
-    value: function addNewOrder(opts, callback) {
+    key: "addNewOrderWithHttpInfo",
+    value: function addNewOrderWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = opts['order'];
       var pathParams = {};
@@ -3633,25 +3649,32 @@ var OrderApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json'];
       var returnType = null;
-      return this.apiClient.callApi('/order', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/order', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the deleteOrderById operation.
-     * @callback module:api/OrderApi~deleteOrderByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * オーダー削除
-     * @param {Number} orderId 
-     * @param {module:api/OrderApi~deleteOrderByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * オーダー登録
+     * オーダー登録
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Order} opts.order 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
 
   }, {
-    key: "deleteOrderById",
-    value: function deleteOrderById(orderId, callback) {
+    key: "addNewOrder",
+    value: function addNewOrder(opts) {
+      return this.addNewOrderWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * オーダー削除
+     * @param {Number} orderId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+
+  }, {
+    key: "deleteOrderByIdWithHttpInfo",
+    value: function deleteOrderByIdWithHttpInfo(orderId) {
       var postBody = null; // verify the required parameter 'orderId' is set
 
       if (orderId === undefined || orderId === null) {
@@ -3668,25 +3691,29 @@ var OrderApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json'];
       var returnType = null;
-      return this.apiClient.callApi('/order/{orderId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/order/{orderId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getAllOrder operation.
-     * @callback module:api/OrderApi~getAllOrderCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * オーダー一覧取得
-     * @param {module:api/OrderApi~getAllOrderCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * オーダー削除
+     * @param {Number} orderId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
 
   }, {
-    key: "getAllOrder",
-    value: function getAllOrder(callback) {
+    key: "deleteOrderById",
+    value: function deleteOrderById(orderId) {
+      return this.deleteOrderByIdWithHttpInfo(orderId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * オーダー一覧取得
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
+     */
+
+  }, {
+    key: "getAllOrderWithHttpInfo",
+    value: function getAllOrderWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
       var queryParams = {};
@@ -3696,25 +3723,29 @@ var OrderApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _ResponsePegination["default"];
-      return this.apiClient.callApi('/orders', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/orders', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getOrderById operation.
-     * @callback module:api/OrderApi~getOrderByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * オーダー取得
-     * @param {Number} orderId 
-     * @param {module:api/OrderApi~getOrderByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * オーダー一覧取得
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "getOrderById",
-    value: function getOrderById(orderId, callback) {
+    key: "getAllOrder",
+    value: function getAllOrder() {
+      return this.getAllOrderWithHttpInfo().then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * オーダー取得
+     * @param {Number} orderId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+
+  }, {
+    key: "getOrderByIdWithHttpInfo",
+    value: function getOrderByIdWithHttpInfo(orderId) {
       var postBody = null; // verify the required parameter 'orderId' is set
 
       if (orderId === undefined || orderId === null) {
@@ -3731,27 +3762,32 @@ var OrderApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json'];
       var returnType = null;
-      return this.apiClient.callApi('/order/{orderId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/order/{orderId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the updateOrderById operation.
-     * @callback module:api/OrderApi~updateOrderByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * オーダー取得
+     * @param {Number} orderId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
 
+  }, {
+    key: "getOrderById",
+    value: function getOrderById(orderId) {
+      return this.getOrderByIdWithHttpInfo(orderId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * オーダー更新
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Order} opts.order 
-     * @param {module:api/OrderApi~updateOrderByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
 
   }, {
-    key: "updateOrderById",
-    value: function updateOrderById(orderId, opts, callback) {
+    key: "updateOrderByIdWithHttpInfo",
+    value: function updateOrderByIdWithHttpInfo(orderId, opts) {
       opts = opts || {};
       var postBody = opts['order']; // verify the required parameter 'orderId' is set
 
@@ -3769,7 +3805,22 @@ var OrderApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json'];
       var returnType = null;
-      return this.apiClient.callApi('/order/{orderId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/order/{orderId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * オーダー更新
+     * @param {Number} orderId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Order} opts.order 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+
+  }, {
+    key: "updateOrderById",
+    value: function updateOrderById(orderId, opts) {
+      return this.updateOrderByIdWithHttpInfo(orderId, opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
     }
   }]);
 
@@ -3862,26 +3913,17 @@ var PetApi = /*#__PURE__*/function () {
     this.apiClient = apiClient || _ApiClient["default"].instance;
   }
   /**
-   * Callback function to receive the result of the addNewPet operation.
-   * @callback module:api/PetApi~addNewPetCallback
-   * @param {String} error Error message, if any.
-   * @param {module:model/InlineResponse2002} data The data returned by the service call.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
    * ペット新規登録
    * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
    * @param {Object} opts Optional parameters
    * @param {module:model/RequestPetStore} opts.requestPetStore 
-   * @param {module:api/PetApi~addNewPetCallback} callback The callback function, accepting three arguments: error, data, response
-   * data is of type: {@link module:model/InlineResponse2002}
+   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
    */
 
 
   _createClass(PetApi, [{
-    key: "addNewPet",
-    value: function addNewPet(opts, callback) {
+    key: "addNewPetWithHttpInfo",
+    value: function addNewPetWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = opts['requestPetStore'];
       var pathParams = {};
@@ -3892,28 +3934,34 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = _InlineResponse["default"];
-      return this.apiClient.callApi('/pet', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the addNewPetComment operation.
-     * @callback module:api/PetApi~addNewPetCommentCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット新規登録
+     * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestPetStore} opts.requestPetStore 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
 
+  }, {
+    key: "addNewPet",
+    value: function addNewPet(opts) {
+      return this.addNewPetWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * post new comment
      * comment post
      * @param {Object} opts Optional parameters
      * @param {module:model/PetComment} opts.petComment 
-     * @param {module:api/PetApi~addNewPetCommentCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
 
   }, {
-    key: "addNewPetComment",
-    value: function addNewPetComment(opts, callback) {
+    key: "addNewPetCommentWithHttpInfo",
+    value: function addNewPetCommentWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = opts['petComment'];
       var pathParams = {};
@@ -3924,26 +3972,32 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = Object;
-      return this.apiClient.callApi('/pet/comment', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/comment', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the deletePetById operation.
-     * @callback module:api/PetApi~deletePetByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * ペット情報削除
-     * @param {Number} petId 
-     * @param {module:api/PetApi~deletePetByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * post new comment
+     * comment post
+     * @param {Object} opts Optional parameters
+     * @param {module:model/PetComment} opts.petComment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
   }, {
-    key: "deletePetById",
-    value: function deletePetById(petId, callback) {
+    key: "addNewPetComment",
+    value: function addNewPetComment(opts) {
+      return this.addNewPetCommentWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * ペット情報削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+
+  }, {
+    key: "deletePetByIdWithHttpInfo",
+    value: function deletePetByIdWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
       if (petId === undefined || petId === null) {
@@ -3960,26 +4014,30 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = Object;
-      return this.apiClient.callApi('/pet/{petId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/{petId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the deletePetCommentById operation.
-     * @callback module:api/PetApi~deletePetCommentByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
      * ペット情報削除
-     * @param {Number} petCommentId 
-     * @param {module:api/PetApi~deletePetCommentByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
   }, {
-    key: "deletePetCommentById",
-    value: function deletePetCommentById(petCommentId, callback) {
+    key: "deletePetById",
+    value: function deletePetById(petId) {
+      return this.deletePetByIdWithHttpInfo(petId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * ペット情報削除
+     * @param {Number} petCommentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+
+  }, {
+    key: "deletePetCommentByIdWithHttpInfo",
+    value: function deletePetCommentByIdWithHttpInfo(petCommentId) {
       var postBody = null; // verify the required parameter 'petCommentId' is set
 
       if (petCommentId === undefined || petCommentId === null) {
@@ -3996,27 +4054,31 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = Object;
-      return this.apiClient.callApi('/pet/comment/{petCommentId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/comment/{petCommentId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the findPetByCategory operation.
-     * @callback module:api/PetApi~findPetByCategoryCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット情報削除
+     * @param {Number} petCommentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
+  }, {
+    key: "deletePetCommentById",
+    value: function deletePetCommentById(petCommentId) {
+      return this.deletePetCommentByIdWithHttpInfo(petCommentId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
      * @param {String} opts.category 
-     * @param {module:api/PetApi~findPetByCategoryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "findPetByCategory",
-    value: function findPetByCategory(opts, callback) {
+    key: "findPetByCategoryWithHttpInfo",
+    value: function findPetByCategoryWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
@@ -4029,28 +4091,33 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _ResponsePegination["default"];
-      return this.apiClient.callApi('/pet/findByCategory', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/findByCategory', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the findPetByStatus operation.
-     * @callback module:api/PetApi~findPetByStatusCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * カテゴリで検索
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.category 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
+  }, {
+    key: "findPetByCategory",
+    value: function findPetByCategory(opts) {
+      return this.findPetByCategoryWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
      * @param {String} opts.status 
      * @param {Number} opts.page 
-     * @param {module:api/PetApi~findPetByStatusCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "findPetByStatus",
-    value: function findPetByStatus(opts, callback) {
+    key: "findPetByStatusWithHttpInfo",
+    value: function findPetByStatusWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
@@ -4064,29 +4131,35 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _ResponsePegination["default"];
-      return this.apiClient.callApi('/pet/findByStatus', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/findByStatus', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the findPetByTag operation.
-     * @callback module:api/PetApi~findPetByTagCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ステータスで検索
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status 
+     * @param {Number} opts.page 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
+  }, {
+    key: "findPetByStatus",
+    value: function findPetByStatus(opts) {
+      return this.findPetByStatusWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * タグで検索
      * タグで検索
      * @param {Object} opts Optional parameters
      * @param {String} opts.tag 
      * @param {Number} opts.page 
-     * @param {module:api/PetApi~findPetByTagCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "findPetByTag",
-    value: function findPetByTag(opts, callback) {
+    key: "findPetByTagWithHttpInfo",
+    value: function findPetByTagWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
@@ -4100,16 +4173,24 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _ResponsePegination["default"];
-      return this.apiClient.callApi('/pet/findByTags', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/findByTags', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getAllPets operation.
-     * @callback module:api/PetApi~getAllPetsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * タグで検索
+     * タグで検索
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.tag 
+     * @param {Number} opts.page 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
+  }, {
+    key: "findPetByTag",
+    value: function findPetByTag(opts) {
+      return this.findPetByTagWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * ペット一覧取得
      * stagusがavailableはorder可能
@@ -4117,13 +4198,12 @@ var PetApi = /*#__PURE__*/function () {
      * @param {String} opts.order 
      * @param {String} opts.sorted 
      * @param {Number} opts.page 
-     * @param {module:api/PetApi~getAllPetsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "getAllPets",
-    value: function getAllPets(opts, callback) {
+    key: "getAllPetsWithHttpInfo",
+    value: function getAllPetsWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
@@ -4138,27 +4218,35 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = _ResponsePegination["default"];
-      return this.apiClient.callApi('/pets', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pets', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getCommentByPetId operation.
-     * @callback module:api/PetApi~getCommentByPetIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/PetComment>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット一覧取得
+     * stagusがavailableはorder可能
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.order 
+     * @param {String} opts.sorted 
+     * @param {Number} opts.page 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
+  }, {
+    key: "getAllPets",
+    value: function getAllPets(opts) {
+      return this.getAllPetsWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * ペットコメント
      * Pet comments.
      * @param {Number} petId 
-     * @param {module:api/PetApi~getCommentByPetIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/PetComment>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PetComment>} and HTTP response
      */
 
   }, {
-    key: "getCommentByPetId",
-    value: function getCommentByPetId(petId, callback) {
+    key: "getCommentByPetIdWithHttpInfo",
+    value: function getCommentByPetIdWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
       if (petId === undefined || petId === null) {
@@ -4175,26 +4263,31 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = [_PetComment["default"]];
-      return this.apiClient.callApi('/pet/{petId}/comment', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/{petId}/comment', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getPetById operation.
-     * @callback module:api/PetApi~getPetByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Pet} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * ペット情報取得
+     * ペットコメント
+     * Pet comments.
      * @param {Number} petId 
-     * @param {module:api/PetApi~getPetByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Pet}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PetComment>}
      */
 
   }, {
-    key: "getPetById",
-    value: function getPetById(petId, callback) {
+    key: "getCommentByPetId",
+    value: function getCommentByPetId(petId) {
+      return this.getCommentByPetIdWithHttpInfo(petId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * ペット情報取得
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
+     */
+
+  }, {
+    key: "getPetByIdWithHttpInfo",
+    value: function getPetByIdWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
       if (petId === undefined || petId === null) {
@@ -4207,33 +4300,37 @@ var PetApi = /*#__PURE__*/function () {
       var queryParams = {};
       var headerParams = {};
       var formParams = {};
-      var authNames = ['bearer'];
+      var authNames = ['apiKey'];
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _Pet["default"];
-      return this.apiClient.callApi('/pet/{petId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/{petId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the updatePetById operation.
-     * @callback module:api/PetApi~updatePetByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2002} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット情報取得
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Pet}
      */
 
+  }, {
+    key: "getPetById",
+    value: function getPetById(petId) {
+      return this.getPetByIdWithHttpInfo(petId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * ペット情報更新
      * 更新処理
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @param {module:api/PetApi~updatePetByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
 
   }, {
-    key: "updatePetById",
-    value: function updatePetById(petId, opts, callback) {
+    key: "updatePetByIdWithHttpInfo",
+    value: function updatePetByIdWithHttpInfo(petId, opts) {
       opts = opts || {};
       var postBody = opts['requestPetUpdate']; // verify the required parameter 'petId' is set
 
@@ -4247,29 +4344,37 @@ var PetApi = /*#__PURE__*/function () {
       var queryParams = {};
       var headerParams = {};
       var formParams = {};
-      var authNames = ['apiKey'];
+      var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _InlineResponse["default"];
-      return this.apiClient.callApi('/pet/{petId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/{petId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the uploadImage operation.
-     * @callback module:api/PetApi~uploadImageCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * アップロードペットイメージ
-     * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
-     * @param {module:api/PetApi~uploadImageCallback} callback The callback function, accepting three arguments: error, data, response
+     * ペット情報更新
+     * 更新処理
+     * @param {Number} petId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
 
   }, {
-    key: "uploadImage",
-    value: function uploadImage(callback) {
+    key: "updatePetById",
+    value: function updatePetById(petId, opts) {
+      return this.updatePetByIdWithHttpInfo(petId, opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * アップロードペットイメージ
+     * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     */
+
+  }, {
+    key: "uploadImageWithHttpInfo",
+    value: function uploadImageWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
       var queryParams = {};
@@ -4279,7 +4384,20 @@ var PetApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = [];
       var returnType = null;
-      return this.apiClient.callApi('/pet/uploadImage', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/pet/uploadImage', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * アップロードペットイメージ
+     * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+
+  }, {
+    key: "uploadImage",
+    value: function uploadImage() {
+      return this.uploadImageWithHttpInfo().then(function (response_and_data) {
+        return response_and_data.data;
+      });
     }
   }]);
 
@@ -4364,25 +4482,16 @@ var TagApi = /*#__PURE__*/function () {
     this.apiClient = apiClient || _ApiClient["default"].instance;
   }
   /**
-   * Callback function to receive the result of the addNewTag operation.
-   * @callback module:api/TagApi~addNewTagCallback
-   * @param {String} error Error message, if any.
-   * @param {module:model/Category} data The data returned by the service call.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
    * Tag 登録
    * @param {Object} opts Optional parameters
    * @param {module:model/Tag} opts.tag 
-   * @param {module:api/TagApi~addNewTagCallback} callback The callback function, accepting three arguments: error, data, response
-   * data is of type: {@link module:model/Category}
+   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
    */
 
 
   _createClass(TagApi, [{
-    key: "addNewTag",
-    value: function addNewTag(opts, callback) {
+    key: "addNewTagWithHttpInfo",
+    value: function addNewTagWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = opts['tag'];
       var pathParams = {};
@@ -4393,26 +4502,31 @@ var TagApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _Category["default"];
-      return this.apiClient.callApi('/tag', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/tag', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the deleteTagById operation.
-     * @callback module:api/TagApi~deleteTagByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Tag情報削除
-     * @param {Number} tagId 
-     * @param {module:api/TagApi~deleteTagByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * Tag 登録
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Tag} opts.tag 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
 
   }, {
-    key: "deleteTagById",
-    value: function deleteTagById(tagId, callback) {
+    key: "addNewTag",
+    value: function addNewTag(opts) {
+      return this.addNewTagWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * Tag情報削除
+     * @param {Number} tagId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
+     */
+
+  }, {
+    key: "deleteTagByIdWithHttpInfo",
+    value: function deleteTagByIdWithHttpInfo(tagId) {
       var postBody = null; // verify the required parameter 'tagId' is set
 
       if (tagId === undefined || tagId === null) {
@@ -4429,25 +4543,29 @@ var TagApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _Category["default"];
-      return this.apiClient.callApi('/tag/{tagId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/tag/{tagId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getAllTags operation.
-     * @callback module:api/TagApi~getAllTagsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Tag一覧
-     * @param {module:api/TagApi~getAllTagsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * Tag情報削除
+     * @param {Number} tagId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
 
   }, {
-    key: "getAllTags",
-    value: function getAllTags(callback) {
+    key: "deleteTagById",
+    value: function deleteTagById(tagId) {
+      return this.deleteTagByIdWithHttpInfo(tagId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * Tag一覧
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
+     */
+
+  }, {
+    key: "getAllTagsWithHttpInfo",
+    value: function getAllTagsWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
       var queryParams = {};
@@ -4457,26 +4575,29 @@ var TagApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _ResponsePegination["default"];
-      return this.apiClient.callApi('/tags', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/tags', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getTagById operation.
-     * @callback module:api/TagApi~getTagByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * Tag情報
-     * @param {Number} tagId 
-     * @param {module:api/TagApi~getTagByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * Tag一覧
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "getTagById",
-    value: function getTagById(tagId, callback) {
+    key: "getAllTags",
+    value: function getAllTags() {
+      return this.getAllTagsWithHttpInfo().then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * Tag情報
+     * @param {Number} tagId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
+     */
+
+  }, {
+    key: "getTagByIdWithHttpInfo",
+    value: function getTagByIdWithHttpInfo(tagId) {
       var postBody = null; // verify the required parameter 'tagId' is set
 
       if (tagId === undefined || tagId === null) {
@@ -4493,28 +4614,32 @@ var TagApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _Category["default"];
-      return this.apiClient.callApi('/tag/{tagId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/tag/{tagId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the updateTagById operation.
-     * @callback module:api/TagApi~updateTagByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Tag情報
+     * @param {Number} tagId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
 
+  }, {
+    key: "getTagById",
+    value: function getTagById(tagId) {
+      return this.getTagByIdWithHttpInfo(tagId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * Tag情報更新
      * @param {Number} tagId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Tag} opts.tag 
-     * @param {module:api/TagApi~updateTagByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
 
   }, {
-    key: "updateTagById",
-    value: function updateTagById(tagId, opts, callback) {
+    key: "updateTagByIdWithHttpInfo",
+    value: function updateTagByIdWithHttpInfo(tagId, opts) {
       opts = opts || {};
       var postBody = opts['tag']; // verify the required parameter 'tagId' is set
 
@@ -4532,7 +4657,22 @@ var TagApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
       var returnType = _Category["default"];
-      return this.apiClient.callApi('/tag/{tagId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/tag/{tagId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * Tag情報更新
+     * @param {Number} tagId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Tag} opts.tag 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
+     */
+
+  }, {
+    key: "updateTagById",
+    value: function updateTagById(tagId, opts) {
+      return this.updateTagByIdWithHttpInfo(tagId, opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
     }
   }]);
 
@@ -4627,25 +4767,16 @@ var UserApi = /*#__PURE__*/function () {
     this.apiClient = apiClient || _ApiClient["default"].instance;
   }
   /**
-   * Callback function to receive the result of the deleteUserById operation.
-   * @callback module:api/UserApi~deleteUserByIdCallback
-   * @param {String} error Error message, if any.
-   * @param {Object} data The data returned by the service call.
-   * @param {String} response The complete HTTP response.
-   */
-
-  /**
    * ユーザー削除
    * ユーザー削除 - softdelete
    * @param {Number} userId 
-   * @param {module:api/UserApi~deleteUserByIdCallback} callback The callback function, accepting three arguments: error, data, response
-   * data is of type: {@link Object}
+   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
    */
 
 
   _createClass(UserApi, [{
-    key: "deleteUserById",
-    value: function deleteUserById(userId, callback) {
+    key: "deleteUserByIdWithHttpInfo",
+    value: function deleteUserByIdWithHttpInfo(userId) {
       var postBody = null; // verify the required parameter 'userId' is set
 
       if (userId === undefined || userId === null) {
@@ -4662,27 +4793,32 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = Object;
-      return this.apiClient.callApi('/user/{userId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/user/{userId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the findUserByName operation.
-     * @callback module:api/UserApi~findUserByNameCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/User>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ユーザー削除
+     * ユーザー削除 - softdelete
+     * @param {Number} userId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
+  }, {
+    key: "deleteUserById",
+    value: function deleteUserById(userId) {
+      return this.deleteUserByIdWithHttpInfo(userId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * ユーザー検索
      * ユーザー名で検索 - ユーザー名前後一致検索 - 結果がない場合、[]を返す。
      * @param {String} username 
-     * @param {module:api/UserApi~findUserByNameCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/User>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/User>} and HTTP response
      */
 
   }, {
-    key: "findUserByName",
-    value: function findUserByName(username, callback) {
+    key: "findUserByNameWithHttpInfo",
+    value: function findUserByNameWithHttpInfo(username) {
       var postBody = null; // verify the required parameter 'username' is set
 
       if (username === undefined || username === null) {
@@ -4699,26 +4835,31 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json'];
       var returnType = [_User["default"]];
-      return this.apiClient.callApi('/user/findUserByName', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/user/findUserByName', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getUserOrders operation.
-     * @callback module:api/UserApi~getUserOrdersCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Order>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * User Orders
-     * @param {Number} userId 
-     * @param {module:api/UserApi~getUserOrdersCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Order>}
+     * ユーザー検索
+     * ユーザー名で検索 - ユーザー名前後一致検索 - 結果がない場合、[]を返す。
+     * @param {String} username 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/User>}
      */
 
   }, {
-    key: "getUserOrders",
-    value: function getUserOrders(userId, callback) {
+    key: "findUserByName",
+    value: function findUserByName(username) {
+      return this.findUserByNameWithHttpInfo(username).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * User Orders
+     * @param {Number} userId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Order>} and HTTP response
+     */
+
+  }, {
+    key: "getUserOrdersWithHttpInfo",
+    value: function getUserOrdersWithHttpInfo(userId) {
       var postBody = null; // verify the required parameter 'userId' is set
 
       if (userId === undefined || userId === null) {
@@ -4735,26 +4876,30 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = [_Order["default"]];
-      return this.apiClient.callApi('/user/{userId}/orders', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/user/{userId}/orders', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the getUserPets operation.
-     * @callback module:api/UserApi~getUserPetsCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/Order>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * User pets.
+     * User Orders
      * @param {Number} userId 
-     * @param {module:api/UserApi~getUserPetsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/Order>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
      */
 
   }, {
-    key: "getUserPets",
-    value: function getUserPets(userId, callback) {
+    key: "getUserOrders",
+    value: function getUserOrders(userId) {
+      return this.getUserOrdersWithHttpInfo(userId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * User pets.
+     * @param {Number} userId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Order>} and HTTP response
+     */
+
+  }, {
+    key: "getUserPetsWithHttpInfo",
+    value: function getUserPetsWithHttpInfo(userId) {
       var postBody = null; // verify the required parameter 'userId' is set
 
       if (userId === undefined || userId === null) {
@@ -4771,28 +4916,32 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = [_Order["default"]];
-      return this.apiClient.callApi('/user/{userId}/pets', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/user/{userId}/pets', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the login operation.
-     * @callback module:api/UserApi~loginCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2001} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * User pets.
+     * @param {Number} userId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
      */
 
+  }, {
+    key: "getUserPets",
+    value: function getUserPets(userId) {
+      return this.getUserPetsWithHttpInfo(userId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * ログイン
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @param {module:api/UserApi~loginCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2001}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
 
   }, {
-    key: "login",
-    value: function login(opts, callback) {
+    key: "loginWithHttpInfo",
+    value: function loginWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = opts['requestAuthLogin'];
       var pathParams = {};
@@ -4803,26 +4952,32 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = _InlineResponse2["default"];
-      return this.apiClient.callApi('/login', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/login', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the logout operation.
-     * @callback module:api/UserApi~logoutCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
-
-    /**
-     * ログアウト
-     * ログアウト処理 - client: Token 削除 - server: ユーザーToken削除
-     * @param {module:api/UserApi~logoutCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * ログイン
+     * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
 
   }, {
-    key: "logout",
-    value: function logout(callback) {
+    key: "login",
+    value: function login(opts) {
+      return this.loginWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * ログアウト
+     * ログアウト処理 - client: Token 削除 - server: ユーザーToken削除
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+
+  }, {
+    key: "logoutWithHttpInfo",
+    value: function logoutWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
       var queryParams = {};
@@ -4832,28 +4987,32 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = Object;
-      return this.apiClient.callApi('/logout', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/logout', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the registerNewUser operation.
-     * @callback module:api/UserApi~registerNewUserCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse200} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ログアウト
+     * ログアウト処理 - client: Token 削除 - server: ユーザーToken削除
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
+  }, {
+    key: "logout",
+    value: function logout() {
+      return this.logoutWithHttpInfo().then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * 新規ユーザー登録
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック   - name: 最大20文字 ## Logic   登録成功するとメール通知
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @param {module:api/UserApi~registerNewUserCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
 
   }, {
-    key: "registerNewUser",
-    value: function registerNewUser(opts, callback) {
+    key: "registerNewUserWithHttpInfo",
+    value: function registerNewUserWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = opts['requestAuthRegister'];
       var pathParams = {};
@@ -4864,29 +5023,35 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = _InlineResponse["default"];
-      return this.apiClient.callApi('/user', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/user', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * Callback function to receive the result of the updateUserById operation.
-     * @callback module:api/UserApi~updateUserByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2002} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * 新規ユーザー登録
+     * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック   - name: 最大20文字 ## Logic   登録成功するとメール通知
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
 
+  }, {
+    key: "registerNewUser",
+    value: function registerNewUser(opts) {
+      return this.registerNewUserWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
     /**
      * ユーザー情報更新
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @param {module:api/UserApi~updateUserByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
 
   }, {
-    key: "updateUserById",
-    value: function updateUserById(userId, opts, callback) {
+    key: "updateUserByIdWithHttpInfo",
+    value: function updateUserByIdWithHttpInfo(userId, opts) {
       opts = opts || {};
       var postBody = opts['user']; // verify the required parameter 'userId' is set
 
@@ -4904,7 +5069,23 @@ var UserApi = /*#__PURE__*/function () {
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
       var returnType = _InlineResponse3["default"];
-      return this.apiClient.callApi('/user/{userId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null, callback);
+      return this.apiClient.callApi('/user/{userId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * ユーザー情報更新
+     * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
+     * @param {Number} userId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/User} opts.user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     */
+
+  }, {
+    key: "updateUserById",
+    value: function updateUserById(userId, opts) {
+      return this.updateUserByIdWithHttpInfo(userId, opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
     }
   }]);
 
@@ -6072,6 +6253,10 @@ var Pet = /*#__PURE__*/function () {
           obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
         }
 
+        if (data.hasOwnProperty('name')) {
+          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+        }
+
         if (data.hasOwnProperty('status')) {
           obj['status'] = _ApiClient["default"].convertToType(data['status'], 'String');
         }
@@ -6101,6 +6286,11 @@ var Pet = /*#__PURE__*/function () {
 
 
 Pet.prototype['id'] = undefined;
+/**
+ * @member {String} name
+ */
+
+Pet.prototype['name'] = undefined;
 /**
  * @member {String} status
  */
@@ -7447,11 +7637,12 @@ var User = /*#__PURE__*/function () {
    * Constructs a new <code>User</code>.
    * @alias module:model/User
    * @param id {Number} 
+   * @param name {String} 
    */
-  function User(id) {
+  function User(id, name) {
     _classCallCheck(this, User);
 
-    User.initialize(this, id);
+    User.initialize(this, id, name);
   }
   /**
    * Initializes the fields of this object.
@@ -7462,8 +7653,9 @@ var User = /*#__PURE__*/function () {
 
   _createClass(User, null, [{
     key: "initialize",
-    value: function initialize(obj, id) {
+    value: function initialize(obj, id, name) {
       obj['id'] = id;
+      obj['name'] = name;
     }
     /**
      * Constructs a <code>User</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7483,8 +7675,8 @@ var User = /*#__PURE__*/function () {
           obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
         }
 
-        if (data.hasOwnProperty('nema')) {
-          obj['nema'] = _ApiClient["default"].convertToType(data['nema'], 'String');
+        if (data.hasOwnProperty('name')) {
+          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
         }
 
         if (data.hasOwnProperty('email')) {
@@ -7509,10 +7701,10 @@ var User = /*#__PURE__*/function () {
 
 User.prototype['id'] = undefined;
 /**
- * @member {String} nema
+ * @member {String} name
  */
 
-User.prototype['nema'] = undefined;
+User.prototype['name'] = undefined;
 /**
  * @member {String} email
  */
@@ -7651,7 +7843,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "HomePageHeader",
   data: function data() {
@@ -7698,11 +7889,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'MyPageHeader'
+  name: "MyPageHeader"
 });
 
 /***/ }),
@@ -7729,11 +7917,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'OtherPageHeader'
+  name: "OtherPageHeader"
 });
 
 /***/ }),
@@ -7773,15 +7958,130 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     var apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.CategoryApi();
-    var that = this;
-    apiInstance.getAllCategorys(function (error, data, response) {
-      if (error) {
-        console.error(error);
-      } else {
-        that.categories = data;
-      }
+    apiInstance.getAllCategorys().then(function (data) {
+      _this.categories = data;
+    }, function (error) {
+      console.error(error);
     });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetDetail.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetDetail.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var pet_store_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pet_store_api */ "./client/pet_store_api/dist/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "PetDetail",
+  data: function data() {
+    return {
+      pet: {}
+    };
+  },
+  watch: {
+    '$route.params.id': {
+      handler: function handler() {
+        this.fetchData();
+      },
+      deep: true,
+      immediate: true
+    }
+  },
+  methods: {
+    fetchData: function fetchData() {
+      var _this = this;
+
+      var petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.PetApi();
+      var petId = this.$route.query.id;
+      petApi.getPetById(petId).then(function (data) {
+        console.log(data);
+
+        if (Object.keys(data).length === 0) {
+          return;
+        }
+
+        _this.pet = data;
+      }, function (error) {
+        console.error(error);
+      });
+    }
   }
 });
 
@@ -7823,6 +8123,63 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PetList",
@@ -7837,97 +8194,91 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    this.petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.PetApi();
     this.loadData();
   },
   watch: {
-    $route: "fetchData"
+    "$route.params.category": {
+      handler: function handler() {
+        var _this = this;
+
+        var cateogry = this.$route.query.category;
+
+        if (!cateogry) {
+          return;
+        }
+
+        var opts = {
+          category: cateogry
+        };
+        var apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.PetApi();
+        apiInstance.findPetByCategory(opts).then(function (data) {
+          if (!data || Object.keys(data).length === 0) {
+            return;
+          }
+
+          _this.pets = data.data;
+          _this.total = data ? data.total : 0;
+          _this.perPage = data ? data.per_page : 0;
+          _this.links = data ? data.links : [];
+        }, function (error) {
+          console.error(error);
+        });
+      },
+      deep: true,
+      immediate: true
+    },
+    "$route.params.tag": {
+      handler: function handler() {
+        var _this2 = this;
+
+        var tag = this.$route.query.tag;
+
+        if (!tag) {
+          return;
+        }
+
+        var opts = {
+          tag: tag
+        };
+        var apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.PetApi();
+        apiInstance.findPetByTag(opts).then(function (data) {
+          if (!data || Object.keys(data).length === 0) {
+            return;
+          }
+
+          _this2.pets = data.data;
+          _this2.total = data ? data.total : 0;
+          _this2.perPage = data ? data.per_page : 0;
+          _this2.links = data ? data.links : [];
+        }, function (error) {
+          console.error(error);
+        });
+      },
+      deep: true,
+      immediate: true
+    }
   },
   methods: {
     loadData: function loadData() {
-      var that = this;
+      var _this3 = this;
+
       var queryParams = {
         order: this.$route.query.order,
         sorted: this.$route.query.sorted,
         page: this.$route.query.page
       };
-      this.petApi.getAllPets(queryParams, function (error, data, response) {
-        if (error) {
-          console.error(error);
+      var apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.PetApi();
+      apiInstance.getAllPets(queryParams).then(function (data) {
+        if (!data || Object.keys(data).length === 0) {
           return;
         }
 
-        if (Object.keys(data).length === 0) {
-          return;
-        }
-
-        that.pets = data.data;
-        that.total = data ? data.total : 0;
-        that.perPage = data ? data.per_page : 0;
-        that.links = data ? data.links : [];
-        console.log(that.links);
-      });
-    },
-    fetchData: function fetchData() {
-      this.total = 0;
-      this.error = null;
-      var category = this.$route.query.category;
-      var tag = this.$route.query.tag;
-
-      if (!category && !tag) {
-        this.loadData();
-        return;
-      }
-
-      if (category) {
-        this.findByCategory(category);
-        return;
-      }
-
-      if (tag) {
-        this.findByTag(tag);
-      }
-    },
-    findByCategory: function findByCategory(category) {
-      var opts = {
-        category: category
-      };
-      var that = this;
-      this.petApi.findPetByCategory(opts, function (error, data, response) {
-        if (error) {
-          console.error(error);
-          return;
-        }
-
-        if (Object.keys(data).length === 0) {
-          return;
-        }
-
-        that.pets = data.data;
-        that.total = data ? data.total : 0;
-        that.perPage = data ? data.per_page : 0;
-        that.links = data ? data.links : [];
-      });
-    },
-    findByTag: function findByTag(tags) {
-      var opts = {
-        tag: tags
-      };
-      var that = this;
-      this.petApi.findPetByTag(opts, function (error, data, response) {
-        if (error) {
-          console.error(error);
-          return;
-        }
-
-        if (Object.keys(data).length === 0) {
-          return;
-        }
-
-        that.pets = data.data;
-        that.total = data ? data.total : 0;
-        that.perPage = data ? data.per_page : 0;
-        that.links = data ? data.links : [];
+        _this3.pets = data.data;
+        _this3.total = data ? data.total : 0;
+        _this3.perPage = data ? data.per_page : 0;
+        _this3.links = data ? data.links : [];
+      }, function (error) {
+        console.error(error);
       });
     }
   }
@@ -8047,20 +8398,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onSubmit: function onSubmit(event) {
+      var _this = this;
+
       var opts = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.RequestAuthLogin(this.email, this.password);
       var apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.UserApi();
-      var that = this;
       apiInstance.login({
         requestAuthLogin: opts
-      }, function (error, data, response) {
-        if (error) {
-          that.errorMessage = error.message;
-          return;
-        }
-
-        that.accessToken = data.token;
+      }).then(function (data) {
+        _this.accessToken = data.token;
         localStorage.setItem("accessToken", data.token);
-        that.$router.push("/");
+
+        _this.$router.push("/");
+      }, function (error) {
+        _this.errorMessage = error.message;
       });
     }
   }
@@ -8147,24 +8497,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     register: function register() {
+      var _this = this;
+
       if (this.email != this.emailConfirm) {
         return;
       }
 
       var opts = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.RequestAuthRegister(this.name, this.email, this.password);
       var apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_0__.UserApi();
-      var that = this;
       apiInstance.registerNewUser({
         requestAuthRegister: opts
-      }, function (error, data, response) {
-        if (error) {
-          that.errorMessage = error.message;
-          return;
-        }
-
-        console.log("login success.");
-        that.accessToken = data.token;
+      }).then(function (data) {
+        _this.accessToken = data.token;
         localStorage.token = data.token;
+      }, function (error) {
+        _this.errorMessage = error.message;
       });
     }
   }
@@ -8208,13 +8555,14 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_3__.default({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _PetCategoryNavbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PetCategoryNavbar */ "./resources/js/components/PetCategoryNavbar.vue");
 /* harmony import */ var _HomePageHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HomePageHeader */ "./resources/js/components/HomePageHeader.vue");
 /* harmony import */ var _MyPageHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MyPageHeader */ "./resources/js/components/MyPageHeader.vue");
 /* harmony import */ var _OtherPageHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OtherPageHeader */ "./resources/js/components/OtherPageHeader.vue");
 /* harmony import */ var _PetList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PetList */ "./resources/js/components/PetList.vue");
 /* harmony import */ var _PetListCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PetListCard */ "./resources/js/components/PetListCard.vue");
+/* harmony import */ var _PetDetail__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PetDetail */ "./resources/js/components/PetDetail.vue");
 
 
 
@@ -8222,8 +8570,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-[_HomePageHeader__WEBPACK_IMPORTED_MODULE_1__.default, _MyPageHeader__WEBPACK_IMPORTED_MODULE_2__.default, _OtherPageHeader__WEBPACK_IMPORTED_MODULE_3__.default, _PetCategoryNavbar__WEBPACK_IMPORTED_MODULE_0__.default, _PetList__WEBPACK_IMPORTED_MODULE_4__.default, _PetListCard__WEBPACK_IMPORTED_MODULE_5__.default].forEach(function (Component) {
-  vue__WEBPACK_IMPORTED_MODULE_6__.default.component(Component.name, Component);
+
+[_HomePageHeader__WEBPACK_IMPORTED_MODULE_1__.default, _MyPageHeader__WEBPACK_IMPORTED_MODULE_2__.default, _OtherPageHeader__WEBPACK_IMPORTED_MODULE_3__.default, _PetCategoryNavbar__WEBPACK_IMPORTED_MODULE_0__.default, _PetList__WEBPACK_IMPORTED_MODULE_4__.default, _PetListCard__WEBPACK_IMPORTED_MODULE_5__.default, _PetDetail__WEBPACK_IMPORTED_MODULE_6__.default].forEach(function (Component) {
+  vue__WEBPACK_IMPORTED_MODULE_7__.default.component(Component.name, Component);
 });
 
 /***/ }),
@@ -11168,6 +11517,45 @@ component.options.__file = "resources/js/components/PetCategoryNavbar.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/PetDetail.vue":
+/*!***********************************************!*\
+  !*** ./resources/js/components/PetDetail.vue ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _PetDetail_vue_vue_type_template_id_40d22475___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PetDetail.vue?vue&type=template&id=40d22475& */ "./resources/js/components/PetDetail.vue?vue&type=template&id=40d22475&");
+/* harmony import */ var _PetDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PetDetail.vue?vue&type=script&lang=js& */ "./resources/js/components/PetDetail.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _PetDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _PetDetail_vue_vue_type_template_id_40d22475___WEBPACK_IMPORTED_MODULE_0__.render,
+  _PetDetail_vue_vue_type_template_id_40d22475___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PetDetail.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/PetList.vue":
 /*!*********************************************!*\
   !*** ./resources/js/components/PetList.vue ***!
@@ -11515,6 +11903,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/PetDetail.vue?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/PetDetail.vue?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PetDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PetDetail.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetDetail.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PetDetail_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/PetList.vue?vue&type=script&lang=js&":
 /*!**********************************************************************!*\
   !*** ./resources/js/components/PetList.vue?vue&type=script&lang=js& ***!
@@ -11673,6 +12077,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PetCategoryNavbar_vue_vue_type_template_id_29235852___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PetCategoryNavbar_vue_vue_type_template_id_29235852___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PetCategoryNavbar.vue?vue&type=template&id=29235852& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetCategoryNavbar.vue?vue&type=template&id=29235852&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PetDetail.vue?vue&type=template&id=40d22475&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/PetDetail.vue?vue&type=template&id=40d22475& ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PetDetail_vue_vue_type_template_id_40d22475___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PetDetail_vue_vue_type_template_id_40d22475___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PetDetail_vue_vue_type_template_id_40d22475___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PetDetail.vue?vue&type=template&id=40d22475& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetDetail.vue?vue&type=template&id=40d22475&");
 
 
 /***/ }),
@@ -11878,9 +12299,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          {
-            staticClass: "col-4 d-flex justify-content-end align-items-center"
-          },
+          { staticClass: "d-flex justify-content-end align-items-center" },
           [
             _c("form", { on: { submit: _vm.searchByTag } }, [
               _c("div", { staticClass: "form-row" }, [
@@ -12144,6 +12563,114 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetDetail.vue?vue&type=template&id=40d22475&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetDetail.vue?vue&type=template&id=40d22475& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", { staticClass: "my-4" }, [
+      _vm._v(_vm._s(_vm.pet.name) + "\n    "),
+      _c("small", [_vm._v(_vm._s(_vm.pet.status))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("h3", { staticClass: "my-3" }, [_vm._v("Description")]),
+        _vm._v(" "),
+        _c("p", [_vm._v(_vm._s(_vm.pet.description))]),
+        _vm._v(" "),
+        _c("h3", { staticClass: "my-3" }, [_vm._v("Details")]),
+        _vm._v(" "),
+        _c(
+          "ul",
+          _vm._l(_vm.pet.tags, function(tag, key) {
+            return _c("li", { key: key }, [_vm._v(_vm._s(tag.name))])
+          }),
+          0
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("h3", { staticClass: "my-4" }, [_vm._v("Related ")]),
+    _vm._v(" "),
+    _vm._m(1)
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-8" }, [
+      _c("img", {
+        staticClass: "img-fluid",
+        attrs: { src: "http://placehold.it/750x500", alt: "" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { src: "http://placehold.it/500x300", alt: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { src: "http://placehold.it/500x300", alt: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { src: "http://placehold.it/500x300", alt: "" }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
+        _c("a", { attrs: { href: "#" } }, [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { src: "http://placehold.it/500x300", alt: "" }
+          })
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetList.vue?vue&type=template&id=40d23d7c&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/PetList.vue?vue&type=template&id=40d23d7c& ***!
@@ -12161,32 +12688,84 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm.total >= _vm.$perPage
-      ? _c(
-          "div",
-          { staticClass: "m-2 d-flex justify-content-end" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "btn btn-sm btn-outline-secondary",
-                attrs: { to: { path: "/", query: { sorted: "desc" } } }
-              },
-              [_vm._v("↑")]
-            ),
-            _vm._v(" "),
-            _c(
-              "router-link",
-              {
-                staticClass: "btn btn-sm btn-outline-secondary ml-1",
-                attrs: { to: { path: "/", query: { sorted: "asc" } } }
-              },
-              [_vm._v("↓")]
-            )
-          ],
-          1
-        )
-      : _vm._e(),
+    _c("div", { staticClass: "row" }, [
+      _vm.total >= _vm.$perPage
+        ? _c("div", { staticClass: "col mb-3 d-flex justify-content-start" }, [
+            _vm._m(0)
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.total >= _vm.$perPage
+        ? _c(
+            "div",
+            { staticClass: "col mb-3 d-flex justify-content-end" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-sm btn-outline-secondary",
+                  attrs: { to: { path: "/", query: { sorted: "desc" } } }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi bi-sort-up",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "16",
+                        height: "16",
+                        fill: "currentColor",
+                        viewBox: "0 0 16 16"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-sm btn-outline-secondary ml-2",
+                  attrs: { to: { path: "/", query: { sorted: "asc" } } }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi bi-sort-down",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "16",
+                        height: "16",
+                        fill: "currentColor",
+                        viewBox: "0 0 16 16"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -12233,7 +12812,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n            " + _vm._s(value.label) + "\n        "
+                        "\n          " + _vm._s(value.label) + "\n        "
                       )
                     ]
                   )
@@ -12247,7 +12826,32 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-outline-secondary", attrs: { type: "button" } },
+        [_vm._v("Left")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-outline-secondary", attrs: { type: "button" } },
+        [_vm._v("\n          Middle\n        ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-outline-secondary", attrs: { type: "button" } },
+        [_vm._v("Right")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -12271,10 +12875,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "router-link",
     {
       staticClass: "card mb-4 h-md-150",
-      staticStyle: { "min-width": "18rem" }
+      staticStyle: { "min-width": "18rem" },
+      attrs: { to: { path: "/detail", query: { id: _vm.pet.id } } }
     },
     [
       _c(
@@ -12523,7 +13128,12 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("OtherPageheader")], 1)
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [_c("OtherPageHeader"), _vm._v(" "), _c("PetDetail")],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

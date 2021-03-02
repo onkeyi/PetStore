@@ -42,23 +42,15 @@ export default class PetApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the addNewPet operation.
-     * @callback module:api/PetApi~addNewPetCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2002} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * ペット新規登録
      * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetStore} opts.requestPetStore 
-     * @param {module:api/PetApi~addNewPetCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
-    addNewPet(opts, callback) {
+    addNewPetWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['requestPetStore'];
 
@@ -78,27 +70,33 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the addNewPetComment operation.
-     * @callback module:api/PetApi~addNewPetCommentCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット新規登録
+     * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestPetStore} opts.requestPetStore 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
+    addNewPet(opts) {
+      return this.addNewPetWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * post new comment
      * comment post
      * @param {Object} opts Optional parameters
      * @param {module:model/PetComment} opts.petComment 
-     * @param {module:api/PetApi~addNewPetCommentCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    addNewPetComment(opts, callback) {
+    addNewPetCommentWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['petComment'];
 
@@ -118,25 +116,31 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/comment', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deletePetById operation.
-     * @callback module:api/PetApi~deletePetByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * post new comment
+     * comment post
+     * @param {Object} opts Optional parameters
+     * @param {module:model/PetComment} opts.petComment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    addNewPetComment(opts) {
+      return this.addNewPetCommentWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ペット情報削除
      * @param {Number} petId 
-     * @param {module:api/PetApi~deletePetByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deletePetById(petId, callback) {
+    deletePetByIdWithHttpInfo(petId) {
       let postBody = null;
       // verify the required parameter 'petId' is set
       if (petId === undefined || petId === null) {
@@ -160,25 +164,29 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/{petId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deletePetCommentById operation.
-     * @callback module:api/PetApi~deletePetCommentByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Object} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット情報削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deletePetById(petId) {
+      return this.deletePetByIdWithHttpInfo(petId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ペット情報削除
      * @param {Number} petCommentId 
-     * @param {module:api/PetApi~deletePetCommentByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
-    deletePetCommentById(petCommentId, callback) {
+    deletePetCommentByIdWithHttpInfo(petCommentId) {
       let postBody = null;
       // verify the required parameter 'petCommentId' is set
       if (petCommentId === undefined || petCommentId === null) {
@@ -202,26 +210,30 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/comment/{petCommentId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findPetByCategory operation.
-     * @callback module:api/PetApi~findPetByCategoryCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット情報削除
+     * @param {Number} petCommentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
+    deletePetCommentById(petCommentId) {
+      return this.deletePetCommentByIdWithHttpInfo(petCommentId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
      * @param {String} opts.category 
-     * @param {module:api/PetApi~findPetByCategoryCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
-    findPetByCategory(opts, callback) {
+    findPetByCategoryWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -242,27 +254,32 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/findByCategory', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findPetByStatus operation.
-     * @callback module:api/PetApi~findPetByStatusCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * カテゴリで検索
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.category 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
+    findPetByCategory(opts) {
+      return this.findPetByCategoryWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
      * @param {String} opts.status 
      * @param {Number} opts.page 
-     * @param {module:api/PetApi~findPetByStatusCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
-    findPetByStatus(opts, callback) {
+    findPetByStatusWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -284,17 +301,24 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/findByStatus', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the findPetByTag operation.
-     * @callback module:api/PetApi~findPetByTagCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ステータスで検索
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.status 
+     * @param {Number} opts.page 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
+    findPetByStatus(opts) {
+      return this.findPetByStatusWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * タグで検索
@@ -302,10 +326,9 @@ export default class PetApi {
      * @param {Object} opts Optional parameters
      * @param {String} opts.tag 
      * @param {Number} opts.page 
-     * @param {module:api/PetApi~findPetByTagCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
-    findPetByTag(opts, callback) {
+    findPetByTagWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -327,17 +350,25 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/findByTags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getAllPets operation.
-     * @callback module:api/PetApi~getAllPetsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * タグで検索
+     * タグで検索
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.tag 
+     * @param {Number} opts.page 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
+    findPetByTag(opts) {
+      return this.findPetByTagWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ペット一覧取得
@@ -346,10 +377,9 @@ export default class PetApi {
      * @param {String} opts.order 
      * @param {String} opts.sorted 
      * @param {Number} opts.page 
-     * @param {module:api/PetApi~getAllPetsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
-    getAllPets(opts, callback) {
+    getAllPetsWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = null;
 
@@ -372,26 +402,34 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getCommentByPetId operation.
-     * @callback module:api/PetApi~getCommentByPetIdCallback
-     * @param {String} error Error message, if any.
-     * @param {Array.<module:model/PetComment>} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット一覧取得
+     * stagusがavailableはorder可能
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.order 
+     * @param {String} opts.sorted 
+     * @param {Number} opts.page 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
+    getAllPets(opts) {
+      return this.getAllPetsWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ペットコメント
      * Pet comments.
      * @param {Number} petId 
-     * @param {module:api/PetApi~getCommentByPetIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link Array.<module:model/PetComment>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PetComment>} and HTTP response
      */
-    getCommentByPetId(petId, callback) {
+    getCommentByPetIdWithHttpInfo(petId) {
       let postBody = null;
       // verify the required parameter 'petId' is set
       if (petId === undefined || petId === null) {
@@ -415,25 +453,30 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/{petId}/comment', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getPetById operation.
-     * @callback module:api/PetApi~getPetByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Pet} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペットコメント
+     * Pet comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PetComment>}
      */
+    getCommentByPetId(petId) {
+      return this.getCommentByPetIdWithHttpInfo(petId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ペット情報取得
      * @param {Number} petId 
-     * @param {module:api/PetApi~getPetByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Pet}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
      */
-    getPetById(petId, callback) {
+    getPetByIdWithHttpInfo(petId) {
       let postBody = null;
       // verify the required parameter 'petId' is set
       if (petId === undefined || petId === null) {
@@ -450,24 +493,29 @@ export default class PetApi {
       let formParams = {
       };
 
-      let authNames = ['bearer'];
+      let authNames = ['apiKey'];
       let contentTypes = [];
       let accepts = ['applicaiton/json', 'application/json'];
       let returnType = Pet;
       return this.apiClient.callApi(
         '/pet/{petId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updatePetById operation.
-     * @callback module:api/PetApi~updatePetByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/InlineResponse2002} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * ペット情報取得
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Pet}
      */
+    getPetById(petId) {
+      return this.getPetByIdWithHttpInfo(petId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * ペット情報更新
@@ -475,10 +523,9 @@ export default class PetApi {
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @param {module:api/PetApi~updatePetByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
-    updatePetById(petId, opts, callback) {
+    updatePetByIdWithHttpInfo(petId, opts) {
       opts = opts || {};
       let postBody = opts['requestPetUpdate'];
       // verify the required parameter 'petId' is set
@@ -496,31 +543,39 @@ export default class PetApi {
       let formParams = {
       };
 
-      let authNames = ['apiKey'];
+      let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['applicaiton/json', 'application/json'];
       let returnType = InlineResponse2002;
       return this.apiClient.callApi(
         '/pet/{petId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the uploadImage operation.
-     * @callback module:api/PetApi~uploadImageCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * ペット情報更新
+     * 更新処理
+     * @param {Number} petId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
+    updatePetById(petId, opts) {
+      return this.updatePetByIdWithHttpInfo(petId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
-     * @param {module:api/PetApi~uploadImageCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    uploadImage(callback) {
+    uploadImageWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -539,8 +594,20 @@ export default class PetApi {
       return this.apiClient.callApi(
         '/pet/uploadImage', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * アップロードペットイメージ
+     * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    uploadImage() {
+      return this.uploadImageWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

@@ -1,5 +1,6 @@
 <template>
-  <div>
-    <OtherPageheader></OtherPageHeader>
-</div>
+  <div class="container">
+    <OtherPageHeader ></OtherPageHeader>
+    <PetDetail></PetDetail>
+  </div>
 </template>

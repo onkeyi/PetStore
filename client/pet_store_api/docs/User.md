@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Number** |  | 
-**nema** | **String** |  | [optional] 
+**name** | **String** |  | 
 **email** | **String** |  | [optional] 
 **password** | **String** |  | [optional] 
 

@@ -45,13 +45,12 @@ let apiInstance = new PetStoreApi.PetApi();
 let opts = {
   'requestPetStore': new PetStoreApi.RequestPetStore() // RequestPetStore | 
 };
-apiInstance.addNewPet(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.addNewPet(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -101,13 +100,12 @@ let apiInstance = new PetStoreApi.PetApi();
 let opts = {
   'petComment': new PetStoreApi.PetComment() // PetComment | 
 };
-apiInstance.addNewPetComment(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.addNewPetComment(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -153,13 +151,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.PetApi();
 let petId = 56; // Number | 
-apiInstance.deletePetById(petId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deletePetById(petId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -205,13 +202,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.PetApi();
 let petCommentId = 56; // Number | 
-apiInstance.deletePetCommentById(petCommentId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deletePetCommentById(petCommentId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -256,13 +252,12 @@ let apiInstance = new PetStoreApi.PetApi();
 let opts = {
   'category': "category_example" // String | 
 };
-apiInstance.findPetByCategory(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findPetByCategory(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -308,13 +303,12 @@ let opts = {
   'status': "status_example", // String | 
   'page': 56 // Number | 
 };
-apiInstance.findPetByStatus(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findPetByStatus(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -363,13 +357,12 @@ let opts = {
   'tag': "tag_example", // String | 
   'page': 56 // Number | 
 };
-apiInstance.findPetByTag(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findPetByTag(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -419,13 +412,12 @@ let opts = {
   'sorted': "sorted_example", // String | 
   'page': 56 // Number | 
 };
-apiInstance.getAllPets(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAllPets(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -472,13 +464,12 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.PetApi();
 let petId = 56; // Number | 
-apiInstance.getCommentByPetId(petId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getCommentByPetId(petId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -513,19 +504,20 @@ Name | Type | Description  | Notes
 ```javascript
 import PetStoreApi from 'pet_store_api';
 let defaultClient = PetStoreApi.ApiClient.instance;
-// Configure Bearer (bearer) access token for authorization: bearer
-let bearer = defaultClient.authentications['bearer'];
-bearer.accessToken = "YOUR ACCESS TOKEN"
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new PetStoreApi.PetApi();
 let petId = 56; // Number | 
-apiInstance.getPetById(petId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getPetById(petId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -541,7 +533,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[bearer](../README.md#bearer)
+[apiKey](../README.md#apiKey)
 
 ### HTTP request headers
 
@@ -567,19 +559,21 @@ let apiKey = defaultClient.authentications['apiKey'];
 apiKey.apiKey = 'YOUR API KEY';
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.PetApi();
 let petId = 56; // Number | 
 let opts = {
   'requestPetUpdate': new PetStoreApi.RequestPetUpdate() // RequestPetUpdate | 
 };
-apiInstance.updatePetById(petId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updatePetById(petId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -596,7 +590,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[apiKey](../README.md#apiKey)
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
 
 ### HTTP request headers
 
@@ -627,13 +621,12 @@ let bearer = defaultClient.authentications['bearer'];
 bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.PetApi();
-apiInstance.uploadImage((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.uploadImage().then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

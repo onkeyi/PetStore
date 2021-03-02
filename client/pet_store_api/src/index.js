@@ -39,7 +39,7 @@ import UserApi from './api/UserApi';
 
 
 /**
-* _Swagger_PetStore_____Laravel___Vue.<br>
+* _Swagger_PetStore__実装__バックエンド_Laravel__フロントエンド_Vue.<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:

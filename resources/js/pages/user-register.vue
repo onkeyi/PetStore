@@ -71,18 +71,14 @@ export default {
       }
       let opts = new RequestAuthRegister(this.name, this.email, this.password);
       let apiInstance = new UserApi();
-      let that = this;
 
-      apiInstance.registerNewUser(
-        { requestAuthRegister: opts },
-        function (error, data, response) {
-          if (error) {
-            that.errorMessage = error.message;
-            return;
-          }
-          console.log("login success.");
-          that.accessToken = data.token;
+      apiInstance.registerNewUser({ requestAuthRegister: opts }).then(
+        (data) => {
+          this.accessToken = data.token;
           localStorage.token = data.token;
+        },
+        (error) => {
+          this.errorMessage = error.message;
         }
       );
     },

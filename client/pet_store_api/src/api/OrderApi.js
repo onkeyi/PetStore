@@ -37,22 +37,15 @@ export default class OrderApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the addNewOrder operation.
-     * @callback module:api/OrderApi~addNewOrderCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * オーダー登録
      * オーダー登録
      * @param {Object} opts Optional parameters
      * @param {module:model/Order} opts.order 
-     * @param {module:api/OrderApi~addNewOrderCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    addNewOrder(opts, callback) {
+    addNewOrderWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['order'];
 
@@ -72,24 +65,31 @@ export default class OrderApi {
       return this.apiClient.callApi(
         '/order', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteOrderById operation.
-     * @callback module:api/OrderApi~deleteOrderByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * オーダー登録
+     * オーダー登録
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Order} opts.order 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    addNewOrder(opts) {
+      return this.addNewOrderWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * オーダー削除
      * @param {Number} orderId 
-     * @param {module:api/OrderApi~deleteOrderByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    deleteOrderById(orderId, callback) {
+    deleteOrderByIdWithHttpInfo(orderId) {
       let postBody = null;
       // verify the required parameter 'orderId' is set
       if (orderId === undefined || orderId === null) {
@@ -113,24 +113,28 @@ export default class OrderApi {
       return this.apiClient.callApi(
         '/order/{orderId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getAllOrder operation.
-     * @callback module:api/OrderApi~getAllOrderCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * オーダー削除
+     * @param {Number} orderId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    deleteOrderById(orderId) {
+      return this.deleteOrderByIdWithHttpInfo(orderId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * オーダー一覧取得
-     * @param {module:api/OrderApi~getAllOrderCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
-    getAllOrder(callback) {
+    getAllOrderWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -149,24 +153,28 @@ export default class OrderApi {
       return this.apiClient.callApi(
         '/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getOrderById operation.
-     * @callback module:api/OrderApi~getOrderByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * オーダー一覧取得
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
+    getAllOrder() {
+      return this.getAllOrderWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * オーダー取得
      * @param {Number} orderId 
-     * @param {module:api/OrderApi~getOrderByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    getOrderById(orderId, callback) {
+    getOrderByIdWithHttpInfo(orderId) {
       let postBody = null;
       // verify the required parameter 'orderId' is set
       if (orderId === undefined || orderId === null) {
@@ -190,26 +198,31 @@ export default class OrderApi {
       return this.apiClient.callApi(
         '/order/{orderId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateOrderById operation.
-     * @callback module:api/OrderApi~updateOrderByIdCallback
-     * @param {String} error Error message, if any.
-     * @param data This operation does not return a value.
-     * @param {String} response The complete HTTP response.
+     * オーダー取得
+     * @param {Number} orderId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
+    getOrderById(orderId) {
+      return this.getOrderByIdWithHttpInfo(orderId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * オーダー更新
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Order} opts.order 
-     * @param {module:api/OrderApi~updateOrderByIdCallback} callback The callback function, accepting three arguments: error, data, response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
-    updateOrderById(orderId, opts, callback) {
+    updateOrderByIdWithHttpInfo(orderId, opts) {
       opts = opts || {};
       let postBody = opts['order'];
       // verify the required parameter 'orderId' is set
@@ -234,8 +247,22 @@ export default class OrderApi {
       return this.apiClient.callApi(
         '/order/{orderId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * オーダー更新
+     * @param {Number} orderId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Order} opts.order 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    updateOrderById(orderId, opts) {
+      return this.updateOrderByIdWithHttpInfo(orderId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

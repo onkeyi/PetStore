@@ -21,13 +21,10 @@ export default {
   }),
   mounted: function () {
     let apiInstance = new CategoryApi();
-    let that = this;
-    apiInstance.getAllCategorys((error, data, response) => {
-      if (error) {
-        console.error(error);
-      } else {
-        that.categories = data;
-      }
+    apiInstance.getAllCategorys().then((data) => {
+        this.categories = data;
+    },error =>{
+      console.error(error);
     });
   },
 };

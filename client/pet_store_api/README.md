@@ -116,14 +116,12 @@ var api = new PetStoreApi.CategoryApi()
 var opts = {
   'category': new PetStoreApi.Category() // {Category} 
 };
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-api.addNewCategory(opts, callback);
+api.addNewCategory(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
 
 ```
 

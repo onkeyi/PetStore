@@ -1,19 +1,16 @@
 <template>
-    <header class="store-header py-3">
-      <div class="row flex-nowrap justify-content-between align-items-center">
-        <div class="col-4 pt-1">
-          <router-link
-            class="store-header-logo text-dark"
-            :to="{ path: '/' }"
-          >
-            {{ $appName }}
-          </router-link>
-        </div>
+  <header class="store-header py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-4 pt-1">
+        <router-link class="store-header-logo text-dark" :to="{ path: '/' }">
+          {{ $appName }}
+        </router-link>
       </div>
-    </header>
+    </div>
+  </header>
 </template>
 <script>
 export default {
-    name: 'MyPageHeader'
-}
+  name: "MyPageHeader",
+};
 </script>

@@ -5,6 +5,7 @@ import MyPageHeader from './MyPageHeader';
 import OtherPageHeader from './OtherPageHeader';
 import PetList from './PetList';
 import PetListCard from './PetListCard';
+import PetDetail from './PetDetail';
 
 [
     HomePageHeader,
@@ -13,6 +14,7 @@ import PetListCard from './PetListCard';
     PetCategoryNavbar,
     PetList,
     PetListCard,
+    PetDetail,
 ].forEach(Component => {
     Vue.component(Component.name, Component)
 })

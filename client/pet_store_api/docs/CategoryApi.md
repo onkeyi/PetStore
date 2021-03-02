@@ -38,13 +38,12 @@ let apiInstance = new PetStoreApi.CategoryApi();
 let opts = {
   'category': new PetStoreApi.Category() // Category | 
 };
-apiInstance.addNewCategory(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.addNewCategory(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -92,13 +91,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.CategoryApi();
 let categoryId = 56; // Number | 
-apiInstance.deleteCategoryById(categoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteCategoryById(categoryId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -140,13 +138,12 @@ apiKey.apiKey = 'YOUR API KEY';
 //apiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new PetStoreApi.CategoryApi();
-apiInstance.getAllCategorys((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAllCategorys().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -188,13 +185,12 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.CategoryApi();
 let categoryId = 56; // Number | 
-apiInstance.getCategoryById(categoryId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getCategoryById(categoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -242,13 +238,12 @@ let categoryId = "categoryId_example"; // String |
 let opts = {
   'category': new PetStoreApi.Category() // Category | 
 };
-apiInstance.updateCategoryById(categoryId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateCategoryById(categoryId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

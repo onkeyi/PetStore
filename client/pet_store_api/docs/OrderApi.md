@@ -38,13 +38,12 @@ let apiInstance = new PetStoreApi.OrderApi();
 let opts = {
   'order': new PetStoreApi.Order() // Order | 
 };
-apiInstance.addNewOrder(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.addNewOrder(opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -90,13 +89,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.OrderApi();
 let orderId = 56; // Number | 
-apiInstance.deleteOrderById(orderId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.deleteOrderById(orderId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -138,13 +136,12 @@ apiKey.apiKey = 'YOUR API KEY';
 //apiKey.apiKeyPrefix = 'Token';
 
 let apiInstance = new PetStoreApi.OrderApi();
-apiInstance.getAllOrder((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getAllOrder().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -184,13 +181,12 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.OrderApi();
 let orderId = 56; // Number | 
-apiInstance.getOrderById(orderId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.getOrderById(orderId).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -239,13 +235,12 @@ let orderId = 56; // Number |
 let opts = {
   'order': new PetStoreApi.Order() // Order | 
 };
-apiInstance.updateOrderById(orderId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
+apiInstance.updateOrderById(orderId, opts).then(() => {
+  console.log('API called successfully.');
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters

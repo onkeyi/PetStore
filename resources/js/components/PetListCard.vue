@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-4 h-md-150" style="min-width: 18rem">
+  <router-link :to="{path:'/detail',query:{id:pet.id}}" class="card mb-4 h-md-150" style="min-width: 18rem">
     <svg
       class="bd-placeholder-img card-img-top"
       width="100%"
@@ -26,7 +26,7 @@
         >{{ tag.name }}</span
       >
     </div>
-  </div>
+  </router-link>
 </template>
 <script>
 export default {

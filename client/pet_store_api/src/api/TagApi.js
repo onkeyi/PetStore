@@ -38,22 +38,14 @@ export default class TagApi {
     }
 
 
-    /**
-     * Callback function to receive the result of the addNewTag operation.
-     * @callback module:api/TagApi~addNewTagCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
-     */
 
     /**
      * Tag 登録
      * @param {Object} opts Optional parameters
      * @param {module:model/Tag} opts.tag 
-     * @param {module:api/TagApi~addNewTagCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
-    addNewTag(opts, callback) {
+    addNewTagWithHttpInfo(opts) {
       opts = opts || {};
       let postBody = opts['tag'];
 
@@ -73,25 +65,30 @@ export default class TagApi {
       return this.apiClient.callApi(
         '/tag', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the deleteTagById operation.
-     * @callback module:api/TagApi~deleteTagByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Tag 登録
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Tag} opts.tag 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
+    addNewTag(opts) {
+      return this.addNewTagWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Tag情報削除
      * @param {Number} tagId 
-     * @param {module:api/TagApi~deleteTagByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
-    deleteTagById(tagId, callback) {
+    deleteTagByIdWithHttpInfo(tagId) {
       let postBody = null;
       // verify the required parameter 'tagId' is set
       if (tagId === undefined || tagId === null) {
@@ -115,24 +112,28 @@ export default class TagApi {
       return this.apiClient.callApi(
         '/tag/{tagId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getAllTags operation.
-     * @callback module:api/TagApi~getAllTagsCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/ResponsePegination} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Tag情報削除
+     * @param {Number} tagId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
+    deleteTagById(tagId) {
+      return this.deleteTagByIdWithHttpInfo(tagId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Tag一覧
-     * @param {module:api/TagApi~getAllTagsCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/ResponsePegination}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
-    getAllTags(callback) {
+    getAllTagsWithHttpInfo() {
       let postBody = null;
 
       let pathParams = {
@@ -151,25 +152,28 @@ export default class TagApi {
       return this.apiClient.callApi(
         '/tags', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the getTagById operation.
-     * @callback module:api/TagApi~getTagByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Tag一覧
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
+    getAllTags() {
+      return this.getAllTagsWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Tag情報
      * @param {Number} tagId 
-     * @param {module:api/TagApi~getTagByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
-    getTagById(tagId, callback) {
+    getTagByIdWithHttpInfo(tagId) {
       let postBody = null;
       // verify the required parameter 'tagId' is set
       if (tagId === undefined || tagId === null) {
@@ -193,27 +197,31 @@ export default class TagApi {
       return this.apiClient.callApi(
         '/tag/{tagId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * Callback function to receive the result of the updateTagById operation.
-     * @callback module:api/TagApi~updateTagByIdCallback
-     * @param {String} error Error message, if any.
-     * @param {module:model/Category} data The data returned by the service call.
-     * @param {String} response The complete HTTP response.
+     * Tag情報
+     * @param {Number} tagId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
+    getTagById(tagId) {
+      return this.getTagByIdWithHttpInfo(tagId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
 
     /**
      * Tag情報更新
      * @param {Number} tagId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Tag} opts.tag 
-     * @param {module:api/TagApi~updateTagByIdCallback} callback The callback function, accepting three arguments: error, data, response
-     * data is of type: {@link module:model/Category}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
-    updateTagById(tagId, opts, callback) {
+    updateTagByIdWithHttpInfo(tagId, opts) {
       opts = opts || {};
       let postBody = opts['tag'];
       // verify the required parameter 'tagId' is set
@@ -238,8 +246,22 @@ export default class TagApi {
       return this.apiClient.callApi(
         '/tag/{tagId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null, callback
+        authNames, contentTypes, accepts, returnType, null
       );
+    }
+
+    /**
+     * Tag情報更新
+     * @param {Number} tagId 
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Tag} opts.tag 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
+     */
+    updateTagById(tagId, opts) {
+      return this.updateTagByIdWithHttpInfo(tagId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
     }
 
 

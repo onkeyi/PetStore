@@ -53,6 +53,9 @@ class Pet {
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
+            }
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
@@ -76,6 +79,11 @@ class Pet {
  * @member {Number} id
  */
 Pet.prototype['id'] = undefined;
+
+/**
+ * @member {String} name
+ */
+Pet.prototype['name'] = undefined;
 
 /**
  * @member {String} status

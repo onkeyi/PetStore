@@ -23,10 +23,11 @@ class User {
      * Constructs a new <code>User</code>.
      * @alias module:model/User
      * @param id {Number} 
+     * @param name {String} 
      */
-    constructor(id) { 
+    constructor(id, name) { 
         
-        User.initialize(this, id);
+        User.initialize(this, id, name);
     }
 
     /**
@@ -34,8 +35,9 @@ class User {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id) { 
+    static initialize(obj, id, name) { 
         obj['id'] = id;
+        obj['name'] = name;
     }
 
     /**
@@ -52,8 +54,8 @@ class User {
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
-            if (data.hasOwnProperty('nema')) {
-                obj['nema'] = ApiClient.convertToType(data['nema'], 'String');
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
@@ -74,9 +76,9 @@ class User {
 User.prototype['id'] = undefined;
 
 /**
- * @member {String} nema
+ * @member {String} name
  */
-User.prototype['nema'] = undefined;
+User.prototype['name'] = undefined;
 
 /**
  * @member {String} email

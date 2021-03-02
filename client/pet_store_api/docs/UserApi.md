@@ -39,13 +39,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
 let userId = 56; // Number | 
-apiInstance.deleteUserById(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.deleteUserById(userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -90,13 +89,12 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.UserApi();
 let username = "username_example"; // String | 
-apiInstance.findUserByName(username, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.findUserByName(username).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -144,13 +142,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
 let userId = 56; // Number | 
-apiInstance.getUserOrders(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getUserOrders(userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -198,13 +195,12 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
 let userId = 56; // Number | 
-apiInstance.getUserPets(userId, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.getUserPets(userId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -251,13 +247,12 @@ let apiInstance = new PetStoreApi.UserApi();
 let opts = {
   'requestAuthLogin': {"email":"test@test.com","password":"password"} // RequestAuthLogin | 
 };
-apiInstance.login(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.login(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -304,13 +299,12 @@ let bearer = defaultClient.authentications['bearer'];
 bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
-apiInstance.logout((error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.logout().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -354,13 +348,12 @@ let apiInstance = new PetStoreApi.UserApi();
 let opts = {
   'requestAuthRegister': {"name":"test","email":"test@test.com","password":"password"} // RequestAuthRegister | 
 };
-apiInstance.registerNewUser(opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.registerNewUser(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
@@ -411,13 +404,12 @@ let userId = 56; // Number |
 let opts = {
   'user': new PetStoreApi.User() // User | 
 };
-apiInstance.updateUserById(userId, opts, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
+apiInstance.updateUserById(userId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
 });
+
 ```
 
 ### Parameters
