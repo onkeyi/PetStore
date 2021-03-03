@@ -16,7 +16,6 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
-
         ]);
 
         return response()->json(['id' => $user->id]);
@@ -45,6 +44,6 @@ class AuthController extends Controller
     {
         $user = Auth::guard('sanctum')->user();
         $user->tokens()->delete();
-        return response(new \stdClass());
+        return response('');
     }
 }
