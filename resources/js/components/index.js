@@ -6,7 +6,7 @@ import OtherPageHeader from './OtherPageHeader';
 import PetList from './PetList';
 import PetListCard from './PetListCard';
 import PetDetail from './PetDetail';
-
+import ConfirmDialog from './ConfirmDialog';
 [
     HomePageHeader,
     MyPageHeader,
@@ -15,6 +15,7 @@ import PetDetail from './PetDetail';
     PetList,
     PetListCard,
     PetDetail,
+    ConfirmDialog
 ].forEach(Component => {
     Vue.component(Component.name, Component)
 })

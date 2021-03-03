@@ -48,16 +48,10 @@
           v-if="isLogin"
           class="btn btn-sm btn-outline-secondary"
           href="#/mypage"
-          >MyPage</a
-        >
-        <a
-          v-if="isLogin"
-          class="btn btn-sm btn-outline-secondary"
-          href="#/logout"
-          >Logout</a
+          >{{ $t("message.mypage") }}</a
         >
         <a v-else class="btn btn-sm btn-outline-secondary" href="#/login"
-          >Login</a
+          >{{ $t("message.login")}}</a
         >
       </div>
     </div>
