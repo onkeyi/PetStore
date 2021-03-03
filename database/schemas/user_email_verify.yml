@@ -1,0 +1,5 @@
+user_email_verify:
+  columns:
+    user_id: bigIncrements
+    verify_string: string
+    created_at: dateTime
