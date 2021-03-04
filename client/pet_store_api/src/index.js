@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## Swagger PetStore  実装 - バックエンド： Laravel - フロントエンド： Vue
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -39,7 +39,7 @@ import UserApi from './api/UserApi';
 
 
 /**
-* _Swagger_PetStore__実装__バックエンド_Laravel__フロントエンド_Vue.<br>
+* _PetStore_OpenAPI_設計__バックエンド_Laravel_v8_x__フロントエンド_Vue_v2_x_LaravelMix_v6_x.<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:

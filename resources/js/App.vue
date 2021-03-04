@@ -22,8 +22,11 @@ export default {
 
     let apiKey = defaultClient.authentications["apiKey"];
     apiKey.apiKey = process.env.MIX_API_KEY;
-
-    let that = this;
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      let bearer = defaultClient.authentications["bearer"];
+      bearer.accessToken = token;
+    }
     this.$router.beforeEach((to, from, next) => {
       let isAuthenticated = localStorage.getItem("accessToken") ? true : false;
       if (to.name === "my-page" && !isAuthenticated) next({ name: "login" });

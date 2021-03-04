@@ -57,8 +57,10 @@ Route::middleware('apikey')->group(
                 Route::delete('order/{order}', [OrderController::class, 'deleteOrderById']);
 
                 /** USER  */
-                Route::get('user/{user}', [AuthController::class, 'getUserByName']);
+                Route::get('user/findUserByName', [AuthController::class, 'findUserByName']);
                 Route::put('user/{user}', [UserController::class, 'updateUserById']);
+                Route::get('user/pets', [UserController::class, 'getUserPets']);
+                Route::get('user/orders', [UserController::class, 'getUserOrders']);
 
                 /** logout */
                 Route::get('logout', [AuthController::class, 'logout']);

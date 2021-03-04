@@ -15,7 +15,7 @@ class CreatePetTagsTable extends Migration
     {
         Schema::create('pet_tags', function (Blueprint $table) {
             $table->bigInteger('pet_id');
-            $table->integer('tag_id');
+            $table->string('tag_name');
             $table->timestamps();
         });
     }

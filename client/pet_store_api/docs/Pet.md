@@ -7,8 +7,11 @@ Name | Type | Description | Notes
 **id** | **Number** |  | [optional] 
 **name** | **String** |  | [optional] 
 **status** | **String** |  | [optional] 
-**tags** | [**[Tag]**](Tag.md) |  | [optional] 
+**description** | **String** |  | [optional] 
+**tags** | **[String]** |  | [optional] 
+**photoUrls** | **[String]** |  | [optional] 
 **category** | [**Category**](.md) |  | [optional] 
 **owner** | [**User**](.md) |  | [optional] 
+**comments** | [**[PetComment]**](PetComment.md) |  | [optional] 
 
 

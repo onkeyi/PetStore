@@ -8,22 +8,22 @@ use App\Models\PetTag;
 use App\Models\PetPhotoUrl;
 use App\Models\Category;
 use App\Models\User;
+use App\Models\PetComment;
 
 class Pet extends Model
 {
     use HasFactory;
-    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'owner','description'];
+    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'comments','commentCount','owner','description'];
     protected $fillable = ['name', 'user_id', 'category_id', 'status','description'];
 
     public function tags()
     {
-        return $this->hasMany(PetTag::class)
-            ->join('tags', 'tags.id', '=', 'pet_tags.tag_id');
+        return $this->hasMany(PetTag::class);
     }
 
     public function photoUrls()
     {
-        return $this->hasMany(PetPhotoUrl::class, 'pet_id', 'id');
+        return $this->hasMany(PetPhotoUrl::class);
     }
 
     public function category()
@@ -33,6 +33,17 @@ class Pet extends Model
 
     public function owner()
     {
-        return $this->hasOne(User::class, 'id', 'user_id', 'status');
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function commentCount() {
+        return $this->hasMany(PetComment::class)->count();;
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(PetComment::class)->join('users', 'users.id', '=', 'pet_comments.user_id');
+        // return $this->hasMany(PetComment::class)->with(['user']);
+
     }
 }

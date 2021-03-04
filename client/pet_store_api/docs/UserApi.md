@@ -6,8 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteUserById**](UserApi.md#deleteUserById) | **DELETE** /user/{userId} | ユーザー削除
 [**findUserByName**](UserApi.md#findUserByName) | **GET** /user/findUserByName | ユーザー検索
-[**getUserOrders**](UserApi.md#getUserOrders) | **GET** /user/{userId}/orders | 
-[**getUserPets**](UserApi.md#getUserPets) | **GET** /user/{userId}/pets | 
+[**getUserOrders**](UserApi.md#getUserOrders) | **GET** /user/orders | 
+[**getUserPets**](UserApi.md#getUserPets) | **GET** /user/pets | 
 [**login**](UserApi.md#login) | **POST** /login | ログイン
 [**logout**](UserApi.md#logout) | **GET** /logout | ログアウト
 [**registerNewUser**](UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ## getUserOrders
 
-> [Order] getUserOrders(userId)
+> [Order] getUserOrders()
 
 
 
@@ -141,8 +141,7 @@ let bearer = defaultClient.authentications['bearer'];
 bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
-let userId = 56; // Number | 
-apiInstance.getUserOrders(userId).then((data) => {
+apiInstance.getUserOrders().then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -152,10 +151,7 @@ apiInstance.getUserOrders(userId).then((data) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **userId** | **Number**|  | 
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -173,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## getUserPets
 
-> [Order] getUserPets(userId)
+> [Pet] getUserPets()
 
 
 
@@ -194,8 +190,7 @@ let bearer = defaultClient.authentications['bearer'];
 bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
-let userId = 56; // Number | 
-apiInstance.getUserPets(userId).then((data) => {
+apiInstance.getUserPets().then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -205,14 +200,11 @@ apiInstance.getUserPets(userId).then((data) => {
 
 ### Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **userId** | **Number**|  | 
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**[Order]**](Order.md)
+[**[Pet]**](Pet.md)
 
 ### Authorization
 
@@ -331,7 +323,7 @@ This endpoint does not need any parameter.
 
 新規ユーザー登録
 
-新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック   - name: 最大20文字 ## Logic   登録成功するとメール通知
+新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
 
 ### Example
 

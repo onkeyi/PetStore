@@ -24,10 +24,10 @@ class PetStoreRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'max:20'],
+            'name' => ['required', 'max:100'],
             'status' => ['required', 'in:"available", "pending", "sold" '],
             'tags' => 'required',
-            'tags.*.name' => ['required', 'max:10', 'distinct'],
+            'tags.*.name' => ['required', 'max:20', 'distinct'],
             'category' => 'required',
             'category.id' => ['required', 'max:20'],
             'photoUrls' => ['required', 'array'] // add new pet after upload image.

@@ -11,8 +11,8 @@ use App\Models\Pet;
 class PetComment extends Model
 {
     use HasFactory;
-    protected $visible = ['id', 'pet', 'user', 'comment', 'created_at'];
-    protected $fillable = ['pet_id', 'user_id', 'comment'];
+    protected $visible = ['id',  'user_id','name', 'comment', 'created_at'];
+    protected $fillable = [ 'user_id','pet_id', 'comment'];
 
     public function user()
     {
@@ -23,4 +23,5 @@ class PetComment extends Model
     {
         return $this->hasOne(Pet::class, 'id', 'pet_id');
     }
+
 }

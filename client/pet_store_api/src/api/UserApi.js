@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## Swagger PetStore  実装 - バックエンド： Laravel - フロントエンド： Vue
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -19,6 +19,7 @@ import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
 import InlineResponse2002 from '../model/InlineResponse2002';
 import Order from '../model/Order';
+import Pet from '../model/Pet';
 import RequestAuthLogin from '../model/RequestAuthLogin';
 import RequestAuthRegister from '../model/RequestAuthRegister';
 import Unexpected from '../model/Unexpected';
@@ -142,18 +143,12 @@ export default class UserApi {
 
     /**
      * User Orders
-     * @param {Number} userId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Order>} and HTTP response
      */
-    getUserOrdersWithHttpInfo(userId) {
+    getUserOrdersWithHttpInfo() {
       let postBody = null;
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling getUserOrders");
-      }
 
       let pathParams = {
-        'userId': userId
       };
       let queryParams = {
       };
@@ -167,7 +162,7 @@ export default class UserApi {
       let accepts = ['application/json', 'applicaiton/json'];
       let returnType = [Order];
       return this.apiClient.callApi(
-        '/user/{userId}/orders', 'GET',
+        '/user/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -175,11 +170,10 @@ export default class UserApi {
 
     /**
      * User Orders
-     * @param {Number} userId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
      */
-    getUserOrders(userId) {
-      return this.getUserOrdersWithHttpInfo(userId)
+    getUserOrders() {
+      return this.getUserOrdersWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -188,18 +182,12 @@ export default class UserApi {
 
     /**
      * User pets.
-     * @param {Number} userId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Order>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Pet>} and HTTP response
      */
-    getUserPetsWithHttpInfo(userId) {
+    getUserPetsWithHttpInfo() {
       let postBody = null;
-      // verify the required parameter 'userId' is set
-      if (userId === undefined || userId === null) {
-        throw new Error("Missing the required parameter 'userId' when calling getUserPets");
-      }
 
       let pathParams = {
-        'userId': userId
       };
       let queryParams = {
       };
@@ -211,9 +199,9 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = [Order];
+      let returnType = [Pet];
       return this.apiClient.callApi(
-        '/user/{userId}/pets', 'GET',
+        '/user/pets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -221,11 +209,10 @@ export default class UserApi {
 
     /**
      * User pets.
-     * @param {Number} userId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Pet>}
      */
-    getUserPets(userId) {
-      return this.getUserPetsWithHttpInfo(userId)
+    getUserPets() {
+      return this.getUserPetsWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -321,7 +308,7 @@ export default class UserApi {
 
     /**
      * 新規ユーザー登録
-     * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック   - name: 最大20文字 ## Logic   登録成功するとメール通知
+     * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
@@ -352,7 +339,7 @@ export default class UserApi {
 
     /**
      * 新規ユーザー登録
-     * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック   - name: 最大20文字 ## Logic   登録成功するとメール通知
+     * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}

@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **category** | [**Category**](Category.md) |  | 
 **photoUrls** | **[String]** |  | [optional] 
 **tags** | [**[Tag]**](Tag.md) |  | [optional] 
+**description** | **String** |  | [optional] 
 
 

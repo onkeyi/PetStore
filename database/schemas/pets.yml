@@ -7,6 +7,7 @@ pets:
     status:
       type: enum
       args: ['available', 'pending', 'sold'] #利用可能、保留中、販売済み
+      default: 'available'
     description:
       type: string
       default: nullable

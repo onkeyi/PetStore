@@ -15,6 +15,11 @@
         </a>
       </div>
     </header>
+    <div>
+        <MyPet></MyPet>
+        <p>ORDER:</p>
+        <MyOrder></MyOrder>
+    </div>
     {{ $t("message.mypage")}}
     <ConfirmDialog
       v-bind:show="openConfirmDialog"
@@ -36,9 +41,6 @@ export default {
   },
   methods: {
     logout() {
-      let defaultClient = ApiClient.instance;
-      let bearer = defaultClient.authentications["bearer"];
-      bearer.accessToken = localStorage.getItem("accessToken");
       let apiInstance = new UserApi();
       apiInstance.logout().then((data) => {
         this.confirmDialog = false;

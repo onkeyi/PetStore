@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## Swagger PetStore  実装 - バックエンド： Laravel - フロントエンド： Vue
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -13,7 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import Category from './Category';
-import Tag from './Tag';
+import PetComment from './PetComment';
 import User from './User';
 
 /**
@@ -59,14 +59,23 @@ class Pet {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], [Tag]);
+                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
+            }
+            if (data.hasOwnProperty('photo_urls')) {
+                obj['photo_urls'] = ApiClient.convertToType(data['photo_urls'], ['String']);
             }
             if (data.hasOwnProperty('category')) {
                 obj['category'] = Category.constructFromObject(data['category']);
             }
             if (data.hasOwnProperty('owner')) {
                 obj['owner'] = User.constructFromObject(data['owner']);
+            }
+            if (data.hasOwnProperty('comments')) {
+                obj['comments'] = ApiClient.convertToType(data['comments'], [PetComment]);
             }
         }
         return obj;
@@ -91,9 +100,19 @@ Pet.prototype['name'] = undefined;
 Pet.prototype['status'] = undefined;
 
 /**
- * @member {Array.<module:model/Tag>} tags
+ * @member {String} description
+ */
+Pet.prototype['description'] = undefined;
+
+/**
+ * @member {Array.<String>} tags
  */
 Pet.prototype['tags'] = undefined;
+
+/**
+ * @member {Array.<String>} photo_urls
+ */
+Pet.prototype['photo_urls'] = undefined;
 
 /**
  * @member {module:model/Category} category
@@ -104,6 +123,11 @@ Pet.prototype['category'] = undefined;
  * @member {module:model/User} owner
  */
 Pet.prototype['owner'] = undefined;
+
+/**
+ * @member {Array.<module:model/PetComment>} comments
+ */
+Pet.prototype['comments'] = undefined;
 
 
 

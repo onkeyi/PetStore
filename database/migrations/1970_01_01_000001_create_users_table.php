@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('phone')->nullable();
             $table->tinyInteger('status')->default(true);
+            $table->string('avatar');
             $table->timestamps();
             $table->softDeletes();
         });

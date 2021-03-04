@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\Admin::factory(1)->create();
         \App\Models\User::factory(10)->create();
-        \App\Models\Tag::factory(50)->create();
         \App\Models\Category::factory(50)->create();
         \App\Models\Order::factory(150)->create();
         \App\Models\PetComment::factory(50)->create();

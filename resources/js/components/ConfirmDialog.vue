@@ -26,7 +26,8 @@
                   type="button"
                   class="btn btn-sm btn-outline-secondary"
                   v-on:click="$emit('close')"
-                >   {{ $t("message.close")}}
+                >
+                  {{ $t("message.close") }}
                 </button>
               </div>
             </div>
@@ -40,8 +41,7 @@
 <script>
 export default {
   name: "ConfirmDialog",
-  props: ["show", "content", "action","close"],
-
+  props: ["show", "content", "action", "close"],
 };
 </script>
 <style scoped>

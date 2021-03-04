@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## Swagger PetStore  実装 - バックエンド： Laravel - フロントエンド： Vue
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -65,6 +65,9 @@ class RequestPetStore {
             if (data.hasOwnProperty('tags')) {
                 obj['tags'] = ApiClient.convertToType(data['tags'], [Tag]);
             }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
         }
         return obj;
     }
@@ -91,6 +94,11 @@ RequestPetStore.prototype['photo_urls'] = undefined;
  * @member {Array.<module:model/Tag>} tags
  */
 RequestPetStore.prototype['tags'] = undefined;
+
+/**
+ * @member {String} description
+ */
+RequestPetStore.prototype['description'] = undefined;
 
 
 

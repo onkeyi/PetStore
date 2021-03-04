@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## Swagger PetStore  実装 - バックエンド： Laravel - フロントエンド： Vue
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -591,11 +591,11 @@ class ApiClient {
         return [
             {
               'url': "http://localhost/api",
-              'description': "Developer server",
+              'description': "開発サーバーURL",
             },
             {
               'url': "https://product/api",
-              'description': "Production Server",
+              'description': "本番サーバーURL",
             }
       ];
     }

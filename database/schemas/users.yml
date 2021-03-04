@@ -22,6 +22,6 @@ users:
       type: tinyInteger
       default: true
     avatar:
-      type: string;
+      type: string
     timestamps: true
     softDeletes: true

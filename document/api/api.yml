@@ -451,7 +451,7 @@ paths:
       security:
         - apiKey: []
         - bearer: []
-  /user/{userId}/pets:
+  /user/pets:
     get:
       tags:
         - User
@@ -472,7 +472,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/order"
+                  $ref: "#/components/schemas/pet"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -509,16 +509,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/error500"
-      parameters:
-        - schema:
-            type: integer
-          name: userId
-          in: path
-          required: true
       security:
         - apiKey: []
         - bearer: []
-  /user/{userId}/orders:
+  /user/orders:
     get:
       tags:
         - User
@@ -576,12 +570,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/error500"
-      parameters:
-        - schema:
-            type: integer
-          name: userId
-          in: path
-          required: true
       security:
         - apiKey: []
         - bearer: []
@@ -1491,6 +1479,7 @@ paths:
         - bearer: []
   /tags:
     get:
+      deprecated: true
       summary: Tag一覧
       operationId: getAllTags
       tags:
@@ -1524,6 +1513,7 @@ paths:
         - apiKey: []
   /tag:
     post:
+      deprecated: true
       summary: Tag 登録
       operationId: addNewTag
       tags:
@@ -1562,6 +1552,7 @@ paths:
         - apiKey: []
   /tag/{tagId}:
     get:
+      deprecated: true
       summary: Tag情報
       tags:
         - Tag
@@ -1600,6 +1591,7 @@ paths:
       security:
         - apiKey: []
     put:
+      deprecated: true
       summary: Tag情報更新
       tags:
         - Tag
@@ -1644,6 +1636,7 @@ paths:
         - apiKey: []
         - bearer: []
     delete:
+      deprecated: true
       summary: Tag情報削除
       tags:
         - Tag
@@ -1915,7 +1908,9 @@ components:
         pet_id:
           type: integer
         user_id:
-          type: integer
+          type: string
+        name:
+          type: string
         comment:
           type: string
         created_at:
@@ -1956,6 +1951,7 @@ components:
           type: integer
         name:
           type: string
+
     pet:
       type: object
       properties:
@@ -1969,15 +1965,22 @@ components:
           type: string
         tags:
           type: array
-          maxItems: 20
           items:
-            $ref: "#/components/schemas/tag"
+            type: string
+        photo_urls:
+          type: array
+          items:
+            type: string
         category:
           type: object
           $ref: "#/components/schemas/category"
         owner:
           type: object
           $ref: "#/components/schemas/user"
+        comments:
+          type: array
+          items:
+            $ref: "#/components/schemas/pet_comment"
     user:
       type: object
       required:
@@ -2039,6 +2042,8 @@ components:
           items:
             title: tag
             $ref: "#/components/schemas/tag"
+        description:
+          type: string
     request_pet_update:
       type: object
       required:

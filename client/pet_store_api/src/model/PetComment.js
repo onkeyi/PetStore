@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## Swagger PetStore  実装 - バックエンド： Laravel - フロントエンド： Vue
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -54,7 +54,10 @@ class PetComment {
                 obj['pet_id'] = ApiClient.convertToType(data['pet_id'], 'Number');
             }
             if (data.hasOwnProperty('user_id')) {
-                obj['user_id'] = ApiClient.convertToType(data['user_id'], 'Number');
+                obj['user_id'] = ApiClient.convertToType(data['user_id'], 'String');
+            }
+            if (data.hasOwnProperty('name')) {
+                obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
             if (data.hasOwnProperty('comment')) {
                 obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
@@ -80,9 +83,14 @@ PetComment.prototype['id'] = undefined;
 PetComment.prototype['pet_id'] = undefined;
 
 /**
- * @member {Number} user_id
+ * @member {String} user_id
  */
 PetComment.prototype['user_id'] = undefined;
+
+/**
+ * @member {String} name
+ */
+PetComment.prototype['name'] = undefined;
 
 /**
  * @member {String} comment
