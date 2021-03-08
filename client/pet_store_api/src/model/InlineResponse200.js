@@ -58,7 +58,6 @@ class InlineResponse200 {
 }
 
 /**
- * 新規登録ユーザーID
  * @member {Number} id
  */
 InlineResponse200.prototype['id'] = undefined;

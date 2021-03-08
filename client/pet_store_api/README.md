@@ -153,18 +153,19 @@ Class | Method | HTTP request | Description
 *PetStoreApi.PetApi* | [**getPetById**](docs/PetApi.md#getPetById) | **GET** /pet/{petId} | ペット情報取得
 *PetStoreApi.PetApi* | [**updatePetById**](docs/PetApi.md#updatePetById) | **PUT** /pet/{petId} | ペット情報更新
 *PetStoreApi.PetApi* | [**uploadImage**](docs/PetApi.md#uploadImage) | **GET** /pet/uploadImage | アップロードペットイメージ
-*PetStoreApi.TagApi* | [**addNewTag**](docs/TagApi.md#addNewTag) | **POST** /tag | Tag 登録
-*PetStoreApi.TagApi* | [**deleteTagById**](docs/TagApi.md#deleteTagById) | **DELETE** /tag/{tagId} | Tag情報削除
-*PetStoreApi.TagApi* | [**getAllTags**](docs/TagApi.md#getAllTags) | **GET** /tags | Tag一覧
-*PetStoreApi.TagApi* | [**getTagById**](docs/TagApi.md#getTagById) | **GET** /tag/{tagId} | Tag情報
-*PetStoreApi.TagApi* | [**updateTagById**](docs/TagApi.md#updateTagById) | **PUT** /tag/{tagId} | Tag情報更新
+*PetStoreApi.UserApi* | [**addNewUserFavorite**](docs/UserApi.md#addNewUserFavorite) | **POST** /user/favorite | お気に入り登録
+*PetStoreApi.UserApi* | [**deleteUser**](docs/UserApi.md#deleteUser) | **DELETE** /user | ユーザー削除
 *PetStoreApi.UserApi* | [**deleteUserById**](docs/UserApi.md#deleteUserById) | **DELETE** /user/{userId} | ユーザー削除
+*PetStoreApi.UserApi* | [**deleteUserFavorite**](docs/UserApi.md#deleteUserFavorite) | **DELETE** /user/{favoriteId}/favorite/ | お気に入り削除
 *PetStoreApi.UserApi* | [**findUserByName**](docs/UserApi.md#findUserByName) | **GET** /user/findUserByName | ユーザー検索
+*PetStoreApi.UserApi* | [**getUser**](docs/UserApi.md#getUser) | **GET** /user | ユーザー情報取得
+*PetStoreApi.UserApi* | [**getUserFavorites**](docs/UserApi.md#getUserFavorites) | **GET** /user/favorites | お気に入り一覧取得
 *PetStoreApi.UserApi* | [**getUserOrders**](docs/UserApi.md#getUserOrders) | **GET** /user/orders | 
 *PetStoreApi.UserApi* | [**getUserPets**](docs/UserApi.md#getUserPets) | **GET** /user/pets | 
 *PetStoreApi.UserApi* | [**login**](docs/UserApi.md#login) | **POST** /login | ログイン
 *PetStoreApi.UserApi* | [**logout**](docs/UserApi.md#logout) | **GET** /logout | ログアウト
 *PetStoreApi.UserApi* | [**registerNewUser**](docs/UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
+*PetStoreApi.UserApi* | [**updateUser**](docs/UserApi.md#updateUser) | **PUT** /user | ユーザー情報更新
 *PetStoreApi.UserApi* | [**updateUserById**](docs/UserApi.md#updateUserById) | **PUT** /user/{userId} | ユーザー情報更新
 
 
@@ -181,11 +182,13 @@ Class | Method | HTTP request | Description
  - [PetStoreApi.PetComment](docs/PetComment.md)
  - [PetStoreApi.RequestAuthLogin](docs/RequestAuthLogin.md)
  - [PetStoreApi.RequestAuthRegister](docs/RequestAuthRegister.md)
+ - [PetStoreApi.RequestFavoriteStore](docs/RequestFavoriteStore.md)
+ - [PetStoreApi.RequestOrderStore](docs/RequestOrderStore.md)
+ - [PetStoreApi.RequestOrderUpdate](docs/RequestOrderUpdate.md)
  - [PetStoreApi.RequestPetStore](docs/RequestPetStore.md)
  - [PetStoreApi.RequestPetUpdate](docs/RequestPetUpdate.md)
  - [PetStoreApi.ResponsePegination](docs/ResponsePegination.md)
  - [PetStoreApi.ResponsePeginationLinks](docs/ResponsePeginationLinks.md)
- - [PetStoreApi.Tag](docs/Tag.md)
  - [PetStoreApi.Unexpected](docs/Unexpected.md)
  - [PetStoreApi.User](docs/User.md)
 

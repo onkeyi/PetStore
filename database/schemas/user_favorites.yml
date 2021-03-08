@@ -1,0 +1,6 @@
+user_favorites:
+  columns:
+    id: true
+    user_id: bigInteger
+    pet_id: bigInteger
+    timestamps: true

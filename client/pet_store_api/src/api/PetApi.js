@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
-import InlineResponse2002 from '../model/InlineResponse2002';
+import InlineResponse200 from '../model/InlineResponse200';
 import Pet from '../model/Pet';
 import PetComment from '../model/PetComment';
 import RequestPetStore from '../model/RequestPetStore';
@@ -48,7 +48,7 @@ export default class PetApi {
      * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetStore} opts.requestPetStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
     addNewPetWithHttpInfo(opts) {
       opts = opts || {};
@@ -66,7 +66,7 @@ export default class PetApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse2002;
+      let returnType = InlineResponse200;
       return this.apiClient.callApi(
         '/pet', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -79,7 +79,7 @@ export default class PetApi {
      * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetStore} opts.requestPetStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
     addNewPet(opts) {
       return this.addNewPetWithHttpInfo(opts)
@@ -523,7 +523,7 @@ export default class PetApi {
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
     updatePetByIdWithHttpInfo(petId, opts) {
       opts = opts || {};
@@ -546,7 +546,7 @@ export default class PetApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['applicaiton/json', 'application/json'];
-      let returnType = InlineResponse2002;
+      let returnType = InlineResponse200;
       return this.apiClient.callApi(
         '/pet/{petId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -560,7 +560,7 @@ export default class PetApi {
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
     updatePetById(petId, opts) {
       return this.updatePetByIdWithHttpInfo(petId, opts)

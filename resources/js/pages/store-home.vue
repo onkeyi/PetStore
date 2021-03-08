@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <HomePageHeader></HomePageHeader>
-    <PetCategoryNavbar></PetCategoryNavbar>
+    <page-header />
+    <category-navbar />
     <main role="main" class="container">
       <div class="row">
         <transition>
           <keep-alive>
-            <PetList></PetList>
+            <item-list />
           </keep-alive>
         </transition>
       </div>

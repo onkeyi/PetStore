@@ -9,7 +9,7 @@ trait ApiResponse
     public function successResponse($data = null, $code = 200)
     {
 
-        return response()->json($data ? $data : new \stdClass(), $code);
+        return response()->json(isset($data) ? $data : [], $code);
     }
 
     public function failedResponse($message = '', $code = 400)

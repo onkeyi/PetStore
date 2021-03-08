@@ -15,7 +15,8 @@
 import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
-import Order from '../model/Order';
+import RequestOrderStore from '../model/RequestOrderStore';
+import RequestOrderUpdate from '../model/RequestOrderUpdate';
 import ResponsePegination from '../model/ResponsePegination';
 
 /**
@@ -42,12 +43,12 @@ export default class OrderApi {
      * オーダー登録
      * オーダー登録
      * @param {Object} opts Optional parameters
-     * @param {module:model/Order} opts.order 
+     * @param {module:model/RequestOrderStore} opts.requestOrderStore 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
     addNewOrderWithHttpInfo(opts) {
       opts = opts || {};
-      let postBody = opts['order'];
+      let postBody = opts['requestOrderStore'];
 
       let pathParams = {
       };
@@ -73,7 +74,7 @@ export default class OrderApi {
      * オーダー登録
      * オーダー登録
      * @param {Object} opts Optional parameters
-     * @param {module:model/Order} opts.order 
+     * @param {module:model/RequestOrderStore} opts.requestOrderStore 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
     addNewOrder(opts) {
@@ -219,12 +220,12 @@ export default class OrderApi {
      * オーダー更新
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
-     * @param {module:model/Order} opts.order 
+     * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
      */
     updateOrderByIdWithHttpInfo(orderId, opts) {
       opts = opts || {};
-      let postBody = opts['order'];
+      let postBody = opts['requestOrderUpdate'];
       // verify the required parameter 'orderId' is set
       if (orderId === undefined || orderId === null) {
         throw new Error("Missing the required parameter 'orderId' when calling updateOrderById");
@@ -255,7 +256,7 @@ export default class OrderApi {
      * オーダー更新
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
-     * @param {module:model/Order} opts.order 
+     * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
     updateOrderById(orderId, opts) {

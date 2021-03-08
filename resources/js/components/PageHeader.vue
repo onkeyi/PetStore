@@ -59,7 +59,7 @@
 </template>
 <script>
 export default {
-  name: "HomePageHeader",
+  name: "page-header",
   data: () => ({
     isLogin: localStorage.getItem("accessToken") ? true : false,
     inputTag: null,

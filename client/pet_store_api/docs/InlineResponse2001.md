@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** |  | [optional] 
+**id** | **Number** | 新規登録ユーザーID | [optional] 
 
 

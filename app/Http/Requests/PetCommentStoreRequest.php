@@ -24,8 +24,8 @@ class PetCommentStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'pet_id' => 'required',
-            'comment' => ['required', 'max:200']
+            'pet_id' => ['required','exists:pets,id'],
+            'comment' => ['required', 'max:255']
         ];
     }
 }

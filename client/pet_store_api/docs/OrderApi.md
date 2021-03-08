@@ -36,7 +36,7 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.OrderApi();
 let opts = {
-  'order': new PetStoreApi.Order() // Order | 
+  'requestOrderStore': new PetStoreApi.RequestOrderStore() // RequestOrderStore | 
 };
 apiInstance.addNewOrder(opts).then(() => {
   console.log('API called successfully.');
@@ -51,7 +51,7 @@ apiInstance.addNewOrder(opts).then(() => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **order** | [**Order**](Order.md)|  | [optional] 
+ **requestOrderStore** | [**RequestOrderStore**](RequestOrderStore.md)|  | [optional] 
 
 ### Return type
 
@@ -233,7 +233,7 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 let apiInstance = new PetStoreApi.OrderApi();
 let orderId = 56; // Number | 
 let opts = {
-  'order': new PetStoreApi.Order() // Order | 
+  'requestOrderUpdate': new PetStoreApi.RequestOrderUpdate() // RequestOrderUpdate | 
 };
 apiInstance.updateOrderById(orderId, opts).then(() => {
   console.log('API called successfully.');
@@ -249,7 +249,7 @@ apiInstance.updateOrderById(orderId, opts).then(() => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orderId** | **Number**|  | 
- **order** | [**Order**](Order.md)|  | [optional] 
+ **requestOrderUpdate** | [**RequestOrderUpdate**](RequestOrderUpdate.md)|  | [optional] 
 
 ### Return type
 

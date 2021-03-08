@@ -1,6 +1,14 @@
 <template>
   <div class="container">
-    <OtherPageHeader></OtherPageHeader>
+    <header class="store-header py-3">
+      <div class="row flex-nowrap justify-content-between align-items-center">
+        <div class="col-4 pt-1">
+          <router-link class="store-header-logo text-dark" :to="{ path: '/' }">
+            {{ $appName }}
+          </router-link>
+        </div>
+      </div>
+    </header>
     <div class="m-5">
       <p class="h4 text-center mb-4">Log in</p>
       <label for="defaultFormLoginEmailEx" class="grey-text">Your email</label>
@@ -50,7 +58,7 @@ export default {
     };
   },
   methods: {
-    onSubmit(event) {
+    asynconSubmit(event) {
       if (!this.email) {
         this.errorMessage = "メルアドレスを入力してください。";
         return;
@@ -72,7 +80,7 @@ export default {
           this.$router.replace("/").catch(() => {});
         },
         (error) => {
-          this.errorMessage = 'ログイン失敗しました。';//error.body ? error.body.message : error.message;
+          this.errorMessage = "ログイン失敗しました。"; //error.body ? error.body.message : error.message;
         }
       );
     },

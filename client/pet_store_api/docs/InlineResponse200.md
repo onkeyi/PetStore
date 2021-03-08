@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **Number** | 新規登録ユーザーID | [optional] 
+**id** | **Number** |  | [optional] 
 
 

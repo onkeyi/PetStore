@@ -22,7 +22,7 @@ class UserRegisterRequest extends ApiRequest
     public function rules()
     {
         return [
-            'name' => ['required','max:20'],
+            'name' => ['required','max:100'],
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:6','max:20']
         ];

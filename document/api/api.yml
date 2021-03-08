@@ -97,6 +97,196 @@ paths:
               password: "password"
       security:
         - apiKey: []
+    get:
+      operationId: getUser
+      tags:
+        - User
+      summary: ユーザー情報取得
+      description: |-
+        ユーザー情報
+      responses:
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/unexpected"
+        "200":
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: "#/components/schemas/user"
+        "401":
+          description: <API-KEY> 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "403":
+          description: セキュリティエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "404":
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "500":
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error500"
+      security:
+        - apiKey: []
+        - bearer: []
+    put:
+      operationId: updateUser
+      tags:
+        - User
+      summary: ユーザー情報更新
+      description: |-
+        ユーザー情報更新項目
+        - ユーザー名更新
+        - ステータス更新
+      responses:
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/unexpected"
+        "200":
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                additionalProperties: false
+        "401":
+          description: <API-KEY> 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "403":
+          description: セキュリティエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "404":
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "500":
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error500"
+      requestBody:
+        content:
+          applicaiton/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      security:
+        - apiKey: []
+        - bearer: []
+    delete:
+      operationId: deleteUser
+      tags:
+        - User
+      summary: ユーザー削除
+      description: |-
+        ユーザー削除
+        - softdelete
+      responses:
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/unexpected"
+        "200":
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                type: object
+                default: {}
+        "401":
+          description: <API-KEY> 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "403":
+          description: セキュリティエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "404":
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "500":
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error500"
+      security:
+        - apiKey: []
+        - bearer: []
   /login:
     post:
       operationId: login
@@ -236,7 +426,199 @@ paths:
       security:
         - apiKey: []
         - bearer: []
-
+  /user/favorite:
+    post:
+      operationId: addNewUserFavorite
+      tags:
+        - User
+      summary: お気に入り登録
+      description: |-
+        ユーザーお気に入り登録
+      responses:
+        default:
+          description: その他エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/unexpected"
+        "200":
+          description: 登録成功
+          content:
+            applicaiton/json:
+              schema:
+                type: object
+        "401":
+          description: <API-KEY> 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "403":
+          description: セキュリティエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "500":
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error500"
+      requestBody:
+        content:
+          applicaiton/json:
+            schema:
+              $ref: "#/components/schemas/request_favorite_store"
+      security:
+        - apiKey: []
+        - bearer: []
+  /user/favorites:
+    get:
+      operationId: getUserFavorites
+      tags:
+        - User
+      summary: お気に入り一覧取得
+      description: |-
+        ユーザーお気に入り一覧取得
+      responses:
+        default:
+          description: その他エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/unexpected"
+        "200":
+          description: 登録成功
+          content:
+            applicaiton/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/pet"
+        "401":
+          description: <API-KEY> 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "403":
+          description: セキュリティエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "500":
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error500"
+      security:
+        - apiKey: []
+        - bearer: []
+  /user/{favoriteId}/favorite/:
+    delete:
+      operationId: deleteUserFavorite
+      tags:
+        - User
+      summary: お気に入り削除
+      description: |-
+        ユーザーお気に入り削除
+      responses:
+        default:
+          description: その他エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/unexpected"
+        "200":
+          description: 登録成功
+          content:
+            applicaiton/json:
+              schema:
+                type: object
+        "401":
+          description: <API-KEY> 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "403":
+          description: セキュリティエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "415":
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "500":
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error500"
+      parameters:
+        - schema:
+            type: integer
+          name: favoriteId
+          in: path
+          required: true
+      security:
+        - apiKey: []
+        - bearer: []
   /user/findUserByName:
     get:
       operationId: findUserByName
@@ -1477,204 +1859,7 @@ paths:
       security:
         - apiKey: []
         - bearer: []
-  /tags:
-    get:
-      deprecated: true
-      summary: Tag一覧
-      operationId: getAllTags
-      tags:
-        - Tag
-      responses:
-        "200":
-          description: 成功
-          content:
-            applicaiton/json:
-              schema:
-                $ref: "#/components/schemas/response_pegination"
-        "401":
-          description: <API-KEY> 認証エラー
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "405":
-          description: Method Not Allowed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "500":
-          description: サーバーエラー.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error500"
-      security:
-        - apiKey: []
-  /tag:
-    post:
-      deprecated: true
-      summary: Tag 登録
-      operationId: addNewTag
-      tags:
-        - Tag
-      responses:
-        "200":
-          description: 成功
-          content:
-            applicaiton/json:
-              schema:
-                $ref: "#/components/schemas/category"
-        "401":
-          description: <API-KEY> 認証エラー
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "405":
-          description: Method Not Allowed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "500":
-          description: サーバーエラー.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error500"
-      requestBody:
-        content:
-          applicaiton/json:
-            schema:
-              $ref: "#/components/schemas/tag"
-      security:
-        - apiKey: []
-  /tag/{tagId}:
-    get:
-      deprecated: true
-      summary: Tag情報
-      tags:
-        - Tag
-      operationId: getTagById
-      responses:
-        "200":
-          description: 成功
-          content:
-            applicaiton/json:
-              schema:
-                $ref: "#/components/schemas/category"
-        "401":
-          description: <API-KEY> 認証エラー
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "405":
-          description: Method Not Allowed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "500":
-          description: サーバーエラー.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error500"
-      parameters:
-        - name: tagId
-          schema:
-            type: integer
-          in: path
-          required: true
-      security:
-        - apiKey: []
-    put:
-      deprecated: true
-      summary: Tag情報更新
-      tags:
-        - Tag
-      operationId: updateTagById
-      responses:
-        "200":
-          description: 成功
-          content:
-            applicaiton/json:
-              schema:
-                $ref: "#/components/schemas/category"
-        "401":
-          description: <API-KEY> 認証エラー
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "405":
-          description: Method Not Allowed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "500":
-          description: サーバーエラー.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error500"
-      parameters:
-        - name: tagId
-          schema:
-            type: integer
-          in: path
-          required: true
-      requestBody:
-        content:
-          applicaiton/json:
-            schema:
-              $ref: "#/components/schemas/tag"
-      security:
-        - apiKey: []
-        - bearer: []
-    delete:
-      deprecated: true
-      summary: Tag情報削除
-      tags:
-        - Tag
-      operationId: deleteTagById
-      responses:
-        "200":
-          description: 成功
-          content:
-            applicaiton/json:
-              schema:
-                $ref: "#/components/schemas/category"
-        "401":
-          description: <API-KEY> 認証エラー
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "405":
-          description: Method Not Allowed
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error400"
-        "500":
-          description: サーバーエラー.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/error500"
-      parameters:
-        - name: tagId
-          schema:
-            type: integer
-          in: path
-          required: true
-      security:
-        - apiKey: []
-        - bearer: []
+
   /order:
     post:
       operationId: addNewOrder
@@ -1720,7 +1905,7 @@ paths:
         content:
           applicaiton/json:
             schema:
-              $ref: "#/components/schemas/order"
+              $ref: "#/components/schemas/request_order_store"
       security:
         - apiKey: []
         - bearer: []
@@ -1838,7 +2023,7 @@ paths:
         content:
           applicaiton/json:
             schema:
-              $ref: "#/components/schemas/order"
+              $ref: "#/components/schemas/request_order_update"
       responses:
         "200":
           description: 成功
@@ -1931,27 +2116,19 @@ components:
         pet:
           type: object
           $ref: "#/components/schemas/pet"
-        user:
+        orderUser:
           type: object
           $ref: "#/components/schemas/user"
         quantity:
           type: integer
           default: 1
         status:
-          type: integer
-        shop_date:
+          type: string
+        ship_date:
           type: string
         complete:
           type: boolean
           default: false
-    tag:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-
     pet:
       type: object
       properties:
@@ -2038,10 +2215,8 @@ components:
             type: string
         tags:
           type: array
-          maxItems: 20
           items:
-            title: tag
-            $ref: "#/components/schemas/tag"
+            type: string
         description:
           type: string
     request_pet_update:
@@ -2049,7 +2224,7 @@ components:
       required:
         - id
         - name
-        - Category
+        - category
       properties:
         id:
           type: integer
@@ -2066,9 +2241,47 @@ components:
           type: array
           maxItems: 20
           items:
-            title: tag
-            $ref: "#/components/schemas/tag"
-
+            type: string
+    request_order_store:
+      type: object
+      required:
+        - pet_id
+        - quantity
+        - status
+      properties:
+        pet_id:
+          type: integer
+        quantity:
+          type: integer
+          default: 1
+        status:
+          type: integer
+    request_order_update:
+      type: object
+      required:
+        - id
+        - pet_id
+        - status
+      properties:
+        pet_id:
+          type: integer
+        quantity:
+          type: integer
+          default: 1
+        status:
+          type: integer
+        ship_date:
+          type: string
+        complete:
+          type: boolean
+          default: false
+    request_favorite_store:
+      type: object
+      required:
+        - pet_id
+      properties:
+        pet_id:
+          type: integer
     response_pegination:
       type: object
       properties:

@@ -1,12 +1,16 @@
 orders:
   columns:
     id: bigIncrements
-    pet_id: bigInteger
+    pet_id:
+      type: bigInteger
+      unique: true
     user_id: bigInteger
     quantity:
       type: integer
       default: 1
-    ship_date: dateTime
+    ship_date:
+      type: dateTime
+      nullable: true
     status:
         type: enum
         args: ['placed', 'approved', 'delivered'] # 未定、承認、配達

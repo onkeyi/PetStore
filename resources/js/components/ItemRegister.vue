@@ -2,6 +2,7 @@
 <script>
 import { PetApi, RequestPetStore } from "pet_store_api";
 export default {
+    name:'item-register',
   data: () => ({
     message: null,
     name: null,
@@ -11,7 +12,7 @@ export default {
     description: null,
   }),
   methods: {
-    register() {
+    async register() {
       if (!this.name) {
         this.message = "名を入力してください。";
         return;
@@ -38,12 +39,7 @@ export default {
       let opts = {
         requestPetStore: request,
       };
-      petApi.addNewPet().then(
-        (data) => {},
-        (error) => {
-          console.log(error);
-        }
-      );
+      await petApi.addNewPet();
     },
   },
 };

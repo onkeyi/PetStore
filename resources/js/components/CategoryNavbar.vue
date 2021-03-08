@@ -15,17 +15,18 @@
 <script>
 import { CategoryApi } from "pet_store_api";
 export default {
-  name: "PetCategoryNavbar",
+  name: "category-navbar",
   data: () => ({
     categories: [],
   }),
   mounted: function () {
-    let apiInstance = new CategoryApi();
-    apiInstance.getAllCategorys().then((data) => {
-        this.categories = data;
-    },error =>{
-      console.error(error);
-    });
+    this.loadData();
   },
+  methods: {
+    async loadData() {
+    let apiInstance = new CategoryApi();
+    this.categories = await apiInstance.getAllCategorys();
+}
+    }
 };
 </script>

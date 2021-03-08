@@ -30,7 +30,7 @@
 </template>
 <script>
 export default {
-  name: "PetListCard",
+  name: "item-list-card",
   props: ["pet"],
   created: function () {},
 };

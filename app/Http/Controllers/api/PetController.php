@@ -9,7 +9,6 @@ use App\Exceptions\ParameterNotfoundException;
 use App\Models\Pet;
 use App\Models\PetPhotoUrl;
 use App\Models\PetTag;
-use App\Models\Tag;
 use App\Http\Requests\PetStoreRequest;
 use App\Http\Requests\PetUpdateRequest;
 use App\Http\Requests\PetUploadImageRequest;

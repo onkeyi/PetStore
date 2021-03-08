@@ -22,6 +22,7 @@ import Order from '../model/Order';
 import Pet from '../model/Pet';
 import RequestAuthLogin from '../model/RequestAuthLogin';
 import RequestAuthRegister from '../model/RequestAuthRegister';
+import RequestFavoriteStore from '../model/RequestFavoriteStore';
 import Unexpected from '../model/Unexpected';
 import User from '../model/User';
 
@@ -43,6 +44,93 @@ export default class UserApi {
         this.apiClient = apiClient || ApiClient.instance;
     }
 
+
+
+    /**
+     * お気に入り登録
+     * ユーザーお気に入り登録
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestFavoriteStore} opts.requestFavoriteStore 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+    addNewUserFavoriteWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['requestFavoriteStore'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = ['applicaiton/json'];
+      let accepts = ['application/json', 'applicaiton/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/user/favorite', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * お気に入り登録
+     * ユーザーお気に入り登録
+     * @param {Object} opts Optional parameters
+     * @param {module:model/RequestFavoriteStore} opts.requestFavoriteStore 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    addNewUserFavorite(opts) {
+      return this.addNewUserFavoriteWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * ユーザー削除
+     * ユーザー削除 - softdelete
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+    deleteUserWithHttpInfo() {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['application/json', 'applicaiton/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/user', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * ユーザー削除
+     * ユーザー削除 - softdelete
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    deleteUser() {
+      return this.deleteUserWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
 
 
     /**
@@ -94,6 +182,54 @@ export default class UserApi {
 
 
     /**
+     * お気に入り削除
+     * ユーザーお気に入り削除
+     * @param {Number} favoriteId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+    deleteUserFavoriteWithHttpInfo(favoriteId) {
+      let postBody = null;
+      // verify the required parameter 'favoriteId' is set
+      if (favoriteId === undefined || favoriteId === null) {
+        throw new Error("Missing the required parameter 'favoriteId' when calling deleteUserFavorite");
+      }
+
+      let pathParams = {
+        'favoriteId': favoriteId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['application/json', 'applicaiton/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/user/{favoriteId}/favorite/', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * お気に入り削除
+     * ユーザーお気に入り削除
+     * @param {Number} favoriteId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    deleteUserFavorite(favoriteId) {
+      return this.deleteUserFavoriteWithHttpInfo(favoriteId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * ユーザー検索
      * ユーザー名で検索 - ユーザー名前後一致検索 - 結果がない場合、[]を返す。
      * @param {String} username 
@@ -135,6 +271,88 @@ export default class UserApi {
      */
     findUserByName(username) {
       return this.findUserByNameWithHttpInfo(username)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * ユーザー情報取得
+     * ユーザー情報
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/User} and HTTP response
+     */
+    getUserWithHttpInfo() {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['application/json', 'applicaiton/json'];
+      let returnType = User;
+      return this.apiClient.callApi(
+        '/user', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * ユーザー情報取得
+     * ユーザー情報
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     */
+    getUser() {
+      return this.getUserWithHttpInfo()
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * お気に入り一覧取得
+     * ユーザーお気に入り一覧取得
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Pet>} and HTTP response
+     */
+    getUserFavoritesWithHttpInfo() {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['application/json', 'applicaiton/json'];
+      let returnType = [Pet];
+      return this.apiClient.callApi(
+        '/user/favorites', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * お気に入り一覧取得
+     * ユーザーお気に入り一覧取得
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Pet>}
+     */
+    getUserFavorites() {
+      return this.getUserFavoritesWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -224,7 +442,7 @@ export default class UserApi {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
     loginWithHttpInfo(opts) {
       opts = opts || {};
@@ -242,7 +460,7 @@ export default class UserApi {
       let authNames = ['apiKey'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse2001;
+      let returnType = InlineResponse2002;
       return this.apiClient.callApi(
         '/login', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -255,7 +473,7 @@ export default class UserApi {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
     login(opts) {
       return this.loginWithHttpInfo(opts)
@@ -311,7 +529,7 @@ export default class UserApi {
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
     registerNewUserWithHttpInfo(opts) {
       opts = opts || {};
@@ -329,7 +547,7 @@ export default class UserApi {
       let authNames = ['apiKey'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse200;
+      let returnType = InlineResponse2001;
       return this.apiClient.callApi(
         '/user', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -342,7 +560,7 @@ export default class UserApi {
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
     registerNewUser(opts) {
       return this.registerNewUserWithHttpInfo(opts)
@@ -355,10 +573,56 @@ export default class UserApi {
     /**
      * ユーザー情報更新
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
+     * @param {Object} opts Optional parameters
+     * @param {module:model/User} opts.user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     */
+    updateUserWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['user'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = ['applicaiton/json'];
+      let accepts = ['application/json', 'applicaiton/json'];
+      let returnType = InlineResponse200;
+      return this.apiClient.callApi(
+        '/user', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * ユーザー情報更新
+     * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
+     * @param {Object} opts Optional parameters
+     * @param {module:model/User} opts.user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     */
+    updateUser(opts) {
+      return this.updateUserWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * ユーザー情報更新
+     * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
     updateUserByIdWithHttpInfo(userId, opts) {
       opts = opts || {};
@@ -381,7 +645,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse2002;
+      let returnType = InlineResponse200;
       return this.apiClient.callApi(
         '/user/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -395,7 +659,7 @@ export default class UserApi {
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
     updateUserById(userId, opts) {
       return this.updateUserByIdWithHttpInfo(userId, opts)

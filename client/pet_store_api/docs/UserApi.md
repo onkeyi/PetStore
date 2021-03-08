@@ -4,15 +4,125 @@ All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addNewUserFavorite**](UserApi.md#addNewUserFavorite) | **POST** /user/favorite | お気に入り登録
+[**deleteUser**](UserApi.md#deleteUser) | **DELETE** /user | ユーザー削除
 [**deleteUserById**](UserApi.md#deleteUserById) | **DELETE** /user/{userId} | ユーザー削除
+[**deleteUserFavorite**](UserApi.md#deleteUserFavorite) | **DELETE** /user/{favoriteId}/favorite/ | お気に入り削除
 [**findUserByName**](UserApi.md#findUserByName) | **GET** /user/findUserByName | ユーザー検索
+[**getUser**](UserApi.md#getUser) | **GET** /user | ユーザー情報取得
+[**getUserFavorites**](UserApi.md#getUserFavorites) | **GET** /user/favorites | お気に入り一覧取得
 [**getUserOrders**](UserApi.md#getUserOrders) | **GET** /user/orders | 
 [**getUserPets**](UserApi.md#getUserPets) | **GET** /user/pets | 
 [**login**](UserApi.md#login) | **POST** /login | ログイン
 [**logout**](UserApi.md#logout) | **GET** /logout | ログアウト
 [**registerNewUser**](UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
+[**updateUser**](UserApi.md#updateUser) | **PUT** /user | ユーザー情報更新
 [**updateUserById**](UserApi.md#updateUserById) | **PUT** /user/{userId} | ユーザー情報更新
 
+
+
+## addNewUserFavorite
+
+> Object addNewUserFavorite(opts)
+
+お気に入り登録
+
+ユーザーお気に入り登録
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+let opts = {
+  'requestFavoriteStore': new PetStoreApi.RequestFavoriteStore() // RequestFavoriteStore | 
+};
+apiInstance.addNewUserFavorite(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **requestFavoriteStore** | [**RequestFavoriteStore**](RequestFavoriteStore.md)|  | [optional] 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: applicaiton/json
+- **Accept**: application/json, applicaiton/json
+
+
+## deleteUser
+
+> Object deleteUser()
+
+ユーザー削除
+
+ユーザー削除 - softdelete
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+apiInstance.deleteUser().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, applicaiton/json
 
 
 ## deleteUserById
@@ -53,6 +163,59 @@ apiInstance.deleteUserById(userId).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | **Number**|  | 
+
+### Return type
+
+**Object**
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, applicaiton/json
+
+
+## deleteUserFavorite
+
+> Object deleteUserFavorite(favoriteId)
+
+お気に入り削除
+
+ユーザーお気に入り削除
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+let favoriteId = 56; // Number | 
+apiInstance.deleteUserFavorite(favoriteId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **favoriteId** | **Number**|  | 
 
 ### Return type
 
@@ -116,6 +279,104 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+
+## getUser
+
+> User getUser()
+
+ユーザー情報取得
+
+ユーザー情報
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+apiInstance.getUser().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, applicaiton/json
+
+
+## getUserFavorites
+
+> [Pet] getUserFavorites()
+
+お気に入り一覧取得
+
+ユーザーお気に入り一覧取得
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+apiInstance.getUserFavorites().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[Pet]**](Pet.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, applicaiton/json
 
 
 ## getUserOrders
@@ -218,7 +479,7 @@ This endpoint does not need any parameter.
 
 ## login
 
-> InlineResponse2001 login(opts)
+> InlineResponse2002 login(opts)
 
 ログイン
 
@@ -256,7 +517,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -319,7 +580,7 @@ This endpoint does not need any parameter.
 
 ## registerNewUser
 
-> InlineResponse200 registerNewUser(opts)
+> InlineResponse2001 registerNewUser(opts)
 
 新規ユーザー登録
 
@@ -357,7 +618,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -369,9 +630,64 @@ Name | Type | Description  | Notes
 - **Accept**: application/json, applicaiton/json
 
 
+## updateUser
+
+> InlineResponse200 updateUser(opts)
+
+ユーザー情報更新
+
+ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+let opts = {
+  'user': new PetStoreApi.User() // User | 
+};
+apiInstance.updateUser(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user** | [**User**](User.md)|  | [optional] 
+
+### Return type
+
+[**InlineResponse200**](InlineResponse200.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: applicaiton/json
+- **Accept**: application/json, applicaiton/json
+
+
 ## updateUserById
 
-> InlineResponse2002 updateUserById(userId, opts)
+> InlineResponse200 updateUserById(userId, opts)
 
 ユーザー情報更新
 
@@ -414,7 +730,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 

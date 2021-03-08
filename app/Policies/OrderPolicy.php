@@ -22,7 +22,8 @@ class OrderPolicy
 
     public function update(Order $order)
     {
-        return Auth::guard('sanctum')->id() === $order->user_id;
+        $data = Pet::where(array('pet_id'=>$order->pet_id,'user_id'=>Auth::guard('sanctum')->id()));
+        return isset($data) ? true : false
     }
 
     public function delete(Order $order)

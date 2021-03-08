@@ -9,10 +9,10 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $visible = ['id', 'quantity', 'ship_date', 'orderUser', 'pet', 'status'];
+    protected $visible = ['id', 'quantity', 'ship_date', 'user', 'pet', 'status','user_id','name'];
     protected $fillable = ['quantity', 'ship_date', 'pet_id', 'user_id', 'status'];
 
-    public function orderUser()
+    public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }

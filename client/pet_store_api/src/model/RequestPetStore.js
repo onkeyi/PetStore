@@ -13,7 +13,6 @@
 
 import ApiClient from '../ApiClient';
 import Category from './Category';
-import Tag from './Tag';
 
 /**
  * The RequestPetStore model module.
@@ -63,7 +62,7 @@ class RequestPetStore {
                 obj['photo_urls'] = ApiClient.convertToType(data['photo_urls'], ['String']);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], [Tag]);
+                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
             }
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
@@ -91,7 +90,7 @@ RequestPetStore.prototype['category'] = undefined;
 RequestPetStore.prototype['photo_urls'] = undefined;
 
 /**
- * @member {Array.<module:model/Tag>} tags
+ * @member {Array.<String>} tags
  */
 RequestPetStore.prototype['tags'] = undefined;
 

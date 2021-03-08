@@ -1,24 +1,25 @@
 import Vue from 'vue';
-import PetCategoryNavbar from './PetCategoryNavbar';
-import HomePageHeader from './HomePageHeader';
-import OtherPageHeader from './OtherPageHeader';
-import PetList from './PetList';
-import PetListCard from './PetListCard';
-import PetDetail from './PetDetail';
+import CategoryNavbar from './CategoryNavbar';
+import PageHeader from './PageHeader';
+import ItemList from './ItemList';
+import ItemListCard from './ItemListCard';
+import ItemDetail from './ItemDetail';
+import ItemDetailComment from './ItemDetailComment';
 import ConfirmDialog from './ConfirmDialog';
-import MyPet from './MyPet';
-import MyOrder from './MyOrder';
+import MyInfo from "../components/MyInfo";
+import MyItem from "../components/MyItem";
+import MyOrder from "../components/MyOrder";
+import MyFavorite from "../components/MyFavorite";
 
 [
-    HomePageHeader,
-    OtherPageHeader,
-    PetCategoryNavbar,
-    PetList,
-    PetListCard,
-    PetDetail,
+    PageHeader,
+    CategoryNavbar,
+    ItemList,
+    ItemListCard,
+    ItemDetail,
+    ItemDetailComment,
     ConfirmDialog,
-    MyPet,
-    MyOrder
-].forEach(Component => {
-    Vue.component(Component.name, Component)
+    MyInfo, MyItem, MyOrder, MyFavorite
+].forEach(component => {
+    Vue.component(component.name, component)
 })

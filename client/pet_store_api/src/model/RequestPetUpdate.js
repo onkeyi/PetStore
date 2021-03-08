@@ -13,7 +13,6 @@
 
 import ApiClient from '../ApiClient';
 import Category from './Category';
-import Tag from './Tag';
 
 /**
  * The RequestPetUpdate model module.
@@ -26,10 +25,11 @@ class RequestPetUpdate {
      * @alias module:model/RequestPetUpdate
      * @param id {Number} 
      * @param name {String} 
+     * @param category {module:model/Category} 
      */
-    constructor(id, name) { 
+    constructor(id, name, category) { 
         
-        RequestPetUpdate.initialize(this, id, name);
+        RequestPetUpdate.initialize(this, id, name, category);
     }
 
     /**
@@ -37,9 +37,10 @@ class RequestPetUpdate {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name) { 
+    static initialize(obj, id, name, category) { 
         obj['id'] = id;
         obj['name'] = name;
+        obj['category'] = category;
     }
 
     /**
@@ -66,7 +67,7 @@ class RequestPetUpdate {
                 obj['photo_urls'] = ApiClient.convertToType(data['photo_urls'], ['String']);
             }
             if (data.hasOwnProperty('tags')) {
-                obj['tags'] = ApiClient.convertToType(data['tags'], [Tag]);
+                obj['tags'] = ApiClient.convertToType(data['tags'], ['String']);
             }
         }
         return obj;
@@ -96,7 +97,7 @@ RequestPetUpdate.prototype['category'] = undefined;
 RequestPetUpdate.prototype['photo_urls'] = undefined;
 
 /**
- * @member {Array.<module:model/Tag>} tags
+ * @member {Array.<String>} tags
  */
 RequestPetUpdate.prototype['tags'] = undefined;
 

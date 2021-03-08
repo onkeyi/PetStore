@@ -40,7 +40,7 @@
 </template>
 <script>
 export default {
-  name: "ConfirmDialog",
+  name: "confirm-dialog",
   props: ["show", "content", "action", "close"],
 };
 </script>

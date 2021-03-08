@@ -57,10 +57,15 @@ Route::middleware('apikey')->group(
                 Route::delete('order/{order}', [OrderController::class, 'deleteOrderById']);
 
                 /** USER  */
-                Route::get('user/findUserByName', [AuthController::class, 'findUserByName']);
-                Route::put('user/{user}', [UserController::class, 'updateUserById']);
+                Route::get('user', [UserController::class, 'getUser']);
+                Route::put('user', [UserController::class, 'updateUser']);
+                Route::delete('user', [UserController::class, 'deleteUser']);
+                Route::get('user/findUserByName', [UserController::class, 'findUserByName']);
                 Route::get('user/pets', [UserController::class, 'getUserPets']);
                 Route::get('user/orders', [UserController::class, 'getUserOrders']);
+                Route::get('user/favorites', [UserController::class, 'getUserFavorites']);
+                Route::post('user/favorite', [UserController::class, 'addNewUserFavorite']);
+                Route::delete('user/{favoriteId}/favorite', [UserController::class, 'deleteUserFavorite']);
 
                 /** logout */
                 Route::get('logout', [AuthController::class, 'logout']);
@@ -82,7 +87,7 @@ Route::middleware('apikey')->group(
         Route::get('category/{category}', [CategoryController::class, 'getCategoryById']);
         Route::put('category/{category}', [CategoryController::class, 'updateCategoryById']);
         Route::delete('category/{category}', [CategoryController::class, 'deleteCategoryById']);
-
+        Route::put('user/{user}', [UserController::class, 'updateUserById']);
         Route::delete('user/{user}', [UserController::class, 'deleteUserById']);
         // }
         // );

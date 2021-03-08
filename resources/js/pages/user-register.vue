@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <OtherPageHeader></OtherPageHeader>
+    <other-page-header />
     <div class="m-5">
       <p class="h4 text-center mb-4">Sign up</p>
       <label for="defaultFormRegisterNameEx" class="grey-text">Your name</label>

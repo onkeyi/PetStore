@@ -24,17 +24,18 @@ import Pet from './model/Pet';
 import PetComment from './model/PetComment';
 import RequestAuthLogin from './model/RequestAuthLogin';
 import RequestAuthRegister from './model/RequestAuthRegister';
+import RequestFavoriteStore from './model/RequestFavoriteStore';
+import RequestOrderStore from './model/RequestOrderStore';
+import RequestOrderUpdate from './model/RequestOrderUpdate';
 import RequestPetStore from './model/RequestPetStore';
 import RequestPetUpdate from './model/RequestPetUpdate';
 import ResponsePegination from './model/ResponsePegination';
 import ResponsePeginationLinks from './model/ResponsePeginationLinks';
-import Tag from './model/Tag';
 import Unexpected from './model/Unexpected';
 import User from './model/User';
 import CategoryApi from './api/CategoryApi';
 import OrderApi from './api/OrderApi';
 import PetApi from './api/PetApi';
-import TagApi from './api/TagApi';
 import UserApi from './api/UserApi';
 
 
@@ -143,6 +144,24 @@ export {
     RequestAuthRegister,
 
     /**
+     * The RequestFavoriteStore model constructor.
+     * @property {module:model/RequestFavoriteStore}
+     */
+    RequestFavoriteStore,
+
+    /**
+     * The RequestOrderStore model constructor.
+     * @property {module:model/RequestOrderStore}
+     */
+    RequestOrderStore,
+
+    /**
+     * The RequestOrderUpdate model constructor.
+     * @property {module:model/RequestOrderUpdate}
+     */
+    RequestOrderUpdate,
+
+    /**
      * The RequestPetStore model constructor.
      * @property {module:model/RequestPetStore}
      */
@@ -165,12 +184,6 @@ export {
      * @property {module:model/ResponsePeginationLinks}
      */
     ResponsePeginationLinks,
-
-    /**
-     * The Tag model constructor.
-     * @property {module:model/Tag}
-     */
-    Tag,
 
     /**
      * The Unexpected model constructor.
@@ -201,12 +214,6 @@ export {
     * @property {module:api/PetApi}
     */
     PetApi,
-
-    /**
-    * The TagApi service constructor.
-    * @property {module:api/TagApi}
-    */
-    TagApi,
 
     /**
     * The UserApi service constructor.

@@ -9,11 +9,12 @@ use App\Models\PetPhotoUrl;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\PetComment;
+use App\Models\Order;
 
 class Pet extends Model
 {
     use HasFactory;
-    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'comments','commentCount','owner','description'];
+    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'comments','commentCount','order','owner','description'];
     protected $fillable = ['name', 'user_id', 'category_id', 'status','description'];
 
     public function tags()
@@ -36,6 +37,11 @@ class Pet extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    public function order()
+    {
+        return $this->hasOne(Order::class)->join('users','users.id','=','orders.user_id');
+    }
+
     public function commentCount() {
         return $this->hasMany(PetComment::class)->count();;
     }
@@ -43,7 +49,5 @@ class Pet extends Model
     public function comments()
     {
         return $this->hasMany(PetComment::class)->join('users', 'users.id', '=', 'pet_comments.user_id');
-        // return $this->hasMany(PetComment::class)->with(['user']);
-
     }
 }

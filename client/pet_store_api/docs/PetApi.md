@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## addNewPet
 
-> InlineResponse2002 addNewPet(opts)
+> InlineResponse200 addNewPet(opts)
 
 ペット新規登録
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 
 ## updatePetById
 
-> InlineResponse2002 updatePetById(petId, opts)
+> InlineResponse200 updatePetById(petId, opts)
 
 ペット情報更新
 
@@ -586,7 +586,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 

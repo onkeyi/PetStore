@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Number** |  | 
 **name** | **String** |  | 
-**category** | [**Category**](Category.md) |  | [optional] 
+**category** | [**Category**](Category.md) |  | 
 **photoUrls** | **[String]** |  | [optional] 
-**tags** | [**[Tag]**](Tag.md) |  | [optional] 
+**tags** | **[String]** |  | [optional] 
 
 

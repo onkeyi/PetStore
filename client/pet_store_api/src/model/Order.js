@@ -55,17 +55,17 @@ class Order {
             if (data.hasOwnProperty('pet')) {
                 obj['pet'] = Pet.constructFromObject(data['pet']);
             }
-            if (data.hasOwnProperty('user')) {
-                obj['user'] = User.constructFromObject(data['user']);
+            if (data.hasOwnProperty('orderUser')) {
+                obj['orderUser'] = User.constructFromObject(data['orderUser']);
             }
             if (data.hasOwnProperty('quantity')) {
                 obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
             }
             if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
+                obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
-            if (data.hasOwnProperty('shop_date')) {
-                obj['shop_date'] = ApiClient.convertToType(data['shop_date'], 'String');
+            if (data.hasOwnProperty('ship_date')) {
+                obj['ship_date'] = ApiClient.convertToType(data['ship_date'], 'String');
             }
             if (data.hasOwnProperty('complete')) {
                 obj['complete'] = ApiClient.convertToType(data['complete'], 'Boolean');
@@ -88,9 +88,9 @@ Order.prototype['id'] = undefined;
 Order.prototype['pet'] = undefined;
 
 /**
- * @member {module:model/User} user
+ * @member {module:model/User} orderUser
  */
-Order.prototype['user'] = undefined;
+Order.prototype['orderUser'] = undefined;
 
 /**
  * @member {Number} quantity
@@ -99,14 +99,14 @@ Order.prototype['user'] = undefined;
 Order.prototype['quantity'] = 1;
 
 /**
- * @member {Number} status
+ * @member {String} status
  */
 Order.prototype['status'] = undefined;
 
 /**
- * @member {String} shop_date
+ * @member {String} ship_date
  */
-Order.prototype['shop_date'] = undefined;
+Order.prototype['ship_date'] = undefined;
 
 /**
  * @member {Boolean} complete

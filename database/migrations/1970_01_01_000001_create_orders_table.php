@@ -15,10 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('pet_id');
+            $table->bigInteger('pet_id')->unique();
             $table->bigInteger('user_id');
             $table->integer('quantity')->default(1);
-            $table->dateTime('ship_date');
+            $table->dateTime('ship_date')->nullable();
             $table->enum('status', ['placed', 'approved', 'delivered']);
             $table->tinyInteger('complete')->default(false);
             $table->timestamps();
