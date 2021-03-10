@@ -3,10 +3,13 @@
 ## Install
 ```shell
     git clone https://github.com/onkeyi/PetStore.git
-    composer install
-    php server
+    composer update
+    cp .env.petstore .env
+    php artisan key:generate
+    php artisan migrate
+    php artisan serve
 ```
-https://github.com/onkeyi/PetStore/blob/developer/README.md
+
 ## OpenAPI documentation
 see documentation [here](https://github.com/onkeyi/PetStore/blob/developer/document/README.md)
 

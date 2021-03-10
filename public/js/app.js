@@ -8153,6 +8153,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     var defaultClient = pet_store_api__WEBPACK_IMPORTED_MODULE_0__.ApiClient.instance;
+    defaultClient.basePath = "http://localhost" + '/api';
     var apiKey = defaultClient.authentications["apiKey"];
     apiKey.apiKey = "3997E3A4F499DC1B3874EBD3316FD";
     var token = localStorage.getItem("accessToken");

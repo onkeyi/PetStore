@@ -26,7 +26,5 @@ composer.lock
 document/.openapi-generator-ignore
 document/.openapi-generator/VERSION
 .gitignore
-/storage/logs
-/storage/framework
 /storage/debugbar
 /storage/clockwork

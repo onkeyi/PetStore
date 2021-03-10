@@ -19,7 +19,7 @@ export default {
   }),
   created: function () {
     let defaultClient = ApiClient.instance;
-
+    defaultClient.basePath = process.env.MIX_API_URL + '/api';
     let apiKey = defaultClient.authentications["apiKey"];
     apiKey.apiKey = process.env.MIX_API_KEY;
     const token = localStorage.getItem("accessToken");
