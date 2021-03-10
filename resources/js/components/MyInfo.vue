@@ -18,6 +18,7 @@ export default {
       userApi.getUser().then(data =>{ this.user = data},error=>{
         if (error.status === 401) {
           localStorage.removeItem("accessToken");
+          localStorage.removeItem("userId");
           this.$router.replace("/").catch(() => {});
         }
       })

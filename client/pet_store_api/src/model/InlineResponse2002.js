@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -47,8 +47,8 @@ class InlineResponse2002 {
         if (data) {
             obj = obj || new InlineResponse2002();
 
-            if (data.hasOwnProperty('token')) {
-                obj['token'] = ApiClient.convertToType(data['token'], 'String');
+            if (data.hasOwnProperty('file_name')) {
+                obj['file_name'] = ApiClient.convertToType(data['file_name'], 'String');
             }
         }
         return obj;
@@ -58,9 +58,9 @@ class InlineResponse2002 {
 }
 
 /**
- * @member {String} token
+ * @member {String} file_name
  */
-InlineResponse2002.prototype['token'] = undefined;
+InlineResponse2002.prototype['file_name'] = undefined;
 
 
 

@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -58,6 +58,7 @@ class InlineResponse200 {
 }
 
 /**
+ * 新規登録ユーザーID
  * @member {Number} id
  */
 InlineResponse200.prototype['id'] = undefined;

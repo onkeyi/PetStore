@@ -68,7 +68,7 @@ class Handler extends ExceptionHandler
             return response()->json(
                 [
                     'status' => 'error',
-                    'message' => 'Invalid token',
+                    'message' => 'Invalid token!!!',
                     'code' => 401
                 ],
                 401
@@ -98,11 +98,12 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof AuthorizationException) {
+
             return response()->json(
                 [
                     'status' => 'error',
                     'message' =>  $exception->getMessage(),
-                    'code' => 405
+                    'code' => 403
                 ],
                 403
             );

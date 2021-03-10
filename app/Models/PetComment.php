@@ -11,7 +11,7 @@ use App\Models\Pet;
 class PetComment extends Model
 {
     use HasFactory;
-    protected $visible = ['id',  'user_id','name', 'comment', 'created_at'];
+    protected $visible = ['id',  'user_id','name', 'pet_id','comment', 'created_at'];
     protected $fillable = [ 'user_id','pet_id', 'comment'];
 
     public function user()

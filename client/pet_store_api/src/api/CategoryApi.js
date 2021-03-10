@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import Category from '../model/Category';
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
+import ResponseOk from '../model/ResponseOk';
 
 /**
 * Category service.
@@ -87,7 +88,7 @@ export default class CategoryApi {
      * カテゴリ削除
      * カテゴリ削除 
      * @param {Number} categoryId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     deleteCategoryByIdWithHttpInfo(categoryId) {
       let postBody = null;
@@ -108,8 +109,8 @@ export default class CategoryApi {
 
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = null;
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/category/{categoryId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -121,7 +122,7 @@ export default class CategoryApi {
      * カテゴリ削除
      * カテゴリ削除 
      * @param {Number} categoryId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     deleteCategoryById(categoryId) {
       return this.deleteCategoryByIdWithHttpInfo(categoryId)
@@ -224,7 +225,7 @@ export default class CategoryApi {
      * @param {String} categoryId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Category} opts.category 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     updateCategoryByIdWithHttpInfo(categoryId, opts) {
       opts = opts || {};
@@ -247,7 +248,7 @@ export default class CategoryApi {
       let authNames = ['apiKey'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['applicaiton/json', 'application/json'];
-      let returnType = Object;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/category/{categoryId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -261,7 +262,7 @@ export default class CategoryApi {
      * @param {String} categoryId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Category} opts.category 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     updateCategoryById(categoryId, opts) {
       return this.updateCategoryByIdWithHttpInfo(categoryId, opts)

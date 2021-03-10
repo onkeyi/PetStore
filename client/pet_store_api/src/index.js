@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -29,6 +29,7 @@ import RequestOrderStore from './model/RequestOrderStore';
 import RequestOrderUpdate from './model/RequestOrderUpdate';
 import RequestPetStore from './model/RequestPetStore';
 import RequestPetUpdate from './model/RequestPetUpdate';
+import ResponseOk from './model/ResponseOk';
 import ResponsePegination from './model/ResponsePegination';
 import ResponsePeginationLinks from './model/ResponsePeginationLinks';
 import Unexpected from './model/Unexpected';
@@ -40,7 +41,7 @@ import UserApi from './api/UserApi';
 
 
 /**
-* _PetStore_OpenAPI_設計__バックエンド_Laravel_v8_x__フロントエンド_Vue_v2_x_LaravelMix_v6_x.<br>
+* _PetStore_OpenAPI_設計__バックエンド_Laravel__フロントエンド_Vue.<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
@@ -172,6 +173,12 @@ export {
      * @property {module:model/RequestPetUpdate}
      */
     RequestPetUpdate,
+
+    /**
+     * The ResponseOk model constructor.
+     * @property {module:model/ResponseOk}
+     */
+    ResponseOk,
 
     /**
      * The ResponsePegination model constructor.

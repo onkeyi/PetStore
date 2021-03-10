@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -15,8 +15,10 @@
 import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
+import Order from '../model/Order';
 import RequestOrderStore from '../model/RequestOrderStore';
 import RequestOrderUpdate from '../model/RequestOrderUpdate';
+import ResponseOk from '../model/ResponseOk';
 import ResponsePegination from '../model/ResponsePegination';
 
 /**
@@ -88,7 +90,7 @@ export default class OrderApi {
     /**
      * オーダー削除
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     deleteOrderByIdWithHttpInfo(orderId) {
       let postBody = null;
@@ -109,8 +111,8 @@ export default class OrderApi {
 
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = null;
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/order/{orderId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -121,7 +123,7 @@ export default class OrderApi {
     /**
      * オーダー削除
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     deleteOrderById(orderId) {
       return this.deleteOrderByIdWithHttpInfo(orderId)
@@ -173,7 +175,7 @@ export default class OrderApi {
     /**
      * オーダー取得
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Order} and HTTP response
      */
     getOrderByIdWithHttpInfo(orderId) {
       let postBody = null;
@@ -194,8 +196,8 @@ export default class OrderApi {
 
       let authNames = ['apiKey'];
       let contentTypes = [];
-      let accepts = ['application/json'];
-      let returnType = null;
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = Order;
       return this.apiClient.callApi(
         '/order/{orderId}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -206,7 +208,7 @@ export default class OrderApi {
     /**
      * オーダー取得
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
     getOrderById(orderId) {
       return this.getOrderByIdWithHttpInfo(orderId)
@@ -221,7 +223,7 @@ export default class OrderApi {
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     updateOrderByIdWithHttpInfo(orderId, opts) {
       opts = opts || {};
@@ -243,8 +245,8 @@ export default class OrderApi {
 
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
-      let accepts = ['application/json'];
-      let returnType = null;
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/order/{orderId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -257,7 +259,7 @@ export default class OrderApi {
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     updateOrderById(orderId, opts) {
       return this.updateOrderByIdWithHttpInfo(orderId, opts)

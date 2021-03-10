@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -47,8 +47,11 @@ class InlineResponse2001 {
         if (data) {
             obj = obj || new InlineResponse2001();
 
-            if (data.hasOwnProperty('id')) {
-                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
+            if (data.hasOwnProperty('token')) {
+                obj['token'] = ApiClient.convertToType(data['token'], 'String');
+            }
+            if (data.hasOwnProperty('user_id')) {
+                obj['user_id'] = ApiClient.convertToType(data['user_id'], 'String');
             }
         }
         return obj;
@@ -58,10 +61,14 @@ class InlineResponse2001 {
 }
 
 /**
- * 新規登録ユーザーID
- * @member {Number} id
+ * @member {String} token
  */
-InlineResponse2001.prototype['id'] = undefined;
+InlineResponse2001.prototype['token'] = undefined;
+
+/**
+ * @member {String} user_id
+ */
+InlineResponse2001.prototype['user_id'] = undefined;
 
 
 

@@ -23,3 +23,10 @@ client/pet_store_api/node_modules
 webpack.mix.js
 composer.lock
 .gitignore
+document/.openapi-generator-ignore
+document/.openapi-generator/VERSION
+.gitignore
+/storage/logs
+/storage/framework
+/storage/debugbar
+/storage/clockwork

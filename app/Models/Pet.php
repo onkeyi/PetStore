@@ -39,7 +39,7 @@ class Pet extends Model
 
     public function order()
     {
-        return $this->hasOne(Order::class)->join('users','users.id','=','orders.user_id');
+        return $this->hasOne(Order::class)->join('users','users.id','=','orders.user_id')->select('users.name','orders.*');
     }
 
     public function commentCount() {
@@ -48,6 +48,6 @@ class Pet extends Model
 
     public function comments()
     {
-        return $this->hasMany(PetComment::class)->join('users', 'users.id', '=', 'pet_comments.user_id');
+        return $this->hasMany(PetComment::class)->join('users', 'users.id', '=', 'pet_comments.user_id')->select('users.name','pet_comments.*');
     }
 }

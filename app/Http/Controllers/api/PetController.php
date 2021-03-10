@@ -46,9 +46,10 @@ class PetController extends ApiController
         $validated = $request->validated();
         $pet = new Pet($validated);
         $pet->user_id = $this->userId;
-        $pet->category_id = $validated['category']['id'];
+        $pet->status = 'available';
+        // $pet->category_id = $validated['category']['id'];
 
-        $validated['id'] = DB::transaction(
+        $pet = DB::transaction(
             function () use ($pet, $validated) {
                 $pet->save();
                 $tags = $validated['tags'];
@@ -56,7 +57,7 @@ class PetController extends ApiController
                 foreach ($tags as $tag) {
                     $pet->tags()->updateOrCreate(['tag_name' => $tag, 'pet_id' => $pet->id]);
                 }
-                $petPhotoUrls = $validated['photoUrls'];
+                $petPhotoUrls = $validated['photo_urls'];
                 if (isset($petPhotoUrls) && count($petPhotoUrls) > 0) {
                     foreach ($petPhotoUrls as $photo) {
                         // move file from tmp -> pets
@@ -66,10 +67,10 @@ class PetController extends ApiController
                         $pet->photoUrls()->create(['pet_id' => $pet->id, 'photo_url' => $photo]);
                     }
                 }
-                return $pet->id;
+                return $pet;
             }
         );
-        return $this->successResponse($validated);
+        return $this->successResponse($pet);
     }
 
     /**
@@ -94,10 +95,6 @@ class PetController extends ApiController
      */
     public function updatePetById(PetUpdateRequest $request, Pet $pet)
     {
-        if (!isset($pet)) {
-            throw new ParameterNotfoundException;
-        }
-
         $validated = $request->validated();
         // pet policy.
         $this->authorize('update', $pet);
@@ -109,7 +106,7 @@ class PetController extends ApiController
                 PetTag::where('pet_id', $pet->id)->delete();
                 $tags = $validated['tags'];
                 foreach ($tags as $tag) {
-                    PetTag::create(['tag_id' => $tag['id'], 'pet_id' => $pet->id]);
+                    PetTag::create(['tag_name' => $tag, 'pet_id' => $pet->id]);
                 }
                 $pet->photoUrls()->delete();
                 $petPhotoUrls = $validated['photoUrls'];
@@ -125,7 +122,7 @@ class PetController extends ApiController
             }
         );
 
-        return $this->successMessage(['id' => $pet->id]);
+        return $this->okResponse();
     }
 
     /**
@@ -136,7 +133,8 @@ class PetController extends ApiController
      */
     public function deletePetById(Pet $pet)
     {
-        $this->authorize('delete', $pet);
+
+        $this->authorize('deletePetById',$pet);
 
         DB::transaction(
             function () use ($pet) {
@@ -154,7 +152,7 @@ class PetController extends ApiController
             }
         );
 
-        return $this->successResponse();
+        return $this->okResponse();
     }
 
     /**
@@ -220,18 +218,18 @@ class PetController extends ApiController
      */
     public function uploadImage(PetUploadImageRequest $request)
     {
-        $uploadImg = $request->file('file');
+        $uploadImg = $request->file('image');
 
         if ($uploadImg->isValid()) {
             $imageUploadPath = $uploadImg->store('tmp', 'public');
 
-            return response()->json([
+            return $this->successResponse([
                 'file_name' =>  basename($imageUploadPath),
-            ], 200);
+            ]);
         }
         return response()->json([
             'status' => 'error',
-            'message' => 'Invalid Image file',
+            'message' => 'Upload image file failed',
         ], 400);
     }
 }

@@ -69,7 +69,7 @@ null (empty response body)
 
 ## deleteOrderById
 
-> deleteOrderById(orderId)
+> ResponseOk deleteOrderById(orderId)
 
 オーダー削除
 
@@ -89,8 +89,8 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.OrderApi();
 let orderId = 56; // Number | 
-apiInstance.deleteOrderById(orderId).then(() => {
-  console.log('API called successfully.');
+apiInstance.deleteOrderById(orderId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -115,7 +115,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: applicaiton/json, application/json
 
 
 ## getAllOrder
@@ -164,7 +164,7 @@ This endpoint does not need any parameter.
 
 ## getOrderById
 
-> getOrderById(orderId)
+> Order getOrderById(orderId)
 
 オーダー取得
 
@@ -181,8 +181,8 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.OrderApi();
 let orderId = 56; // Number | 
-apiInstance.getOrderById(orderId).then(() => {
-  console.log('API called successfully.');
+apiInstance.getOrderById(orderId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**Order**](Order.md)
 
 ### Authorization
 
@@ -207,12 +207,12 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: applicaiton/json, application/json
 
 
 ## updateOrderById
 
-> updateOrderById(orderId, opts)
+> ResponseOk updateOrderById(orderId, opts)
 
 オーダー更新
 
@@ -235,8 +235,8 @@ let orderId = 56; // Number |
 let opts = {
   'requestOrderUpdate': new PetStoreApi.RequestOrderUpdate() // RequestOrderUpdate | 
 };
-apiInstance.updateOrderById(orderId, opts).then(() => {
-  console.log('API called successfully.');
+apiInstance.updateOrderById(orderId, opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -253,7 +253,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -262,5 +262,5 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: applicaiton/json
-- **Accept**: application/json
+- **Accept**: applicaiton/json, application/json
 

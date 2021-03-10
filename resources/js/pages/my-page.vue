@@ -26,6 +26,8 @@
       <my-order />
       <p>Favorites:</p>
       <my-favorite />
+      <p>Register:</p>
+      <item-register />
     </div>
     {{ $t("message.mypage") }}
     <confirm-dialog
@@ -38,6 +40,7 @@
       v-on:action="logout"
       v-on:close="openConfirmDialog = false"
     />
+
   </div>
 </template>
 <script>
@@ -57,7 +60,6 @@ export default {
   },
   methods: {
     async logout() {
-      console.log("LOGOUT^^^^^");
       let apiInstance = new UserApi();
       await apiInstance.logout();
       this.confirmDialog = false;

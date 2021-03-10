@@ -24,7 +24,7 @@ class PetUploadImageRequest extends ApiRequest
     public function rules()
     {
         return [
-            'file' => ['required','image:jpeg,png,jpg','max:2048']
+            'image' => ['required','image:jpeg,png,jpg','max:2048']
         ];
     }
 }

@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ## deleteCategoryById
 
-> deleteCategoryById(categoryId)
+> ResponseOk deleteCategoryById(categoryId)
 
 カテゴリ削除
 
@@ -91,8 +91,8 @@ bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.CategoryApi();
 let categoryId = 56; // Number | 
-apiInstance.deleteCategoryById(categoryId).then(() => {
-  console.log('API called successfully.');
+apiInstance.deleteCategoryById(categoryId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-null (empty response body)
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -117,7 +117,7 @@ null (empty response body)
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: applicaiton/json, application/json
 
 
 ## getAllCategorys
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ## updateCategoryById
 
-> Object updateCategoryById(categoryId, opts)
+> ResponseOk updateCategoryById(categoryId, opts)
 
 カテゴリ更新
 
@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 

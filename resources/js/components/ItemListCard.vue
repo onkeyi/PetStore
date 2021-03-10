@@ -12,7 +12,7 @@
     >
       <title>{{ pet.status }}</title>
       <rect fill="#868e96" width="100%" height="100%" />
-      <text fill="#dee2e6" dy=".3em" x="50%" y="50%">Image cap</text>
+      <text fill="#dee2e6" dy=".3em" x="50%" y="50%">{{pet.status}}</text>
     </svg>
     <div class="card-body">
       <h5 class="card-title">{{ pet.category.name }}</h5>

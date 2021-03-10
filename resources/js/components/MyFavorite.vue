@@ -1,7 +1,10 @@
 <template>
   <div>
     <ul>
-      <li v-for="(value,key) in pets" :key="key">id:{{ value.id}} / {{ value.name }} / {{value.status}}</li>
+      <li v-for="(value, key) in pets" :key="key">
+        id:{{ value.id }} / {{ value.name }} / {{ value.status
+        }}<button v-on:click="deleteFavorite(value.id)">Delete</button>
+      </li>
     </ul>
   </div>
 </template>
@@ -17,7 +20,17 @@ export default {
     async loadData() {
       let userApi = new UserApi();
       this.pets = await userApi.getUserFavorites();
-    }
+    },
+
+    async deleteFavorite(id) {
+      let userApi = new UserApi();
+      let result = await userApi.deleteUserFavoriteByPetId(id);
+
+      if (result.ok) {
+        this.loadData();
+      }
+    },
   },
 };
 </script>
+Ï

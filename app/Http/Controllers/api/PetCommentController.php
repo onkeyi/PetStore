@@ -9,20 +9,18 @@ use App\Models\PetComment;
 class PetCommentController extends ApiController
 {
     //
-    public function addNewPetComment(PetCommentStoreRequest $request, Pet $pet)
+    public function addNewPetComment(PetCommentStoreRequest $request)
     {
         $validated = $request->validated();
         $validated['user_id'] = $this->userId;
-        $validated['id'] = PetComment::create($validated);
-        return $this->successResponse($validated);
+        return $this->successResponse(PetComment::create($validated));
     }
 
     public function deletePetCommentById(PetComment $petComment)
     {
         // delete policy
         $this->authorize('delete', $petComment);
-        $petComment->delete();
-        return $this->successResponse();
+        return $this->okResponse($petComment->delete());
     }
 
     public function getPetComments(Pet $pet)

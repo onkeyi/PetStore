@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Models\Pet;
+use App\Models\User;
 use Auth;
 
 class PetPolicy
@@ -20,12 +21,12 @@ class PetPolicy
         //
     }
 
-    public function update(Pet $pet)
+    public function update(?User $user,Pet $pet)
     {
         return Auth::guard('sanctum')->id() === $pet->user_id;
     }
 
-    public function delete(Pet $pet)
+    public function deletePetById(?User $user,Pet $pet)
     {
         return Auth::guard('sanctum')->id() === $pet->user_id;
     }

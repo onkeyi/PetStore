@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -15,11 +15,12 @@
 import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
-import InlineResponse200 from '../model/InlineResponse200';
+import InlineResponse2002 from '../model/InlineResponse2002';
 import Pet from '../model/Pet';
 import PetComment from '../model/PetComment';
 import RequestPetStore from '../model/RequestPetStore';
 import RequestPetUpdate from '../model/RequestPetUpdate';
+import ResponseOk from '../model/ResponseOk';
 import ResponsePegination from '../model/ResponsePegination';
 import Unexpected from '../model/Unexpected';
 
@@ -48,7 +49,7 @@ export default class PetApi {
      * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetStore} opts.requestPetStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
      */
     addNewPetWithHttpInfo(opts) {
       opts = opts || {};
@@ -66,7 +67,7 @@ export default class PetApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse200;
+      let returnType = Pet;
       return this.apiClient.callApi(
         '/pet', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -79,7 +80,7 @@ export default class PetApi {
      * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetStore} opts.requestPetStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Pet}
      */
     addNewPet(opts) {
       return this.addNewPetWithHttpInfo(opts)
@@ -138,7 +139,7 @@ export default class PetApi {
     /**
      * ペット情報削除
      * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     deletePetByIdWithHttpInfo(petId) {
       let postBody = null;
@@ -160,7 +161,7 @@ export default class PetApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['applicaiton/json', 'application/json'];
-      let returnType = Object;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/pet/{petId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -171,7 +172,7 @@ export default class PetApi {
     /**
      * ペット情報削除
      * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     deletePetById(petId) {
       return this.deletePetByIdWithHttpInfo(petId)
@@ -184,7 +185,7 @@ export default class PetApi {
     /**
      * ペット情報削除
      * @param {Number} petCommentId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     deletePetCommentByIdWithHttpInfo(petCommentId) {
       let postBody = null;
@@ -206,9 +207,9 @@ export default class PetApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['applicaiton/json', 'application/json'];
-      let returnType = Object;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
-        '/pet/comment/{petCommentId}', 'DELETE',
+        '/pet/{petCommentId}/comment', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -217,7 +218,7 @@ export default class PetApi {
     /**
      * ペット情報削除
      * @param {Number} petCommentId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     deletePetCommentById(petCommentId) {
       return this.deletePetCommentByIdWithHttpInfo(petCommentId)
@@ -424,54 +425,6 @@ export default class PetApi {
 
 
     /**
-     * ペットコメント
-     * Pet comments.
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PetComment>} and HTTP response
-     */
-    getCommentByPetIdWithHttpInfo(petId) {
-      let postBody = null;
-      // verify the required parameter 'petId' is set
-      if (petId === undefined || petId === null) {
-        throw new Error("Missing the required parameter 'petId' when calling getCommentByPetId");
-      }
-
-      let pathParams = {
-        'petId': petId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['apiKey'];
-      let contentTypes = [];
-      let accepts = ['applicaiton/json', 'application/json'];
-      let returnType = [PetComment];
-      return this.apiClient.callApi(
-        '/pet/{petId}/comment', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * ペットコメント
-     * Pet comments.
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PetComment>}
-     */
-    getCommentByPetId(petId) {
-      return this.getCommentByPetIdWithHttpInfo(petId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
      * ペット情報取得
      * @param {Number} petId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
@@ -518,12 +471,60 @@ export default class PetApi {
 
 
     /**
+     * ペットコメント
+     * Pet comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PetComment>} and HTTP response
+     */
+    getPetCommentsWithHttpInfo(petId) {
+      let postBody = null;
+      // verify the required parameter 'petId' is set
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling getPetComments");
+      }
+
+      let pathParams = {
+        'petId': petId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey'];
+      let contentTypes = [];
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = [PetComment];
+      return this.apiClient.callApi(
+        '/pet/{petId}/comments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * ペットコメント
+     * Pet comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PetComment>}
+     */
+    getPetComments(petId) {
+      return this.getPetCommentsWithHttpInfo(petId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * ペット情報更新
      * 更新処理
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     updatePetByIdWithHttpInfo(petId, opts) {
       opts = opts || {};
@@ -546,7 +547,7 @@ export default class PetApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['applicaiton/json', 'application/json'];
-      let returnType = InlineResponse200;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/pet/{petId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -560,7 +561,7 @@ export default class PetApi {
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     updatePetById(petId, opts) {
       return this.updatePetByIdWithHttpInfo(petId, opts)
@@ -573,9 +574,12 @@ export default class PetApi {
     /**
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
-    uploadImageWithHttpInfo() {
+    uploadImageWithHttpInfo(opts) {
+      opts = opts || {};
       let postBody = null;
 
       let pathParams = {
@@ -585,14 +589,15 @@ export default class PetApi {
       let headerParams = {
       };
       let formParams = {
+        'image': opts['image']
       };
 
       let authNames = ['apiKey', 'bearer'];
-      let contentTypes = [];
-      let accepts = [];
-      let returnType = null;
+      let contentTypes = ['multipart/form-data'];
+      let accepts = ['applicaiton/json'];
+      let returnType = InlineResponse2002;
       return this.apiClient.callApi(
-        '/pet/uploadImage', 'GET',
+        '/pet/uploadImage', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -601,10 +606,12 @@ export default class PetApi {
     /**
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
-    uploadImage() {
-      return this.uploadImageWithHttpInfo()
+    uploadImage(opts) {
+      return this.uploadImageWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

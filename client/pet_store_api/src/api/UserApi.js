@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -17,12 +17,12 @@ import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import InlineResponse2002 from '../model/InlineResponse2002';
 import Order from '../model/Order';
 import Pet from '../model/Pet';
 import RequestAuthLogin from '../model/RequestAuthLogin';
 import RequestAuthRegister from '../model/RequestAuthRegister';
 import RequestFavoriteStore from '../model/RequestFavoriteStore';
+import ResponseOk from '../model/ResponseOk';
 import Unexpected from '../model/Unexpected';
 import User from '../model/User';
 
@@ -95,7 +95,7 @@ export default class UserApi {
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     deleteUserWithHttpInfo() {
       let postBody = null;
@@ -112,7 +112,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = Object;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/user', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -123,7 +123,7 @@ export default class UserApi {
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     deleteUser() {
       return this.deleteUserWithHttpInfo()
@@ -137,7 +137,7 @@ export default class UserApi {
      * ユーザー削除
      * ユーザー削除 - softdelete
      * @param {Number} userId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     deleteUserByIdWithHttpInfo(userId) {
       let postBody = null;
@@ -159,7 +159,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = Object;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/user/{userId}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -171,7 +171,7 @@ export default class UserApi {
      * ユーザー削除
      * ユーザー削除 - softdelete
      * @param {Number} userId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     deleteUserById(userId) {
       return this.deleteUserByIdWithHttpInfo(userId)
@@ -184,18 +184,18 @@ export default class UserApi {
     /**
      * お気に入り削除
      * ユーザーお気に入り削除
-     * @param {Number} favoriteId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
-    deleteUserFavoriteWithHttpInfo(favoriteId) {
+    deleteUserFavoriteByPetIdWithHttpInfo(petId) {
       let postBody = null;
-      // verify the required parameter 'favoriteId' is set
-      if (favoriteId === undefined || favoriteId === null) {
-        throw new Error("Missing the required parameter 'favoriteId' when calling deleteUserFavorite");
+      // verify the required parameter 'petId' is set
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling deleteUserFavoriteByPetId");
       }
 
       let pathParams = {
-        'favoriteId': favoriteId
+        'petId': petId
       };
       let queryParams = {
       };
@@ -207,9 +207,9 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = Object;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
-        '/user/{favoriteId}/favorite/', 'DELETE',
+        '/user/{petId}/favorite/', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
@@ -218,11 +218,11 @@ export default class UserApi {
     /**
      * お気に入り削除
      * ユーザーお気に入り削除
-     * @param {Number} favoriteId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
-    deleteUserFavorite(favoriteId) {
-      return this.deleteUserFavoriteWithHttpInfo(favoriteId)
+    deleteUserFavoriteByPetId(petId) {
+      return this.deleteUserFavoriteByPetIdWithHttpInfo(petId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -442,7 +442,7 @@ export default class UserApi {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
     loginWithHttpInfo(opts) {
       opts = opts || {};
@@ -460,7 +460,7 @@ export default class UserApi {
       let authNames = ['apiKey'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse2002;
+      let returnType = InlineResponse2001;
       return this.apiClient.callApi(
         '/login', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -473,7 +473,7 @@ export default class UserApi {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
     login(opts) {
       return this.loginWithHttpInfo(opts)
@@ -529,7 +529,7 @@ export default class UserApi {
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
     registerNewUserWithHttpInfo(opts) {
       opts = opts || {};
@@ -547,7 +547,7 @@ export default class UserApi {
       let authNames = ['apiKey'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse2001;
+      let returnType = InlineResponse200;
       return this.apiClient.callApi(
         '/user', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -560,7 +560,7 @@ export default class UserApi {
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
     registerNewUser(opts) {
       return this.registerNewUserWithHttpInfo(opts)
@@ -575,7 +575,7 @@ export default class UserApi {
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     updateUserWithHttpInfo(opts) {
       opts = opts || {};
@@ -593,7 +593,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse200;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/user', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -606,7 +606,7 @@ export default class UserApi {
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     updateUser(opts) {
       return this.updateUserWithHttpInfo(opts)
@@ -622,7 +622,7 @@ export default class UserApi {
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
     updateUserByIdWithHttpInfo(userId, opts) {
       opts = opts || {};
@@ -645,7 +645,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse200;
+      let returnType = ResponseOk;
       return this.apiClient.callApi(
         '/user/{userId}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -659,7 +659,7 @@ export default class UserApi {
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
     updateUserById(userId, opts) {
       return this.updateUserByIdWithHttpInfo(userId, opts)

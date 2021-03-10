@@ -7,21 +7,21 @@ Method | HTTP request | Description
 [**addNewPet**](PetApi.md#addNewPet) | **POST** /pet | ペット新規登録
 [**addNewPetComment**](PetApi.md#addNewPetComment) | **POST** /pet/comment | post new comment
 [**deletePetById**](PetApi.md#deletePetById) | **DELETE** /pet/{petId} | ペット情報削除
-[**deletePetCommentById**](PetApi.md#deletePetCommentById) | **DELETE** /pet/comment/{petCommentId} | ペット情報削除
+[**deletePetCommentById**](PetApi.md#deletePetCommentById) | **DELETE** /pet/{petCommentId}/comment | ペット情報削除
 [**findPetByCategory**](PetApi.md#findPetByCategory) | **GET** /pet/findByCategory | カテゴリで検索
 [**findPetByStatus**](PetApi.md#findPetByStatus) | **GET** /pet/findByStatus | ステータスで検索
 [**findPetByTag**](PetApi.md#findPetByTag) | **GET** /pet/findByTags | タグで検索
 [**getAllPets**](PetApi.md#getAllPets) | **GET** /pets | ペット一覧取得
-[**getCommentByPetId**](PetApi.md#getCommentByPetId) | **GET** /pet/{petId}/comment | ペットコメント
 [**getPetById**](PetApi.md#getPetById) | **GET** /pet/{petId} | ペット情報取得
+[**getPetComments**](PetApi.md#getPetComments) | **GET** /pet/{petId}/comments | ペットコメント
 [**updatePetById**](PetApi.md#updatePetById) | **PUT** /pet/{petId} | ペット情報更新
-[**uploadImage**](PetApi.md#uploadImage) | **GET** /pet/uploadImage | アップロードペットイメージ
+[**uploadImage**](PetApi.md#uploadImage) | **POST** /pet/uploadImage | アップロードペットイメージ
 
 
 
 ## addNewPet
 
-> InlineResponse200 addNewPet(opts)
+> Pet addNewPet(opts)
 
 ペット新規登録
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**Pet**](Pet.md)
 
 ### Authorization
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ## deletePetById
 
-> Object deletePetById(petId)
+> ResponseOk deletePetById(petId)
 
 ペット情報削除
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 
 ## deletePetCommentById
 
-> Object deletePetCommentById(petCommentId)
+> ResponseOk deletePetCommentById(petCommentId)
 
 ペット情報削除
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -443,56 +443,6 @@ Name | Type | Description  | Notes
 - **Accept**: application/json, applicaiton/json
 
 
-## getCommentByPetId
-
-> [PetComment] getCommentByPetId(petId)
-
-ペットコメント
-
-Pet comments.
-
-### Example
-
-```javascript
-import PetStoreApi from 'pet_store_api';
-let defaultClient = PetStoreApi.ApiClient.instance;
-// Configure API key authorization: apiKey
-let apiKey = defaultClient.authentications['apiKey'];
-apiKey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.apiKeyPrefix = 'Token';
-
-let apiInstance = new PetStoreApi.PetApi();
-let petId = 56; // Number | 
-apiInstance.getCommentByPetId(petId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **petId** | **Number**|  | 
-
-### Return type
-
-[**[PetComment]**](PetComment.md)
-
-### Authorization
-
-[apiKey](../README.md#apiKey)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: applicaiton/json, application/json
-
-
 ## getPetById
 
 > Pet getPetById(petId)
@@ -541,9 +491,59 @@ Name | Type | Description  | Notes
 - **Accept**: applicaiton/json, application/json
 
 
+## getPetComments
+
+> [PetComment] getPetComments(petId)
+
+ペットコメント
+
+Pet comments.
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+
+let apiInstance = new PetStoreApi.PetApi();
+let petId = 56; // Number | 
+apiInstance.getPetComments(petId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Number**|  | 
+
+### Return type
+
+[**[PetComment]**](PetComment.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: applicaiton/json, application/json
+
+
 ## updatePetById
 
-> InlineResponse200 updatePetById(petId, opts)
+> ResponseOk updatePetById(petId, opts)
 
 ペット情報更新
 
@@ -586,7 +586,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -600,7 +600,7 @@ Name | Type | Description  | Notes
 
 ## uploadImage
 
-> uploadImage()
+> InlineResponse2002 uploadImage(opts)
 
 アップロードペットイメージ
 
@@ -621,8 +621,11 @@ let bearer = defaultClient.authentications['bearer'];
 bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.PetApi();
-apiInstance.uploadImage().then(() => {
-  console.log('API called successfully.');
+let opts = {
+  'image': "/path/to/file" // File | 
+};
+apiInstance.uploadImage(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
 });
@@ -631,11 +634,14 @@ apiInstance.uploadImage().then(() => {
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **image** | **File**|  | [optional] 
 
 ### Return type
 
-null (empty response body)
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -643,6 +649,6 @@ null (empty response body)
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: multipart/form-data
+- **Accept**: applicaiton/json
 

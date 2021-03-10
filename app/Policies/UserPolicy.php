@@ -19,12 +19,12 @@ class UserPolicy
         //
     }
 
-    public function update(User $user)
+    public function update(?User $user)
     {
         return Auth::guard('sanctum')->id() === $user->id;
     }
 
-    public function delete(User $user)
+    public function delete(?User $user)
     {
         return Auth::guard('sanctum')->id() === $user->id;
     }

@@ -27,12 +27,8 @@ class PetUpdateRequest extends ApiRequest
             'name' => ['required', 'max:100'],
             'status' => ['required', 'in:"available", "pending", "sold" '],
             'tags' => 'required',
-            // 'tags.*.id' => ['required', 'exists:tags'],
-            //'tags.*.name' => ['required', 'max:20', 'distinct'],
-            'category' => 'required',
-            'category.id' => ['required', 'numeric', 'exists:categories,id'],
-            'category.name' => ['required', 'max:100'],
-            'photoUrls' => ['required', 'array']
+            'category_id' => ['required', 'numeric', 'exists:categories,id'],
+            'photo_urls' => ['required', 'array']
         ];
     }
 }

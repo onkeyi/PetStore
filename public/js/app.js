@@ -3310,6 +3310,8 @@ var _Error = _interopRequireDefault(__webpack_require__(/*! ../model/Error400 */
 
 var _Error2 = _interopRequireDefault(__webpack_require__(/*! ../model/Error500 */ "./client/pet_store_api/dist/model/Error500.js"));
 
+var _ResponseOk = _interopRequireDefault(__webpack_require__(/*! ../model/ResponseOk */ "./client/pet_store_api/dist/model/ResponseOk.js"));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     "default": obj
@@ -3400,7 +3402,7 @@ var CategoryApi = /*#__PURE__*/function () {
      * カテゴリ削除
      * カテゴリ削除 
      * @param {Number} categoryId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -3420,15 +3422,15 @@ var CategoryApi = /*#__PURE__*/function () {
       var formParams = {};
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = [];
-      var accepts = ['application/json'];
-      var returnType = null;
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/category/{categoryId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * カテゴリ削除
      * カテゴリ削除 
      * @param {Number} categoryId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -3517,7 +3519,7 @@ var CategoryApi = /*#__PURE__*/function () {
      * @param {String} categoryId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Category} opts.category 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -3539,7 +3541,7 @@ var CategoryApi = /*#__PURE__*/function () {
       var authNames = ['apiKey'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
-      var returnType = Object;
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/category/{categoryId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -3548,7 +3550,7 @@ var CategoryApi = /*#__PURE__*/function () {
      * @param {String} categoryId 
      * @param {Object} opts Optional parameters
      * @param {module:model/Category} opts.category 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -3587,9 +3589,13 @@ var _Error = _interopRequireDefault(__webpack_require__(/*! ../model/Error400 */
 
 var _Error2 = _interopRequireDefault(__webpack_require__(/*! ../model/Error500 */ "./client/pet_store_api/dist/model/Error500.js"));
 
+var _Order = _interopRequireDefault(__webpack_require__(/*! ../model/Order */ "./client/pet_store_api/dist/model/Order.js"));
+
 var _RequestOrderStore = _interopRequireDefault(__webpack_require__(/*! ../model/RequestOrderStore */ "./client/pet_store_api/dist/model/RequestOrderStore.js"));
 
 var _RequestOrderUpdate = _interopRequireDefault(__webpack_require__(/*! ../model/RequestOrderUpdate */ "./client/pet_store_api/dist/model/RequestOrderUpdate.js"));
+
+var _ResponseOk = _interopRequireDefault(__webpack_require__(/*! ../model/ResponseOk */ "./client/pet_store_api/dist/model/ResponseOk.js"));
 
 var _ResponsePegination = _interopRequireDefault(__webpack_require__(/*! ../model/ResponsePegination */ "./client/pet_store_api/dist/model/ResponsePegination.js"));
 
@@ -3682,7 +3688,7 @@ var OrderApi = /*#__PURE__*/function () {
     /**
      * オーダー削除
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -3702,14 +3708,14 @@ var OrderApi = /*#__PURE__*/function () {
       var formParams = {};
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = [];
-      var accepts = ['application/json'];
-      var returnType = null;
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/order/{orderId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * オーダー削除
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -3753,7 +3759,7 @@ var OrderApi = /*#__PURE__*/function () {
     /**
      * オーダー取得
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Order} and HTTP response
      */
 
   }, {
@@ -3773,14 +3779,14 @@ var OrderApi = /*#__PURE__*/function () {
       var formParams = {};
       var authNames = ['apiKey'];
       var contentTypes = [];
-      var accepts = ['application/json'];
-      var returnType = null;
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _Order["default"];
       return this.apiClient.callApi('/order/{orderId}', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * オーダー取得
      * @param {Number} orderId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
 
   }, {
@@ -3795,7 +3801,7 @@ var OrderApi = /*#__PURE__*/function () {
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -3816,8 +3822,8 @@ var OrderApi = /*#__PURE__*/function () {
       var formParams = {};
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['applicaiton/json'];
-      var accepts = ['application/json'];
-      var returnType = null;
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/order/{orderId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -3825,7 +3831,7 @@ var OrderApi = /*#__PURE__*/function () {
      * @param {Number} orderId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -3864,7 +3870,7 @@ var _Error = _interopRequireDefault(__webpack_require__(/*! ../model/Error400 */
 
 var _Error2 = _interopRequireDefault(__webpack_require__(/*! ../model/Error500 */ "./client/pet_store_api/dist/model/Error500.js"));
 
-var _InlineResponse = _interopRequireDefault(__webpack_require__(/*! ../model/InlineResponse200 */ "./client/pet_store_api/dist/model/InlineResponse200.js"));
+var _InlineResponse = _interopRequireDefault(__webpack_require__(/*! ../model/InlineResponse2002 */ "./client/pet_store_api/dist/model/InlineResponse2002.js"));
 
 var _Pet = _interopRequireDefault(__webpack_require__(/*! ../model/Pet */ "./client/pet_store_api/dist/model/Pet.js"));
 
@@ -3873,6 +3879,8 @@ var _PetComment = _interopRequireDefault(__webpack_require__(/*! ../model/PetCom
 var _RequestPetStore = _interopRequireDefault(__webpack_require__(/*! ../model/RequestPetStore */ "./client/pet_store_api/dist/model/RequestPetStore.js"));
 
 var _RequestPetUpdate = _interopRequireDefault(__webpack_require__(/*! ../model/RequestPetUpdate */ "./client/pet_store_api/dist/model/RequestPetUpdate.js"));
+
+var _ResponseOk = _interopRequireDefault(__webpack_require__(/*! ../model/ResponseOk */ "./client/pet_store_api/dist/model/ResponseOk.js"));
 
 var _ResponsePegination = _interopRequireDefault(__webpack_require__(/*! ../model/ResponsePegination */ "./client/pet_store_api/dist/model/ResponsePegination.js"));
 
@@ -3930,7 +3938,7 @@ var PetApi = /*#__PURE__*/function () {
    * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
    * @param {Object} opts Optional parameters
    * @param {module:model/RequestPetStore} opts.requestPetStore 
-   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
    */
 
 
@@ -3946,7 +3954,7 @@ var PetApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = _InlineResponse["default"];
+      var returnType = _Pet["default"];
       return this.apiClient.callApi('/pet', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -3954,7 +3962,7 @@ var PetApi = /*#__PURE__*/function () {
      * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetStore} opts.requestPetStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Pet}
      */
 
   }, {
@@ -4005,7 +4013,7 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ペット情報削除
      * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -4026,13 +4034,13 @@ var PetApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
-      var returnType = Object;
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/pet/{petId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * ペット情報削除
      * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -4045,7 +4053,7 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ペット情報削除
      * @param {Number} petCommentId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -4066,13 +4074,13 @@ var PetApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = [];
       var accepts = ['applicaiton/json', 'application/json'];
-      var returnType = Object;
-      return this.apiClient.callApi('/pet/comment/{petCommentId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+      var returnType = _ResponseOk["default"];
+      return this.apiClient.callApi('/pet/{petCommentId}/comment', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * ペット情報削除
      * @param {Number} petCommentId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -4251,48 +4259,6 @@ var PetApi = /*#__PURE__*/function () {
       });
     }
     /**
-     * ペットコメント
-     * Pet comments.
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PetComment>} and HTTP response
-     */
-
-  }, {
-    key: "getCommentByPetIdWithHttpInfo",
-    value: function getCommentByPetIdWithHttpInfo(petId) {
-      var postBody = null; // verify the required parameter 'petId' is set
-
-      if (petId === undefined || petId === null) {
-        throw new Error("Missing the required parameter 'petId' when calling getCommentByPetId");
-      }
-
-      var pathParams = {
-        'petId': petId
-      };
-      var queryParams = {};
-      var headerParams = {};
-      var formParams = {};
-      var authNames = ['apiKey'];
-      var contentTypes = [];
-      var accepts = ['applicaiton/json', 'application/json'];
-      var returnType = [_PetComment["default"]];
-      return this.apiClient.callApi('/pet/{petId}/comment', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
-    }
-    /**
-     * ペットコメント
-     * Pet comments.
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PetComment>}
-     */
-
-  }, {
-    key: "getCommentByPetId",
-    value: function getCommentByPetId(petId) {
-      return this.getCommentByPetIdWithHttpInfo(petId).then(function (response_and_data) {
-        return response_and_data.data;
-      });
-    }
-    /**
      * ペット情報取得
      * @param {Number} petId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
@@ -4333,12 +4299,54 @@ var PetApi = /*#__PURE__*/function () {
       });
     }
     /**
+     * ペットコメント
+     * Pet comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PetComment>} and HTTP response
+     */
+
+  }, {
+    key: "getPetCommentsWithHttpInfo",
+    value: function getPetCommentsWithHttpInfo(petId) {
+      var postBody = null; // verify the required parameter 'petId' is set
+
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling getPetComments");
+      }
+
+      var pathParams = {
+        'petId': petId
+      };
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey'];
+      var contentTypes = [];
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = [_PetComment["default"]];
+      return this.apiClient.callApi('/pet/{petId}/comments', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * ペットコメント
+     * Pet comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PetComment>}
+     */
+
+  }, {
+    key: "getPetComments",
+    value: function getPetComments(petId) {
+      return this.getPetCommentsWithHttpInfo(petId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
      * ペット情報更新
      * 更新処理
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -4360,7 +4368,7 @@ var PetApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['applicaiton/json', 'application/json'];
-      var returnType = _InlineResponse["default"];
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/pet/{petId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -4369,7 +4377,7 @@ var PetApi = /*#__PURE__*/function () {
      * @param {Number} petId 
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -4382,33 +4390,40 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
 
   }, {
     key: "uploadImageWithHttpInfo",
-    value: function uploadImageWithHttpInfo() {
+    value: function uploadImageWithHttpInfo(opts) {
+      opts = opts || {};
       var postBody = null;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
-      var formParams = {};
+      var formParams = {
+        'image': opts['image']
+      };
       var authNames = ['apiKey', 'bearer'];
-      var contentTypes = [];
-      var accepts = [];
-      var returnType = null;
-      return this.apiClient.callApi('/pet/uploadImage', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+      var contentTypes = ['multipart/form-data'];
+      var accepts = ['applicaiton/json'];
+      var returnType = _InlineResponse["default"];
+      return this.apiClient.callApi('/pet/uploadImage', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
 
   }, {
     key: "uploadImage",
-    value: function uploadImage() {
-      return this.uploadImageWithHttpInfo().then(function (response_and_data) {
+    value: function uploadImage(opts) {
+      return this.uploadImageWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -4445,8 +4460,6 @@ var _InlineResponse = _interopRequireDefault(__webpack_require__(/*! ../model/In
 
 var _InlineResponse2 = _interopRequireDefault(__webpack_require__(/*! ../model/InlineResponse2001 */ "./client/pet_store_api/dist/model/InlineResponse2001.js"));
 
-var _InlineResponse3 = _interopRequireDefault(__webpack_require__(/*! ../model/InlineResponse2002 */ "./client/pet_store_api/dist/model/InlineResponse2002.js"));
-
 var _Order = _interopRequireDefault(__webpack_require__(/*! ../model/Order */ "./client/pet_store_api/dist/model/Order.js"));
 
 var _Pet = _interopRequireDefault(__webpack_require__(/*! ../model/Pet */ "./client/pet_store_api/dist/model/Pet.js"));
@@ -4456,6 +4469,8 @@ var _RequestAuthLogin = _interopRequireDefault(__webpack_require__(/*! ../model/
 var _RequestAuthRegister = _interopRequireDefault(__webpack_require__(/*! ../model/RequestAuthRegister */ "./client/pet_store_api/dist/model/RequestAuthRegister.js"));
 
 var _RequestFavoriteStore = _interopRequireDefault(__webpack_require__(/*! ../model/RequestFavoriteStore */ "./client/pet_store_api/dist/model/RequestFavoriteStore.js"));
+
+var _ResponseOk = _interopRequireDefault(__webpack_require__(/*! ../model/ResponseOk */ "./client/pet_store_api/dist/model/ResponseOk.js"));
 
 var _Unexpected = _interopRequireDefault(__webpack_require__(/*! ../model/Unexpected */ "./client/pet_store_api/dist/model/Unexpected.js"));
 
@@ -4550,7 +4565,7 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -4564,13 +4579,13 @@ var UserApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = Object;
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/user', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -4584,7 +4599,7 @@ var UserApi = /*#__PURE__*/function () {
      * ユーザー削除
      * ユーザー削除 - softdelete
      * @param {Number} userId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -4605,14 +4620,14 @@ var UserApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = Object;
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/user/{userId}', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
      * @param {Number} userId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -4625,21 +4640,21 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * お気に入り削除
      * ユーザーお気に入り削除
-     * @param {Number} favoriteId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deleteUserFavoriteWithHttpInfo",
-    value: function deleteUserFavoriteWithHttpInfo(favoriteId) {
-      var postBody = null; // verify the required parameter 'favoriteId' is set
+    key: "deleteUserFavoriteByPetIdWithHttpInfo",
+    value: function deleteUserFavoriteByPetIdWithHttpInfo(petId) {
+      var postBody = null; // verify the required parameter 'petId' is set
 
-      if (favoriteId === undefined || favoriteId === null) {
-        throw new Error("Missing the required parameter 'favoriteId' when calling deleteUserFavorite");
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling deleteUserFavoriteByPetId");
       }
 
       var pathParams = {
-        'favoriteId': favoriteId
+        'petId': petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4647,20 +4662,20 @@ var UserApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = [];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = Object;
-      return this.apiClient.callApi('/user/{favoriteId}/favorite/', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+      var returnType = _ResponseOk["default"];
+      return this.apiClient.callApi('/user/{petId}/favorite/', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
      * お気に入り削除
      * ユーザーお気に入り削除
-     * @param {Number} favoriteId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deleteUserFavorite",
-    value: function deleteUserFavorite(favoriteId) {
-      return this.deleteUserFavoriteWithHttpInfo(favoriteId).then(function (response_and_data) {
+    key: "deleteUserFavoriteByPetId",
+    value: function deleteUserFavoriteByPetId(petId) {
+      return this.deleteUserFavoriteByPetIdWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -4839,7 +4854,7 @@ var UserApi = /*#__PURE__*/function () {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
 
   }, {
@@ -4854,7 +4869,7 @@ var UserApi = /*#__PURE__*/function () {
       var authNames = ['apiKey'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = _InlineResponse3["default"];
+      var returnType = _InlineResponse2["default"];
       return this.apiClient.callApi('/login', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -4862,7 +4877,7 @@ var UserApi = /*#__PURE__*/function () {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
 
   }, {
@@ -4910,7 +4925,7 @@ var UserApi = /*#__PURE__*/function () {
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
 
   }, {
@@ -4925,7 +4940,7 @@ var UserApi = /*#__PURE__*/function () {
       var authNames = ['apiKey'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = _InlineResponse2["default"];
+      var returnType = _InlineResponse["default"];
       return this.apiClient.callApi('/user', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -4933,7 +4948,7 @@ var UserApi = /*#__PURE__*/function () {
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
 
   }, {
@@ -4948,7 +4963,7 @@ var UserApi = /*#__PURE__*/function () {
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -4963,7 +4978,7 @@ var UserApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = _InlineResponse["default"];
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/user', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -4971,7 +4986,7 @@ var UserApi = /*#__PURE__*/function () {
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -4987,7 +5002,7 @@ var UserApi = /*#__PURE__*/function () {
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
@@ -5009,7 +5024,7 @@ var UserApi = /*#__PURE__*/function () {
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['applicaiton/json'];
       var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = _InlineResponse["default"];
+      var returnType = _ResponseOk["default"];
       return this.apiClient.callApi('/user/{userId}', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
@@ -5018,7 +5033,7 @@ var UserApi = /*#__PURE__*/function () {
      * @param {Number} userId 
      * @param {Object} opts Optional parameters
      * @param {module:model/User} opts.user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
@@ -5151,6 +5166,12 @@ Object.defineProperty(exports, "RequestPetUpdate", ({
     return _RequestPetUpdate["default"];
   }
 }));
+Object.defineProperty(exports, "ResponseOk", ({
+  enumerable: true,
+  get: function get() {
+    return _ResponseOk["default"];
+  }
+}));
 Object.defineProperty(exports, "ResponsePegination", ({
   enumerable: true,
   get: function get() {
@@ -5233,6 +5254,8 @@ var _RequestOrderUpdate = _interopRequireDefault(__webpack_require__(/*! ./model
 var _RequestPetStore = _interopRequireDefault(__webpack_require__(/*! ./model/RequestPetStore */ "./client/pet_store_api/dist/model/RequestPetStore.js"));
 
 var _RequestPetUpdate = _interopRequireDefault(__webpack_require__(/*! ./model/RequestPetUpdate */ "./client/pet_store_api/dist/model/RequestPetUpdate.js"));
+
+var _ResponseOk = _interopRequireDefault(__webpack_require__(/*! ./model/ResponseOk */ "./client/pet_store_api/dist/model/ResponseOk.js"));
 
 var _ResponsePegination = _interopRequireDefault(__webpack_require__(/*! ./model/ResponsePegination */ "./client/pet_store_api/dist/model/ResponsePegination.js"));
 
@@ -5719,6 +5742,7 @@ var InlineResponse200 = /*#__PURE__*/function () {
   return InlineResponse200;
 }();
 /**
+ * 新規登録ユーザーID
  * @member {Number} id
  */
 
@@ -5813,8 +5837,12 @@ var InlineResponse2001 = /*#__PURE__*/function () {
       if (data) {
         obj = obj || new InlineResponse2001();
 
-        if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+        if (data.hasOwnProperty('token')) {
+          obj['token'] = _ApiClient["default"].convertToType(data['token'], 'String');
+        }
+
+        if (data.hasOwnProperty('user_id')) {
+          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'String');
         }
       }
 
@@ -5825,12 +5853,16 @@ var InlineResponse2001 = /*#__PURE__*/function () {
   return InlineResponse2001;
 }();
 /**
- * 新規登録ユーザーID
- * @member {Number} id
+ * @member {String} token
  */
 
 
-InlineResponse2001.prototype['id'] = undefined;
+InlineResponse2001.prototype['token'] = undefined;
+/**
+ * @member {String} user_id
+ */
+
+InlineResponse2001.prototype['user_id'] = undefined;
 var _default = InlineResponse2001;
 exports.default = _default;
 
@@ -5920,8 +5952,8 @@ var InlineResponse2002 = /*#__PURE__*/function () {
       if (data) {
         obj = obj || new InlineResponse2002();
 
-        if (data.hasOwnProperty('token')) {
-          obj['token'] = _ApiClient["default"].convertToType(data['token'], 'String');
+        if (data.hasOwnProperty('file_name')) {
+          obj['file_name'] = _ApiClient["default"].convertToType(data['file_name'], 'String');
         }
       }
 
@@ -5932,11 +5964,11 @@ var InlineResponse2002 = /*#__PURE__*/function () {
   return InlineResponse2002;
 }();
 /**
- * @member {String} token
+ * @member {String} file_name
  */
 
 
-InlineResponse2002.prototype['token'] = undefined;
+InlineResponse2002.prototype['file_name'] = undefined;
 var _default = InlineResponse2002;
 exports.default = _default;
 
@@ -6385,7 +6417,7 @@ var PetComment = /*#__PURE__*/function () {
         }
 
         if (data.hasOwnProperty('user_id')) {
-          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'String');
+          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'Number');
         }
 
         if (data.hasOwnProperty('name')) {
@@ -6419,7 +6451,7 @@ PetComment.prototype['id'] = undefined;
 
 PetComment.prototype['pet_id'] = undefined;
 /**
- * @member {String} user_id
+ * @member {Number} user_id
  */
 
 PetComment.prototype['user_id'] = undefined;
@@ -7100,8 +7132,6 @@ exports.default = void 0;
 
 var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
 
-var _Category = _interopRequireDefault(__webpack_require__(/*! ./Category */ "./client/pet_store_api/dist/model/Category.js"));
-
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
     "default": obj
@@ -7141,12 +7171,11 @@ var RequestPetStore = /*#__PURE__*/function () {
    * Constructs a new <code>RequestPetStore</code>.
    * @alias module:model/RequestPetStore
    * @param name {String} 
-   * @param category {module:model/Category} 
    */
-  function RequestPetStore(name, category) {
+  function RequestPetStore(name) {
     _classCallCheck(this, RequestPetStore);
 
-    RequestPetStore.initialize(this, name, category);
+    RequestPetStore.initialize(this, name);
   }
   /**
    * Initializes the fields of this object.
@@ -7157,9 +7186,8 @@ var RequestPetStore = /*#__PURE__*/function () {
 
   _createClass(RequestPetStore, null, [{
     key: "initialize",
-    value: function initialize(obj, name, category) {
+    value: function initialize(obj, name) {
       obj['name'] = name;
-      obj['category'] = category;
     }
     /**
      * Constructs a <code>RequestPetStore</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7179,8 +7207,8 @@ var RequestPetStore = /*#__PURE__*/function () {
           obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
         }
 
-        if (data.hasOwnProperty('category')) {
-          obj['category'] = _Category["default"].constructFromObject(data['category']);
+        if (data.hasOwnProperty('category_id')) {
+          obj['category_id'] = _ApiClient["default"].convertToType(data['category_id'], 'Number');
         }
 
         if (data.hasOwnProperty('photo_urls')) {
@@ -7209,10 +7237,10 @@ var RequestPetStore = /*#__PURE__*/function () {
 
 RequestPetStore.prototype['name'] = undefined;
 /**
- * @member {module:model/Category} category
+ * @member {Number} category_id
  */
 
-RequestPetStore.prototype['category'] = undefined;
+RequestPetStore.prototype['category_id'] = undefined;
 /**
  * @member {Array.<String>} photo_urls
  */
@@ -7248,8 +7276,6 @@ Object.defineProperty(exports, "__esModule", ({
 exports.default = void 0;
 
 var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
-
-var _Category = _interopRequireDefault(__webpack_require__(/*! ./Category */ "./client/pet_store_api/dist/model/Category.js"));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : {
@@ -7291,12 +7317,11 @@ var RequestPetUpdate = /*#__PURE__*/function () {
    * @alias module:model/RequestPetUpdate
    * @param id {Number} 
    * @param name {String} 
-   * @param category {module:model/Category} 
    */
-  function RequestPetUpdate(id, name, category) {
+  function RequestPetUpdate(id, name) {
     _classCallCheck(this, RequestPetUpdate);
 
-    RequestPetUpdate.initialize(this, id, name, category);
+    RequestPetUpdate.initialize(this, id, name);
   }
   /**
    * Initializes the fields of this object.
@@ -7307,10 +7332,9 @@ var RequestPetUpdate = /*#__PURE__*/function () {
 
   _createClass(RequestPetUpdate, null, [{
     key: "initialize",
-    value: function initialize(obj, id, name, category) {
+    value: function initialize(obj, id, name) {
       obj['id'] = id;
       obj['name'] = name;
-      obj['category'] = category;
     }
     /**
      * Constructs a <code>RequestPetUpdate</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7334,8 +7358,8 @@ var RequestPetUpdate = /*#__PURE__*/function () {
           obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
         }
 
-        if (data.hasOwnProperty('category')) {
-          obj['category'] = _Category["default"].constructFromObject(data['category']);
+        if (data.hasOwnProperty('category_id')) {
+          obj['category_id'] = _ApiClient["default"].convertToType(data['category_id'], 'Number');
         }
 
         if (data.hasOwnProperty('photo_urls')) {
@@ -7365,10 +7389,10 @@ RequestPetUpdate.prototype['id'] = undefined;
 
 RequestPetUpdate.prototype['name'] = undefined;
 /**
- * @member {module:model/Category} category
+ * @member {Number} category_id
  */
 
-RequestPetUpdate.prototype['category'] = undefined;
+RequestPetUpdate.prototype['category_id'] = undefined;
 /**
  * @member {Array.<String>} photo_urls
  */
@@ -7380,6 +7404,115 @@ RequestPetUpdate.prototype['photo_urls'] = undefined;
 
 RequestPetUpdate.prototype['tags'] = undefined;
 var _default = RequestPetUpdate;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./client/pet_store_api/dist/model/ResponseOk.js":
+/*!*******************************************************!*\
+  !*** ./client/pet_store_api/dist/model/ResponseOk.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+/**
+ * The ResponseOk model module.
+ * @module model/ResponseOk
+ * @version 0.1.1
+ */
+
+
+var ResponseOk = /*#__PURE__*/function () {
+  /**
+   * Constructs a new <code>ResponseOk</code>.
+   * @alias module:model/ResponseOk
+   * @param ok {Boolean} 
+   */
+  function ResponseOk(ok) {
+    _classCallCheck(this, ResponseOk);
+
+    ResponseOk.initialize(this, ok);
+  }
+  /**
+   * Initializes the fields of this object.
+   * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
+   * Only for internal use.
+   */
+
+
+  _createClass(ResponseOk, null, [{
+    key: "initialize",
+    value: function initialize(obj, ok) {
+      obj['ok'] = ok;
+    }
+    /**
+     * Constructs a <code>ResponseOk</code> from a plain JavaScript object, optionally creating a new instance.
+     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+     * @param {Object} data The plain JavaScript object bearing properties of interest.
+     * @param {module:model/ResponseOk} obj Optional instance to populate.
+     * @return {module:model/ResponseOk} The populated <code>ResponseOk</code> instance.
+     */
+
+  }, {
+    key: "constructFromObject",
+    value: function constructFromObject(data, obj) {
+      if (data) {
+        obj = obj || new ResponseOk();
+
+        if (data.hasOwnProperty('ok')) {
+          obj['ok'] = _ApiClient["default"].convertToType(data['ok'], 'Boolean');
+        }
+      }
+
+      return obj;
+    }
+  }]);
+
+  return ResponseOk;
+}();
+/**
+ * @member {Boolean} ok
+ */
+
+
+ResponseOk.prototype['ok'] = undefined;
+var _default = ResponseOk;
 exports.default = _default;
 
 /***/ }),
@@ -8269,17 +8402,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "item-detail",
   data: function data() {
     return {
       pet: {},
-      openConfirmDialog: false
+      openConfirmDialog: false,
+      orderEnd: false,
+      errorMessage: null
     };
   },
   watch: {
-    '$route.params.id': {
+    "$route.params.id": {
       handler: function handler() {
         this.fetchData();
       },
@@ -8305,7 +8443,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 4:
                 _this.pet = _context.sent;
 
-              case 5:
+                if (_this.pet.status !== "available") {
+                  _this.orderEnd = true;
+                }
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -8318,27 +8460,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       var orderApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.OrderApi();
       var opts = {
-        'requestOrderStore': new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestOrderStore(this.pet.id, 1, 'places')
+        requestOrderStore: new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestOrderStore(this.pet.id, 1, "places")
       };
       orderApi.addNewOrder(opts).then(function (data) {
-        console.log(data);
         _this2.openConfirmDialog = false;
+
+        _this2.fetchData();
       }, function (error) {
-        console.log(error);
+        _this2.errorMessage = error.message;
       });
     },
-    favorite: function favorite() {
-      console.log('call favorite');
+    addFavorite: function addFavorite() {
+      var _this3 = this;
+
       var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      console.log('call userapi');
       var opts = {
-        'requestFavoriteStore': new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestFavoriteStore(this.pet.id)
+        requestFavoriteStore: new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestFavoriteStore(this.pet.id)
       };
-      console.log(opts);
-      userApi.addNewUserFavorite(opts).then(function (data) {
-        console.log(data);
-      }, function (error) {
-        console.log(error);
+      userApi.addNewUserFavorite(opts).then(function (data) {}, function (error) {
+        _this3.errorMessage = error.message;
+      });
+    },
+    removeFavorite: function removeFavorite() {
+      var _this4 = this;
+
+      var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
+      userApi.deleteUserFavoriteByPetId(this.pet.id).then(function (data) {}, function (error) {
+        _this4.errorMessage = error.message;
       });
     }
   }
@@ -8357,6 +8505,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var pet_store_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! pet_store_api */ "./client/pet_store_api/dist/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -8364,9 +8521,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'item-detail-comment',
-  props: ['comments']
+  data: function data() {
+    return {
+      comment: null,
+      userId: localStorage.getItem('userId')
+    };
+  },
+  props: ['pet'],
+  methods: {
+    addComment: function addComment() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var petApi, petComment, opts;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
+                petComment = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetComment();
+                petComment.comment = _this.comment;
+                petComment.pet_id = _this.pet.id;
+                opts = {
+                  'petComment': petComment
+                };
+                _context.next = 7;
+                return petApi.addNewPetComment(opts);
+
+              case 7:
+                _context.next = 9;
+                return petApi.getPetComments(_this.pet.id);
+
+              case 9:
+                _this.pet.comments = _context.sent;
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    deleteComment: function deleteComment(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var petApi;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
+                _context2.next = 3;
+                return petApi.deletePetCommentById(id);
+
+              case 3:
+                _context2.next = 5;
+                return petApi.getPetComments(_this2.pet.id);
+
+              case 5:
+                _this2.pet.comments = _context2.sent;
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  }
 });
 
 /***/ }),
@@ -8659,6 +8889,174 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemRegister.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemRegister.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var pet_store_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! pet_store_api */ "./client/pet_store_api/dist/index.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "item-register",
+  data: function data() {
+    return {
+      message: null,
+      name: null,
+      categoryId: null,
+      photoUrls: [],
+      tags: "",
+      description: null,
+      uploadFile: null
+    };
+  },
+  methods: {
+    selectedFile: function selectedFile(e) {
+      // 選択された File の情報を保存しておく
+      e.preventDefault();
+      var files = e.target.files;
+      this.uploadFile = files[0];
+      this.upload();
+    },
+    upload: function upload() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var petApi, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
+                _context.next = 3;
+                return petApi.uploadImage({
+                  image: _this.uploadFile
+                });
+
+              case 3:
+                data = _context.sent;
+
+                _this.photoUrls.push(data.file_name);
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    register: function register() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var petApi, request, opts, pet;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (_this2.name) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                _this2.message = "名を入力してください。";
+                return _context2.abrupt("return");
+
+              case 3:
+                if (_this2.categoryId) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _this2.message = "カテゴリを選択してください。";
+                return _context2.abrupt("return");
+
+              case 6:
+                if (!(_this2.photoUrls.length == 0)) {
+                  _context2.next = 9;
+                  break;
+                }
+
+                _this2.message = "画像を選択してください。";
+                return _context2.abrupt("return");
+
+              case 9:
+                if (_this2.description) {
+                  _context2.next = 12;
+                  break;
+                }
+
+                _this2.message = "詳細を入力してください。";
+                return _context2.abrupt("return");
+
+              case 12:
+                petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
+                request = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestPetStore();
+                request.name = _this2.name;
+                request.category_id = _this2.categoryId;
+                request.photo_urls = _this2.photoUrls;
+                request.tags = _this2.tags.split(/,|\s/);
+                request.description = _this2.description;
+                opts = {
+                  requestPetStore: request
+                };
+                _context2.next = 22;
+                return petApi.addNewPet(opts);
+
+              case 22:
+                pet = _context2.sent;
+
+              case 23:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MyFavorite.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MyFavorite.vue?vue&type=script&lang=js& ***!
@@ -8679,6 +9077,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -8720,6 +9121,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    deleteFavorite: function deleteFavorite(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var userApi, result;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
+                _context2.next = 3;
+                return userApi.deleteUserFavoriteByPetId(id);
+
+              case 3:
+                result = _context2.sent;
+
+                if (result.ok) {
+                  _this2.loadData();
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   }
@@ -8765,6 +9194,7 @@ __webpack_require__.r(__webpack_exports__);
       }, function (error) {
         if (error.status === 401) {
           localStorage.removeItem("accessToken");
+          localStorage.removeItem("userId");
 
           _this.$router.replace("/")["catch"](function () {});
         }
@@ -8870,6 +9300,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "my-order",
@@ -8904,6 +9336,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee);
+      }))();
+    },
+    deleteOrderById: function deleteOrderById(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var orderApi, result;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                orderApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.OrderApi();
+                _context2.next = 3;
+                return orderApi.deleteOrderById(id);
+
+              case 3:
+                result = _context2.sent;
+
+                if (result.ok) {
+                  _this2.loadData();
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
       }))();
     }
   }
@@ -9075,7 +9535,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    asynconSubmit: function asynconSubmit(event) {
+    onSubmit: function onSubmit(event) {
       var _this = this;
 
       if (!this.email) {
@@ -9100,6 +9560,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         _this.accessToken = data.token;
         localStorage.setItem("accessToken", data.token);
+        localStorage.setItem('userId', data.user_id);
 
         _this.$router.replace("/")["catch"](function () {});
       }, function (error) {
@@ -9177,6 +9638,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -9205,18 +9669,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log("LOGOUT^^^^^");
                 apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-                _context.next = 4;
+                _context.next = 3;
                 return apiInstance.logout();
 
-              case 4:
+              case 3:
                 _this.confirmDialog = false;
                 localStorage.removeItem("accessToken");
 
                 _this.$router.replace("/")["catch"](function () {});
 
-              case 7:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -9343,7 +9806,6 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         _this.$router.replace("/login")["catch"](function () {});
       }, function (error) {
-        console.log(error.body.message);
         _this.errorMessage = error.body ? error.body.message : error;
       });
     }
@@ -9399,18 +9861,19 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_4__.default({
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _CategoryNavbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CategoryNavbar */ "./resources/js/components/CategoryNavbar.vue");
 /* harmony import */ var _PageHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PageHeader */ "./resources/js/components/PageHeader.vue");
 /* harmony import */ var _ItemList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ItemList */ "./resources/js/components/ItemList.vue");
 /* harmony import */ var _ItemListCard__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ItemListCard */ "./resources/js/components/ItemListCard.vue");
 /* harmony import */ var _ItemDetail__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ItemDetail */ "./resources/js/components/ItemDetail.vue");
-/* harmony import */ var _ItemDetailComment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ItemDetailComment */ "./resources/js/components/ItemDetailComment.vue");
-/* harmony import */ var _ConfirmDialog__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ConfirmDialog */ "./resources/js/components/ConfirmDialog.vue");
-/* harmony import */ var _components_MyInfo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/MyInfo */ "./resources/js/components/MyInfo.vue");
-/* harmony import */ var _components_MyItem__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/MyItem */ "./resources/js/components/MyItem.vue");
-/* harmony import */ var _components_MyOrder__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/MyOrder */ "./resources/js/components/MyOrder.vue");
-/* harmony import */ var _components_MyFavorite__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/MyFavorite */ "./resources/js/components/MyFavorite.vue");
+/* harmony import */ var _ItemRegister__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ItemRegister */ "./resources/js/components/ItemRegister.vue");
+/* harmony import */ var _ItemDetailComment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./ItemDetailComment */ "./resources/js/components/ItemDetailComment.vue");
+/* harmony import */ var _ConfirmDialog__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./ConfirmDialog */ "./resources/js/components/ConfirmDialog.vue");
+/* harmony import */ var _components_MyInfo__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/MyInfo */ "./resources/js/components/MyInfo.vue");
+/* harmony import */ var _components_MyItem__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/MyItem */ "./resources/js/components/MyItem.vue");
+/* harmony import */ var _components_MyOrder__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/MyOrder */ "./resources/js/components/MyOrder.vue");
+/* harmony import */ var _components_MyFavorite__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../components/MyFavorite */ "./resources/js/components/MyFavorite.vue");
 
 
 
@@ -9423,8 +9886,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-[_PageHeader__WEBPACK_IMPORTED_MODULE_1__.default, _CategoryNavbar__WEBPACK_IMPORTED_MODULE_0__.default, _ItemList__WEBPACK_IMPORTED_MODULE_2__.default, _ItemListCard__WEBPACK_IMPORTED_MODULE_3__.default, _ItemDetail__WEBPACK_IMPORTED_MODULE_4__.default, _ItemDetailComment__WEBPACK_IMPORTED_MODULE_5__.default, _ConfirmDialog__WEBPACK_IMPORTED_MODULE_6__.default, _components_MyInfo__WEBPACK_IMPORTED_MODULE_7__.default, _components_MyItem__WEBPACK_IMPORTED_MODULE_8__.default, _components_MyOrder__WEBPACK_IMPORTED_MODULE_9__.default, _components_MyFavorite__WEBPACK_IMPORTED_MODULE_10__.default].forEach(function (component) {
-  vue__WEBPACK_IMPORTED_MODULE_11__.default.component(component.name, component);
+
+[_PageHeader__WEBPACK_IMPORTED_MODULE_1__.default, _CategoryNavbar__WEBPACK_IMPORTED_MODULE_0__.default, _ItemList__WEBPACK_IMPORTED_MODULE_2__.default, _ItemListCard__WEBPACK_IMPORTED_MODULE_3__.default, _ItemDetail__WEBPACK_IMPORTED_MODULE_4__.default, _ItemDetailComment__WEBPACK_IMPORTED_MODULE_6__.default, _ItemRegister__WEBPACK_IMPORTED_MODULE_5__.default, _ConfirmDialog__WEBPACK_IMPORTED_MODULE_7__.default, _components_MyInfo__WEBPACK_IMPORTED_MODULE_8__.default, _components_MyItem__WEBPACK_IMPORTED_MODULE_9__.default, _components_MyOrder__WEBPACK_IMPORTED_MODULE_10__.default, _components_MyFavorite__WEBPACK_IMPORTED_MODULE_11__.default].forEach(function (component) {
+  vue__WEBPACK_IMPORTED_MODULE_12__.default.component(component.name, component);
 });
 
 /***/ }),
@@ -15516,6 +15980,45 @@ component.options.__file = "resources/js/components/ItemListCard.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/ItemRegister.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/ItemRegister.vue ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ItemRegister_vue_vue_type_template_id_1551387e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ItemRegister.vue?vue&type=template&id=1551387e& */ "./resources/js/components/ItemRegister.vue?vue&type=template&id=1551387e&");
+/* harmony import */ var _ItemRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ItemRegister.vue?vue&type=script&lang=js& */ "./resources/js/components/ItemRegister.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _ItemRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _ItemRegister_vue_vue_type_template_id_1551387e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ItemRegister_vue_vue_type_template_id_1551387e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ItemRegister.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/MyFavorite.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/MyFavorite.vue ***!
@@ -16014,6 +16517,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ItemRegister.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/ItemRegister.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemRegister.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemRegister.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemRegister_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/MyFavorite.vue?vue&type=script&lang=js&":
 /*!*************************************************************************!*\
   !*** ./resources/js/components/MyFavorite.vue?vue&type=script&lang=js& ***!
@@ -16283,6 +16802,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemListCard.vue?vue&type=template&id=c9856f28& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemListCard.vue?vue&type=template&id=c9856f28&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ItemRegister.vue?vue&type=template&id=1551387e&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/ItemRegister.vue?vue&type=template&id=1551387e& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemRegister_vue_vue_type_template_id_1551387e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemRegister_vue_vue_type_template_id_1551387e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemRegister_vue_vue_type_template_id_1551387e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemRegister.vue?vue&type=template&id=1551387e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemRegister.vue?vue&type=template&id=1551387e&");
 
 
 /***/ }),
@@ -16683,7 +17219,15 @@ var render = function() {
     { staticClass: "container" },
     [
       _c("h1", { staticClass: "my-4" }, [
-        _vm._v(_vm._s(_vm.pet.name) + "\n    "),
+        _vm._v(
+          "\n    ID:" +
+            _vm._s(_vm.pet.id) +
+            " / " +
+            _vm._s(_vm.pet.name) +
+            " / " +
+            _vm._s(_vm.pet.status) +
+            "\n    "
+        ),
         _c("small", [_vm._v(_vm._s(_vm.pet.status))])
       ]),
       _vm._v(" "),
@@ -16700,14 +17244,14 @@ var render = function() {
           _c(
             "ul",
             _vm._l(_vm.pet.tags, function(tag, key) {
-              return _c("li", { key: key }, [_vm._v(_vm._s(tag.name))])
+              return _c("li", { key: key }, [_vm._v(_vm._s(tag))])
             }),
             0
           )
         ])
       ]),
       _vm._v(" "),
-      _c("h3", { staticClass: "my-4" }, [_vm._v("Related ")]),
+      _c("h3", { staticClass: "my-4" }, [_vm._v("Related")]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _vm._m(1),
@@ -16718,30 +17262,34 @@ var render = function() {
         _vm._v(" "),
         _vm._m(4),
         _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-sm btn-outline-secondary",
-            on: {
-              click: function($event) {
-                _vm.openConfirmDialog = true
-              }
-            }
-          },
-          [_vm._v("Order")]
-        ),
+        !_vm.orderEnd
+          ? _c(
+              "a",
+              {
+                staticClass: "btn btn-sm btn-outline-secondary",
+                on: {
+                  click: function($event) {
+                    _vm.openConfirmDialog = true
+                  }
+                }
+              },
+              [_vm._v("Order")]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _c(
           "a",
           {
             staticClass: "btn btn-sm btn-outline-secondary",
-            on: { click: _vm.favorite }
+            on: { click: _vm.addFavorite }
           },
           [_vm._v("Favorite")]
         )
       ]),
       _vm._v(" "),
-      _c("item-detail-comment", { attrs: { comments: _vm.pet.comments } }),
+      _c("item-detail-comment", {
+        attrs: { pet: _vm.pet, comments: _vm.pet.comments }
+      }),
       _vm._v(" "),
       _c("confirm-dialog", {
         attrs: {
@@ -16853,11 +17401,48 @@ var render = function() {
   return _c("div", [
     _c(
       "ul",
-      _vm._l(_vm.comments, function(value, key) {
-        return _c("li", { key: key }, [_vm._v(_vm._s(value.comment))])
+      _vm._l(_vm.pet.comments, function(value, key) {
+        return _c("li", { key: key }, [
+          _vm._v(_vm._s(value.id) + "/" + _vm._s(value.comment)),
+          _vm.userId == value.user_id
+            ? _c(
+                "button",
+                {
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteComment(value.id)
+                    }
+                  }
+                },
+                [_vm._v("Delete")]
+              )
+            : _vm._e()
+        ])
       }),
       0
-    )
+    ),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.comment,
+          expression: "comment"
+        }
+      ],
+      attrs: { type: "text" },
+      domProps: { value: _vm.comment },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.comment = $event.target.value
+        }
+      }
+    }),
+    _c("button", { on: { click: _vm.addComment } }, [_vm._v("Add")])
   ])
 }
 var staticRenderFns = []
@@ -17102,7 +17687,7 @@ var render = function() {
           _c(
             "text",
             { attrs: { fill: "#dee2e6", dy: ".3em", x: "50%", y: "50%" } },
-            [_vm._v("Image cap")]
+            [_vm._v(_vm._s(_vm.pet.status))]
           )
         ]
       ),
@@ -17139,6 +17724,140 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemRegister.vue?vue&type=template&id=1551387e&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemRegister.vue?vue&type=template&id=1551387e& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col mb-3 d-flex justify-content-start" }, [
+      _c("label", [_vm._v("name:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.name,
+            expression: "name"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.name },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.name = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col mb-3 d-flex justify-content-start" }, [
+      _c("label", [_vm._v("category:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.categoryId,
+            expression: "categoryId"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.categoryId },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.categoryId = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col" }, [
+      _c("label", [_vm._v("desc:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.description,
+            expression: "description"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.description },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.description = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col" }, [
+      _c("label", [_vm._v("tag:")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.tags,
+            expression: "tags"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.tags },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.tags = $event.target.value
+          }
+        }
+      })
+    ]),
+    _vm._v(" "),
+    _c("button", { on: { click: _vm.register } }, [_vm._v("Save")]),
+    _vm._v(" "),
+    _c("p", [_vm._v(_vm._s(_vm.message))]),
+    _vm._v(" "),
+    _c("input", {
+      attrs: { type: "file", name: "file" },
+      on: { change: _vm.selectedFile }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MyFavorite.vue?vue&type=template&id=c7c4efda&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/MyFavorite.vue?vue&type=template&id=c7c4efda& ***!
@@ -17161,12 +17880,23 @@ var render = function() {
       _vm._l(_vm.pets, function(value, key) {
         return _c("li", { key: key }, [
           _vm._v(
-            "id:" +
+            "\n      id:" +
               _vm._s(value.id) +
               " / " +
               _vm._s(value.name) +
               " / " +
               _vm._s(value.status)
+          ),
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.deleteFavorite(value.id)
+                }
+              }
+            },
+            [_vm._v("Delete")]
           )
         ])
       }),
@@ -17270,7 +18000,19 @@ var render = function() {
               " / " +
               _vm._s(value.status) +
               " /" +
-              _vm._s(value.pet.status)
+              _vm._s(value.pet.status) +
+              "\n    "
+          ),
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.deleteOrderById(value.id)
+                }
+              }
+            },
+            [_vm._v("Delete")]
           )
         ])
       }),
@@ -17684,7 +18426,11 @@ var render = function() {
           _vm._v(" "),
           _c("p", [_vm._v("Favorites:")]),
           _vm._v(" "),
-          _c("my-favorite")
+          _c("my-favorite"),
+          _vm._v(" "),
+          _c("p", [_vm._v("Register:")]),
+          _vm._v(" "),
+          _c("item-register")
         ],
         1
       ),

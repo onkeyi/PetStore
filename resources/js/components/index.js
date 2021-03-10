@@ -4,6 +4,7 @@ import PageHeader from './PageHeader';
 import ItemList from './ItemList';
 import ItemListCard from './ItemListCard';
 import ItemDetail from './ItemDetail';
+import ItemRegister from './ItemRegister';
 import ItemDetailComment from './ItemDetailComment';
 import ConfirmDialog from './ConfirmDialog';
 import MyInfo from "../components/MyInfo";
@@ -18,6 +19,7 @@ import MyFavorite from "../components/MyFavorite";
     ItemListCard,
     ItemDetail,
     ItemDetailComment,
+    ItemRegister,
     ConfirmDialog,
     MyInfo, MyItem, MyOrder, MyFavorite
 ].forEach(component => {

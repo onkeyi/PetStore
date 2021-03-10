@@ -58,7 +58,7 @@ export default {
     };
   },
   methods: {
-    asynconSubmit(event) {
+    onSubmit(event) {
       if (!this.email) {
         this.errorMessage = "メルアドレスを入力してください。";
         return;
@@ -71,12 +71,14 @@ export default {
         this.errorMessage = "パスワードを入力してください。";
         return;
       }
+
       let opts = new RequestAuthLogin(this.email, this.password);
       let apiInstance = new UserApi();
       apiInstance.login({ requestAuthLogin: opts }).then(
         (data) => {
           this.accessToken = data.token;
           localStorage.setItem("accessToken", data.token);
+          localStorage.setItem('userId',data.user_id);
           this.$router.replace("/").catch(() => {});
         },
         (error) => {

@@ -4,8 +4,8 @@ info:
   version: "0.1.1"
   description: |-
     ## PetStore OpenAPI 設計
-    - バックエンド： Laravel v8.x
-    - フロントエンド： Vue v2.x ,LaravelMix v6.x
+    - バックエンド： Laravel
+    - フロントエンド： Vue
   license:
     name: MIT
 servers:
@@ -178,10 +178,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                properties:
-                  id:
-                    type: integer
-                additionalProperties: false
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -246,8 +243,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: object
-                default: {}
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -315,6 +311,8 @@ paths:
               schema:
                 properties:
                   token:
+                    type: string
+                  user_id:
                     type: string
                 additionalProperties: false
         "401":
@@ -553,9 +551,9 @@ paths:
       security:
         - apiKey: []
         - bearer: []
-  /user/{favoriteId}/favorite/:
+  /user/{petId}/favorite/:
     delete:
-      operationId: deleteUserFavorite
+      operationId: deleteUserFavoriteByPetId
       tags:
         - User
       summary: お気に入り削除
@@ -573,7 +571,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -613,7 +611,7 @@ paths:
       parameters:
         - schema:
             type: integer
-          name: favoriteId
+          name: petId
           in: path
           required: true
       security:
@@ -712,10 +710,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                properties:
-                  id:
-                    type: integer
-                additionalProperties: false
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -786,8 +781,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: object
-                default: {}
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -978,10 +972,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                properties:
-                  id:
-                    type: integer
-                additionalProperties: false
+                $ref: "#/components/schemas/pet"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -1146,10 +1137,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                properties:
-                  id:
-                    type: integer
-                additionalProperties: false
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -1211,8 +1199,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: object
-                default: {}
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -1318,11 +1305,11 @@ paths:
       security:
         - apiKey: []
         - bearer: []
-  /pet/{petId}/comment:
+  /pet/{petId}/comments:
     get:
       tags:
         - Pet
-      operationId: getCommentByPetId
+      operationId: getPetComments
       summary: ペットコメント
       description: |-
         Pet comments.
@@ -1379,7 +1366,7 @@ paths:
           required: true
       security:
         - apiKey: []
-  /pet/comment/{petCommentId}:
+  /pet/{petCommentId}/comment:
     delete:
       operationId: deletePetCommentById
       tags:
@@ -1391,8 +1378,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: object
-                default: {}
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -1489,7 +1475,7 @@ paths:
       security:
         - apiKey: []
   /pet/uploadImage:
-    get:
+    post:
       tags:
         - Pet
       operationId: uploadImage
@@ -1501,6 +1487,22 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            applicaiton/json:
+              schema:
+                type: object
+                properties:
+                  file_name:
+                    type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
       security:
         - apiKey: []
         - bearer: []
@@ -1718,9 +1720,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                properties:
-                  id:
-                    type: integer
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -1814,6 +1814,10 @@ paths:
       responses:
         "200":
           description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -1969,7 +1973,10 @@ paths:
       responses:
         "200":
           description: 成功
-
+          content:
+            applicaiton/json:
+              schema:
+                $ref: "#/components/schemas/order"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -2027,6 +2034,10 @@ paths:
       responses:
         "200":
           description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -2056,6 +2067,10 @@ paths:
       responses:
         "200":
           description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: "#/components/schemas/response_ok"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -2093,7 +2108,7 @@ components:
         pet_id:
           type: integer
         user_id:
-          type: string
+          type: integer
         name:
           type: string
         comment:
@@ -2206,8 +2221,8 @@ components:
       properties:
         name:
           type: string
-        category:
-          $ref: "#/components/schemas/category"
+        category_id:
+          type: integer
         photo_urls:
           type: array
           maxItems: 20
@@ -2230,8 +2245,8 @@ components:
           type: integer
         name:
           type: string
-        category:
-          $ref: "#/components/schemas/category"
+        category_id:
+          type: integer
         photo_urls:
           type: array
           maxItems: 20
@@ -2282,6 +2297,13 @@ components:
       properties:
         pet_id:
           type: integer
+    response_ok:
+      required:
+        - ok
+      type: object
+      properties:
+        ok:
+          type: boolean
     response_pegination:
       type: object
       properties:

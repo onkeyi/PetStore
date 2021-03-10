@@ -27,7 +27,7 @@ Route::middleware('apikey')->group(
         Route::get('pet/findByTags', [PetController::class, 'findByTags']);
         Route::get('pet/findByCategory', [PetController::class, 'findByCategory']);
         Route::get('pet/{pet}', [PetController::class, 'getPetById']);
-        Route::get('pet/{pet}/comment', [PetCommentController::class, 'getPetComments']);
+        Route::get('pet/{pet}/comments', [PetCommentController::class, 'getPetComments']);
 
         Route::get('pets', [PetController::class, 'getAllPets']);
 
@@ -39,7 +39,7 @@ Route::middleware('apikey')->group(
 
         Route::middleware('auth')->group(
             function () {
-                Route::post('pet/{pet}/comment', [PetCommentController::class, 'addNewPetComment']);
+                Route::post('pet/comment', [PetCommentController::class, 'addNewPetComment']);
 
                 /** Pet */
                 Route::post('pet', [PetController::class, 'addNewPet']);
@@ -47,7 +47,7 @@ Route::middleware('apikey')->group(
                 Route::delete('pet/{pet}', [PetController::class, 'deletePetById']);
                 Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
 
-                Route::delete('pet/comment/{petComment}', [PetCommentController::class, 'deletePetCommentById']);
+                Route::delete('pet/{petComment}/comment/', [PetCommentController::class, 'deletePetCommentById']);
 
                 /** Order */
                 Route::get('orders', [OrderController::class, 'getAllOrders']);
@@ -65,7 +65,7 @@ Route::middleware('apikey')->group(
                 Route::get('user/orders', [UserController::class, 'getUserOrders']);
                 Route::get('user/favorites', [UserController::class, 'getUserFavorites']);
                 Route::post('user/favorite', [UserController::class, 'addNewUserFavorite']);
-                Route::delete('user/{favoriteId}/favorite', [UserController::class, 'deleteUserFavorite']);
+                Route::delete('user/{petId}/favorite', [UserController::class, 'deleteUserFavoriteByPetId']);
 
                 /** logout */
                 Route::get('logout', [AuthController::class, 'logout']);
@@ -74,13 +74,6 @@ Route::middleware('apikey')->group(
 
         // Route::middleware('admin')->group(
         // function () {
-        /** Tag */
-        Route::get('tags', [TagController::class, 'getAllTags']);
-        Route::post('tag', [TagController::class, 'addNewTag']);
-        Route::get('tag/{tag}', [TagController::class, 'getTagById']);
-        Route::put('tag/{tag}', [TagController::class, 'updateTagById']);
-        Route::delete('tag/{tag}', [TagController::class, 'deleteTagById']);
-
         /** Category */
         Route::get('categories', [CategoryController::class, 'getAllCategories']);
         Route::post('category', [CategoryController::class, 'addNewCategory']);

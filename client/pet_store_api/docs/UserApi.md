@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**addNewUserFavorite**](UserApi.md#addNewUserFavorite) | **POST** /user/favorite | お気に入り登録
 [**deleteUser**](UserApi.md#deleteUser) | **DELETE** /user | ユーザー削除
 [**deleteUserById**](UserApi.md#deleteUserById) | **DELETE** /user/{userId} | ユーザー削除
-[**deleteUserFavorite**](UserApi.md#deleteUserFavorite) | **DELETE** /user/{favoriteId}/favorite/ | お気に入り削除
+[**deleteUserFavoriteByPetId**](UserApi.md#deleteUserFavoriteByPetId) | **DELETE** /user/{petId}/favorite/ | お気に入り削除
 [**findUserByName**](UserApi.md#findUserByName) | **GET** /user/findUserByName | ユーザー検索
 [**getUser**](UserApi.md#getUser) | **GET** /user | ユーザー情報取得
 [**getUserFavorites**](UserApi.md#getUserFavorites) | **GET** /user/favorites | お気に入り一覧取得
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 ## deleteUser
 
-> Object deleteUser()
+> ResponseOk deleteUser()
 
 ユーザー削除
 
@@ -113,7 +113,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Object**
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -127,7 +127,7 @@ This endpoint does not need any parameter.
 
 ## deleteUserById
 
-> Object deleteUserById(userId)
+> ResponseOk deleteUserById(userId)
 
 ユーザー削除
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -178,9 +178,9 @@ Name | Type | Description  | Notes
 - **Accept**: application/json, applicaiton/json
 
 
-## deleteUserFavorite
+## deleteUserFavoriteByPetId
 
-> Object deleteUserFavorite(favoriteId)
+> ResponseOk deleteUserFavoriteByPetId(petId)
 
 お気に入り削除
 
@@ -201,8 +201,8 @@ let bearer = defaultClient.authentications['bearer'];
 bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
-let favoriteId = 56; // Number | 
-apiInstance.deleteUserFavorite(favoriteId).then((data) => {
+let petId = 56; // Number | 
+apiInstance.deleteUserFavoriteByPetId(petId).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -215,11 +215,11 @@ apiInstance.deleteUserFavorite(favoriteId).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **favoriteId** | **Number**|  | 
+ **petId** | **Number**|  | 
 
 ### Return type
 
-**Object**
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -479,7 +479,7 @@ This endpoint does not need any parameter.
 
 ## login
 
-> InlineResponse2002 login(opts)
+> InlineResponse2001 login(opts)
 
 ログイン
 
@@ -517,7 +517,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 
@@ -580,7 +580,7 @@ This endpoint does not need any parameter.
 
 ## registerNewUser
 
-> InlineResponse2001 registerNewUser(opts)
+> InlineResponse200 registerNewUser(opts)
 
 新規ユーザー登録
 
@@ -618,7 +618,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+[**InlineResponse200**](InlineResponse200.md)
 
 ### Authorization
 
@@ -632,7 +632,7 @@ Name | Type | Description  | Notes
 
 ## updateUser
 
-> InlineResponse200 updateUser(opts)
+> ResponseOk updateUser(opts)
 
 ユーザー情報更新
 
@@ -673,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 
@@ -687,7 +687,7 @@ Name | Type | Description  | Notes
 
 ## updateUserById
 
-> InlineResponse200 updateUserById(userId, opts)
+> ResponseOk updateUserById(userId, opts)
 
 ユーザー情報更新
 
@@ -730,7 +730,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**ResponseOk**](ResponseOk.md)
 
 ### Authorization
 

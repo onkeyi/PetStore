@@ -35,14 +35,12 @@ class CategoryController extends ApiController
     {
         $this->authorize('update');
         $validated = $request->validated();
-        $category->save($validated);
-        return $this->successResponse(['id' => $category->id]);
+        return $this->okResponse($category->save($validated));
     }
 
     public function deleteCategoryById(Category $category)
     {
         $this->authorize('delete', $category);
-        $category->delete();
-        return $this->successResponse();
+        return $this->okResponse($category->delete());
     }
 }

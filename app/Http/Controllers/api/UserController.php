@@ -50,9 +50,10 @@ class UserController extends ApiController
         );
     }
 
-    public function deleteUserFavorite($favoriteId) {
-        return $this->successResponse(
-            UserFavorite::where(array('id'=>$favoriteId,'user_id'=>$this->userId))->delete()
+    public function deleteUserFavoriteByPetId($petId) {
+
+        return $this->okResponse(
+            UserFavorite::where(array('pet_id'=>$petId,'user_id'=>$this->userId))->delete()
         );
     }
 
@@ -70,29 +71,25 @@ class UserController extends ApiController
     public function updateUser(UserUpdateRequest $request)
     {
         $validated = $request->validated();
-        User::where('id',$this->userId)->update($validated);
-        return $this->successResponse(['id' => $this->userId]);
+        return $this->okResponse(User::where('id',$this->userId)->update($validated));
     }
 
     public function updateUserById(UserUpdateRequest $request, User $user)
     {
         $this->authorize('update', $user);
         $validated = $request->validated();
-        $user->update($validated);
-        return $this->successResponse(['id' => $user->id]);
+        return $this->okResponse($user->update($validated));
     }
 
     public function deleteUser()
     {
-        User::where('id',$this->userId)->delete();
-        return $this->successResponse('');
+        return $this->okResponse(User::where('id',$this->userId)->delete());
     }
 
     public function deleteUserById(User $user)
     {
         $this->authorize('delete', $user);
-        $user->delete();
-        return $this->successResponse('');
+        return $this->okResponse($user->delete());
     }
 
 }

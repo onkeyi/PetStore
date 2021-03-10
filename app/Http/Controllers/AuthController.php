@@ -33,11 +33,11 @@ class AuthController extends Controller
             $user->tokens()->delete();
             $token = $user->createToken($user->email);
             return response()->json([
-                'token' => $token->plainTextToken
+                'token' => $token->plainTextToken,
+                'user_id' => $user->id
             ]);
-        } else {
-            throw new UnauthorizedException;
         }
+        throw new UnauthorizedException;
     }
 
     public function logout()

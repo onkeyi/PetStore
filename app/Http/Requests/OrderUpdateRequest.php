@@ -24,7 +24,7 @@ class OrderUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'pet_id'=>'required'
+            'pet_id'=>'required',
             'status'=>'required'
         ];
     }

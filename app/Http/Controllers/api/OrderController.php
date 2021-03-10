@@ -8,6 +8,8 @@ use App\Http\Requests\OrderUpdateRequest;
 use App\Models\Order;
 use App\Models\pet;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
+
 
 class OrderController extends ApiController
 {
@@ -25,16 +27,16 @@ class OrderController extends ApiController
     {
         $validated = $request->validated();
         $validated['user_id'] = $this->userId;
-        $id = DB::transaction(
+        $validated['id'] = DB::transaction(
             function () use ($validated) {
-                $id = Order::create($validated);
+                $order = Order::create($validated);
                 $pet['status'] = 'pending';
                 $pet['id'] = $validated['pet_id'];
                 Pet::where(array('id'=>$validated['pet_id']))->update($pet);
-                return $id;
+                return $order->id;
             }
         );
-        $this->successResponse($id);
+        return $this->successResponse($validated);
     }
 
     public function getOrderById(Order $order)
@@ -45,14 +47,13 @@ class OrderController extends ApiController
     public function updateOrderById(Order $order,OrderUpdateRequest $orderUpdateRequest)
     {
         $this->authorize('update', $order); // Pet Owner Only
-        $order->save($orderUpdateRequest);
-        $this->successResponse();
+        return $this->okResponse($order->save($orderUpdateRequest));
     }
 
     public function deleteOrderById(Order $order)
     {
         $this->authorize('delete', $order);
-        return $this->successResponse($order->delete());
+        return $this->okResponse($order->delete());
     }
 
     public function inventory()

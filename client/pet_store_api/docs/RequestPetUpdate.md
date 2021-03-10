@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **Number** |  | 
 **name** | **String** |  | 
-**category** | [**Category**](Category.md) |  | 
+**categoryId** | **Number** |  | [optional] 
 **photoUrls** | **[String]** |  | [optional] 
 **tags** | **[String]** |  | [optional] 
 

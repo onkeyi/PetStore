@@ -25,12 +25,10 @@ class PetStoreRequest extends ApiRequest
     {
         return [
             'name' => ['required', 'max:100'],
-            'status' => ['required', 'in:"available", "pending", "sold" '],
+            // 'status' => ['required', 'in:"available", "pending", "sold" '],
             'tags' => 'required',
-            'tags.*.name' => ['required', 'max:100', 'distinct'],
-            'category' => 'required',
-            'category.id' => ['required'],
-            'photoUrls' => ['required', 'array'] // add new pet after upload image.
+            'category_id' => ['required', 'numeric', 'exists:categories,id'],
+            'photo_urls' => ['required', 'array'] // add new pet after upload image.
         ];
     }
 }

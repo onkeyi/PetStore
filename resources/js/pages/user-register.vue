@@ -94,7 +94,6 @@ export default {
           this.$router.replace("/login").catch(() => {});
         },
         (error) => {
-          console.log(error.body.message);
           this.errorMessage = error.body ? error.body.message : error;
         }
       );

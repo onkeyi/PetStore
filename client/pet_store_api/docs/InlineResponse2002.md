@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** |  | [optional] 
+**fileName** | **String** |  | [optional] 
 
 

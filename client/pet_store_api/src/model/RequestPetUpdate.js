@@ -1,6 +1,6 @@
 /**
  * PetStore API
- * ## PetStore OpenAPI 設計 - バックエンド： Laravel v8.x - フロントエンド： Vue v2.x ,LaravelMix v6.x
+ * ## PetStore OpenAPI 設計 - バックエンド： Laravel - フロントエンド： Vue
  *
  * The version of the OpenAPI document: 0.1.1
  * 
@@ -12,7 +12,6 @@
  */
 
 import ApiClient from '../ApiClient';
-import Category from './Category';
 
 /**
  * The RequestPetUpdate model module.
@@ -25,11 +24,10 @@ class RequestPetUpdate {
      * @alias module:model/RequestPetUpdate
      * @param id {Number} 
      * @param name {String} 
-     * @param category {module:model/Category} 
      */
-    constructor(id, name, category) { 
+    constructor(id, name) { 
         
-        RequestPetUpdate.initialize(this, id, name, category);
+        RequestPetUpdate.initialize(this, id, name);
     }
 
     /**
@@ -37,10 +35,9 @@ class RequestPetUpdate {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, category) { 
+    static initialize(obj, id, name) { 
         obj['id'] = id;
         obj['name'] = name;
-        obj['category'] = category;
     }
 
     /**
@@ -60,8 +57,8 @@ class RequestPetUpdate {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
-            if (data.hasOwnProperty('category')) {
-                obj['category'] = Category.constructFromObject(data['category']);
+            if (data.hasOwnProperty('category_id')) {
+                obj['category_id'] = ApiClient.convertToType(data['category_id'], 'Number');
             }
             if (data.hasOwnProperty('photo_urls')) {
                 obj['photo_urls'] = ApiClient.convertToType(data['photo_urls'], ['String']);
@@ -87,9 +84,9 @@ RequestPetUpdate.prototype['id'] = undefined;
 RequestPetUpdate.prototype['name'] = undefined;
 
 /**
- * @member {module:model/Category} category
+ * @member {Number} category_id
  */
-RequestPetUpdate.prototype['category'] = undefined;
+RequestPetUpdate.prototype['category_id'] = undefined;
 
 /**
  * @member {Array.<String>} photo_urls

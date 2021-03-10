@@ -1,7 +1,7 @@
 {
   "name": "pet_store_api",
   "version": "0.1.1",
-  "description": "_PetStore_OpenAPI_設計__バックエンド_Laravel_v8_x__フロントエンド_Vue_v2_x_LaravelMix_v6_x",
+  "description": "_PetStore_OpenAPI_設計__バックエンド_Laravel__フロントエンド_Vue",
   "license": "LICENSE",
   "main": "dist/index.js",
   "scripts": {
