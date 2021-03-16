@@ -600,7 +600,7 @@ Name | Type | Description  | Notes
 
 ## uploadImage
 
-> InlineResponse2002 uploadImage(opts)
+> InlineResponse2001 uploadImage(opts)
 
 アップロードペットイメージ
 
@@ -641,7 +641,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2002**](InlineResponse2002.md)
+[**InlineResponse2001**](InlineResponse2001.md)
 
 ### Authorization
 

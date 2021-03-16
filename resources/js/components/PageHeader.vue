@@ -45,7 +45,7 @@
           </div>
         </form>
         <a
-          v-if="isLogin"
+          v-if="userInfo"
           class="btn btn-sm btn-outline-secondary"
           href="#/mypage"
           >{{ $t("message.mypage") }}</a
@@ -61,11 +61,13 @@
 export default {
   name: "page-header",
   data: () => ({
-    isLogin: localStorage.getItem("accessToken") ? true : false,
+    userInfo: null,
     inputTag: null,
     tags: null,
   }),
-  mounted: function () {},
+  created: function () {
+    this.userInfo = this.$store.getters['userInfo'];
+  },
   methods: {
     searchByTag() {
       this.$router.replace(

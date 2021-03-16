@@ -1,12 +1,21 @@
 <template>
-  <div>
-    <router-view></router-view>
-    <footer class="store-footer">
-      <p>
+  <div class="container">
+    <page-header />
+    <category-navbar />
+    <main role="main" class="container">
+      <loading />
+        <transition>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
+        </transition>
+    </main>
+    <!-- <footer class="fixed-bottom ">
+      <p >
         {{ $appName }}
         <a href="#">Power</a> by <a href="#">@onkeyi</a>
       </p>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -15,23 +24,30 @@ import { ApiClient } from "pet_store_api";
 
 export default {
   data: () => ({
-    showLoading: false,
+    isLoading: false,
   }),
+
   created: function () {
     let defaultClient = ApiClient.instance;
     defaultClient.basePath = process.env.MIX_API_URL + '/api';
     let apiKey = defaultClient.authentications["apiKey"];
     apiKey.apiKey = process.env.MIX_API_KEY;
-    const token = localStorage.getItem("accessToken");
-    if (token) {
+    const info = this.$store.getters['userInfo'];
+    if (info) {
       let bearer = defaultClient.authentications["bearer"];
-      bearer.accessToken = token;
+      bearer.accessToken = info.token;
     }
+
     this.$router.beforeEach((to, from, next) => {
-      let isAuthenticated = localStorage.getItem("accessToken") ? true : false;
-      if (to.name === "my-page" && !isAuthenticated) next({ name: "login" });
+      this.$store.commit('setLoading',true);
+      if (to.name === "my-page" && !this.$store.getters['userInfo']) next({ name: "login" });
       else next();
     });
+
+     this.$router.afterEach(async () => {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      this.$store.commit('setLoading',false);
+    })
   },
 };
 </script>
@@ -42,4 +58,5 @@ export default {
 #page-content-wrapper {
   min-width: 100vw;
 }
+
 </style>

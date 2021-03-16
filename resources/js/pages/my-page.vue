@@ -1,35 +1,41 @@
 <template>
-  <div class="container">
-    <header class="store-header py-3">
-      <div class="row flex-nowrap justify-content-between align-items-center">
-        <div class="col-4 pt-1">
+  <div>
+    <div class="d-flex">
+      <!-- Sidebar -->
+      <div class="bg-light">
+        <div class="list-group list-group-flush">
           <router-link
-            class="store-header-logo text-dark"
-            v-bind:to="{ path: '/' }"
+            to="/mypage/profile"
+            class="list-group-item list-group-item-action bg-light"
+            >MyPage</router-link
           >
-            {{ $appName }}
-          </router-link>
+          <router-link
+            to="/mypage/item"
+            class="list-group-item list-group-item-action bg-light"
+            >MyItem</router-link
+          >
+          <router-link
+            to="/mypage/order"
+            class="list-group-item list-group-item-action bg-light"
+            >MyOrder</router-link
+          >
+          <router-link
+            to="/mypage/favorite"
+            class="list-group-item list-group-item-action bg-light"
+            >Favorite</router-link
+          >
+
+          <a
+            class="list-group-item list-group-item-action bg-light"
+            v-on:click="openConfirmDialog = true"
+          >
+            {{ $t("message.logout") }}
+          </a>
         </div>
-        <a
-          class="btn btn-sm btn-outline-secondary"
-          v-on:click="openConfirmDialog = true"
-        >
-          {{ $t("message.logout") }}
-        </a>
       </div>
-    </header>
-    <div>
-      <p>USER</p>
-      <my-info />
-      <my-item />
-      <p>ORDER:</p>
-      <my-order />
-      <p>Favorites:</p>
-      <my-favorite />
-      <p>Register:</p>
-      <item-register />
+      <loading />
+      <router-view></router-view>
     </div>
-    {{ $t("message.mypage") }}
     <confirm-dialog
       v-bind:show="openConfirmDialog"
       v-bind:content="{
@@ -40,7 +46,6 @@
       v-on:action="logout"
       v-on:close="openConfirmDialog = false"
     />
-
   </div>
 </template>
 <script>
@@ -49,7 +54,7 @@ import { ApiClient, UserApi } from "pet_store_api";
 export default {
   data: () => ({ openConfirmDialog: false }),
   created: function () {
-    let token = localStorage.getItem("accessToken");
+    let token = this.$store.getters.userInfo.token;
     if (!token) {
       this.$router.replace("/").catch(() => {});
     } else {
@@ -63,7 +68,8 @@ export default {
       let apiInstance = new UserApi();
       await apiInstance.logout();
       this.confirmDialog = false;
-      localStorage.removeItem("accessToken");
+      this.$store.dispatch("saveUserInfo", null);
+      localStorage.clear();
       this.$router.replace("/").catch(() => {});
     },
   },

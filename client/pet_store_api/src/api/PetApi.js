@@ -15,7 +15,7 @@
 import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
-import InlineResponse2002 from '../model/InlineResponse2002';
+import InlineResponse2001 from '../model/InlineResponse2001';
 import Pet from '../model/Pet';
 import PetComment from '../model/PetComment';
 import RequestPetStore from '../model/RequestPetStore';
@@ -576,7 +576,7 @@ export default class PetApi {
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
      * @param {Object} opts Optional parameters
      * @param {File} opts.image 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
     uploadImageWithHttpInfo(opts) {
       opts = opts || {};
@@ -595,7 +595,7 @@ export default class PetApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['multipart/form-data'];
       let accepts = ['applicaiton/json'];
-      let returnType = InlineResponse2002;
+      let returnType = InlineResponse2001;
       return this.apiClient.callApi(
         '/pet/uploadImage', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -608,7 +608,7 @@ export default class PetApi {
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
      * @param {Object} opts Optional parameters
      * @param {File} opts.image 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
     uploadImage(opts) {
       return this.uploadImageWithHttpInfo(opts)

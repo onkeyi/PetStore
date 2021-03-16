@@ -312,9 +312,9 @@ paths:
                 properties:
                   token:
                     type: string
-                  user_id:
-                    type: string
-                additionalProperties: false
+                  user:
+                    $ref: "#/components/schemas/user"
+
         "401":
           description: <API-KEY> 認証エラー
           content:

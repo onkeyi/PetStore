@@ -18,7 +18,6 @@ import Error400 from './model/Error400';
 import Error500 from './model/Error500';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
-import InlineResponse2002 from './model/InlineResponse2002';
 import Order from './model/Order';
 import Pet from './model/Pet';
 import PetComment from './model/PetComment';
@@ -107,12 +106,6 @@ export {
      * @property {module:model/InlineResponse2001}
      */
     InlineResponse2001,
-
-    /**
-     * The InlineResponse2002 model constructor.
-     * @property {module:model/InlineResponse2002}
-     */
-    InlineResponse2002,
 
     /**
      * The Order model constructor.

@@ -34,7 +34,7 @@ class AuthController extends Controller
             $token = $user->createToken($user->email);
             return response()->json([
                 'token' => $token->plainTextToken,
-                'user_id' => $user->id
+                'user' => $user
             ]);
         }
         throw new UnauthorizedException;

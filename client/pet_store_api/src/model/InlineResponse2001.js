@@ -47,11 +47,8 @@ class InlineResponse2001 {
         if (data) {
             obj = obj || new InlineResponse2001();
 
-            if (data.hasOwnProperty('token')) {
-                obj['token'] = ApiClient.convertToType(data['token'], 'String');
-            }
-            if (data.hasOwnProperty('user_id')) {
-                obj['user_id'] = ApiClient.convertToType(data['user_id'], 'String');
+            if (data.hasOwnProperty('file_name')) {
+                obj['file_name'] = ApiClient.convertToType(data['file_name'], 'String');
             }
         }
         return obj;
@@ -61,14 +58,9 @@ class InlineResponse2001 {
 }
 
 /**
- * @member {String} token
+ * @member {String} file_name
  */
-InlineResponse2001.prototype['token'] = undefined;
-
-/**
- * @member {String} user_id
- */
-InlineResponse2001.prototype['user_id'] = undefined;
+InlineResponse2001.prototype['file_name'] = undefined;
 
 
 

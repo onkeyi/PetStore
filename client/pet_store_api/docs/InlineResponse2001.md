@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**token** | **String** |  | [optional] 
-**userId** | **String** |  | [optional] 
+**fileName** | **String** |  | [optional] 
 
 

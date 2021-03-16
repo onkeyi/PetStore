@@ -76,9 +76,7 @@ export default {
       let apiInstance = new UserApi();
       apiInstance.login({ requestAuthLogin: opts }).then(
         (data) => {
-          this.accessToken = data.token;
-          localStorage.setItem("accessToken", data.token);
-          localStorage.setItem('userId',data.user_id);
+          this.$store.dispatch('saveUserInfo',data);
           this.$router.replace("/").catch(() => {});
         },
         (error) => {

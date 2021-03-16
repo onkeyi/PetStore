@@ -176,7 +176,6 @@ Class | Method | HTTP request | Description
  - [PetStoreApi.Error500](docs/Error500.md)
  - [PetStoreApi.InlineResponse200](docs/InlineResponse200.md)
  - [PetStoreApi.InlineResponse2001](docs/InlineResponse2001.md)
- - [PetStoreApi.InlineResponse2002](docs/InlineResponse2002.md)
  - [PetStoreApi.Order](docs/Order.md)
  - [PetStoreApi.Pet](docs/Pet.md)
  - [PetStoreApi.PetComment](docs/PetComment.md)

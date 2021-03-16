@@ -16,7 +16,6 @@ import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
 import InlineResponse200 from '../model/InlineResponse200';
-import InlineResponse2001 from '../model/InlineResponse2001';
 import Order from '../model/Order';
 import Pet from '../model/Pet';
 import RequestAuthLogin from '../model/RequestAuthLogin';
@@ -442,7 +441,7 @@ export default class UserApi {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
     loginWithHttpInfo(opts) {
       opts = opts || {};
@@ -460,7 +459,7 @@ export default class UserApi {
       let authNames = ['apiKey'];
       let contentTypes = ['applicaiton/json'];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = InlineResponse2001;
+      let returnType = Object;
       return this.apiClient.callApi(
         '/login', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -473,7 +472,7 @@ export default class UserApi {
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
      * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
     login(opts) {
       return this.loginWithHttpInfo(opts)

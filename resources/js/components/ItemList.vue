@@ -52,6 +52,7 @@
       <div class="col" v-for="(item, key) in pets" :key="key">
         <item-list-card v-bind:pet="item" />
       </div>
+      <div class="col" v-if="pets && pets.length == 0">NoData</div>
     </div>
 
     <nav v-if="total >= perPage" aria-label="Page navigation ">

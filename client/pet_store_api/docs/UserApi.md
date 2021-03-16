@@ -479,7 +479,7 @@ This endpoint does not need any parameter.
 
 ## login
 
-> InlineResponse2001 login(opts)
+> Object login(opts)
 
 ログイン
 
@@ -517,7 +517,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse2001**](InlineResponse2001.md)
+**Object**
 
 ### Authorization
 
