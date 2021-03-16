@@ -51,15 +51,17 @@
           <img class="img-fluid" src="http://placehold.it/500x300" alt="" />
         </a>
       </div>
-      <a
-        v-if="!orderEnd"
-        class="btn btn-sm btn-outline-secondary"
-        v-on:click="openConfirmDialog = true"
-        >Order</a
-      >
-      <a class="btn btn-sm btn-outline-secondary" v-on:click="addFavorite"
-        >Favorite</a
-      >
+      <div v-if="isLogin">
+        <a
+          v-if="!orderEnd"
+          class="btn btn-sm btn-outline-secondary"
+          v-on:click="openConfirmDialog = true"
+          >Order</a
+        >
+        <a class="btn btn-sm btn-outline-secondary" v-on:click="addFavorite"
+          >Favorite</a
+        >
+      </div>
     </div>
     <!-- /.row -->
     <item-detail-comment :pet="pet" :comments="pet.comments" />
@@ -73,8 +75,8 @@
       v-on:action="order"
       v-on:close="openConfirmDialog = false"
     />
-  </div>
-  <!-- /.container -->
+
+</div>
 </template>
 
 <script>
@@ -93,8 +95,8 @@ export default {
     openConfirmDialog: false,
     orderEnd: false,
     errorMessage: null,
+    isLogin: localStorage.getItem("accessToken") ? true : false,
   }),
-
   watch: {
     "$route.params.id": {
       handler: function () {
