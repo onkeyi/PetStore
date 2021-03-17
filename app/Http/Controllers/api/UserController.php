@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use Illuminate\Support\Facades\Storage;
 use App\Exceptions\ParameterNotfoundException;
 use App\Models\User;
 use App\Http\Requests\UserUpdateRequest;
@@ -9,6 +10,7 @@ use App\Models\Pet;
 use App\Models\Order;
 use App\Models\UserFavorite;
 use App\Http\Requests\FavoriteStoreRequest;
+use App\Http\Requests\UserUploadImageRequest;
 
 class UserController extends ApiController
 {
@@ -71,9 +73,14 @@ class UserController extends ApiController
     public function updateUser(UserUpdateRequest $request)
     {
         $validated = $request->validated();
-        return $this->okResponse(User::where('id',$this->userId)->update($validated));
+        $user = User::where('id',$this->userId)->first();
+        $user->status = $validated['status'];
+        return $this->okResponse($user->save());
     }
 
+    /**
+     * Admin
+     */
     public function updateUserById(UserUpdateRequest $request, User $user)
     {
         $this->authorize('update', $user);
@@ -92,4 +99,42 @@ class UserController extends ApiController
         return $this->okResponse($user->delete());
     }
 
+    /**
+     * Uploads an image.
+     *
+     */
+    public function uploadAvatarImage(UserUploadImageRequest $request)
+    {
+        $uploadImg = $request->file('image');
+        $user = User::where('id',$this->userId)->first();
+        if ($uploadImg->isValid()) {
+            $imageUploadPath = $uploadImg->store('tmp', 'public');
+            // original avatar
+            if ($user->avatar) {
+                if (Storage::disk('public')->exists('users/' . $user->avatar)) {
+                    Storage::disk('public')->move('users/' . $user->avatar, 'tmp/' . $user->avatar);
+                }
+            }
+            $user->avatar =  basename($imageUploadPath);
+            // new avatar
+            if (Storage::disk('public')->exists('tmp/' . $user->avatar)) {
+                Storage::disk('public')->move('tmp/' . $user->avatar, 'users/' . $user->avatar);
+            }
+
+            $user->save();
+            return $this->successResponse([
+                'file_name' =>  basename($imageUploadPath),
+            ]);
+        }
+        // origina avatar.
+        if ($user->avatar) {
+            if (Storage::disk('public')->exists('tmp/' . $user->avatar)) {
+                Storage::disk('public')->move('tmp/' . $user->avatar, 'users/' . $user->avatar);
+            }
+        }
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Upload image file failed',
+        ], 400);
+    }
 }
