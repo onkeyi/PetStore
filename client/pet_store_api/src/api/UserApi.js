@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
 import InlineResponse200 from '../model/InlineResponse200';
+import InlineResponse2001 from '../model/InlineResponse2001';
 import Order from '../model/Order';
 import Pet from '../model/Pet';
 import RequestAuthLogin from '../model/RequestAuthLogin';
@@ -662,6 +663,53 @@ export default class UserApi {
      */
     updateUserById(userId, opts) {
       return this.updateUserByIdWithHttpInfo(userId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * アップロードユーザーイメージ
+     * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 usersフォルダへ移動 - user avatar 情報更新
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
+     */
+    uploadAvatarImageWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+        'image': opts['image']
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = ['multipart/form-data'];
+      let accepts = ['applicaiton/json'];
+      let returnType = InlineResponse2001;
+      return this.apiClient.callApi(
+        '/user/avatar', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * アップロードユーザーイメージ
+     * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 usersフォルダへ移動 - user avatar 情報更新
+     * @param {Object} opts Optional parameters
+     * @param {File} opts.image 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
+     */
+    uploadAvatarImage(opts) {
+      return this.uploadAvatarImageWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

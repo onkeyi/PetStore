@@ -7,6 +7,7 @@ import UserProfile from '../pages/mypage/user-profile'
 import UserItem from '../pages/mypage/user-item'
 import UserOrder from '../pages/mypage/user-order'
 import UserFavorite from '../pages/mypage/user-favorite'
+import ItemRegister from '../pages/mypage/item-register'
 
 export default [
     { path: '/', name: 'store-home', component: StoreHomePage },
@@ -34,6 +35,10 @@ export default [
         {
           path: 'favorite',
           component: UserFavorite
+        },
+        {
+          path: 'itemregister',
+          component: ItemRegister
         },
       ]
     }

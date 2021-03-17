@@ -167,6 +167,7 @@ Class | Method | HTTP request | Description
 *PetStoreApi.UserApi* | [**registerNewUser**](docs/UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
 *PetStoreApi.UserApi* | [**updateUser**](docs/UserApi.md#updateUser) | **PUT** /user | ユーザー情報更新
 *PetStoreApi.UserApi* | [**updateUserById**](docs/UserApi.md#updateUserById) | **PUT** /user/{userId} | ユーザー情報更新
+*PetStoreApi.UserApi* | [**uploadAvatarImage**](docs/UserApi.md#uploadAvatarImage) | **POST** /user/avatar | アップロードユーザーイメージ
 
 
 ## Documentation for Models

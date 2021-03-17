@@ -223,6 +223,7 @@ paths:
       security:
         - apiKey: []
         - bearer: []
+
     delete:
       operationId: deleteUser
       tags:
@@ -280,6 +281,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/error500"
+      security:
+        - apiKey: []
+        - bearer: []
+  /user/avatar:
+    post:
+      tags:
+        - User
+      operationId: uploadAvatarImage
+      summary: アップロードユーザーイメージ
+      description: |-
+        イメージファイルアップロード
+        - tmpフォルダへ保存
+        - pet 新規登録、修正する成功時、 usersフォルダへ移動
+        - user avatar 情報更新
+      responses:
+        "200":
+          description: OK
+          content:
+            applicaiton/json:
+              schema:
+                type: object
+                properties:
+                  file_name:
+                    type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
       security:
         - apiKey: []
         - bearer: []
@@ -2177,7 +2211,6 @@ components:
       type: object
       required:
         - id
-        - name
       properties:
         id:
           type: integer
@@ -2187,7 +2220,8 @@ components:
           type: string
         password:
           type: string
-
+        avatar:
+          type: string
     request_auth_register:
       type: object
       required:

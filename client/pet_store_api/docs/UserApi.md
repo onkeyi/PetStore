@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**registerNewUser**](UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
 [**updateUser**](UserApi.md#updateUser) | **PUT** /user | ユーザー情報更新
 [**updateUserById**](UserApi.md#updateUserById) | **PUT** /user/{userId} | ユーザー情報更新
+[**uploadAvatarImage**](UserApi.md#uploadAvatarImage) | **POST** /user/avatar | アップロードユーザーイメージ
 
 
 
@@ -740,4 +741,59 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: applicaiton/json
 - **Accept**: application/json, applicaiton/json
+
+
+## uploadAvatarImage
+
+> InlineResponse2001 uploadAvatarImage(opts)
+
+アップロードユーザーイメージ
+
+イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 usersフォルダへ移動 - user avatar 情報更新
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+let opts = {
+  'image': "/path/to/file" // File | 
+};
+apiInstance.uploadAvatarImage(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **image** | **File**|  | [optional] 
+
+### Return type
+
+[**InlineResponse2001**](InlineResponse2001.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: applicaiton/json
 

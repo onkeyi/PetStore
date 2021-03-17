@@ -7,7 +7,6 @@ Models/Error400.md
 Models/Error500.md
 Models/InlineResponse200.md
 Models/InlineResponse2001.md
-Models/InlineResponse2002.md
 Models/Order.md
 Models/Pet.md
 Models/PetComment.md

@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 <a name="uploadImage"></a>
 # **uploadImage**
-> inline_response_200_2 uploadImage(image)
+> inline_response_200_1 uploadImage(image)
 
 アップロードペットイメージ
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**inline_response_200_2**](../Models/inline_response_200_2.md)
+[**inline_response_200_1**](../Models/inline_response_200_1.md)
 
 ### Authorization
 

@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**registerNewUser**](UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
 [**updateUser**](UserApi.md#updateUser) | **PUT** /user | ユーザー情報更新
 [**updateUserById**](UserApi.md#updateUserById) | **PUT** /user/{userId} | ユーザー情報更新
+[**uploadAvatarImage**](UserApi.md#uploadAvatarImage) | **POST** /user/avatar | アップロードユーザーイメージ
 
 
 <a name="addNewUserFavorite"></a>
@@ -250,7 +251,7 @@ This endpoint does not need any parameter.
 
 <a name="login"></a>
 # **login**
-> inline_response_200_1 login(RequestAuthLogin)
+> Object login(RequestAuthLogin)
 
 ログイン
 
@@ -264,7 +265,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**inline_response_200_1**](../Models/inline_response_200_1.md)
+[**Object**](../Models/object.md)
 
 ### Authorization
 
@@ -380,4 +381,31 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: applicaiton/json
 - **Accept**: application/json, applicaiton/json
+
+<a name="uploadAvatarImage"></a>
+# **uploadAvatarImage**
+> inline_response_200_1 uploadAvatarImage(image)
+
+アップロードユーザーイメージ
+
+    イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 usersフォルダへ移動 - user avatar 情報更新
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **image** | **File**|  | [optional] [default to null]
+
+### Return type
+
+[**inline_response_200_1**](../Models/inline_response_200_1.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: applicaiton/json
 

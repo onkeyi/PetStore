@@ -66,7 +66,7 @@ Route::middleware('apikey')->group(
                 Route::get('user/favorites', [UserController::class, 'getUserFavorites']);
                 Route::post('user/favorite', [UserController::class, 'addNewUserFavorite']);
                 Route::delete('user/{petId}/favorite', [UserController::class, 'deleteUserFavoriteByPetId']);
-
+                Route::post('user/avatar', [UserController::class, 'uploadAvatarImage']);
                 /** logout */
                 Route::get('logout', [AuthController::class, 'logout']);
             }

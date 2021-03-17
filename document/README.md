@@ -43,6 +43,7 @@ Class | Method | HTTP request | Description
 *UserApi* | [**registerNewUser**](Apis/UserApi.md#registernewuser) | **POST** /user | 新規ユーザー登録
 *UserApi* | [**updateUser**](Apis/UserApi.md#updateuser) | **PUT** /user | ユーザー情報更新
 *UserApi* | [**updateUserById**](Apis/UserApi.md#updateuserbyid) | **PUT** /user/{userId} | ユーザー情報更新
+*UserApi* | [**uploadAvatarImage**](Apis/UserApi.md#uploadavatarimage) | **POST** /user/avatar | アップロードユーザーイメージ
 
 
 <a name="documentation-for-models"></a>
@@ -53,7 +54,6 @@ Class | Method | HTTP request | Description
  - [Error500](./Models/Error500.md)
  - [InlineResponse200](./Models/InlineResponse200.md)
  - [InlineResponse2001](./Models/InlineResponse2001.md)
- - [InlineResponse2002](./Models/InlineResponse2002.md)
  - [Order](./Models/Order.md)
  - [Pet](./Models/Pet.md)
  - [PetComment](./Models/PetComment.md)

@@ -24,6 +24,11 @@
             class="list-group-item list-group-item-action bg-light"
             >Favorite</router-link
           >
+          <router-link
+            to="/mypage/itemregister"
+            class="list-group-item list-group-item-action bg-light"
+            >RegisterPet</router-link
+          >
 
           <a
             class="list-group-item list-group-item-action bg-light"
