@@ -34,13 +34,17 @@ class UserController extends ApiController
 
     public function getUserPets() {
         return $this->successResponse(
-            Pet::where('user_id',$this->userId)->with(['tags', 'category', 'photoUrls','comments','order'])->get()
+            Pet::where('user_id',$this->userId)
+                    ->with(['tags', 'category', 'photoUrls','comments','order'])
+                    ->paginate(env('APP_PER_PAGE',18))
         );
     }
 
     public function getUserOrders() {
         return $this->successResponse(
-            Order::where('user_id',$this->userId)->with(['user','pet'])->get()
+            Order::where('user_id',$this->userId)
+                    ->with(['user','pet'])
+                    ->paginate(env('APP_PER_PAGE',18))
         );
     }
 
@@ -66,7 +70,7 @@ class UserController extends ApiController
             return $this->successResponse([]);
         }
         return $this->successResponse(
-            Pet::whereIn('id',$petIds)->with('photoUrls','category','tags')->get()
+            Pet::whereIn('id',$petIds)->with('photoUrls','category','tags')->paginate(env('APP_PER_PAGE',18))
         );
     }
 

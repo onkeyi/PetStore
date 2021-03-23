@@ -493,7 +493,7 @@ Name | Type | Description  | Notes
 
 ## getPetComments
 
-> [PetComment] getPetComments(petId)
+> ResponsePegination getPetComments(petId)
 
 ペットコメント
 
@@ -529,7 +529,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[PetComment]**](PetComment.md)
+[**ResponsePegination**](ResponsePegination.md)
 
 ### Authorization
 

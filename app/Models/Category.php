@@ -10,5 +10,6 @@ class Category extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $visible = ['id','parent_id','name'];
     protected $fillable = ['name'];
 }

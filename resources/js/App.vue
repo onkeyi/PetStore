@@ -1,16 +1,16 @@
 <template>
   <div class="container">
-    <page-header />
-    <category-navbar />
+    <nav-bar />
+    <category-nav />
     <main role="main" >
       <loading />
       <transition>
         <keep-alive>
-          <router-view></router-view>
+          <router-view v-show="!$store.getters['isLoading']"></router-view>
         </keep-alive>
       </transition>
     </main>
-    <footer>
+    <footer class="footer" v-show="!$store.getters['isLoading']">
       <p>
         {{ $appName }}
         <a href="#">Power</a> by <a href="#">@onkeyi</a>
@@ -53,15 +53,16 @@ export default {
 };
 </script>
 <style>
-#wrapper {
-  overflow-x: hidden;
+
+.footer {
+    padding: 2.5rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
 }
-#page-content-wrapper {
-  min-width: 100vw;
-}
-footer {
-  height: 50px;
-  bottom: 0;
-  width: 100%;
+
+.footer p:last-child {
+    margin-bottom: 0;
 }
 </style>

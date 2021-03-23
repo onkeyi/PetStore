@@ -543,9 +543,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/pet"
+                $ref: "#/components/schemas/response_pegination"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -880,9 +878,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/pet"
+                $ref: "#/components/schemas/response_pegination"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -941,9 +937,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/order"
+                $ref: "#/components/schemas/response_pegination"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -1353,9 +1347,7 @@ paths:
           content:
             applicaiton/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/pet_comment"
+                $ref: "#/components/schemas/response_pegination"
         "401":
           description: <API-KEY> 認証エラー
           content:
@@ -2145,6 +2137,8 @@ components:
           type: integer
         name:
           type: string
+        avatar:
+          type: string
         comment:
           type: string
         created_at:
@@ -2154,6 +2148,8 @@ components:
       type: object
       properties:
         id:
+          type: integer
+        parent_id:
           type: integer
         name:
           type: string
@@ -2203,10 +2199,8 @@ components:
         owner:
           type: object
           $ref: "#/components/schemas/user"
-        comments:
-          type: array
-          items:
-            $ref: "#/components/schemas/pet_comment"
+        comments_count:
+          type: integer
     user:
       type: object
       required:
@@ -2295,15 +2289,8 @@ components:
       type: object
       required:
         - pet_id
-        - quantity
-        - status
       properties:
         pet_id:
-          type: integer
-        quantity:
-          type: integer
-          default: 1
-        status:
           type: integer
     request_order_update:
       type: object

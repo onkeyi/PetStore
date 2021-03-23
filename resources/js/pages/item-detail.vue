@@ -51,9 +51,9 @@
           <img class="img-fluid" src="http://placehold.it/500x300" alt="" />
         </a>
       </div>
-      <div v-if="isLogin">
+      <div v-show="$store.getters['userInfo']">
         <a
-          v-if="!orderEnd"
+          v-if="pet.status == 'available'"
           class="btn btn-sm btn-outline-secondary"
           v-on:click="openConfirmDialog = true"
           >Order</a
@@ -64,7 +64,8 @@
       </div>
     </div>
     <!-- /.row -->
-    <item-detail-comment :pet="pet" :comments="pet.comments" />
+    <p>comment: {{pet.comments_count}}</p>
+    <item-detail-comment :pet="pet" />
     <confirm-dialog
       v-bind:show="openConfirmDialog"
       v-bind:content="{
@@ -93,41 +94,43 @@ export default {
   data: () => ({
     pet: {},
     openConfirmDialog: false,
-    orderEnd: false,
     errorMessage: null,
-    isLogin: localStorage.getItem("accessToken") ? true : false,
   }),
+  // watch: {
+  //   "$route.params.id": {
+  //     handler: function () {
+  //       this.fetchData();
+  //     },
+  //     deep: true,
+  //     immediate: true,
+  //   },
+  // },
   watch: {
-    "$route.params.id": {
-      handler: function () {
-        this.fetchData();
-      },
-      deep: true,
-      immediate: true,
-    },
+    $route: "fetchData",
   },
-
   methods: {
     async fetchData() {
-      let petApi = new PetApi();
       const petId = this.$route.query.id;
       if (!petId) return;
+
+      let petApi = new PetApi();
       this.pet = await petApi.getPetById(petId);
+
       if (this.pet.status !== "available") {
-        this.orderEnd = true;
+
       }
     },
 
     order() {
       let orderApi = new OrderApi();
       let opts = {
-        requestOrderStore: new RequestOrderStore(this.pet.id, 1, "places"),
+        requestOrderStore: new RequestOrderStore(this.pet.id),
       };
 
       orderApi.addNewOrder(opts).then(
         (data) => {
           this.openConfirmDialog = false;
-          this.fetchData();
+          this.pet.status = 'pending';
         },
         (error) => {
           this.errorMessage = error.message;

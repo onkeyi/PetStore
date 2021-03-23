@@ -22,9 +22,7 @@ class OrderStoreRequest extends ApiRequest
     public function rules()
     {
         return [
-            'pet_id' => ['required','unique:orders', 'exists:pets,id'],
-            'quantity' => ['required', 'numeric', 'gt:0'],
-            'stauts' => 'in:"placed","approved","delivered"'
+            'pet_id' => ['required','unique:orders', 'exists:pets,id']
         ];
     }
 }

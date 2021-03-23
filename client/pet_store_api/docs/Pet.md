@@ -12,6 +12,6 @@ Name | Type | Description | Notes
 **photoUrls** | **[String]** |  | [optional] 
 **category** | [**Category**](.md) |  | [optional] 
 **owner** | [**User**](.md) |  | [optional] 
-**comments** | [**[PetComment]**](PetComment.md) |  | [optional] 
+**commentsCount** | **Number** |  | [optional] 
 
 

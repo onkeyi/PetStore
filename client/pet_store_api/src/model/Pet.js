@@ -13,7 +13,6 @@
 
 import ApiClient from '../ApiClient';
 import Category from './Category';
-import PetComment from './PetComment';
 import User from './User';
 
 /**
@@ -74,8 +73,8 @@ class Pet {
             if (data.hasOwnProperty('owner')) {
                 obj['owner'] = User.constructFromObject(data['owner']);
             }
-            if (data.hasOwnProperty('comments')) {
-                obj['comments'] = ApiClient.convertToType(data['comments'], [PetComment]);
+            if (data.hasOwnProperty('comments_count')) {
+                obj['comments_count'] = ApiClient.convertToType(data['comments_count'], 'Number');
             }
         }
         return obj;
@@ -125,9 +124,9 @@ Pet.prototype['category'] = undefined;
 Pet.prototype['owner'] = undefined;
 
 /**
- * @member {Array.<module:model/PetComment>} comments
+ * @member {Number} comments_count
  */
-Pet.prototype['comments'] = undefined;
+Pet.prototype['comments_count'] = undefined;
 
 
 

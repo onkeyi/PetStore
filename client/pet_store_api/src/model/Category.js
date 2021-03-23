@@ -50,6 +50,9 @@ class Category {
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
+            if (data.hasOwnProperty('parent_id')) {
+                obj['parent_id'] = ApiClient.convertToType(data['parent_id'], 'Number');
+            }
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
@@ -64,6 +67,11 @@ class Category {
  * @member {Number} id
  */
 Category.prototype['id'] = undefined;
+
+/**
+ * @member {Number} parent_id
+ */
+Category.prototype['parent_id'] = undefined;
 
 /**
  * @member {String} name

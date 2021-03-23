@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('user_id');
             $table->integer('quantity')->default(1);
             $table->dateTime('ship_date')->nullable();
-            $table->enum('status', ['placed', 'approved', 'delivered']);
+            $table->enum('status', ['placed', 'approved', 'delivered'])->default('placed');
             $table->tinyInteger('complete')->default(false);
             $table->timestamps();
         });

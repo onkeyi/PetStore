@@ -1,16 +1,13 @@
 <template>
   <div>
     <div class="row">
-      <div
-        v-if="total >= $perPage"
-        class="col mb-3 d-flex justify-content-start"
-      >
+      <div class="col mb-3 d-flex justify-content-start">
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-outline-secondary">Left</button>
-          <button type="button" class="btn btn-outline-secondary">
-            Middle
+          <button type="button" v-on:click="searchByStatus('available')" class="btn btn-outline-secondary">Available</button>
+          <button type="button" v-on:click="searchByStatus('pending')" class="btn btn-outline-secondary">
+            Pending
           </button>
-          <button type="button" class="btn btn-outline-secondary">Right</button>
+          <button type="button" v-on:click="searchByStatus('sold')" class="btn btn-outline-secondary">Sold</button>
         </div>
       </div>
       <div v-if="total >= $perPage" class="col mb-3 d-flex justify-content-end">
@@ -54,8 +51,8 @@
       </div>
       <div class="col" v-if="pets && pets.length == 0">NoData</div>
     </div>
-    <nav v-if="total >= perPage" aria-label="Page navigation ">
-      <ul class="pagination">
+    <nav v-if="total >= perPage" >
+      <ul class="pagination justify-content-center">
         <li
           v-for="(value, key) in links"
           :key="key"
@@ -68,8 +65,8 @@
           <router-link
             class="page-link"
             :to="{
-              path: '/',
-              query: { page: value.url ? value.url.split('=')[1] : null },
+              path: $route.fullPath,
+              query: { page:  value.url ? value.url.split('=')[1] : null },
             }"
           >
             {{ value.label }}
@@ -105,17 +102,18 @@ export default {
         sorted: this.$route.query.sorted,
         page: this.$route.query.page,
       };
-      let data = await this.petApi.getAllPets(queryParams);
-      this.setData(data);
+      const pagenation = await this.petApi.getAllPets(queryParams);
+      this.setData(pagenation);
     },
 
     fetchData() {
       this.total = 0;
       this.error = null;
-      let category = this.$route.query.category;
-      let tag = this.$route.query.tag;
+      let category = this.$route.query['category'];
+      let tag = this.$route.query['tag'];
+      let status = this.$route.query['status'];
 
-      if (!category && !tag) {
+      if (!category && !tag && !status) {
         this.loadData();
         return;
       }
@@ -127,14 +125,22 @@ export default {
       if (tag) {
         this.findByTag(tag);
       }
+      if (status) {
+        this.findByStatus(status);
+      }
     },
-
+    searchByStatus(status) {
+      this.$router.replace(
+        { name: "store-home", query: { status: status } },
+        () => {}
+      );
+    },
     async findByCategory(category) {
       let opts = {
         category: category,
       };
-      let data = await this.petApi.findPetByCategory(opts);
-      this.setData(data);
+      const pagenation = await this.petApi.findPetByCategory(opts);
+      this.setData(pagenation);
     },
 
     async findByTag(tags) {
@@ -142,16 +148,29 @@ export default {
         tag: tags,
       };
 
-      let data = await this.petApi.findPetByTag(opts);
-      this.setData(data);
+      const pagenation = await this.petApi.findPetByTag(opts);
+      this.setData(pagenation);
     },
-
-    setData(data) {
-      this.pets = data.data;
-      this.total = data ? data.total : 0;
-      this.perPage = data ? data.per_page : 0;
-      this.links = data ? data.links : [];
+    async findByStatus(status) {
+      let opts = {
+        status: status,
+      };
+      const pagenation = await this.petApi.findPetByStatus(opts);
+      this.setData(pagenation);
+    },
+    setData(pagenation) {
+      this.pets = pagenation.data;
+      this.total = pagenation ? pagenation.total : 0;
+      this.perPage = pagenation ? pagenation.per_page : 0;
+      this.links = pagenation ? pagenation.links : [];
     },
   },
 };
 </script>
+<style scoped>
+
+.pagination {
+    margin-bottom: 4rem;
+}
+
+</style>

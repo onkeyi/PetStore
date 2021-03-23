@@ -17,12 +17,11 @@ import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
-import Order from '../model/Order';
-import Pet from '../model/Pet';
 import RequestAuthLogin from '../model/RequestAuthLogin';
 import RequestAuthRegister from '../model/RequestAuthRegister';
 import RequestFavoriteStore from '../model/RequestFavoriteStore';
 import ResponseOk from '../model/ResponseOk';
+import ResponsePegination from '../model/ResponsePegination';
 import Unexpected from '../model/Unexpected';
 import User from '../model/User';
 
@@ -321,7 +320,7 @@ export default class UserApi {
     /**
      * お気に入り一覧取得
      * ユーザーお気に入り一覧取得
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Pet>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
     getUserFavoritesWithHttpInfo() {
       let postBody = null;
@@ -338,7 +337,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = [Pet];
+      let returnType = ResponsePegination;
       return this.apiClient.callApi(
         '/user/favorites', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -349,7 +348,7 @@ export default class UserApi {
     /**
      * お気に入り一覧取得
      * ユーザーお気に入り一覧取得
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Pet>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
     getUserFavorites() {
       return this.getUserFavoritesWithHttpInfo()
@@ -361,7 +360,7 @@ export default class UserApi {
 
     /**
      * User Orders
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Order>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
     getUserOrdersWithHttpInfo() {
       let postBody = null;
@@ -378,7 +377,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = [Order];
+      let returnType = ResponsePegination;
       return this.apiClient.callApi(
         '/user/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -388,7 +387,7 @@ export default class UserApi {
 
     /**
      * User Orders
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Order>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
     getUserOrders() {
       return this.getUserOrdersWithHttpInfo()
@@ -400,7 +399,7 @@ export default class UserApi {
 
     /**
      * User pets.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/Pet>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
     getUserPetsWithHttpInfo() {
       let postBody = null;
@@ -417,7 +416,7 @@ export default class UserApi {
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = [Pet];
+      let returnType = ResponsePegination;
       return this.apiClient.callApi(
         '/user/pets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -427,7 +426,7 @@ export default class UserApi {
 
     /**
      * User pets.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/Pet>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
     getUserPets() {
       return this.getUserPetsWithHttpInfo()

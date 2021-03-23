@@ -333,7 +333,7 @@ This endpoint does not need any parameter.
 
 ## getUserFavorites
 
-> [Pet] getUserFavorites()
+> ResponsePegination getUserFavorites()
 
 お気に入り一覧取得
 
@@ -368,7 +368,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[Pet]**](Pet.md)
+[**ResponsePegination**](ResponsePegination.md)
 
 ### Authorization
 
@@ -382,7 +382,7 @@ This endpoint does not need any parameter.
 
 ## getUserOrders
 
-> [Order] getUserOrders()
+> ResponsePegination getUserOrders()
 
 
 
@@ -417,7 +417,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[Order]**](Order.md)
+[**ResponsePegination**](ResponsePegination.md)
 
 ### Authorization
 
@@ -431,7 +431,7 @@ This endpoint does not need any parameter.
 
 ## getUserPets
 
-> [Pet] getUserPets()
+> ResponsePegination getUserPets()
 
 
 
@@ -466,7 +466,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[Pet]**](Pet.md)
+[**ResponsePegination**](ResponsePegination.md)
 
 ### Authorization
 

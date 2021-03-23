@@ -1,8 +1,12 @@
 <template>
-    <div >
-        <div class="p-3 border bg-light">{{ user.name }}</div>
-        <img v-if="user && user.avatar" v-bind:src="'/storage/users/' + user.avatar" style="width:50px;height:50px;border-radius:25px;" />
-        <input v-on:change="selectedFile" type="file" name="file" />
+    <div class="panel panel-default">
+        <div class="panel-body text-center">
+          <div class="p-3 border">
+          <img class="rounded-circle" v-if="user && user.avatar" v-bind:src="'/storage/users/' + user.avatar" style="cursor: pointer" v-on:click="select" width="80" height="80"/>
+          <input ref="file" v-on:change="selectedFile" type="file" hidden/>
+          <p class="mt-2">{{ user.name }}</p>
+          </div>
+        </div>
     </div>
 </template>
 <script>
@@ -13,6 +17,10 @@ export default {
     this.loadData();
   },
   methods: {
+    select() {
+      let fileInputElement = this.$refs.file;
+      fileInputElement.click();
+    },
     async selectedFile(e) {
       e.preventDefault();
       let files = e.target.files;

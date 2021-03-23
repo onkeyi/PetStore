@@ -23,12 +23,10 @@ class RequestOrderStore {
      * Constructs a new <code>RequestOrderStore</code>.
      * @alias module:model/RequestOrderStore
      * @param petId {Number} 
-     * @param quantity {Number} 
-     * @param status {Number} 
      */
-    constructor(petId, quantity, status) { 
+    constructor(petId) { 
         
-        RequestOrderStore.initialize(this, petId, quantity, status);
+        RequestOrderStore.initialize(this, petId);
     }
 
     /**
@@ -36,10 +34,8 @@ class RequestOrderStore {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, petId, quantity, status) { 
+    static initialize(obj, petId) { 
         obj['pet_id'] = petId;
-        obj['quantity'] = quantity || 1;
-        obj['status'] = status;
     }
 
     /**
@@ -56,12 +52,6 @@ class RequestOrderStore {
             if (data.hasOwnProperty('pet_id')) {
                 obj['pet_id'] = ApiClient.convertToType(data['pet_id'], 'Number');
             }
-            if (data.hasOwnProperty('quantity')) {
-                obj['quantity'] = ApiClient.convertToType(data['quantity'], 'Number');
-            }
-            if (data.hasOwnProperty('status')) {
-                obj['status'] = ApiClient.convertToType(data['status'], 'Number');
-            }
         }
         return obj;
     }
@@ -73,17 +63,6 @@ class RequestOrderStore {
  * @member {Number} pet_id
  */
 RequestOrderStore.prototype['pet_id'] = undefined;
-
-/**
- * @member {Number} quantity
- * @default 1
- */
-RequestOrderStore.prototype['quantity'] = 1;
-
-/**
- * @member {Number} status
- */
-RequestOrderStore.prototype['status'] = undefined;
 
 
 

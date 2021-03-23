@@ -474,7 +474,7 @@ export default class PetApi {
      * ペットコメント
      * Pet comments.
      * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/PetComment>} and HTTP response
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
     getPetCommentsWithHttpInfo(petId) {
       let postBody = null;
@@ -496,7 +496,7 @@ export default class PetApi {
       let authNames = ['apiKey'];
       let contentTypes = [];
       let accepts = ['applicaiton/json', 'application/json'];
-      let returnType = [PetComment];
+      let returnType = ResponsePegination;
       return this.apiClient.callApi(
         '/pet/{petId}/comments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
@@ -508,7 +508,7 @@ export default class PetApi {
      * ペットコメント
      * Pet comments.
      * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/PetComment>}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
     getPetComments(petId) {
       return this.getPetCommentsWithHttpInfo(petId)

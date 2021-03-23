@@ -29,7 +29,8 @@ class PetController extends ApiController
         $sorted = ($query && isset($query['sorted'])) ? $query['sorted'] : 'desc';
 
         return $this->successResponse(
-            Pet::with(['tags', 'category', 'photoUrls','owner','comments'])
+            Pet::with(['tags', 'category', 'photoUrls','owner'])
+                ->withCount('comments')
                 ->orderBy($orderBy, $sorted)
                 ->paginate(env('APP_PER_PAGE',18))
         );
@@ -82,7 +83,7 @@ class PetController extends ApiController
     public function getPetById(Pet $pet)
     {
         return $this->successResponse(
-            $pet->load(['tags', 'photoUrls', 'category', 'owner','comments'])
+            $pet->load(['tags', 'photoUrls', 'category', 'owner'])->loadCount('comments')
         );
     }
 
@@ -165,11 +166,12 @@ class PetController extends ApiController
 
         $query = Request::all();
 
-        if (!isset($query) || !isset($query['status']) || !is_array($query['status'])) {
+        if (!isset($query) || !isset($query['status'])) {
             throw new ParameterNotfoundException;
         }
-        return Pet::whereIn('status', $query['status'])
-            ->with(['tags', 'category', 'photoUrls', 'owner','comments'])
+        return Pet::where('status', $query['status'])
+            ->with(['tags', 'category', 'photoUrls', 'owner'])
+            ->withCount('comments')
             ->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
     }
 
@@ -188,7 +190,8 @@ class PetController extends ApiController
         $tags = explode(',',$qeury['tag']);
 
         if ($tags && count($tags) > 0) {
-            $result =  Pet::with(['tags', 'photoUrls', 'category', 'owner','comments'])
+            $result =  Pet::with(['tags', 'photoUrls', 'category', 'owner'])
+                ->withCount('comments')
                 ->whereHas(
                     'tags',
                     function ($query) use ($tags) {
@@ -208,7 +211,8 @@ class PetController extends ApiController
             throw new ParameterNotfoundException;
         }
         return Pet::where('category_id', $queryParam['category'])
-             ->with(['tags', 'category', 'photoUrls', 'owner','comments'])
+            ->with(['tags', 'category', 'photoUrls', 'owner'])
+            ->withCount('comments')
             ->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
     }
 

@@ -14,17 +14,17 @@ use App\Models\Order;
 class Pet extends Model
 {
     use HasFactory;
-    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'comments','commentCount','order','owner','description'];
+    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'comments','comments_count','order','owner','description'];
     protected $fillable = ['name', 'user_id', 'category_id', 'status','description'];
 
     public function tags()
     {
-        return $this->hasMany(PetTag::class);
+        return $this->hasMany(PetTag::class)->limit(50);
     }
 
     public function photoUrls()
     {
-        return $this->hasMany(PetPhotoUrl::class);
+        return $this->hasMany(PetPhotoUrl::class)->limit(10);
     }
 
     public function category()
@@ -39,15 +39,16 @@ class Pet extends Model
 
     public function order()
     {
-        return $this->hasOne(Order::class)->join('users','users.id','=','orders.user_id')->select('users.name','orders.*');
-    }
-
-    public function commentCount() {
-        return $this->hasMany(PetComment::class)->count();;
+        return $this->hasOne(Order::class)
+                    ->join('users','users.id','=','orders.user_id')
+                    ->select('users.name','orders.*');
     }
 
     public function comments()
     {
-        return $this->hasMany(PetComment::class)->join('users', 'users.id', '=', 'pet_comments.user_id')->select('users.name','pet_comments.*');
+        return $this->hasMany(PetComment::class)
+                ->join('users', 'users.id', '=', 'pet_comments.user_id')
+                ->select('users.name','pet_comments.*')
+                ->orderBy('created_at','DESC');
     }
 }

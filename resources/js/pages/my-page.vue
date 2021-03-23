@@ -39,7 +39,9 @@
         </div>
       </div>
       <loading />
+      <div class="container">
       <router-view></router-view>
+      </div>
     </div>
     <confirm-dialog
       v-bind:show="openConfirmDialog"
@@ -58,14 +60,10 @@ import { ApiClient, UserApi } from "pet_store_api";
 
 export default {
   data: () => ({ openConfirmDialog: false }),
-  created: function () {
-    let token = this.$store.getters.userInfo.token;
-    if (!token) {
+  mounted: function () {
+    let userInfo = this.$store.getters['userInfo'];
+    if (!userInfo) {
       this.$router.replace("/").catch(() => {});
-    } else {
-      let defaultClient = ApiClient.instance;
-      let bearer = defaultClient.authentications["bearer"];
-      bearer.accessToken = token;
     }
   },
   methods: {

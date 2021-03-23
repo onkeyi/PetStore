@@ -1,14 +1,16 @@
 import Vue from 'vue';
-import CategoryNavbar from './CategoryNavbar';
-import PageHeader from './PageHeader';
+import CategoryNav from './CategoryNav';
+import NavBar from './NavBar';
 import ItemListCard from './ItemListCard';
+import ItemDetailComment from './ItemDetailComment';
 import ConfirmDialog from './ConfirmDialog';
 import Loading from './Loading';
 
 [
-    PageHeader,
-    CategoryNavbar,
+    NavBar,
+    CategoryNav,
     ItemListCard,
+    ItemDetailComment,
     ConfirmDialog,
     Loading,
 ].forEach(component => {
