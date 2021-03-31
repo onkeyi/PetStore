@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            "name" => 'CATEGORY_' . Str::random(2),
+            "name" => $this->faker->sentence(rand(1,4)),
         ];
     }
 }

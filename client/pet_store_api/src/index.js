@@ -19,6 +19,7 @@ import Error500 from './model/Error500';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
 import Order from './model/Order';
+import OrderInventory from './model/OrderInventory';
 import Pet from './model/Pet';
 import PetComment from './model/PetComment';
 import RequestAuthLogin from './model/RequestAuthLogin';
@@ -112,6 +113,12 @@ export {
      * @property {module:model/Order}
      */
     Order,
+
+    /**
+     * The OrderInventory model constructor.
+     * @property {module:model/OrderInventory}
+     */
+    OrderInventory,
 
     /**
      * The Pet model constructor.

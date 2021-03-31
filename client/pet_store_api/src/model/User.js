@@ -64,6 +64,21 @@ class User {
             if (data.hasOwnProperty('avatar')) {
                 obj['avatar'] = ApiClient.convertToType(data['avatar'], 'String');
             }
+            if (data.hasOwnProperty('address')) {
+                obj['address'] = ApiClient.convertToType(data['address'], 'String');
+            }
+            if (data.hasOwnProperty('phone')) {
+                obj['phone'] = ApiClient.convertToType(data['phone'], 'String');
+            }
+            if (data.hasOwnProperty('birthday')) {
+                obj['birthday'] = ApiClient.convertToType(data['birthday'], 'String');
+            }
+            if (data.hasOwnProperty('gender')) {
+                obj['gender'] = ApiClient.convertToType(data['gender'], 'String');
+            }
+            if (data.hasOwnProperty('description')) {
+                obj['description'] = ApiClient.convertToType(data['description'], 'String');
+            }
         }
         return obj;
     }
@@ -95,6 +110,31 @@ User.prototype['password'] = undefined;
  * @member {String} avatar
  */
 User.prototype['avatar'] = undefined;
+
+/**
+ * @member {String} address
+ */
+User.prototype['address'] = undefined;
+
+/**
+ * @member {String} phone
+ */
+User.prototype['phone'] = undefined;
+
+/**
+ * @member {String} birthday
+ */
+User.prototype['birthday'] = undefined;
+
+/**
+ * @member {String} gender
+ */
+User.prototype['gender'] = undefined;
+
+/**
+ * @member {String} description
+ */
+User.prototype['description'] = undefined;
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Support\Facades\Storage;
 use App\Exceptions\ParameterNotfoundException;
+use App\Exceptions\InvalideTokenException;
 use App\Models\User;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\Pet;
@@ -25,7 +26,9 @@ class UserController extends ApiController
     }
 
     public function getUser() {
-
+        if (!isset($this->userId)) {
+            throw new InvalideTokenException;
+        }
         return $this->successResponse(
             User::where('id',$this->userId)->first()
         );

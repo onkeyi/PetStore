@@ -45,7 +45,7 @@ export default {
     inputTag: null,
     tags: null,
   }),
-  created: function () {
+  mounted: function () {
     this.userInfo = this.$store.getters["userInfo"];
   },
   methods: {

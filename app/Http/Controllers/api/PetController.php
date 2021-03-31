@@ -22,16 +22,12 @@ class PetController extends ApiController
     public function getAllPets()
     {
         $query = Request::all();
-        $order = ['status','created_at'];
-        $orderBy = ($query
-                    && isset($query['order'])
-                    && in_array($query['order'],$order)) ? $query['order'] : 'created_at';
-        $sorted = ($query && isset($query['sorted'])) ? $query['sorted'] : 'desc';
+        $sort = (isset($query['sort']) && $query['sort'] == 'asc') ? 'asc' : 'desc';
 
         return $this->successResponse(
             Pet::with(['tags', 'category', 'photoUrls','owner'])
                 ->withCount('comments')
-                ->orderBy($orderBy, $sorted)
+                ->orderBy('created_at', $sort)
                 ->paginate(env('APP_PER_PAGE',18))
         );
     }
@@ -165,6 +161,7 @@ class PetController extends ApiController
     {
 
         $query = Request::all();
+        $sort = (isset($query['sort']) && $query['sort'] == 'asc') ? 'asc' : 'desc';
 
         if (!isset($query) || !isset($query['status'])) {
             throw new ParameterNotfoundException;
@@ -172,7 +169,8 @@ class PetController extends ApiController
         return Pet::where('status', $query['status'])
             ->with(['tags', 'category', 'photoUrls', 'owner'])
             ->withCount('comments')
-            ->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
+            ->orderBy('created_at', $sort)
+            ->paginate(env('APP_PER_PAGE',18));
     }
 
     /**
@@ -183,6 +181,7 @@ class PetController extends ApiController
     public function findByTags()
     {
         $qeury = Request::all();
+        $sort = (isset($query['sort']) && $query['sort'] == 'asc') ? 'asc' : 'desc';
 
         if (!isset($qeury) || !isset($qeury['tag'])) {
             throw new ParameterNotfoundException;
@@ -197,7 +196,7 @@ class PetController extends ApiController
                     function ($query) use ($tags) {
                         $query->whereIn('tag_name', $tags);
                     }
-                )->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
+                )->orderBy('created_at', $sort)->paginate(env('APP_PER_PAGE',18));
             return $this->successResponse($result);
         }
         return $this->successResponse();
@@ -205,15 +204,17 @@ class PetController extends ApiController
 
     public function findByCategory()
     {
-        $queryParam = Request::all();
+        $query = Request::all();
+        $sort = (isset($query['sort']) && $query['sort'] == 'asc') ? 'asc' : 'desc';
 
-        if (!isset($queryParam) || !isset($queryParam['category'])) {
+        if (!isset($query) || !isset($query['category'])) {
             throw new ParameterNotfoundException;
         }
-        return Pet::where('category_id', $queryParam['category'])
+        return Pet::where('category_id', $query['category'])
             ->with(['tags', 'category', 'photoUrls', 'owner'])
             ->withCount('comments')
-            ->paginate(env('APP_PER_PAGE',18))->appends(request()->query());
+            ->orderBy('created_at', $sort)
+            ->paginate(env('APP_PER_PAGE',18));
     }
 
     /**

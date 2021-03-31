@@ -24,7 +24,7 @@ class PetPhotoUrlFactory extends Factory
     {
         return [
             "photo_url" =>
-            Str::random(10) . '.png' //$this->faker->image(public_path('images'), 30, 30, null, false)
+            $this->faker->image('public/storage/pets', 160, 160, null, false)
         ];
     }
 }

@@ -231,6 +231,7 @@ export default class PetApi {
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
@@ -241,6 +242,7 @@ export default class PetApi {
       let pathParams = {
       };
       let queryParams = {
+        'sort': opts['sort'],
         'category': opts['category']
       };
       let headerParams = {
@@ -262,6 +264,7 @@ export default class PetApi {
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
@@ -276,6 +279,7 @@ export default class PetApi {
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.status 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
@@ -287,6 +291,7 @@ export default class PetApi {
       let pathParams = {
       };
       let queryParams = {
+        'sort': opts['sort'],
         'status': opts['status'],
         'page': opts['page']
       };
@@ -309,6 +314,7 @@ export default class PetApi {
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.status 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
@@ -325,6 +331,7 @@ export default class PetApi {
      * タグで検索
      * タグで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.tag 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
@@ -336,6 +343,7 @@ export default class PetApi {
       let pathParams = {
       };
       let queryParams = {
+        'sort': opts['sort'],
         'tag': opts['tag'],
         'page': opts['page']
       };
@@ -359,6 +367,7 @@ export default class PetApi {
      * タグで検索
      * タグで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.tag 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
@@ -375,8 +384,7 @@ export default class PetApi {
      * ペット一覧取得
      * stagusがavailableはorder可能
      * @param {Object} opts Optional parameters
-     * @param {String} opts.order 
-     * @param {String} opts.sorted 
+     * @param {String} opts.sort 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
@@ -387,8 +395,7 @@ export default class PetApi {
       let pathParams = {
       };
       let queryParams = {
-        'order': opts['order'],
-        'sorted': opts['sorted'],
+        'sort': opts['sort'],
         'page': opts['page']
       };
       let headerParams = {
@@ -411,8 +418,7 @@ export default class PetApi {
      * ペット一覧取得
      * stagusがavailableはorder可能
      * @param {Object} opts Optional parameters
-     * @param {String} opts.order 
-     * @param {String} opts.sorted 
+     * @param {String} opts.sort 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */

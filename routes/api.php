@@ -28,14 +28,12 @@ Route::middleware('apikey')->group(
         Route::get('pet/findByCategory', [PetController::class, 'findByCategory']);
         Route::get('pet/{pet}', [PetController::class, 'getPetById']);
         Route::get('pet/{pet}/comments', [PetCommentController::class, 'getPetComments']);
-
         Route::get('pets', [PetController::class, 'getAllPets']);
+        Route::get('order/inventory', [OrderController::class, 'inventory']);
 
         /** USER */
         Route::post('login', [AuthController::class, 'login']);
         Route::post('user', [AuthController::class, 'registerNewUser']);
-
-        Route::get('store/inventory', [OrderController::class, 'inventory']);
 
         Route::middleware('auth')->group(
             function () {

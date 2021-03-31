@@ -1079,11 +1079,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/error500"
       parameters:
-        - name: order
-          schema:
-            type: string
-          in: query
-        - name: sorted
+        - name: sort
           schema:
             type: string
           in: query
@@ -1494,6 +1490,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/error500"
       parameters:
+        - name: sort
+          schema:
+            type: string
+          in: query
         - name: category
           schema:
             type: string
@@ -1578,6 +1578,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/error500"
       parameters:
+        - name: sort
+          schema:
+            type: string
+          in: query
         - name: tag
           in: query
           schema:
@@ -1632,6 +1636,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/error500"
       parameters:
+        - name: sort
+          schema:
+            type: string
+          in: query
         - name: status
           in: query
           schema:
@@ -2124,6 +2132,57 @@ paths:
       security:
         - apiKey: []
         - bearer: []
+  /order/inventory:
+    get:
+      operationId: getOrderInventory
+      summary: オーダーinventory
+      tags:
+        - Order
+      responses:
+        "200":
+          description: 成功
+          content:
+            applicaiton/json:
+              schema:
+                $ref: "#/components/schemas/order_inventory"
+        "401":
+          description: <API-KEY> 認証エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "403":
+          description: セキュリティエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "404":
+          description: Model not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "429":
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error400"
+        "500":
+          description: サーバーエラー.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error500"
+      security:
+        - apiKey: []
 components:
   schemas:
     pet_comment:
@@ -2174,6 +2233,15 @@ components:
         complete:
           type: boolean
           default: false
+    order_inventory:
+      type: object
+      properties:
+        available:
+          type: integer
+        pending:
+          type: integer
+        sold:
+          type: integer
     pet:
       type: object
       properties:
@@ -2215,6 +2283,16 @@ components:
         password:
           type: string
         avatar:
+          type: string
+        address:
+          type: string
+        phone:
+          type: string
+        birthday:
+          type: string
+        gender:
+          type: string
+        description:
           type: string
     request_auth_register:
       type: object

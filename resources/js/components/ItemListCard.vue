@@ -6,7 +6,7 @@
   >
     <img
       class="card-img"
-      v-bind:src="'/storage/pets/' + pet.photo_urls[0]"
+      :src="'/storage/pets/' + pet.photo_urls[0]"
       height="180"
     />
     <div class="card-img-overlay">

@@ -9,8 +9,10 @@
         </div>
       </div>
     </header>
-    <div class="m-5">
       <p class="h4 text-center mb-4">Sign up</p>
+    <div class="row m-5">
+
+      <div class="col">
       <label for="defaultFormRegisterNameEx" class="grey-text">Your name</label>
       <input
         type="text"
@@ -19,8 +21,8 @@
         class="form-control"
         required
       />
+      </div>
 
-      <br />
       <label for="defaultFormRegisterEmailEx" class="grey-text"
         >Your email</label
       >

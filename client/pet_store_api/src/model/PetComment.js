@@ -59,6 +59,9 @@ class PetComment {
             if (data.hasOwnProperty('name')) {
                 obj['name'] = ApiClient.convertToType(data['name'], 'String');
             }
+            if (data.hasOwnProperty('avatar')) {
+                obj['avatar'] = ApiClient.convertToType(data['avatar'], 'String');
+            }
             if (data.hasOwnProperty('comment')) {
                 obj['comment'] = ApiClient.convertToType(data['comment'], 'String');
             }
@@ -91,6 +94,11 @@ PetComment.prototype['user_id'] = undefined;
  * @member {String} name
  */
 PetComment.prototype['name'] = undefined;
+
+/**
+ * @member {String} avatar
+ */
+PetComment.prototype['avatar'] = undefined;
 
 /**
  * @member {String} comment

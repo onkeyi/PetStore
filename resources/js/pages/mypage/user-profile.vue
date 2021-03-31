@@ -4,8 +4,13 @@
           <div class="p-3 border">
           <img class="rounded-circle" v-if="user && user.avatar" v-bind:src="'/storage/users/' + user.avatar" style="cursor: pointer" v-on:click="select" width="80" height="80"/>
           <input ref="file" v-on:change="selectedFile" type="file" hidden/>
-          <p class="mt-2">{{ user.name }}</p>
           </div>
+          <p class="mt-2">{{ user.name }}</p>
+          <p class="mt-2">{{ user.gender }}</p>
+          <p class="mt-2">{{ user.birthday }}</p>
+          <p class="mt-2">{{ user.address }}</p>
+          <p class="mt-2">{{ user.phone }}</p>
+          <p class="mt-2">{{ user.phone }}</p>
         </div>
     </div>
 </template>
@@ -33,11 +38,14 @@ export default {
     },
     loadData() {
       let userApi = new UserApi();
+console.log(userApi);
       userApi.getUser().then(
         (data) => {
+console.log(data);
           this.user = data;
         },
         (error) => {
+console.log(error);
           if (error.status === 401) {
             localStorage.clear();
             this.$router.replace("/").catch(() => {});

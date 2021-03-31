@@ -1,25 +1,65 @@
 <template>
-  <div class="row">
-    <div class="col mb-3 d-flex justify-content-start">
-      <label>name:</label>
-      <input type="text" v-model="name" />
+  <div class="page-content">
+    <div class="padding">
+      <div class="row container d-flex justify-content-center">
+        <div class="col grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body" v-if="!success">
+              <h4 class="card-title">Form input mask example</h4>
+              <p class="card-description">
+                Take a preview of input mask format
+              </p>
+              <form>
+                <div class="form-group">
+                  <img width="80" :src="photo" v-for="(photo,key) in photoUrls" :key="key" />
+                </div>
+                <div class="form-group">
+                  <label class="">name:</label>
+                  <input class="form-control" type="text" v-model="name" />
+                </div>
+                <div class="form-group">
+                  <label>category:</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    v-model="categoryId"
+                  />
+                </div>
+                <!-- <input type="file" v-model="image" /> -->
+                <div class="form-group">
+                  <label>desc:</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    v-model="description"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>tag:</label>
+                  <input class="form-control" type="text" v-model="tags" />
+                </div>
+                <div class="form-group">
+                  <input
+                    class="form-control"
+                    v-on:change="selectedFile"
+                    type="file"
+                    name="file"
+                  />
+                </div>
+                <p class="warning">{{ message }}</p>
+                <button v-on:click="register">Save</button>
+              </form>
+            </div>
+          <div class="card-body" v-if="success">
+              <h4 class="card-title">Form input mask example</h4>
+              <p class="card-description">
+                Take a preview of input mask format
+              </p>
+          </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col mb-3 d-flex justify-content-start">
-      <label>category:</label>
-      <input type="text" v-model="categoryId" />
-    </div>
-    <!-- <input type="file" v-model="image" /> -->
-    <div class="col">
-      <label>desc:</label>
-      <input type="text" v-model="description" />
-    </div>
-    <div class="col">
-      <label>tag:</label>
-      <input type="text" v-model="tags" />
-    </div>
-    <button v-on:click="register">Save</button>
-    <p>{{ message }}</p>
-    <input v-on:change="selectedFile" type="file" name="file" />
   </div>
 </template>
 <script>
@@ -34,6 +74,7 @@ export default {
     tags: "",
     description: null,
     uploadFile: null,
+    success: false
   }),
   methods: {
     selectedFile(e) {
@@ -47,8 +88,9 @@ export default {
       let petApi = new PetApi();
       let data = await petApi.uploadImage({ image: this.uploadFile });
       this.photoUrls.push(data.file_name);
+      this.photoUrls.slice();
     },
-    async register() {
+    register() {
       if (!this.name) {
         this.message = "名を入力してください。";
         return;
@@ -74,10 +116,20 @@ export default {
       request.tags = this.tags.split(/,|\s/);
       request.description = this.description;
       let opts = {
-        requestPetStore: request,
+        requestPetStore: {
+            name:this.name,
+            category_id: this.categoryId,
+            photo_urls: this.photoUrls,
+            tags: this.tags.split(/,|\s/),
+            description: this.description
+          }
       };
 
-      let pet = await petApi.addNewPet(opts);
+      petApi.addNewPet(opts).then(data =>{
+        this.success = true;
+      },error =>{
+        this.message = error;
+      });
     },
   },
 };

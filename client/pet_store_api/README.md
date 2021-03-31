@@ -140,6 +140,7 @@ Class | Method | HTTP request | Description
 *PetStoreApi.OrderApi* | [**deleteOrderById**](docs/OrderApi.md#deleteOrderById) | **DELETE** /order/{orderId} | オーダー削除
 *PetStoreApi.OrderApi* | [**getAllOrder**](docs/OrderApi.md#getAllOrder) | **GET** /orders | オーダー一覧取得
 *PetStoreApi.OrderApi* | [**getOrderById**](docs/OrderApi.md#getOrderById) | **GET** /order/{orderId} | オーダー取得
+*PetStoreApi.OrderApi* | [**getOrderInventory**](docs/OrderApi.md#getOrderInventory) | **GET** /order/inventory | オーダーinventory
 *PetStoreApi.OrderApi* | [**updateOrderById**](docs/OrderApi.md#updateOrderById) | **PUT** /order/{orderId} | オーダー更新
 *PetStoreApi.PetApi* | [**addNewPet**](docs/PetApi.md#addNewPet) | **POST** /pet | ペット新規登録
 *PetStoreApi.PetApi* | [**addNewPetComment**](docs/PetApi.md#addNewPetComment) | **POST** /pet/comment | post new comment
@@ -178,6 +179,7 @@ Class | Method | HTTP request | Description
  - [PetStoreApi.InlineResponse200](docs/InlineResponse200.md)
  - [PetStoreApi.InlineResponse2001](docs/InlineResponse2001.md)
  - [PetStoreApi.Order](docs/Order.md)
+ - [PetStoreApi.OrderInventory](docs/OrderInventory.md)
  - [PetStoreApi.Pet](docs/Pet.md)
  - [PetStoreApi.PetComment](docs/PetComment.md)
  - [PetStoreApi.RequestAuthLogin](docs/RequestAuthLogin.md)

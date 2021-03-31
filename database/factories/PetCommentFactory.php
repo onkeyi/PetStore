@@ -24,7 +24,7 @@ class PetCommentFactory extends Factory
         return [
             'pet_id' => $this->faker->numberBetween(1, 50),
             'user_id' => $this->faker->numberBetween(1, 10),
-            'comment' => $this->faker->sentence(3, true)
+            'comment' => $this->faker->realText(50)
         ];
     }
 }

@@ -24,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->tinyInteger('status')->default(true);
             $table->string('avatar');
+            $table->string('address')->nullable();
+            $table->string('birthday')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

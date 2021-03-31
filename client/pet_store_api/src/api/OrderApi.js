@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
 import Order from '../model/Order';
+import OrderInventory from '../model/OrderInventory';
 import RequestOrderStore from '../model/RequestOrderStore';
 import RequestOrderUpdate from '../model/RequestOrderUpdate';
 import ResponseOk from '../model/ResponseOk';
@@ -212,6 +213,45 @@ export default class OrderApi {
      */
     getOrderById(orderId) {
       return this.getOrderByIdWithHttpInfo(orderId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * オーダーinventory
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/OrderInventory} and HTTP response
+     */
+    getOrderInventoryWithHttpInfo() {
+      let postBody = null;
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey'];
+      let contentTypes = [];
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = OrderInventory;
+      return this.apiClient.callApi(
+        '/order/inventory', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * オーダーinventory
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderInventory}
+     */
+    getOrderInventory() {
+      return this.getOrderInventoryWithHttpInfo()
         .then(function(response_and_data) {
           return response_and_data.data;
         });

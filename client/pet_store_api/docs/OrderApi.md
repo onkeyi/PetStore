@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**deleteOrderById**](OrderApi.md#deleteOrderById) | **DELETE** /order/{orderId} | オーダー削除
 [**getAllOrder**](OrderApi.md#getAllOrder) | **GET** /orders | オーダー一覧取得
 [**getOrderById**](OrderApi.md#getOrderById) | **GET** /order/{orderId} | オーダー取得
+[**getOrderInventory**](OrderApi.md#getOrderInventory) | **GET** /order/inventory | オーダーinventory
 [**updateOrderById**](OrderApi.md#updateOrderById) | **PUT** /order/{orderId} | オーダー更新
 
 
@@ -199,6 +200,50 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Order**](Order.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: applicaiton/json, application/json
+
+
+## getOrderInventory
+
+> OrderInventory getOrderInventory()
+
+オーダーinventory
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+
+let apiInstance = new PetStoreApi.OrderApi();
+apiInstance.getOrderInventory().then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**OrderInventory**](OrderInventory.md)
 
 ### Authorization
 

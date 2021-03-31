@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <nav-bar />
+    <nav-bar/>
     <category-nav />
     <main role="main" >
       <loading />
@@ -46,7 +46,7 @@ export default {
     });
 
     this.$router.afterEach(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       this.$store.commit("setLoading", false);
     });
   },

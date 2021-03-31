@@ -24,7 +24,7 @@ class Pet extends Model
 
     public function photoUrls()
     {
-        return $this->hasMany(PetPhotoUrl::class)->limit(10);
+        return $this->hasMany(PetPhotoUrl::class,'pet_id','id');
     }
 
     public function category()

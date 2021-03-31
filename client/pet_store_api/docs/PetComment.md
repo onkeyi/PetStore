@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **petId** | **Number** |  | [optional] 
 **userId** | **Number** |  | [optional] 
 **name** | **String** |  | [optional] 
+**avatar** | **String** |  | [optional] 
 **comment** | **String** |  | [optional] 
 **createdAt** | **String** |  | [optional] 
 

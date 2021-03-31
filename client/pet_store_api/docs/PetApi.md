@@ -250,6 +250,7 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.PetApi();
 let opts = {
+  'sort': "sort_example", // String | 
   'category': "category_example" // String | 
 };
 apiInstance.findPetByCategory(opts).then((data) => {
@@ -265,6 +266,7 @@ apiInstance.findPetByCategory(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **sort** | **String**|  | [optional] 
  **category** | **String**|  | [optional] 
 
 ### Return type
@@ -300,6 +302,7 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.PetApi();
 let opts = {
+  'sort': "sort_example", // String | 
   'status': "status_example", // String | 
   'page': 56 // Number | 
 };
@@ -316,6 +319,7 @@ apiInstance.findPetByStatus(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **sort** | **String**|  | [optional] 
  **status** | **String**|  | [optional] 
  **page** | **Number**|  | [optional] 
 
@@ -354,6 +358,7 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.PetApi();
 let opts = {
+  'sort': "sort_example", // String | 
   'tag': "tag_example", // String | 
   'page': 56 // Number | 
 };
@@ -370,6 +375,7 @@ apiInstance.findPetByTag(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **sort** | **String**|  | [optional] 
  **tag** | **String**|  | [optional] 
  **page** | **Number**|  | [optional] 
 
@@ -408,8 +414,7 @@ apiKey.apiKey = 'YOUR API KEY';
 
 let apiInstance = new PetStoreApi.PetApi();
 let opts = {
-  'order': "order_example", // String | 
-  'sorted': "sorted_example", // String | 
+  'sort': "sort_example", // String | 
   'page': 56 // Number | 
 };
 apiInstance.getAllPets(opts).then((data) => {
@@ -425,8 +430,7 @@ apiInstance.getAllPets(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **order** | **String**|  | [optional] 
- **sorted** | **String**|  | [optional] 
+ **sort** | **String**|  | [optional] 
  **page** | **Number**|  | [optional] 
 
 ### Return type

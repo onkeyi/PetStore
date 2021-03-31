@@ -22,11 +22,11 @@ class PetFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'DOG_' . $this->faker->numberBetween(1, 50),
+            'name' => $this->faker->sentence(rand(1,4)),
             'user_id' => $this->faker->numberBetween(1, 10),
             'category_id' => $this->faker->numberBetween(1, 50),
             'status' => $this->faker->randomElement(['available', 'pending', 'sold']),
-            'description' => 'descripton'
+            'description' => $this->faker->realText(255)
         ];
     }
 }

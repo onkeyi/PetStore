@@ -3591,6 +3591,8 @@ var _Error2 = _interopRequireDefault(__webpack_require__(/*! ../model/Error500 *
 
 var _Order = _interopRequireDefault(__webpack_require__(/*! ../model/Order */ "./client/pet_store_api/dist/model/Order.js"));
 
+var _OrderInventory = _interopRequireDefault(__webpack_require__(/*! ../model/OrderInventory */ "./client/pet_store_api/dist/model/OrderInventory.js"));
+
 var _RequestOrderStore = _interopRequireDefault(__webpack_require__(/*! ../model/RequestOrderStore */ "./client/pet_store_api/dist/model/RequestOrderStore.js"));
 
 var _RequestOrderUpdate = _interopRequireDefault(__webpack_require__(/*! ../model/RequestOrderUpdate */ "./client/pet_store_api/dist/model/RequestOrderUpdate.js"));
@@ -3793,6 +3795,37 @@ var OrderApi = /*#__PURE__*/function () {
     key: "getOrderById",
     value: function getOrderById(orderId) {
       return this.getOrderByIdWithHttpInfo(orderId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * オーダーinventory
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/OrderInventory} and HTTP response
+     */
+
+  }, {
+    key: "getOrderInventoryWithHttpInfo",
+    value: function getOrderInventoryWithHttpInfo() {
+      var postBody = null;
+      var pathParams = {};
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey'];
+      var contentTypes = [];
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _OrderInventory["default"];
+      return this.apiClient.callApi('/order/inventory', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * オーダーinventory
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderInventory}
+     */
+
+  }, {
+    key: "getOrderInventory",
+    value: function getOrderInventory() {
+      return this.getOrderInventoryWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -4093,6 +4126,7 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
@@ -4104,6 +4138,7 @@ var PetApi = /*#__PURE__*/function () {
       var postBody = null;
       var pathParams = {};
       var queryParams = {
+        'sort': opts['sort'],
         'category': opts['category']
       };
       var headerParams = {};
@@ -4117,6 +4152,7 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
@@ -4131,6 +4167,7 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.status 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
@@ -4143,6 +4180,7 @@ var PetApi = /*#__PURE__*/function () {
       var postBody = null;
       var pathParams = {};
       var queryParams = {
+        'sort': opts['sort'],
         'status': opts['status'],
         'page': opts['page']
       };
@@ -4157,6 +4195,7 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.status 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
@@ -4173,6 +4212,7 @@ var PetApi = /*#__PURE__*/function () {
      * タグで検索
      * タグで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.tag 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
@@ -4185,6 +4225,7 @@ var PetApi = /*#__PURE__*/function () {
       var postBody = null;
       var pathParams = {};
       var queryParams = {
+        'sort': opts['sort'],
         'tag': opts['tag'],
         'page': opts['page']
       };
@@ -4200,6 +4241,7 @@ var PetApi = /*#__PURE__*/function () {
      * タグで検索
      * タグで検索
      * @param {Object} opts Optional parameters
+     * @param {String} opts.sort 
      * @param {String} opts.tag 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
@@ -4216,8 +4258,7 @@ var PetApi = /*#__PURE__*/function () {
      * ペット一覧取得
      * stagusがavailableはorder可能
      * @param {Object} opts Optional parameters
-     * @param {String} opts.order 
-     * @param {String} opts.sorted 
+     * @param {String} opts.sort 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
@@ -4229,8 +4270,7 @@ var PetApi = /*#__PURE__*/function () {
       var postBody = null;
       var pathParams = {};
       var queryParams = {
-        'order': opts['order'],
-        'sorted': opts['sorted'],
+        'sort': opts['sort'],
         'page': opts['page']
       };
       var headerParams = {};
@@ -4245,8 +4285,7 @@ var PetApi = /*#__PURE__*/function () {
      * ペット一覧取得
      * stagusがavailableはorder可能
      * @param {Object} opts Optional parameters
-     * @param {String} opts.order 
-     * @param {String} opts.sorted 
+     * @param {String} opts.sort 
      * @param {Number} opts.page 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
@@ -5144,6 +5183,12 @@ Object.defineProperty(exports, "Order", ({
     return _Order["default"];
   }
 }));
+Object.defineProperty(exports, "OrderInventory", ({
+  enumerable: true,
+  get: function get() {
+    return _OrderInventory["default"];
+  }
+}));
 Object.defineProperty(exports, "Pet", ({
   enumerable: true,
   get: function get() {
@@ -5266,6 +5311,8 @@ var _InlineResponse = _interopRequireDefault(__webpack_require__(/*! ./model/Inl
 var _InlineResponse2 = _interopRequireDefault(__webpack_require__(/*! ./model/InlineResponse2001 */ "./client/pet_store_api/dist/model/InlineResponse2001.js"));
 
 var _Order = _interopRequireDefault(__webpack_require__(/*! ./model/Order */ "./client/pet_store_api/dist/model/Order.js"));
+
+var _OrderInventory = _interopRequireDefault(__webpack_require__(/*! ./model/OrderInventory */ "./client/pet_store_api/dist/model/OrderInventory.js"));
 
 var _Pet = _interopRequireDefault(__webpack_require__(/*! ./model/Pet */ "./client/pet_store_api/dist/model/Pet.js"));
 
@@ -6064,6 +6111,130 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./client/pet_store_api/dist/model/OrderInventory.js":
+/*!***********************************************************!*\
+  !*** ./client/pet_store_api/dist/model/OrderInventory.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+/**
+ * The OrderInventory model module.
+ * @module model/OrderInventory
+ * @version 0.1.1
+ */
+
+
+var OrderInventory = /*#__PURE__*/function () {
+  /**
+   * Constructs a new <code>OrderInventory</code>.
+   * @alias module:model/OrderInventory
+   */
+  function OrderInventory() {
+    _classCallCheck(this, OrderInventory);
+
+    OrderInventory.initialize(this);
+  }
+  /**
+   * Initializes the fields of this object.
+   * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
+   * Only for internal use.
+   */
+
+
+  _createClass(OrderInventory, null, [{
+    key: "initialize",
+    value: function initialize(obj) {}
+    /**
+     * Constructs a <code>OrderInventory</code> from a plain JavaScript object, optionally creating a new instance.
+     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+     * @param {Object} data The plain JavaScript object bearing properties of interest.
+     * @param {module:model/OrderInventory} obj Optional instance to populate.
+     * @return {module:model/OrderInventory} The populated <code>OrderInventory</code> instance.
+     */
+
+  }, {
+    key: "constructFromObject",
+    value: function constructFromObject(data, obj) {
+      if (data) {
+        obj = obj || new OrderInventory();
+
+        if (data.hasOwnProperty('available')) {
+          obj['available'] = _ApiClient["default"].convertToType(data['available'], 'Number');
+        }
+
+        if (data.hasOwnProperty('pending')) {
+          obj['pending'] = _ApiClient["default"].convertToType(data['pending'], 'Number');
+        }
+
+        if (data.hasOwnProperty('sold')) {
+          obj['sold'] = _ApiClient["default"].convertToType(data['sold'], 'Number');
+        }
+      }
+
+      return obj;
+    }
+  }]);
+
+  return OrderInventory;
+}();
+/**
+ * @member {Number} available
+ */
+
+
+OrderInventory.prototype['available'] = undefined;
+/**
+ * @member {Number} pending
+ */
+
+OrderInventory.prototype['pending'] = undefined;
+/**
+ * @member {Number} sold
+ */
+
+OrderInventory.prototype['sold'] = undefined;
+var _default = OrderInventory;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./client/pet_store_api/dist/model/Pet.js":
 /*!************************************************!*\
   !*** ./client/pet_store_api/dist/model/Pet.js ***!
@@ -6346,6 +6517,10 @@ var PetComment = /*#__PURE__*/function () {
           obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
         }
 
+        if (data.hasOwnProperty('avatar')) {
+          obj['avatar'] = _ApiClient["default"].convertToType(data['avatar'], 'String');
+        }
+
         if (data.hasOwnProperty('comment')) {
           obj['comment'] = _ApiClient["default"].convertToType(data['comment'], 'String');
         }
@@ -6382,6 +6557,11 @@ PetComment.prototype['user_id'] = undefined;
  */
 
 PetComment.prototype['name'] = undefined;
+/**
+ * @member {String} avatar
+ */
+
+PetComment.prototype['avatar'] = undefined;
 /**
  * @member {String} comment
  */
@@ -7987,6 +8167,26 @@ var User = /*#__PURE__*/function () {
         if (data.hasOwnProperty('avatar')) {
           obj['avatar'] = _ApiClient["default"].convertToType(data['avatar'], 'String');
         }
+
+        if (data.hasOwnProperty('address')) {
+          obj['address'] = _ApiClient["default"].convertToType(data['address'], 'String');
+        }
+
+        if (data.hasOwnProperty('phone')) {
+          obj['phone'] = _ApiClient["default"].convertToType(data['phone'], 'String');
+        }
+
+        if (data.hasOwnProperty('birthday')) {
+          obj['birthday'] = _ApiClient["default"].convertToType(data['birthday'], 'String');
+        }
+
+        if (data.hasOwnProperty('gender')) {
+          obj['gender'] = _ApiClient["default"].convertToType(data['gender'], 'String');
+        }
+
+        if (data.hasOwnProperty('description')) {
+          obj['description'] = _ApiClient["default"].convertToType(data['description'], 'String');
+        }
       }
 
       return obj;
@@ -8021,6 +8221,31 @@ User.prototype['password'] = undefined;
  */
 
 User.prototype['avatar'] = undefined;
+/**
+ * @member {String} address
+ */
+
+User.prototype['address'] = undefined;
+/**
+ * @member {String} phone
+ */
+
+User.prototype['phone'] = undefined;
+/**
+ * @member {String} birthday
+ */
+
+User.prototype['birthday'] = undefined;
+/**
+ * @member {String} gender
+ */
+
+User.prototype['gender'] = undefined;
+/**
+ * @member {String} description
+ */
+
+User.prototype['description'] = undefined;
 var _default = User;
 exports.default = _default;
 
@@ -8100,7 +8325,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return new Promise(function (resolve) {
-                return setTimeout(resolve, 500);
+                return setTimeout(resolve, 5000);
               });
 
             case 2:
@@ -8213,11 +8438,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.subCategories.length == 0) {
         this.$router.push({
-          path: "/",
           query: {
             category: id
           }
-        });
+        })["catch"](function () {});
       }
     }
   }
@@ -8303,6 +8527,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8556,7 +8786,7 @@ __webpack_require__.r(__webpack_exports__);
       tags: null
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     this.userInfo = this.$store.getters["userInfo"];
   },
   methods: {
@@ -8658,23 +8888,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "item-detail",
@@ -8685,17 +8898,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       errorMessage: null
     };
   },
-  // watch: {
-  //   "$route.params.id": {
-  //     handler: function () {
-  //       this.fetchData();
-  //     },
-  //     deep: true,
-  //     immediate: true,
-  //   },
-  // },
   watch: {
-    $route: "fetchData"
+    "$route.params.id": {
+      handler: function handler() {
+        this.fetchData();
+      },
+      deep: true,
+      immediate: true
+    }
   },
   methods: {
     fetchData: function fetchData() {
@@ -8865,9 +9075,10 @@ __webpack_require__.r(__webpack_exports__);
       apiInstance.login({
         requestAuthLogin: opts
       }).then(function (data) {
-        _this.$store.dispatch('saveUserInfo', data);
+        _this.$store.commit('userInfo', data); // this.$router.push("/").catch(() => {});
 
-        _this.$router.replace("/")["catch"](function () {});
+
+        location.href = "/";
       }, function (error) {
         _this.errorMessage = "ログイン失敗しました。"; //error.body ? error.body.message : error.message;
       });
@@ -8969,7 +9180,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var userInfo = this.$store.getters['userInfo'];
 
     if (!userInfo) {
-      this.$router.replace("/")["catch"](function () {});
+      this.$router.push("/")["catch"](function () {});
     }
   },
   methods: {
@@ -8989,11 +9200,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _this.confirmDialog = false;
 
-                _this.$store.dispatch("saveUserInfo", null);
+                _this.$store.commit("userInfo", null);
 
                 localStorage.clear();
-
-                _this.$router.replace("/")["catch"](function () {});
+                location.href = "/";
 
               case 7:
               case "end":
@@ -9052,6 +9262,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "item-register",
@@ -9063,7 +9313,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       photoUrls: [],
       tags: "",
       description: null,
-      uploadFile: null
+      uploadFile: null,
+      success: false
     };
   },
   methods: {
@@ -9094,7 +9345,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this.photoUrls.push(data.file_name);
 
-              case 5:
+                _this.photoUrls.slice();
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -9105,71 +9358,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     register: function register() {
       var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var petApi, request, opts, pet;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                if (_this2.name) {
-                  _context2.next = 3;
-                  break;
-                }
+      if (!this.name) {
+        this.message = "名を入力してください。";
+        return;
+      }
 
-                _this2.message = "名を入力してください。";
-                return _context2.abrupt("return");
+      if (!this.categoryId) {
+        this.message = "カテゴリを選択してください。";
+        return;
+      }
 
-              case 3:
-                if (_this2.categoryId) {
-                  _context2.next = 6;
-                  break;
-                }
+      if (this.photoUrls.length == 0) {
+        this.message = "画像を選択してください。";
+        return;
+      }
 
-                _this2.message = "カテゴリを選択してください。";
-                return _context2.abrupt("return");
+      if (!this.description) {
+        this.message = "詳細を入力してください。";
+        return;
+      }
 
-              case 6:
-                if (!(_this2.photoUrls.length == 0)) {
-                  _context2.next = 9;
-                  break;
-                }
-
-                _this2.message = "画像を選択してください。";
-                return _context2.abrupt("return");
-
-              case 9:
-                if (_this2.description) {
-                  _context2.next = 12;
-                  break;
-                }
-
-                _this2.message = "詳細を入力してください。";
-                return _context2.abrupt("return");
-
-              case 12:
-                petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
-                request = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestPetStore();
-                request.name = _this2.name;
-                request.category_id = _this2.categoryId;
-                request.photo_urls = _this2.photoUrls;
-                request.tags = _this2.tags.split(/,|\s/);
-                request.description = _this2.description;
-                opts = {
-                  requestPetStore: request
-                };
-                _context2.next = 22;
-                return petApi.addNewPet(opts);
-
-              case 22:
-                pet = _context2.sent;
-
-              case 23:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }))();
+      var petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
+      var request = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestPetStore();
+      request.name = this.name;
+      request.category_id = this.categoryId;
+      request.photo_urls = this.photoUrls;
+      request.tags = this.tags.split(/,|\s/);
+      request.description = this.description;
+      var opts = {
+        requestPetStore: {
+          name: this.name,
+          category_id: this.categoryId,
+          photo_urls: this.photoUrls,
+          tags: this.tags.split(/,|\s/),
+          description: this.description
+        }
+      };
+      petApi.addNewPet(opts).then(function (data) {
+        _this2.success = true;
+      }, function (error) {
+        _this2.message = error;
+      });
     }
   }
 });
@@ -9635,6 +9864,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -9687,9 +9921,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
+      console.log(userApi);
       userApi.getUser().then(function (data) {
+        console.log(data);
         _this2.user = data;
       }, function (error) {
+        console.log(error);
+
         if (error.status === 401) {
           localStorage.clear();
 
@@ -9800,6 +10038,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "item-list",
@@ -9810,7 +10051,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       petApi: null,
       total: 0,
       perPage: 0,
-      links: []
+      links: [],
+      inventory: {},
+      options: null,
+      status: ['all', 'available', 'pending', 'sold'],
+      showStatus: true
     };
   },
   created: function created() {
@@ -9825,25 +10070,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var queryParams, pagenation;
+        var orderApi, queryParams, pagenation;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                queryParams = {
-                  order: _this.$route.query.order,
-                  sorted: _this.$route.query.sorted,
-                  page: _this.$route.query.page
-                };
+                orderApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.OrderApi();
                 _context.next = 3;
-                return _this.petApi.getAllPets(queryParams);
+                return orderApi.getOrderInventory();
 
               case 3:
+                _this.inventory = _context.sent;
+                queryParams = {
+                  sort: _this.$route.query.sort,
+                  page: _this.$route.query.page
+                };
+                _context.next = 7;
+                return _this.petApi.getAllPets(queryParams);
+
+              case 7:
                 pagenation = _context.sent;
 
                 _this.setData(pagenation);
 
-              case 5:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -9851,12 +10101,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
+    sort: function sort(value) {
+      var category = this.$route.query["category"];
+      var tag = this.$route.query["tag"];
+      var status = this.$route.query["status"];
+      this.$router.push({
+        name: "store-home",
+        query: {
+          status: status,
+          category: category,
+          tag: tag,
+          sort: value
+        }
+      });
+    },
     fetchData: function fetchData() {
       this.total = 0;
       this.error = null;
-      var category = this.$route.query['category'];
-      var tag = this.$route.query['tag'];
-      var status = this.$route.query['status'];
+      this.showStatus = true;
+      var category = this.$route.query["category"];
+      var tag = this.$route.query["tag"];
+      var status = this.$route.query["status"];
 
       if (!category && !tag && !status) {
         this.loadData();
@@ -9864,11 +10129,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       if (category) {
+        this.showStatus = false;
+        this.options = 'all';
         this.findByCategory(category);
         return;
       }
 
       if (tag) {
+        this.showStatus = false;
+        this.options = 'all';
         this.findByTag(tag);
       }
 
@@ -9876,11 +10145,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.findByStatus(status);
       }
     },
-    searchByStatus: function searchByStatus(status) {
+    searchByStatus: function searchByStatus() {
+      if (!this.options || this.options == 'all') {
+        this.$router.replace({
+          name: "store-home"
+        });
+        return;
+      }
+
       this.$router.replace({
         name: "store-home",
         query: {
-          status: status
+          status: this.options
         }
       }, function () {});
     },
@@ -9894,7 +10170,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 opts = {
-                  category: category
+                  category: category,
+                  page: _this2.$route.query.page,
+                  sort: _this2.$route.query.sort
                 };
                 _context2.next = 3;
                 return _this2.petApi.findPetByCategory(opts);
@@ -9922,7 +10200,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 opts = {
-                  tag: tags
+                  tag: tags,
+                  page: _this3.$route.query.page,
+                  sort: _this3.$route.query.sort
                 };
                 _context3.next = 3;
                 return _this3.petApi.findPetByTag(opts);
@@ -9950,7 +10230,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 opts = {
-                  status: status
+                  status: status,
+                  page: _this4.$route.query.page,
+                  sort: _this4.$route.query.sort
                 };
                 _context4.next = 3;
                 return _this4.petApi.findPetByStatus(opts);
@@ -9973,6 +10255,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.total = pagenation ? pagenation.total : 0;
       this.perPage = pagenation ? pagenation.per_page : 0;
       this.links = pagenation ? pagenation.links : [];
+      this.$store.commit("setLoading", false);
     }
   }
 });
@@ -9991,6 +10274,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var pet_store_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pet_store_api */ "./client/pet_store_api/dist/index.js");
+//
+//
 //
 //
 //
@@ -10129,7 +10414,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_5__.default.prototype.$appName = "...";
+vue__WEBPACK_IMPORTED_MODULE_5__.default.prototype.$appName = "CAT";
 vue__WEBPACK_IMPORTED_MODULE_5__.default.prototype.$perPage = "18";
 var app = new vue__WEBPACK_IMPORTED_MODULE_5__.default({
   el: '#app',
@@ -10414,15 +10699,9 @@ var user = {
     userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
   },
   mutations: {
-    USER_INFO: function USER_INFO(state, info) {
+    userInfo: function userInfo(state, info) {
       state.userInfo = info;
       info ? localStorage.setItem('userInfo', JSON.stringify(info)) : '';
-    }
-  },
-  actions: {
-    saveUserInfo: function saveUserInfo(_ref, data) {
-      var commit = _ref.commit;
-      commit('USER_INFO', data);
     }
   },
   getters: {
@@ -12533,7 +12812,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination[data-v-34872a18] {\n    margin-bottom: 4rem;\n}\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.pagination[data-v-34872a18] {\n  margin-bottom: 4rem;\n}\ninput[type=radio][data-v-34872a18], input[type=checkbox][data-v-34872a18] {\n    visibility: hidden;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -17944,79 +18223,81 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.comments, function(value, key) {
-      return _c("div", { key: key, staticClass: "d-flex flex-row row" }, [
-        _vm._m(0, true),
-        _vm._v(" "),
-        _c("div", { staticClass: "comment-text active w-100" }, [
-          _c("h6", { staticClass: "font-medium" }, [
-            _vm._v(_vm._s(value.user_id))
+    [
+      _vm._l(_vm.comments, function(value, key) {
+        return _c("div", { key: key, staticClass: "d-flex flex-row row" }, [
+          _c("div", { staticClass: "p-2" }, [
+            _c("img", {
+              staticClass: "rounded-circle",
+              attrs: {
+                src: "/storage/users/" + value.user.avatar,
+                alt: "user",
+                width: "50"
+              }
+            })
           ]),
           _vm._v(" "),
-          _c("span", { staticClass: "m-b-15 d-block" }, [
-            _vm._v(_vm._s(value.comment))
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "comment-footer" }, [
-            _c("span", { staticClass: "text-muted float-right" }, [
-              _vm._v(_vm._s(value.created_at))
+          _c("div", { staticClass: "comment-text active w-100" }, [
+            _c("span", { staticClass: "m-b-15 d-block" }, [
+              _vm._v(_vm._s(value.comment))
             ]),
             _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-cyan btn-sm", attrs: { type: "button" } },
-              [_vm._v("Edit")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success btn-sm",
-                attrs: { type: "button" }
-              },
-              [_vm._v("Publish")]
-            ),
-            _vm._v(" "),
-            _vm.userInfo && _vm.userInfo["user"]["id"] == value.user_id
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-danger btn-sm",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteComment(value.id)
+            _c("div", { staticClass: "comment-footer" }, [
+              _c("span", { staticClass: "text-muted float-right" }, [
+                _vm._v(_vm._s(value.created_at))
+              ]),
+              _vm._v(" "),
+              _vm.userInfo && _vm.userInfo["user"]["id"] == value.user.id
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger btn-sm",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteComment(value.id)
+                        }
                       }
-                    }
-                  },
-                  [_vm._v("Delete")]
-                )
-              : _vm._e()
+                    },
+                    [_vm._v("Delete")]
+                  )
+                : _vm._e()
+            ])
           ])
         ])
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", [_vm._v("comment")]),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.comment,
+              expression: "comment"
+            }
+          ],
+          staticClass: "form-control",
+          domProps: { value: _vm.comment },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.comment = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("button", { on: { click: _vm.addComment } }, [_vm._v("Add")])
       ])
-    }),
-    0
+    ],
+    2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "p-2" }, [
-      _c("img", {
-        staticClass: "rounded-circle",
-        attrs: {
-          src:
-            "https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583319/AAA/3.jpg",
-          alt: "user",
-          width: "50"
-        }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -18298,7 +18579,12 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
-        _vm._m(0),
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { src: "/storage/pets/" + _vm.pet.photo_urls[0], alt: "" }
+          })
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-4" }, [
           _c("h3", { staticClass: "my-3" }, [_vm._v("Description")]),
@@ -18319,54 +18605,66 @@ var render = function() {
       _vm._v(" "),
       _c("h3", { staticClass: "my-4" }, [_vm._v("Related")]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.$store.getters["userInfo"],
-                expression: "$store.getters['userInfo']"
-              }
-            ]
-          },
-          [
-            _vm.pet.status == "available"
-              ? _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-sm btn-outline-secondary",
-                    on: {
-                      click: function($event) {
-                        _vm.openConfirmDialog = true
-                      }
-                    }
-                  },
-                  [_vm._v("Order")]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "btn btn-sm btn-outline-secondary",
-                on: { click: _vm.addFavorite }
-              },
-              [_vm._v("Favorite")]
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _vm._l(_vm.pet.photo_urls, function(url, key) {
+            return _c(
+              "div",
+              { key: key, staticClass: "col-md-3 col-sm-6 mb-4" },
+              [
+                _c("a", { attrs: { href: "#" } }, [
+                  _c("img", {
+                    staticClass: "img-fluid",
+                    attrs: { src: "/storage/pets/" + url, alt: "" }
+                  })
+                ])
+              ]
             )
-          ]
-        )
-      ]),
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.$store.getters["userInfo"],
+                  expression: "$store.getters['userInfo']"
+                }
+              ]
+            },
+            [
+              _vm.pet.status == "available"
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-sm btn-outline-secondary",
+                      on: {
+                        click: function($event) {
+                          _vm.openConfirmDialog = true
+                        }
+                      }
+                    },
+                    [_vm._v("Order")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-sm btn-outline-secondary",
+                  on: { click: _vm.addFavorite }
+                },
+                [_vm._v("Favorite")]
+              )
+            ]
+          )
+        ],
+        2
+      ),
       _vm._v(" "),
       _c("p", [_vm._v("comment: " + _vm._s(_vm.pet.comments_count))]),
       _vm._v(" "),
@@ -18392,71 +18690,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8" }, [
-      _c("img", {
-        staticClass: "img-fluid",
-        attrs: { src: "http://placehold.it/750x500", alt: "" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("img", {
-          staticClass: "img-fluid",
-          attrs: { src: "http://placehold.it/500x300", alt: "" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("img", {
-          staticClass: "img-fluid",
-          attrs: { src: "http://placehold.it/500x300", alt: "" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("img", {
-          staticClass: "img-fluid",
-          attrs: { src: "http://placehold.it/500x300", alt: "" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3 col-sm-6 mb-4" }, [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("img", {
-          staticClass: "img-fluid",
-          attrs: { src: "http://placehold.it/500x300", alt: "" }
-        })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -18782,115 +19016,180 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col mb-3 d-flex justify-content-start" }, [
-      _c("label", [_vm._v("name:")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.name,
-            expression: "name"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.name = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col mb-3 d-flex justify-content-start" }, [
-      _c("label", [_vm._v("category:")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.categoryId,
-            expression: "categoryId"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.categoryId },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.categoryId = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col" }, [
-      _c("label", [_vm._v("desc:")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.description,
-            expression: "description"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.description },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.description = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "col" }, [
-      _c("label", [_vm._v("tag:")]),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.tags,
-            expression: "tags"
-          }
-        ],
-        attrs: { type: "text" },
-        domProps: { value: _vm.tags },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.tags = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.register } }, [_vm._v("Save")]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.message))]),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "file", name: "file" },
-      on: { change: _vm.selectedFile }
-    })
+  return _c("div", { staticClass: "page-content" }, [
+    _c("div", { staticClass: "padding" }, [
+      _c(
+        "div",
+        { staticClass: "row container d-flex justify-content-center" },
+        [
+          _c("div", { staticClass: "col grid-margin stretch-card" }, [
+            _c("div", { staticClass: "card" }, [
+              !_vm.success
+                ? _c("div", { staticClass: "card-body" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v("Form input mask example")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-description" }, [
+                      _vm._v(
+                        "\n              Take a preview of input mask format\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("form", [
+                      _c(
+                        "div",
+                        { staticClass: "form-group" },
+                        _vm._l(_vm.photoUrls, function(photo, key) {
+                          return _c("img", {
+                            key: key,
+                            attrs: { width: "80", src: photo }
+                          })
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", {}, [_vm._v("name:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.name,
+                              expression: "name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.name = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("category:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.categoryId,
+                              expression: "categoryId"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.categoryId },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.categoryId = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("desc:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.description,
+                              expression: "description"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.description },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.description = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("tag:")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.tags,
+                              expression: "tags"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.tags },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.tags = $event.target.value
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: { type: "file", name: "file" },
+                          on: { change: _vm.selectedFile }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "warning" }, [
+                        _vm._v(_vm._s(_vm.message))
+                      ]),
+                      _vm._v(" "),
+                      _c("button", { on: { click: _vm.register } }, [
+                        _vm._v("Save")
+                      ])
+                    ])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.success
+                ? _c("div", { staticClass: "card-body" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v("Form input mask example")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-description" }, [
+                      _vm._v(
+                        "\n              Take a preview of input mask format\n            "
+                      )
+                    ])
+                  ])
+                : _vm._e()
+            ])
+          ])
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -19270,10 +19569,20 @@ var render = function() {
           ref: "file",
           attrs: { type: "file", hidden: "" },
           on: { change: _vm.selectedFile }
-        }),
-        _vm._v(" "),
-        _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.name))])
-      ])
+        })
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.name))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.gender))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.birthday))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.address))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.phone))]),
+      _vm._v(" "),
+      _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.phone))])
     ])
   ])
 }
@@ -19302,122 +19611,127 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col mb-3 d-flex justify-content-start" }, [
-        _c("div", { staticClass: "btn-group", attrs: { role: "group" } }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-outline-secondary",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  return _vm.searchByStatus("available")
-                }
-              }
-            },
-            [_vm._v("Available")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-outline-secondary",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  return _vm.searchByStatus("pending")
-                }
-              }
-            },
-            [_vm._v("\n          Pending\n        ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-outline-secondary",
-              attrs: { type: "button" },
-              on: {
-                click: function($event) {
-                  return _vm.searchByStatus("sold")
-                }
-              }
-            },
-            [_vm._v("Sold")]
-          )
-        ])
-      ]),
+      _vm.showStatus
+        ? _c("div", { staticClass: "col mb-3 d-flex justify-content-start" }, [
+            _c(
+              "div",
+              { staticClass: "btn-group", attrs: { "data-toggle": "buttons" } },
+              _vm._l(_vm.status, function(s, key) {
+                return _c(
+                  "label",
+                  {
+                    key: key,
+                    class:
+                      "btn btn-outline-secondary " +
+                      (_vm.options == s ? "active" : "")
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.options,
+                          expression: "options"
+                        }
+                      ],
+                      staticClass: "rating-input",
+                      attrs: { autocomplete: "off", type: "radio" },
+                      domProps: { value: s, checked: _vm._q(_vm.options, s) },
+                      on: {
+                        change: [
+                          function($event) {
+                            _vm.options = s
+                          },
+                          function($event) {
+                            return _vm.searchByStatus()
+                          }
+                        ]
+                      }
+                    }),
+                    _vm._v(
+                      _vm._s(s) +
+                        " - " +
+                        _vm._s(_vm.inventory[s]) +
+                        "\n        "
+                    )
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
-      _vm.total >= _vm.$perPage
-        ? _c(
-            "div",
-            { staticClass: "col mb-3 d-flex justify-content-end" },
-            [
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-sm btn-outline-secondary",
-                  attrs: { to: { path: "/", query: { sorted: "desc" } } }
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi bi-sort-up",
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        width: "16",
-                        height: "16",
-                        fill: "currentColor",
-                        viewBox: "0 0 16 16"
-                      }
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d:
-                            "M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"
-                        }
-                      })
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-sm btn-outline-secondary ml-2",
-                  attrs: { to: { path: "/", query: { sorted: "asc" } } }
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "bi bi-sort-down",
-                      attrs: {
-                        xmlns: "http://www.w3.org/2000/svg",
-                        width: "16",
-                        height: "16",
-                        fill: "currentColor",
-                        viewBox: "0 0 16 16"
-                      }
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d:
-                            "M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"
-                        }
-                      })
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          )
-        : _vm._e()
+      _c("div", { staticClass: "col mb-3 d-flex justify-content-end" }, [
+        _c(
+          "div",
+          {
+            staticClass: "btn btn-sm btn-outline-secondary",
+            on: {
+              click: function($event) {
+                return _vm.sort("desc")
+              }
+            }
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "bi bi-sort-up",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  width: "16",
+                  fill: "currentColor",
+                  viewBox: "0 0 16 16"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.498.498 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707V12.5zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"
+                  }
+                })
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "btn btn-sm btn-outline-secondary ml-2",
+            on: {
+              click: function($event) {
+                return _vm.sort("asc")
+              }
+            }
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "bi bi-sort-down",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  width: "16",
+                  fill: "currentColor",
+                  viewBox: "0 0 16 16"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M3.5 2.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 11.293V2.5zm3.5 1a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zM7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"
+                  }
+                })
+              ]
+            )
+          ]
+        )
+      ])
     ]),
     _vm._v(" "),
     _c(
@@ -19536,45 +19850,45 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "m-5" }, [
-      _c("p", { staticClass: "h4 text-center mb-4" }, [_vm._v("Sign up")]),
-      _vm._v(" "),
-      _c(
-        "label",
-        {
-          staticClass: "grey-text",
-          attrs: { for: "defaultFormRegisterNameEx" }
-        },
-        [_vm._v("Your name")]
-      ),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
+    _c("p", { staticClass: "h4 text-center mb-4" }, [_vm._v("Sign up")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row m-5" }, [
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "label",
           {
-            name: "model",
-            rawName: "v-model.trim",
-            value: _vm.name,
-            expression: "name",
-            modifiers: { trim: true }
-          }
-        ],
-        staticClass: "form-control",
-        attrs: { type: "text", name: "name", required: "" },
-        domProps: { value: _vm.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.name = $event.target.value.trim()
+            staticClass: "grey-text",
+            attrs: { for: "defaultFormRegisterNameEx" }
           },
-          blur: function($event) {
-            return _vm.$forceUpdate()
+          [_vm._v("Your name")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model.trim",
+              value: _vm.name,
+              expression: "name",
+              modifiers: { trim: true }
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text", name: "name", required: "" },
+          domProps: { value: _vm.name },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.name = $event.target.value.trim()
+            },
+            blur: function($event) {
+              return _vm.$forceUpdate()
+            }
           }
-        }
-      }),
-      _vm._v(" "),
-      _c("br"),
+        })
+      ]),
       _vm._v(" "),
       _c(
         "label",

@@ -76,8 +76,9 @@ export default {
       let apiInstance = new UserApi();
       apiInstance.login({ requestAuthLogin: opts }).then(
         (data) => {
-          this.$store.dispatch('saveUserInfo',data);
-          this.$router.replace("/").catch(() => {});
+          this.$store.commit('userInfo',data);
+          // this.$router.push("/").catch(() => {});
+          location.href = "/";
         },
         (error) => {
           this.errorMessage = "ログイン失敗しました。"; //error.body ? error.body.message : error.message;

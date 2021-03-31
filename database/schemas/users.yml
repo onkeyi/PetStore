@@ -23,5 +23,18 @@ users:
       default: true
     avatar:
       type: string
+    address:
+      type: string
+      nullable: true
+    birthday:
+      type: string
+      nullable: true
+    gender:
+      type: enum
+      args: ['male','female']
+      nullable: true
+    description:
+      type: string
+      nullable: true
     timestamps: true
     softDeletes: true

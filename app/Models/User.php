@@ -41,5 +41,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $visible = ['id', 'name','email','avatar'];
+    protected $visible = ['id', 'name','email','avatar','gender','description','address','phone','birthday'];
 }

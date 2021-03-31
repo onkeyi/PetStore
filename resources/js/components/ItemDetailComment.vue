@@ -1,12 +1,18 @@
 <template>
 <div>
   <div class="d-flex flex-row row" v-for="(value, key) in comments" :key="key">
-      <div class="p-2"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583319/AAA/3.jpg" alt="user" width="50" class="rounded-circle"></div>
+      <div class="p-2"><img :src="'/storage/users/' + value.user.avatar" alt="user" width="50" class="rounded-circle"></div>
       <div class="comment-text active w-100">
-          <h6 class="font-medium">{{ value.user_id }}</h6> <span class="m-b-15 d-block">{{value.comment}}</span>
-          <div class="comment-footer"> <span class="text-muted float-right">{{ value.created_at}}</span> <button type="button" class="btn btn-cyan btn-sm">Edit</button> <button type="button" class="btn btn-success btn-sm">Publish</button> <button type="button"   v-if="userInfo && userInfo['user']['id'] == value.user_id"
+           <span class="m-b-15 d-block">{{value.comment}}</span>
+          <div class="comment-footer"> <span class="text-muted float-right">{{ value.created_at}}</span>
+<button type="button"   v-if="userInfo && userInfo['user']['id'] == value.user.id"
           v-on:click="deleteComment(value.id)" class="btn btn-danger btn-sm">Delete</button> </div>
       </div>
+  </div>
+  <div class="form-group">
+    <label>comment</label>
+    <input class="form-control" v-model="comment" />
+    <button v-on:click="addComment">Add</button>
   </div>
 </div>
 </template>

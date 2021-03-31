@@ -46,7 +46,7 @@ export default {
         });
       }
       if (this.subCategories.length == 0) {
-        this.$router.push({ path: "/", query: { category: id } });
+        this.$router.push({ query: { category: id } }).catch(()=>{});
       }
     },
   },

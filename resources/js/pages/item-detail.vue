@@ -10,7 +10,7 @@
     <!-- Portfolio Item Row -->
     <div class="row">
       <div class="col-md-8">
-        <img class="img-fluid" src="http://placehold.it/750x500" alt="" />
+        <img class="img-fluid" :src="'/storage/pets/' + pet.photo_urls[0]" alt="" />
       </div>
 
       <div class="col-md-4">
@@ -27,30 +27,13 @@
     <!-- Related Projects Row -->
     <h3 class="my-4">Related</h3>
 
-    <div class="row">
-      <div class="col-md-3 col-sm-6 mb-4">
+    <div class="row" >
+      <div class="col-md-3 col-sm-6 mb-4" v-for="(url,key) in pet.photo_urls" :key="key">
         <a href="#">
-          <img class="img-fluid" src="http://placehold.it/500x300" alt="" />
+          <img class="img-fluid" :src="'/storage/pets/' + url" alt="" />
         </a>
       </div>
 
-      <div class="col-md-3 col-sm-6 mb-4">
-        <a href="#">
-          <img class="img-fluid" src="http://placehold.it/500x300" alt="" />
-        </a>
-      </div>
-
-      <div class="col-md-3 col-sm-6 mb-4">
-        <a href="#">
-          <img class="img-fluid" src="http://placehold.it/500x300" alt="" />
-        </a>
-      </div>
-
-      <div class="col-md-3 col-sm-6 mb-4">
-        <a href="#">
-          <img class="img-fluid" src="http://placehold.it/500x300" alt="" />
-        </a>
-      </div>
       <div v-show="$store.getters['userInfo']">
         <a
           v-if="pet.status == 'available'"
@@ -96,18 +79,16 @@ export default {
     openConfirmDialog: false,
     errorMessage: null,
   }),
-  // watch: {
-  //   "$route.params.id": {
-  //     handler: function () {
-  //       this.fetchData();
-  //     },
-  //     deep: true,
-  //     immediate: true,
-  //   },
-  // },
   watch: {
-    $route: "fetchData",
+    "$route.params.id": {
+      handler: function () {
+        this.fetchData();
+      },
+      deep: true,
+      immediate: true,
+    },
   },
+
   methods: {
     async fetchData() {
       const petId = this.$route.query.id;

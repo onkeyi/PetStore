@@ -63,7 +63,7 @@ export default {
   mounted: function () {
     let userInfo = this.$store.getters['userInfo'];
     if (!userInfo) {
-      this.$router.replace("/").catch(() => {});
+      this.$router.push("/").catch(() => {});
     }
   },
   methods: {
@@ -71,9 +71,9 @@ export default {
       let apiInstance = new UserApi();
       await apiInstance.logout();
       this.confirmDialog = false;
-      this.$store.dispatch("saveUserInfo", null);
+      this.$store.commit("userInfo", null);
       localStorage.clear();
-      this.$router.replace("/").catch(() => {});
+      location.href = "/";
     },
   },
 };
