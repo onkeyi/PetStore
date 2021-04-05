@@ -3,6 +3,7 @@ import router from './router';
 import App from './App.vue';
 import store from './store';
 import i18n from './i18n';
+import './filters';
 import './components';
 
 Vue.prototype.$appName = process.env.MIX_APP_NAME;

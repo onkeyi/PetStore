@@ -70,7 +70,7 @@ class UserController extends ApiController
         $petIds = UserFavorite::where('user_id',$this->userId)->pluck('pet_id');
 
         if (!isset($petIds) || count($petIds) === 0) {
-            return $this->successResponse([]);
+            return $this->successResponse();
         }
         return $this->successResponse(
             Pet::whereIn('id',$petIds)->with('photoUrls','category','tags')->paginate(env('APP_PER_PAGE',18))

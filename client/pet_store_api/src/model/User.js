@@ -79,6 +79,9 @@ class User {
             if (data.hasOwnProperty('description')) {
                 obj['description'] = ApiClient.convertToType(data['description'], 'String');
             }
+            if (data.hasOwnProperty('created_at')) {
+                obj['created_at'] = ApiClient.convertToType(data['created_at'], 'String');
+            }
         }
         return obj;
     }
@@ -135,6 +138,11 @@ User.prototype['gender'] = undefined;
  * @member {String} description
  */
 User.prototype['description'] = undefined;
+
+/**
+ * @member {String} created_at
+ */
+User.prototype['created_at'] = undefined;
 
 
 

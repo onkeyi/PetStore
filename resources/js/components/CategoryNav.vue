@@ -7,7 +7,7 @@
         v-for="(value, key) in topCategories"
         :key="key"
       >
-        <a class="nav-link text-muted" href="#">{{ value.name }} </a>
+        <a class="nav-link text-muted" href="#">{{ value.name | uppercase}} </a>
       </li>
     </ul>
   </div>
@@ -22,7 +22,7 @@ export default {
     subCategories: [],
     selectedId: null,
   }),
-  mounted: function () {
+  created: function () {
     this.loadData();
   },
   methods: {

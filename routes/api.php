@@ -27,7 +27,6 @@ Route::middleware('apikey')->group(
         Route::get('pet/findByTags', [PetController::class, 'findByTags']);
         Route::get('pet/findByCategory', [PetController::class, 'findByCategory']);
         Route::get('pet/{pet}', [PetController::class, 'getPetById']);
-        Route::get('pet/{pet}/comments', [PetCommentController::class, 'getPetComments']);
         Route::get('pets', [PetController::class, 'getAllPets']);
         Route::get('order/inventory', [OrderController::class, 'inventory']);
 
@@ -38,6 +37,7 @@ Route::middleware('apikey')->group(
         Route::middleware('auth')->group(
             function () {
                 Route::post('pet/comment', [PetCommentController::class, 'addNewPetComment']);
+                Route::get('pet/{pet}/comments', [PetCommentController::class, 'getPetComments']);
 
                 /** Pet */
                 Route::post('pet', [PetController::class, 'addNewPet']);

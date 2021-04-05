@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div class="d-flex">
+    <div class="d-flex" id="wrapper">
       <!-- Sidebar -->
-      <div class="bg-light">
+      <div class="bg-light border-right" id="sidebar-wrapper">
         <div class="list-group list-group-flush">
+          <div class="sidebar-heading">Start Bootstrap </div>
           <router-link
             to="/mypage/profile"
             class="list-group-item list-group-item-action bg-light"
-            >MyPage</router-link
-          >
+            >MyPage</router-link>
           <router-link
             to="/mypage/item"
             class="list-group-item list-group-item-action bg-light"
@@ -39,8 +39,8 @@
         </div>
       </div>
       <loading />
-      <div class="container">
-      <router-view></router-view>
+      <div class="p-3 flex-grow-1" id="page-content-wrapper">
+        <router-view></router-view>
       </div>
     </div>
     <confirm-dialog
@@ -60,8 +60,8 @@ import { ApiClient, UserApi } from "pet_store_api";
 
 export default {
   data: () => ({ openConfirmDialog: false }),
-  mounted: function () {
-    let userInfo = this.$store.getters['userInfo'];
+  created: function () {
+    let userInfo = this.$store.getters["userInfo"];
     if (!userInfo) {
       this.$router.push("/").catch(() => {});
     }
@@ -78,3 +78,50 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+ #wrapper {
+    overflow-x: hidden;
+ }
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+</style>

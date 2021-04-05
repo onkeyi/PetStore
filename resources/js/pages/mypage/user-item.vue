@@ -5,38 +5,10 @@
     </div>
     <div class="row">
       <div class="col" v-for="(pet, key) in pets" :key="key">
-        <div
-          class="card mb-4 h-md-150 text-decoration-none"
-          style="width: 18rem"
-        >
-          <div class="row bg-light">
-            <div class="col float-right m-1">
-              <button
-                type="button"
-                class="close"
-                v-on:click="openDialog(pet.id)"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-          <img
-            class="card-img-top"
-            style="width: 100%; height: 250px"
-            v-bind:src="'/storage/pets/' + pet.photo_urls[0]"
-            data-holder-rendered="true"
-          />
-          <div class="card-body">
-            <strong class="card-title">{{ pet.status }}</strong>
-            <div class="card-subtitle">{{ pet.name }}</div>
-            <p class="card-text mb-auto">
-              {{ pet.description }}
-            </p>
-          </div>
-        </div>
+          <item-list-card v-bind:pet="pet" v-on:delete="openDialog(pet.id)" detailLink="/mypage/item/detail"/>
       </div>
     </div>
+
     <confirm-dialog
       v-bind:show="openConfirmDialog"
       v-bind:content="{
@@ -54,7 +26,7 @@ import { UserApi, PetApi, RequestPetStore } from "pet_store_api";
 export default {
   name: "my-item",
   data: () => ({ pets: [], openConfirmDialog: false, petId: null }),
-  mounted: function () {
+  created: function () {
     this.loadData();
   },
   methods: {

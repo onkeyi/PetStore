@@ -13,5 +13,6 @@ Name | Type | Description | Notes
 **category** | [**Category**](.md) |  | [optional] 
 **owner** | [**User**](.md) |  | [optional] 
 **commentsCount** | **Number** |  | [optional] 
+**createdAt** | **String** |  | [optional] 
 
 

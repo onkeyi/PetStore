@@ -499,7 +499,7 @@ export default class PetApi {
       let formParams = {
       };
 
-      let authNames = ['apiKey'];
+      let authNames = ['apiKey', 'bearer'];
       let contentTypes = [];
       let accepts = ['applicaiton/json', 'application/json'];
       let returnType = ResponsePegination;

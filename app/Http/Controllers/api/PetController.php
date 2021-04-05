@@ -27,7 +27,7 @@ class PetController extends ApiController
         return $this->successResponse(
             Pet::with(['tags', 'category', 'photoUrls','owner'])
                 ->withCount('comments')
-                ->orderBy('created_at', $sort)
+                ->orderBy('updated_at', $sort)
                 ->paginate(env('APP_PER_PAGE',18))
         );
     }

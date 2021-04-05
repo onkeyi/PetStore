@@ -5,54 +5,24 @@
     </div>
     <div class="row">
       <div class="col" v-for="(order, key) in orders" :key="key">
-        <div
-          class="card mb-4 h-md-150 text-decoration-none"
-          style="width: 18rem"
-        >
-          <div class="row bg-light">
-            <div class="col float-right m-1">
-              <button
-                type="button"
-                class="close"
-                v-on:click="deleteOrderById(order.id)"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          </div>
-          <img
-            class="card-img-top"
-            style="width: 100%; height: 250px"
-            v-bind:src="'/storage/pets/' + order.pet.photo_urls[0]"
-            data-holder-rendered="true"
-          />
-          <div class="card-body">
-            <strong class="card-title">{{ order.status }}</strong>
-            <strong class="card-title">{{ order.ship_date }}</strong>
-            <div class="card-subtitle">{{ order.pet.name }}</div>
-            <p class="card-text mb-auto">
-              {{ order.pet.description }}
-            </p>
-          </div>
-        </div>
+          <item-list-card v-bind:pet="order.pet"  detailLink="/mypage/order/detail"/>
       </div>
-    </div>
   </div>
+</div>
 </template>
 <script>
 import { UserApi, OrderApi } from "pet_store_api";
 export default {
   name: "my-order",
   data: () => ({ orders: [] }),
-  mounted: function () {
+  created: function () {
     this.loadData();
   },
   methods: {
     async loadData() {
       let userApi = new UserApi();
       const pagenation = await userApi.getUserOrders();
-
+console.log(pagenation);
       this.setData(pagenation);
     },
 

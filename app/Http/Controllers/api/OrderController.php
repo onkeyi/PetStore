@@ -18,7 +18,7 @@ class OrderController extends ApiController
         return $this->successResponse(
             Order::where('user_id', $this->userId)
                 ->with(['pet', 'user'])
-                ->orderBy('created_at', 'desc')
+                ->orderBy('updated_at', 'desc')
                 ->paginate(env('APP_PER_PAGE',18))
         );
     }

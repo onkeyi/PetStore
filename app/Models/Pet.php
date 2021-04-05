@@ -14,7 +14,7 @@ use App\Models\Order;
 class Pet extends Model
 {
     use HasFactory;
-    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'comments','comments_count','order','owner','description'];
+    protected $visible = ['id','name', 'tags', 'category', 'photoUrls', 'status', 'comments','comments_count','order','owner','description','created_at','updated_at'];
     protected $fillable = ['name', 'user_id', 'category_id', 'status','description'];
 
     public function tags()

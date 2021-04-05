@@ -1388,6 +1388,7 @@ paths:
           required: true
       security:
         - apiKey: []
+        - bearer: []
   /pet/{petCommentId}/comment:
     delete:
       operationId: deletePetCommentById
@@ -2202,7 +2203,8 @@ components:
           type: string
         created_at:
           type: string
-
+        updated_at:
+          type: string
     category:
       type: object
       properties:
@@ -2233,6 +2235,10 @@ components:
         complete:
           type: boolean
           default: false
+        created_at:
+          type: string
+        updated_at:
+          type: string
     order_inventory:
       type: object
       properties:
@@ -2269,6 +2275,8 @@ components:
           $ref: "#/components/schemas/user"
         comments_count:
           type: integer
+        created_at:
+          type: string
     user:
       type: object
       required:
@@ -2293,6 +2301,8 @@ components:
         gender:
           type: string
         description:
+          type: string
+        created_at:
           type: string
     request_auth_register:
       type: object

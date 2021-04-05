@@ -70,6 +70,12 @@ class Order {
             if (data.hasOwnProperty('complete')) {
                 obj['complete'] = ApiClient.convertToType(data['complete'], 'Boolean');
             }
+            if (data.hasOwnProperty('created_at')) {
+                obj['created_at'] = ApiClient.convertToType(data['created_at'], 'String');
+            }
+            if (data.hasOwnProperty('updated_at')) {
+                obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'String');
+            }
         }
         return obj;
     }
@@ -113,6 +119,16 @@ Order.prototype['ship_date'] = undefined;
  * @default false
  */
 Order.prototype['complete'] = false;
+
+/**
+ * @member {String} created_at
+ */
+Order.prototype['created_at'] = undefined;
+
+/**
+ * @member {String} updated_at
+ */
+Order.prototype['updated_at'] = undefined;
 
 
 

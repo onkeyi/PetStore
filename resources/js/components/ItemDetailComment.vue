@@ -1,20 +1,42 @@
 <template>
-<div>
-  <div class="d-flex flex-row row" v-for="(value, key) in comments" :key="key">
-      <div class="p-2"><img :src="'/storage/users/' + value.user.avatar" alt="user" width="50" class="rounded-circle"></div>
-      <div class="comment-text active w-100">
-           <span class="m-b-15 d-block">{{value.comment}}</span>
-          <div class="comment-footer"> <span class="text-muted float-right">{{ value.created_at}}</span>
-<button type="button"   v-if="userInfo && userInfo['user']['id'] == value.user.id"
-          v-on:click="deleteComment(value.id)" class="btn btn-danger btn-sm">Delete</button> </div>
+  <div>
+    <div class="d-flex" v-for="(value, key) in comments" :key="key">
+      <div class="p-2">
+        <img
+          :src="'/storage/users/' + value.user.avatar"
+          alt="user"
+          width="40"
+          class="rounded-circle"
+        />
       </div>
+      <label class="flex-grow-1 align-items-center border p-2 rounded">
+        <div class="m-b-15 d-block">{{ value.comment }}</div>
+        <time-ago class="text-muted float-right" locale="jp" :datetime="pet.created_at" long></time-ago>
+      </label>
+      <button
+        type="button"
+        class="btn "
+        v-show="userInfo && userInfo['user']['id'] == value.user.id"
+        v-on:click="deleteComment(value.id)"
+      >
+        &times;
+      </button>
+    </div>
+    <form class="p-2">
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea
+          class="form-control"
+          v-model="comment"
+          id="comment"
+          rows="3"
+        ></textarea>
+      </div>
+      <button class="btn btn-outline-secondary" v-on:click="addComment">
+        Add
+      </button>
+    </form>
   </div>
-  <div class="form-group">
-    <label>comment</label>
-    <input class="form-control" v-model="comment" />
-    <button v-on:click="addComment">Add</button>
-  </div>
-</div>
 </template>
 <script>
 import { PetApi, PetComment } from "pet_store_api";
@@ -23,19 +45,20 @@ export default {
   data: () => ({
     userInfo: null,
     comment: null,
-    comments:[],
+    comments: [],
   }),
   props: ["pet"],
   watch: {
     pet: function (value) {
-      this.userInfo = this.$store.getters['userInfo'];
+      this.userInfo = this.$store.getters["userInfo"];
       this.loadData();
-    }
+    },
   },
   methods: {
     async loadData() {
       let petApi = new PetApi();
       const pagenation = await petApi.getPetComments(this.pet.id);
+
       this.setData(pagenation);
     },
     async addComment() {

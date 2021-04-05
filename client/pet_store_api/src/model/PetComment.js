@@ -68,6 +68,9 @@ class PetComment {
             if (data.hasOwnProperty('created_at')) {
                 obj['created_at'] = ApiClient.convertToType(data['created_at'], 'String');
             }
+            if (data.hasOwnProperty('updated_at')) {
+                obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'String');
+            }
         }
         return obj;
     }
@@ -109,6 +112,11 @@ PetComment.prototype['comment'] = undefined;
  * @member {String} created_at
  */
 PetComment.prototype['created_at'] = undefined;
+
+/**
+ * @member {String} updated_at
+ */
+PetComment.prototype['updated_at'] = undefined;
 
 
 

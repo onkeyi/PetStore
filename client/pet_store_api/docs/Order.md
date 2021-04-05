@@ -11,5 +11,7 @@ Name | Type | Description | Notes
 **status** | **String** |  | [optional] 
 **shipDate** | **String** |  | [optional] 
 **complete** | **Boolean** |  | [optional] [default to false]
+**createdAt** | **String** |  | [optional] 
+**updatedAt** | **String** |  | [optional] 
 
 

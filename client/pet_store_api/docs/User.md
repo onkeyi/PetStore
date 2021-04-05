@@ -14,5 +14,6 @@ Name | Type | Description | Notes
 **birthday** | **String** |  | [optional] 
 **gender** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
+**createdAt** | **String** |  | [optional] 
 
 

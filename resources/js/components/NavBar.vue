@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar p-3">
-    <router-link :to="{ name: 'store-home' }">{{ $appName }}</router-link>
+    <router-link :to="{ name: 'home' }">{{ $appName }}</router-link>
     <div class="d-flex justify-content-end align-items-center">
       <form @submit="searchByTag" class="form-inline">
         <input v-model="inputTag" type="text" placeholder="Search" required />
@@ -45,7 +45,7 @@ export default {
     inputTag: null,
     tags: null,
   }),
-  mounted: function () {
+  created: function () {
     this.userInfo = this.$store.getters["userInfo"];
   },
   methods: {

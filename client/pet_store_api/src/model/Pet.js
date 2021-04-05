@@ -76,6 +76,9 @@ class Pet {
             if (data.hasOwnProperty('comments_count')) {
                 obj['comments_count'] = ApiClient.convertToType(data['comments_count'], 'Number');
             }
+            if (data.hasOwnProperty('created_at')) {
+                obj['created_at'] = ApiClient.convertToType(data['created_at'], 'String');
+            }
         }
         return obj;
     }
@@ -127,6 +130,11 @@ Pet.prototype['owner'] = undefined;
  * @member {Number} comments_count
  */
 Pet.prototype['comments_count'] = undefined;
+
+/**
+ * @member {String} created_at
+ */
+Pet.prototype['created_at'] = undefined;
 
 
 

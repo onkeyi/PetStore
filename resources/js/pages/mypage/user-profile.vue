@@ -18,7 +18,7 @@
 import { UserApi } from "pet_store_api";
 export default {
   data: () => ({ user: {} }),
-  mounted: function () {
+  created: function () {
     this.loadData();
   },
   methods: {
@@ -38,14 +38,11 @@ export default {
     },
     loadData() {
       let userApi = new UserApi();
-console.log(userApi);
       userApi.getUser().then(
         (data) => {
-console.log(data);
           this.user = data;
         },
         (error) => {
-console.log(error);
           if (error.status === 401) {
             localStorage.clear();
             this.$router.replace("/").catch(() => {});
