@@ -28,6 +28,7 @@
         "bootstrap-vue": "^2.21.2",
         "dotenv": "^8.2.0",
         "fs": "0.0.1-security",
+        "lint": "^0.7.0",
         "mix": "0.0.1",
         "path-browserify": "^1.0.1",
         "prettier": "^2.2.1",
