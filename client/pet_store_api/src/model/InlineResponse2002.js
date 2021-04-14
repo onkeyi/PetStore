@@ -47,8 +47,8 @@ class InlineResponse2002 {
         if (data) {
             obj = obj || new InlineResponse2002();
 
-            if (data.hasOwnProperty('file_name')) {
-                obj['file_name'] = ApiClient.convertToType(data['file_name'], 'String');
+            if (data.hasOwnProperty('id')) {
+                obj['id'] = ApiClient.convertToType(data['id'], 'Number');
             }
         }
         return obj;
@@ -58,9 +58,10 @@ class InlineResponse2002 {
 }
 
 /**
- * @member {String} file_name
+ * ID
+ * @member {Number} id
  */
-InlineResponse2002.prototype['file_name'] = undefined;
+InlineResponse2002.prototype['id'] = undefined;
 
 
 

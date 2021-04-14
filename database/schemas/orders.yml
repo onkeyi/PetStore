@@ -13,7 +13,7 @@ orders:
       nullable: true
     status:
       type: enum
-      args: ['placed', 'approved', 'delivered'] # 未定、承認、配達
+      args: ['placed', 'approved', 'delivered','completed'] # 未定、承認、配達、完了
       default: 'placed'
     complete:
       type: tinyInteger

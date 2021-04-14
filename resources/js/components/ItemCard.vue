@@ -29,8 +29,8 @@
 </template>
 <script>
 export default {
-  name: "item-list-card",
-  props: ["pet", "delete","detailLink"],
+  name: "item-card",
+  props: ["pet", "delete","detailLink",'order'],
   mounted: function () {},
 };
 </script>

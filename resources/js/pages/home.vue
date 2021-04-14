@@ -44,8 +44,8 @@
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-sm-3 col-xs-6" v-for="(item, key) in pets" :key="key">
-          <item-list-card v-bind:pet="item" detailLink="/detail" />
+        <div class="col" v-for="(item, key) in pets" :key="key">
+          <item-card v-bind:pet="item" detailLink="/detail" />
         </div>
       </div>
       <div class="alert alert-info" v-if="pets && pets.length == 0">NoData</div>
@@ -78,7 +78,6 @@
 <script>
 import { PetApi, OrderApi } from "pet_store_api";
 export default {
-  name: "item-list",
   data: () => ({
     accessToken: "",
     pets: null,
@@ -115,7 +114,7 @@ export default {
       let tag = this.$route.query["tag"];
       let status = this.$route.query["status"];
       this.$router.push({
-        name: "store-home",
+        name: "home",
         query: { status: status, category: category, tag: tag, sort: value },
       });
       this.orderBy = value;
@@ -149,11 +148,11 @@ export default {
     },
     searchByStatus() {
       if (!this.options || this.options == "all") {
-        this.$router.replace({ name: "store-home" });
+        this.$router.replace({ name: "home" });
         return;
       }
       this.$router.replace(
-        { name: "store-home", query: { status: this.options } },
+        { name: "home", query: { status: this.options } },
         () => {}
       );
     },

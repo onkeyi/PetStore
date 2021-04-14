@@ -12,6 +12,8 @@ use App\Models\Order;
 use App\Models\UserFavorite;
 use App\Http\Requests\FavoriteStoreRequest;
 use App\Http\Requests\UserUploadImageRequest;
+use App\Http\Requests\UserEvalutionStoreRequest;
+use App\Models\UserEvalution;
 
 class UserController extends ApiController
 {
@@ -51,19 +53,14 @@ class UserController extends ApiController
         );
     }
 
-    public function addNewUserFavorite(FavoriteStoreRequest $request) {
-        $validated = $request->validated();
-        $data = array('pet_id' => $validated['pet_id'],'user_id'=>$this->userId);
-        return $this->successResponse(
-            UserFavorite::updateOrCreate($data)
-        );
-    }
-
-    public function deleteUserFavoriteByPetId($petId) {
-
-        return $this->okResponse(
-            UserFavorite::where(array('pet_id'=>$petId,'user_id'=>$this->userId))->delete()
-        );
+    public function updateUserFavorite(Pet $pet) {
+        $userFavorite = UserFavorite::where(array('pet_id'=>$pet->id,'user_id'=>$this->userId))->first();
+        if (isset($userFavorite)) {
+            UserFavorite::where(array('pet_id'=>$pet->id,'user_id'=>$this->userId))->delete();
+        } else {
+            UserFavorite::create(array('pet_id'=>$pet->id,'user_id'=>$this->userId));
+        }
+        return $this->okResponse();
     }
 
     public function getUserFavorites() {
@@ -143,5 +140,15 @@ class UserController extends ApiController
             'status' => 'error',
             'message' => 'Upload image file failed',
         ], 400);
+    }
+
+    public function addNewEvalution(UserEvalutionStoreRequest $request,Order $order) {
+        $this->authorize('evalution', $order);
+        $validated = $request->validated();
+        if ($order->id != $validated['order_id']) {
+            return $this->failedResponse();
+        }
+        $validated['user_id'] = $this->userId;
+        return $this->successResponse(UserEvalution::create($validated));
     }
 }

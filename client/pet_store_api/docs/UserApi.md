@@ -4,10 +4,9 @@ All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addNewUserFavorite**](UserApi.md#addNewUserFavorite) | **POST** /user/favorite | お気に入り登録
+[**addNewEvalution**](UserApi.md#addNewEvalution) | **POST** /user/{orderId}/evalution | 評価
 [**deleteUser**](UserApi.md#deleteUser) | **DELETE** /user | ユーザー削除
 [**deleteUserById**](UserApi.md#deleteUserById) | **DELETE** /user/{userId} | ユーザー削除
-[**deleteUserFavoriteByPetId**](UserApi.md#deleteUserFavoriteByPetId) | **DELETE** /user/{petId}/favorite/ | お気に入り削除
 [**findUserByName**](UserApi.md#findUserByName) | **GET** /user/findUserByName | ユーザー検索
 [**getUser**](UserApi.md#getUser) | **GET** /user | ユーザー情報取得
 [**getUserFavorites**](UserApi.md#getUserFavorites) | **GET** /user/favorites | お気に入り一覧取得
@@ -18,17 +17,16 @@ Method | HTTP request | Description
 [**registerNewUser**](UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
 [**updateUser**](UserApi.md#updateUser) | **PUT** /user | ユーザー情報更新
 [**updateUserById**](UserApi.md#updateUserById) | **PUT** /user/{userId} | ユーザー情報更新
+[**updateUserFavorite**](UserApi.md#updateUserFavorite) | **PUT** /user/{petId}/favorite/ | お気に入り登録削除
 [**uploadAvatarImage**](UserApi.md#uploadAvatarImage) | **POST** /user/avatar | アップロードユーザーイメージ
 
 
 
-## addNewUserFavorite
+## addNewEvalution
 
-> Object addNewUserFavorite(opts)
+> InlineResponse2002 addNewEvalution(orderId, opts)
 
-お気に入り登録
-
-ユーザーお気に入り登録
+評価
 
 ### Example
 
@@ -45,10 +43,11 @@ let bearer = defaultClient.authentications['bearer'];
 bearer.accessToken = "YOUR ACCESS TOKEN"
 
 let apiInstance = new PetStoreApi.UserApi();
+let orderId = 56; // Number | 
 let opts = {
-  'requestFavoriteStore': new PetStoreApi.RequestFavoriteStore() // RequestFavoriteStore | 
+  'requestUserEvalution': new PetStoreApi.RequestUserEvalution() // RequestUserEvalution | 
 };
-apiInstance.addNewUserFavorite(opts).then((data) => {
+apiInstance.addNewEvalution(orderId, opts).then((data) => {
   console.log('API called successfully. Returned data: ' + data);
 }, (error) => {
   console.error(error);
@@ -61,11 +60,12 @@ apiInstance.addNewUserFavorite(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **requestFavoriteStore** | [**RequestFavoriteStore**](RequestFavoriteStore.md)|  | [optional] 
+ **orderId** | **Number**|  | 
+ **requestUserEvalution** | [**RequestUserEvalution**](RequestUserEvalution.md)|  | [optional] 
 
 ### Return type
 
-**Object**
+[**InlineResponse2002**](InlineResponse2002.md)
 
 ### Authorization
 
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: applicaiton/json
-- **Accept**: application/json, applicaiton/json
+- **Accept**: applicaiton/json, application/json
 
 
 ## deleteUser
@@ -164,59 +164,6 @@ apiInstance.deleteUserById(userId).then((data) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | **Number**|  | 
-
-### Return type
-
-[**ResponseOk**](ResponseOk.md)
-
-### Authorization
-
-[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json, applicaiton/json
-
-
-## deleteUserFavoriteByPetId
-
-> ResponseOk deleteUserFavoriteByPetId(petId)
-
-お気に入り削除
-
-ユーザーお気に入り削除
-
-### Example
-
-```javascript
-import PetStoreApi from 'pet_store_api';
-let defaultClient = PetStoreApi.ApiClient.instance;
-// Configure API key authorization: apiKey
-let apiKey = defaultClient.authentications['apiKey'];
-apiKey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apiKey.apiKeyPrefix = 'Token';
-// Configure Bearer (bearer) access token for authorization: bearer
-let bearer = defaultClient.authentications['bearer'];
-bearer.accessToken = "YOUR ACCESS TOKEN"
-
-let apiInstance = new PetStoreApi.UserApi();
-let petId = 56; // Number | 
-apiInstance.deleteUserFavoriteByPetId(petId).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **petId** | **Number**|  | 
 
 ### Return type
 
@@ -740,6 +687,59 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: applicaiton/json
+- **Accept**: application/json, applicaiton/json
+
+
+## updateUserFavorite
+
+> ResponseOk updateUserFavorite(petId)
+
+お気に入り登録削除
+
+ユーザーお気に入り登録削除
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.UserApi();
+let petId = 56; // Number | 
+apiInstance.updateUserFavorite(petId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Number**|  | 
+
+### Return type
+
+[**ResponseOk**](ResponseOk.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json, applicaiton/json
 
 

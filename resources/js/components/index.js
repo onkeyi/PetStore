@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import CategoryNav from './CategoryNav';
 import NavBar from './NavBar';
-import ItemListCard from './ItemListCard';
+import ItemCard from './ItemCard';
 import ItemDetail from './ItemDetail';
 import ItemDetailComment from './ItemDetailComment';
 import ConfirmDialog from './ConfirmDialog';
@@ -11,7 +11,7 @@ import { TimeAgo } from 'vue2-timeago'
 [
     NavBar,
     CategoryNav,
-    ItemListCard,
+    ItemCard,
     ItemDetail,
     ItemDetailComment,
     ConfirmDialog,

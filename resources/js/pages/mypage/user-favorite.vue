@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col" v-for="(pet, key) in pets" :key="key">
-          <item-list-card v-bind:pet="pet"  detailLink="/mypage/favorite/detail"/>
+          <item-card v-bind:pet="pet"  detailLink="/mypage/favorite/detail"/>
       </div>
     </div>
   </div>
@@ -13,7 +13,6 @@
 <script>
 import { UserApi } from "pet_store_api";
 export default {
-  name: "my-favorite",
   data: () => ({ pets: [], total: 0, perPage: 0, links: null }),
   created: function () {
     this.loadData();

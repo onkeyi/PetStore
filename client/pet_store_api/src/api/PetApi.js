@@ -137,6 +137,52 @@ export default class PetApi {
 
 
     /**
+     * ペットオーダー情報削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+    deleteOrderByPetIdWithHttpInfo(petId) {
+      let postBody = null;
+      // verify the required parameter 'petId' is set
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling deleteOrderByPetId");
+      }
+
+      let pathParams = {
+        'petId': petId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = ResponseOk;
+      return this.apiClient.callApi(
+        '/pet/{petId}/order', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * ペットオーダー情報削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+    deleteOrderByPetId(petId) {
+      return this.deleteOrderByPetIdWithHttpInfo(petId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * ペット情報削除
      * @param {Number} petId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
@@ -571,6 +617,52 @@ export default class PetApi {
      */
     updatePetById(petId, opts) {
       return this.updatePetByIdWithHttpInfo(petId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * update pet like
+     * update like
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Pet} opts.pet 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+    updatePetLikeWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['pet'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = ['applicaiton/json'];
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = ResponseOk;
+      return this.apiClient.callApi(
+        '/pet/like', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * update pet like
+     * update like
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Pet} opts.pet 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+    updatePetLike(opts) {
+      return this.updatePetLikeWithHttpInfo(opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

@@ -16,6 +16,7 @@ import ApiClient from "../ApiClient";
 import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
 import Order from '../model/Order';
+import OrderComment from '../model/OrderComment';
 import OrderInventory from '../model/OrderInventory';
 import RequestOrderStore from '../model/RequestOrderStore';
 import RequestOrderUpdate from '../model/RequestOrderUpdate';
@@ -89,6 +90,52 @@ export default class OrderApi {
 
 
     /**
+     * post new order comment
+     * comment post
+     * @param {Object} opts Optional parameters
+     * @param {module:model/OrderComment} opts.orderComment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+    addNewOrderCommentWithHttpInfo(opts) {
+      opts = opts || {};
+      let postBody = opts['orderComment'];
+
+      let pathParams = {
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = ['applicaiton/json'];
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = Object;
+      return this.apiClient.callApi(
+        '/order/comment', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * post new order comment
+     * comment post
+     * @param {Object} opts Optional parameters
+     * @param {module:model/OrderComment} opts.orderComment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    addNewOrderComment(opts) {
+      return this.addNewOrderCommentWithHttpInfo(opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * オーダー削除
      * @param {Number} orderId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
@@ -128,6 +175,52 @@ export default class OrderApi {
      */
     deleteOrderById(orderId) {
       return this.deleteOrderByIdWithHttpInfo(orderId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Order comment 情報削除
+     * @param {Number} orderCommentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+    deleteOrderCommentByIdWithHttpInfo(orderCommentId) {
+      let postBody = null;
+      // verify the required parameter 'orderCommentId' is set
+      if (orderCommentId === undefined || orderCommentId === null) {
+        throw new Error("Missing the required parameter 'orderCommentId' when calling deleteOrderCommentById");
+      }
+
+      let pathParams = {
+        'orderCommentId': orderCommentId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = ResponseOk;
+      return this.apiClient.callApi(
+        '/order/{orderCommentId}/comment', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Order comment 情報削除
+     * @param {Number} orderCommentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+    deleteOrderCommentById(orderCommentId) {
+      return this.deleteOrderCommentByIdWithHttpInfo(orderCommentId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -213,6 +306,54 @@ export default class OrderApi {
      */
     getOrderById(orderId) {
       return this.getOrderByIdWithHttpInfo(orderId)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * Orderコメント
+     * Order comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
+     */
+    getOrderCommentsWithHttpInfo(petId) {
+      let postBody = null;
+      // verify the required parameter 'petId' is set
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling getOrderComments");
+      }
+
+      let pathParams = {
+        'petId': petId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = ResponsePegination;
+      return this.apiClient.callApi(
+        '/order/{petId}/comments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Orderコメント
+     * Order comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
+     */
+    getOrderComments(petId) {
+      return this.getOrderCommentsWithHttpInfo(petId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

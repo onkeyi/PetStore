@@ -48,7 +48,7 @@ export default {
 
     removeFavorite() {
       let userApi = new UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(
+      userApi.updateUserFavorite(this.pet.id).then(
         (data) => {
           this.$router.push("/mypage/favorite");
         },

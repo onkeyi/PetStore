@@ -1,20 +1,30 @@
 <template>
   <div>
     <h1 class="my-4">
-      ID:{{ pet.id }} / {{ pet.name }} / {{ pet.status }}
+      ID:{{ pet.id }} / {{ pet.name }}
       <small>{{ pet.status }}</small>
     </h1>
-    <!-- Portfolio Item Row -->
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <img
+          v-if="pet.photo_urls"
           style="width: 400px"
           class="img-fluid"
-          :src="'/storage/pets/' + pet.photo_urls[0]"
+          :src="topImage"
           alt=""
         />
       </div>
-
+      <div class="col-md-1">
+        <a href="#" v-for="(url, key) in pet.photo_urls"
+        :key="key" v-on:click="changeImage(url)">
+          <img
+            class="img-fluid img-thumbnail"
+          style="min-width: 40px"
+            :src="'/storage/pets/' + url"
+            alt=""
+          />
+        </a>
+      </div>
       <div class="col-md-6">
         <h3 class="my-3">Description</h3>
         <p>{{ pet.description }}</p>
@@ -26,21 +36,6 @@
     </div>
     <h3 class="my-2">Related</h3>
 
-    <div class="row">
-      <div
-        class="col-md-6 col-sm-12 mb-4"
-        v-for="(url, key) in pet.photo_urls"
-        :key="key"
-      >
-        <a href="#">
-          <img
-            class="img-fluid img-thumbnail"
-            :src="'/storage/pets/' + url"
-            alt=""
-          />
-        </a>
-      </div>
-    </div>
   </div>
 </template>
 <script>
@@ -48,7 +43,17 @@ export default {
   name: "item-detail",
   props: ["pet"],
   data: () => ({
-    pet: {},
+    topImage: null
   }),
+  watch: {
+    pet() {
+      this.topImage = '/storage/pets/' + this.pet.photo_urls[0];
+    }
+  },
+  methods : {
+    changeImage(imgUrl) {
+      this.topImage = '/storage/pets/' + imgUrl;
+    }
+  }
 };
 </script>

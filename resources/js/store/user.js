@@ -4,6 +4,7 @@ const user = {
     userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
   },
   mutations:{
+    /* {user:{}} */
     userInfo(state,info){
       state.userInfo = info;
       info ? localStorage.setItem('userInfo', JSON.stringify(info)): '';

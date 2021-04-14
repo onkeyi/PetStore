@@ -18,17 +18,19 @@ import Error400 from './model/Error400';
 import Error500 from './model/Error500';
 import InlineResponse200 from './model/InlineResponse200';
 import InlineResponse2001 from './model/InlineResponse2001';
+import InlineResponse2002 from './model/InlineResponse2002';
 import Order from './model/Order';
+import OrderComment from './model/OrderComment';
 import OrderInventory from './model/OrderInventory';
 import Pet from './model/Pet';
 import PetComment from './model/PetComment';
 import RequestAuthLogin from './model/RequestAuthLogin';
 import RequestAuthRegister from './model/RequestAuthRegister';
-import RequestFavoriteStore from './model/RequestFavoriteStore';
 import RequestOrderStore from './model/RequestOrderStore';
 import RequestOrderUpdate from './model/RequestOrderUpdate';
 import RequestPetStore from './model/RequestPetStore';
 import RequestPetUpdate from './model/RequestPetUpdate';
+import RequestUserEvalution from './model/RequestUserEvalution';
 import ResponseOk from './model/ResponseOk';
 import ResponsePegination from './model/ResponsePegination';
 import ResponsePeginationLinks from './model/ResponsePeginationLinks';
@@ -109,10 +111,22 @@ export {
     InlineResponse2001,
 
     /**
+     * The InlineResponse2002 model constructor.
+     * @property {module:model/InlineResponse2002}
+     */
+    InlineResponse2002,
+
+    /**
      * The Order model constructor.
      * @property {module:model/Order}
      */
     Order,
+
+    /**
+     * The OrderComment model constructor.
+     * @property {module:model/OrderComment}
+     */
+    OrderComment,
 
     /**
      * The OrderInventory model constructor.
@@ -145,12 +159,6 @@ export {
     RequestAuthRegister,
 
     /**
-     * The RequestFavoriteStore model constructor.
-     * @property {module:model/RequestFavoriteStore}
-     */
-    RequestFavoriteStore,
-
-    /**
      * The RequestOrderStore model constructor.
      * @property {module:model/RequestOrderStore}
      */
@@ -173,6 +181,12 @@ export {
      * @property {module:model/RequestPetUpdate}
      */
     RequestPetUpdate,
+
+    /**
+     * The RequestUserEvalution model constructor.
+     * @property {module:model/RequestUserEvalution}
+     */
+    RequestUserEvalution,
 
     /**
      * The ResponseOk model constructor.

@@ -1,17 +1,15 @@
 <template>
   <div class="container">
     <item-detail :pet="pet"/>
-    <!-- /.row -->
-    <div class="my-5">comment: {{ pet.comments_count }}</div>
-    <item-detail-comment v-show="$store.getters['userInfo']" :pet="pet" />
+    <button class="btn btn-sm btn-outline-secondary"  v-on:click="openConfirmDialog = true">Delete</button>
     <confirm-dialog
       v-bind:show="openConfirmDialog"
       v-bind:content="{
-        title: $t('message.order'),
-        message: $t('message.order now'),
-        button: $t('message.order'),
+        title: $t('message.delete'),
+        message: $t('message.delete now'),
+        button: $t('message.delete'),
       }"
-      v-on:action="order"
+      v-on:action="removeItem"
       v-on:close="openConfirmDialog = false"
     />
   </div>
@@ -55,45 +53,13 @@ export default {
       }
     },
 
-    order() {
-      let orderApi = new OrderApi();
-      let opts = {
-        requestOrderStore: new RequestOrderStore(this.pet.id),
-      };
 
-      orderApi.addNewOrder(opts).then(
-        (data) => {
-          this.openConfirmDialog = false;
-          this.pet.status = "pending";
-        },
-        (error) => {
-          this.errorMessage = error.message;
-        }
-      );
-    },
-
-    addFavorite() {
-      let userApi = new UserApi();
-      const opts = {
-        requestFavoriteStore: new RequestFavoriteStore(this.pet.id),
-      };
-      userApi.addNewUserFavorite(opts).then(
-        (data) => {},
-        (error) => {
-          this.errorMessage = error.message;
-        }
-      );
-    },
-
-    removeFavorite() {
-      let userApi = new UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(
-        (data) => {},
-        (error) => {
-          this.errorMessage = error.message;
-        }
-      );
-    },
+    async removeItem() {
+      let petApi = new PetApi();
+      await petApi.deletePetById(this.pet.id);
+      this.openConfirmDialog = false;
+      this.$router.replace('/mypage/item');
+    }
   },
 };
 </script>

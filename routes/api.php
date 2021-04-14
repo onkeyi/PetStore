@@ -8,7 +8,7 @@ use App\Http\Controllers\api\UserController;
 use App\Http\Controllers\api\TagController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PetCommentController;
-
+use App\Http\Controllers\api\PetLikeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,6 +28,7 @@ Route::middleware('apikey')->group(
         Route::get('pet/findByCategory', [PetController::class, 'findByCategory']);
         Route::get('pet/{pet}', [PetController::class, 'getPetById']);
         Route::get('pets', [PetController::class, 'getAllPets']);
+        Route::get('pet/{pet}/comments', [PetCommentController::class, 'getPetComments']);
         Route::get('order/inventory', [OrderController::class, 'inventory']);
 
         /** USER */
@@ -36,16 +37,15 @@ Route::middleware('apikey')->group(
 
         Route::middleware('auth')->group(
             function () {
-                Route::post('pet/comment', [PetCommentController::class, 'addNewPetComment']);
-                Route::get('pet/{pet}/comments', [PetCommentController::class, 'getPetComments']);
-
                 /** Pet */
                 Route::post('pet', [PetController::class, 'addNewPet']);
                 Route::put('pet/{pet}', [PetController::class, 'updatePetById']);
                 Route::delete('pet/{pet}', [PetController::class, 'deletePetById']);
                 Route::post('pet/uploadImage', [PetController::class, 'uploadImage']);
-
+                Route::delete('pet/{pet}/order', [OrderController::class, 'deleteOrderByPetId']);
+                Route::post('pet/comment', [PetCommentController::class, 'addNewPetComment']);
                 Route::delete('pet/{petComment}/comment/', [PetCommentController::class, 'deletePetCommentById']);
+                Route::put('pet/{pet}/like', [PetController::class, 'updatePetLike']);
 
                 /** Order */
                 Route::get('orders', [OrderController::class, 'getAllOrders']);
@@ -53,18 +53,22 @@ Route::middleware('apikey')->group(
                 Route::get('order/{order}', [OrderController::class, 'getOrderById']);
                 Route::put('order/{order}', [OrderController::class, 'updateOrderById']);
                 Route::delete('order/{order}', [OrderController::class, 'deleteOrderById']);
+                Route::get('order/{order}/comments', [OrderCommentController::class, 'getOrderComments']);
+                Route::post('order/comment', [OrderCommentController::class, 'addNewOrderComment']);
+                Route::delete('order/{orderComment}/comment/', [OrderCommentController::class, 'deleteOrderCommentById']);
 
                 /** USER  */
                 Route::get('user', [UserController::class, 'getUser']);
                 Route::put('user', [UserController::class, 'updateUser']);
                 Route::delete('user', [UserController::class, 'deleteUser']);
+                Route::post('user/avatar', [UserController::class, 'uploadAvatarImage']);
                 Route::get('user/findUserByName', [UserController::class, 'findUserByName']);
                 Route::get('user/pets', [UserController::class, 'getUserPets']);
                 Route::get('user/orders', [UserController::class, 'getUserOrders']);
                 Route::get('user/favorites', [UserController::class, 'getUserFavorites']);
-                Route::post('user/favorite', [UserController::class, 'addNewUserFavorite']);
-                Route::delete('user/{petId}/favorite', [UserController::class, 'deleteUserFavoriteByPetId']);
-                Route::post('user/avatar', [UserController::class, 'uploadAvatarImage']);
+                Route::put('user/{pet}/favorite', [UserController::class, 'updateUserFavorite']);
+
+                Route::post('user/{order}/evalution', [UserController::class, 'addNewEvalution']);
                 /** logout */
                 Route::get('logout', [AuthController::class, 'logout']);
             }

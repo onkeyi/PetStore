@@ -4,6 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**fileName** | **String** |  | [optional] 
+**id** | **Number** | ID | [optional] 
 
 

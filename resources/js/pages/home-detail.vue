@@ -1,17 +1,18 @@
 <template>
   <div class="container">
     <item-detail :pet="pet"/>
-      <div class="col-12" v-show="$store.getters['userInfo']">
-        <a
-          v-if="pet.status == 'available'"
-          class="btn btn-sm btn-outline-secondary"
-          v-on:click="openConfirmDialog = true"
-          >Order</a
-        >
-        <a class="btn btn-sm btn-outline-secondary" v-on:click="addFavorite"
-          >Favorite</a
-        >
-      </div>
+    <div class="col-12" v-show="pet && userId && pet.owner.id != userId">
+      <a
+        v-if="pet.status == 'available'"
+        class="btn btn-sm btn-outline-secondary"
+        v-on:click="openConfirmDialog = true"
+        >Order</a
+      >
+      <a class="btn btn-sm btn-outline-secondary" v-on:click="addFavorite"
+        >♡</a
+      >
+    </div>
+    <div class="alert alert-info" v-if="errorMessage">{{ errorMessage }}</div>
     <confirm-dialog
       v-bind:show="openConfirmDialog"
       v-bind:content="{
@@ -40,6 +41,7 @@ export default {
     pet: {},
     openConfirmDialog: false,
     errorMessage: null,
+    userId:null
   }),
   watch: {
     "$route.params.id": {
@@ -61,6 +63,7 @@ export default {
 
       if (this.pet.status !== "available") {
       }
+      this.userId = this.$store.getters['userInfo'] ? this.$store.getters['userInfo']['user']['id'] : null;
     },
 
     order() {
@@ -75,6 +78,7 @@ export default {
           this.pet.status = "pending";
         },
         (error) => {
+          this.openConfirmDialog = false;
           this.errorMessage = error.message;
         }
       );
@@ -82,11 +86,11 @@ export default {
 
     addFavorite() {
       let userApi = new UserApi();
-      const opts = {
-        requestFavoriteStore: new RequestFavoriteStore(this.pet.id),
-      };
-      userApi.addNewUserFavorite(opts).then(
-        (data) => {},
+
+      userApi.updateUserFavorite(this.pet.id).then(
+        (data) => {
+
+        },
         (error) => {
           this.errorMessage = error.message;
         }
@@ -95,7 +99,7 @@ export default {
 
     removeFavorite() {
       let userApi = new UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(
+      userApi.updateUserFavorite(this.pet.id).then(
         (data) => {},
         (error) => {
           this.errorMessage = error.message;

@@ -1,4 +1,4 @@
-order_comments:
+pet_comments:
   columns:
     id: true
     pet_id: bigInteger

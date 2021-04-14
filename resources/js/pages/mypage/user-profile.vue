@@ -5,7 +5,7 @@
           <img class="rounded-circle" v-if="user && user.avatar" v-bind:src="'/storage/users/' + user.avatar" style="cursor: pointer" v-on:click="select" width="80" height="80"/>
           <input ref="file" v-on:change="selectedFile" type="file" hidden/>
           </div>
-          <p class="mt-2">{{ user.name }}</p>
+          <p class="mt-2">{{ user.name }}({{user.id}})10</p>
           <p class="mt-2">{{ user.gender }}</p>
           <p class="mt-2">{{ user.birthday }}</p>
           <p class="mt-2">{{ user.address }}</p>

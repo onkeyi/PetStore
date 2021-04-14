@@ -2,6 +2,7 @@
   <div class="container">
     <item-detail :pet="pet"/>
     <!-- /.row -->
+    <button class="btn btn-sm btn-outline-secondary"  v-on:click="openConfirmDialog = true">Delete</button>
     <div class="my-5">comment: {{ pet.comments_count }}</div>
     <item-detail-comment v-show="$store.getters['userInfo']" :pet="pet" />
     <confirm-dialog
@@ -11,7 +12,7 @@
         message: $t('message.order now'),
         button: $t('message.order'),
       }"
-      v-on:action="order"
+      v-on:action="deleteOrder"
       v-on:close="openConfirmDialog = false"
     />
   </div>
@@ -71,24 +72,13 @@ export default {
         }
       );
     },
-
-    addFavorite() {
-      let userApi = new UserApi();
-      const opts = {
-        requestFavoriteStore: new RequestFavoriteStore(this.pet.id),
-      };
-      userApi.addNewUserFavorite(opts).then(
-        (data) => {},
-        (error) => {
-          this.errorMessage = error.message;
-        }
-      );
-    },
-
-    removeFavorite() {
-      let userApi = new UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(
-        (data) => {},
+    async deleteOrder() {
+      let petApi = new PetApi();
+      petApi.deleteOrderByPetId(this.pet.id).then(
+        (data) => {
+          this.openConfirmDialog = false;
+          this.$router.replace('/mypage/order');
+        },
         (error) => {
           this.errorMessage = error.message;
         }

@@ -3591,6 +3591,8 @@ var _Error2 = _interopRequireDefault(__webpack_require__(/*! ../model/Error500 *
 
 var _Order = _interopRequireDefault(__webpack_require__(/*! ../model/Order */ "./client/pet_store_api/dist/model/Order.js"));
 
+var _OrderComment = _interopRequireDefault(__webpack_require__(/*! ../model/OrderComment */ "./client/pet_store_api/dist/model/OrderComment.js"));
+
 var _OrderInventory = _interopRequireDefault(__webpack_require__(/*! ../model/OrderInventory */ "./client/pet_store_api/dist/model/OrderInventory.js"));
 
 var _RequestOrderStore = _interopRequireDefault(__webpack_require__(/*! ../model/RequestOrderStore */ "./client/pet_store_api/dist/model/RequestOrderStore.js"));
@@ -3688,6 +3690,44 @@ var OrderApi = /*#__PURE__*/function () {
       });
     }
     /**
+     * post new order comment
+     * comment post
+     * @param {Object} opts Optional parameters
+     * @param {module:model/OrderComment} opts.orderComment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     */
+
+  }, {
+    key: "addNewOrderCommentWithHttpInfo",
+    value: function addNewOrderCommentWithHttpInfo(opts) {
+      opts = opts || {};
+      var postBody = opts['orderComment'];
+      var pathParams = {};
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey', 'bearer'];
+      var contentTypes = ['applicaiton/json'];
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = Object;
+      return this.apiClient.callApi('/order/comment', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * post new order comment
+     * comment post
+     * @param {Object} opts Optional parameters
+     * @param {module:model/OrderComment} opts.orderComment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+
+  }, {
+    key: "addNewOrderComment",
+    value: function addNewOrderComment(opts) {
+      return this.addNewOrderCommentWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
      * オーダー削除
      * @param {Number} orderId 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
@@ -3724,6 +3764,46 @@ var OrderApi = /*#__PURE__*/function () {
     key: "deleteOrderById",
     value: function deleteOrderById(orderId) {
       return this.deleteOrderByIdWithHttpInfo(orderId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * Order comment 情報削除
+     * @param {Number} orderCommentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+
+  }, {
+    key: "deleteOrderCommentByIdWithHttpInfo",
+    value: function deleteOrderCommentByIdWithHttpInfo(orderCommentId) {
+      var postBody = null; // verify the required parameter 'orderCommentId' is set
+
+      if (orderCommentId === undefined || orderCommentId === null) {
+        throw new Error("Missing the required parameter 'orderCommentId' when calling deleteOrderCommentById");
+      }
+
+      var pathParams = {
+        'orderCommentId': orderCommentId
+      };
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey', 'bearer'];
+      var contentTypes = [];
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _ResponseOk["default"];
+      return this.apiClient.callApi('/order/{orderCommentId}/comment', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * Order comment 情報削除
+     * @param {Number} orderCommentId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+
+  }, {
+    key: "deleteOrderCommentById",
+    value: function deleteOrderCommentById(orderCommentId) {
+      return this.deleteOrderCommentByIdWithHttpInfo(orderCommentId).then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -3795,6 +3875,48 @@ var OrderApi = /*#__PURE__*/function () {
     key: "getOrderById",
     value: function getOrderById(orderId) {
       return this.getOrderByIdWithHttpInfo(orderId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * Orderコメント
+     * Order comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
+     */
+
+  }, {
+    key: "getOrderCommentsWithHttpInfo",
+    value: function getOrderCommentsWithHttpInfo(petId) {
+      var postBody = null; // verify the required parameter 'petId' is set
+
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling getOrderComments");
+      }
+
+      var pathParams = {
+        'petId': petId
+      };
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey', 'bearer'];
+      var contentTypes = [];
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _ResponsePegination["default"];
+      return this.apiClient.callApi('/order/{petId}/comments', 'GET', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * Orderコメント
+     * Order comments.
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
+     */
+
+  }, {
+    key: "getOrderComments",
+    value: function getOrderComments(petId) {
+      return this.getOrderCommentsWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -4040,6 +4162,46 @@ var PetApi = /*#__PURE__*/function () {
     key: "addNewPetComment",
     value: function addNewPetComment(opts) {
       return this.addNewPetCommentWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
+     * ペットオーダー情報削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+
+  }, {
+    key: "deleteOrderByPetIdWithHttpInfo",
+    value: function deleteOrderByPetIdWithHttpInfo(petId) {
+      var postBody = null; // verify the required parameter 'petId' is set
+
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling deleteOrderByPetId");
+      }
+
+      var pathParams = {
+        'petId': petId
+      };
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey', 'bearer'];
+      var contentTypes = [];
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _ResponseOk["default"];
+      return this.apiClient.callApi('/pet/{petId}/order', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * ペットオーダー情報削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+
+  }, {
+    key: "deleteOrderByPetId",
+    value: function deleteOrderByPetId(petId) {
+      return this.deleteOrderByPetIdWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -4427,6 +4589,44 @@ var PetApi = /*#__PURE__*/function () {
       });
     }
     /**
+     * update pet like
+     * update like
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Pet} opts.pet 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+
+  }, {
+    key: "updatePetLikeWithHttpInfo",
+    value: function updatePetLikeWithHttpInfo(opts) {
+      opts = opts || {};
+      var postBody = opts['pet'];
+      var pathParams = {};
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey', 'bearer'];
+      var contentTypes = ['applicaiton/json'];
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _ResponseOk["default"];
+      return this.apiClient.callApi('/pet/like', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * update pet like
+     * update like
+     * @param {Object} opts Optional parameters
+     * @param {module:model/Pet} opts.pet 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+
+  }, {
+    key: "updatePetLike",
+    value: function updatePetLike(opts) {
+      return this.updatePetLikeWithHttpInfo(opts).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
      * @param {Object} opts Optional parameters
@@ -4499,11 +4699,13 @@ var _InlineResponse = _interopRequireDefault(__webpack_require__(/*! ../model/In
 
 var _InlineResponse2 = _interopRequireDefault(__webpack_require__(/*! ../model/InlineResponse2001 */ "./client/pet_store_api/dist/model/InlineResponse2001.js"));
 
+var _InlineResponse3 = _interopRequireDefault(__webpack_require__(/*! ../model/InlineResponse2002 */ "./client/pet_store_api/dist/model/InlineResponse2002.js"));
+
 var _RequestAuthLogin = _interopRequireDefault(__webpack_require__(/*! ../model/RequestAuthLogin */ "./client/pet_store_api/dist/model/RequestAuthLogin.js"));
 
 var _RequestAuthRegister = _interopRequireDefault(__webpack_require__(/*! ../model/RequestAuthRegister */ "./client/pet_store_api/dist/model/RequestAuthRegister.js"));
 
-var _RequestFavoriteStore = _interopRequireDefault(__webpack_require__(/*! ../model/RequestFavoriteStore */ "./client/pet_store_api/dist/model/RequestFavoriteStore.js"));
+var _RequestUserEvalution = _interopRequireDefault(__webpack_require__(/*! ../model/RequestUserEvalution */ "./client/pet_store_api/dist/model/RequestUserEvalution.js"));
 
 var _ResponseOk = _interopRequireDefault(__webpack_require__(/*! ../model/ResponseOk */ "./client/pet_store_api/dist/model/ResponseOk.js"));
 
@@ -4561,41 +4763,48 @@ var UserApi = /*#__PURE__*/function () {
     this.apiClient = apiClient || _ApiClient["default"].instance;
   }
   /**
-   * お気に入り登録
-   * ユーザーお気に入り登録
+   * 評価
+   * @param {Number} orderId 
    * @param {Object} opts Optional parameters
-   * @param {module:model/RequestFavoriteStore} opts.requestFavoriteStore 
-   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+   * @param {module:model/RequestUserEvalution} opts.requestUserEvalution 
+   * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
    */
 
 
   _createClass(UserApi, [{
-    key: "addNewUserFavoriteWithHttpInfo",
-    value: function addNewUserFavoriteWithHttpInfo(opts) {
+    key: "addNewEvalutionWithHttpInfo",
+    value: function addNewEvalutionWithHttpInfo(orderId, opts) {
       opts = opts || {};
-      var postBody = opts['requestFavoriteStore'];
-      var pathParams = {};
+      var postBody = opts['requestUserEvalution']; // verify the required parameter 'orderId' is set
+
+      if (orderId === undefined || orderId === null) {
+        throw new Error("Missing the required parameter 'orderId' when calling addNewEvalution");
+      }
+
+      var pathParams = {
+        'orderId': orderId
+      };
       var queryParams = {};
       var headerParams = {};
       var formParams = {};
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['applicaiton/json'];
-      var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = Object;
-      return this.apiClient.callApi('/user/favorite', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+      var accepts = ['applicaiton/json', 'application/json'];
+      var returnType = _InlineResponse3["default"];
+      return this.apiClient.callApi('/user/{orderId}/evalution', 'POST', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
     }
     /**
-     * お気に入り登録
-     * ユーザーお気に入り登録
+     * 評価
+     * @param {Number} orderId 
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestFavoriteStore} opts.requestFavoriteStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @param {module:model/RequestUserEvalution} opts.requestUserEvalution 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
 
   }, {
-    key: "addNewUserFavorite",
-    value: function addNewUserFavorite(opts) {
-      return this.addNewUserFavoriteWithHttpInfo(opts).then(function (response_and_data) {
+    key: "addNewEvalution",
+    value: function addNewEvalution(orderId, opts) {
+      return this.addNewEvalutionWithHttpInfo(orderId, opts).then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -4671,48 +4880,6 @@ var UserApi = /*#__PURE__*/function () {
     key: "deleteUserById",
     value: function deleteUserById(userId) {
       return this.deleteUserByIdWithHttpInfo(userId).then(function (response_and_data) {
-        return response_and_data.data;
-      });
-    }
-    /**
-     * お気に入り削除
-     * ユーザーお気に入り削除
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
-     */
-
-  }, {
-    key: "deleteUserFavoriteByPetIdWithHttpInfo",
-    value: function deleteUserFavoriteByPetIdWithHttpInfo(petId) {
-      var postBody = null; // verify the required parameter 'petId' is set
-
-      if (petId === undefined || petId === null) {
-        throw new Error("Missing the required parameter 'petId' when calling deleteUserFavoriteByPetId");
-      }
-
-      var pathParams = {
-        'petId': petId
-      };
-      var queryParams = {};
-      var headerParams = {};
-      var formParams = {};
-      var authNames = ['apiKey', 'bearer'];
-      var contentTypes = [];
-      var accepts = ['application/json', 'applicaiton/json'];
-      var returnType = _ResponseOk["default"];
-      return this.apiClient.callApi('/user/{petId}/favorite/', 'DELETE', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
-    }
-    /**
-     * お気に入り削除
-     * ユーザーお気に入り削除
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
-     */
-
-  }, {
-    key: "deleteUserFavoriteByPetId",
-    value: function deleteUserFavoriteByPetId(petId) {
-      return this.deleteUserFavoriteByPetIdWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
       });
     }
@@ -5081,6 +5248,48 @@ var UserApi = /*#__PURE__*/function () {
       });
     }
     /**
+     * お気に入り登録削除
+     * ユーザーお気に入り登録削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+
+  }, {
+    key: "updateUserFavoriteWithHttpInfo",
+    value: function updateUserFavoriteWithHttpInfo(petId) {
+      var postBody = null; // verify the required parameter 'petId' is set
+
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling updateUserFavorite");
+      }
+
+      var pathParams = {
+        'petId': petId
+      };
+      var queryParams = {};
+      var headerParams = {};
+      var formParams = {};
+      var authNames = ['apiKey', 'bearer'];
+      var contentTypes = [];
+      var accepts = ['application/json', 'applicaiton/json'];
+      var returnType = _ResponseOk["default"];
+      return this.apiClient.callApi('/user/{petId}/favorite/', 'PUT', pathParams, queryParams, headerParams, formParams, postBody, authNames, contentTypes, accepts, returnType, null);
+    }
+    /**
+     * お気に入り登録削除
+     * ユーザーお気に入り登録削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+
+  }, {
+    key: "updateUserFavorite",
+    value: function updateUserFavorite(petId) {
+      return this.updateUserFavoriteWithHttpInfo(petId).then(function (response_and_data) {
+        return response_and_data.data;
+      });
+    }
+    /**
      * アップロードユーザーイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 usersフォルダへ移動 - user avatar 情報更新
      * @param {Object} opts Optional parameters
@@ -5177,10 +5386,22 @@ Object.defineProperty(exports, "InlineResponse2001", ({
     return _InlineResponse2["default"];
   }
 }));
+Object.defineProperty(exports, "InlineResponse2002", ({
+  enumerable: true,
+  get: function get() {
+    return _InlineResponse3["default"];
+  }
+}));
 Object.defineProperty(exports, "Order", ({
   enumerable: true,
   get: function get() {
     return _Order["default"];
+  }
+}));
+Object.defineProperty(exports, "OrderComment", ({
+  enumerable: true,
+  get: function get() {
+    return _OrderComment["default"];
   }
 }));
 Object.defineProperty(exports, "OrderInventory", ({
@@ -5213,12 +5434,6 @@ Object.defineProperty(exports, "RequestAuthRegister", ({
     return _RequestAuthRegister["default"];
   }
 }));
-Object.defineProperty(exports, "RequestFavoriteStore", ({
-  enumerable: true,
-  get: function get() {
-    return _RequestFavoriteStore["default"];
-  }
-}));
 Object.defineProperty(exports, "RequestOrderStore", ({
   enumerable: true,
   get: function get() {
@@ -5241,6 +5456,12 @@ Object.defineProperty(exports, "RequestPetUpdate", ({
   enumerable: true,
   get: function get() {
     return _RequestPetUpdate["default"];
+  }
+}));
+Object.defineProperty(exports, "RequestUserEvalution", ({
+  enumerable: true,
+  get: function get() {
+    return _RequestUserEvalution["default"];
   }
 }));
 Object.defineProperty(exports, "ResponseOk", ({
@@ -5310,7 +5531,11 @@ var _InlineResponse = _interopRequireDefault(__webpack_require__(/*! ./model/Inl
 
 var _InlineResponse2 = _interopRequireDefault(__webpack_require__(/*! ./model/InlineResponse2001 */ "./client/pet_store_api/dist/model/InlineResponse2001.js"));
 
+var _InlineResponse3 = _interopRequireDefault(__webpack_require__(/*! ./model/InlineResponse2002 */ "./client/pet_store_api/dist/model/InlineResponse2002.js"));
+
 var _Order = _interopRequireDefault(__webpack_require__(/*! ./model/Order */ "./client/pet_store_api/dist/model/Order.js"));
+
+var _OrderComment = _interopRequireDefault(__webpack_require__(/*! ./model/OrderComment */ "./client/pet_store_api/dist/model/OrderComment.js"));
 
 var _OrderInventory = _interopRequireDefault(__webpack_require__(/*! ./model/OrderInventory */ "./client/pet_store_api/dist/model/OrderInventory.js"));
 
@@ -5322,8 +5547,6 @@ var _RequestAuthLogin = _interopRequireDefault(__webpack_require__(/*! ./model/R
 
 var _RequestAuthRegister = _interopRequireDefault(__webpack_require__(/*! ./model/RequestAuthRegister */ "./client/pet_store_api/dist/model/RequestAuthRegister.js"));
 
-var _RequestFavoriteStore = _interopRequireDefault(__webpack_require__(/*! ./model/RequestFavoriteStore */ "./client/pet_store_api/dist/model/RequestFavoriteStore.js"));
-
 var _RequestOrderStore = _interopRequireDefault(__webpack_require__(/*! ./model/RequestOrderStore */ "./client/pet_store_api/dist/model/RequestOrderStore.js"));
 
 var _RequestOrderUpdate = _interopRequireDefault(__webpack_require__(/*! ./model/RequestOrderUpdate */ "./client/pet_store_api/dist/model/RequestOrderUpdate.js"));
@@ -5331,6 +5554,8 @@ var _RequestOrderUpdate = _interopRequireDefault(__webpack_require__(/*! ./model
 var _RequestPetStore = _interopRequireDefault(__webpack_require__(/*! ./model/RequestPetStore */ "./client/pet_store_api/dist/model/RequestPetStore.js"));
 
 var _RequestPetUpdate = _interopRequireDefault(__webpack_require__(/*! ./model/RequestPetUpdate */ "./client/pet_store_api/dist/model/RequestPetUpdate.js"));
+
+var _RequestUserEvalution = _interopRequireDefault(__webpack_require__(/*! ./model/RequestUserEvalution */ "./client/pet_store_api/dist/model/RequestUserEvalution.js"));
 
 var _ResponseOk = _interopRequireDefault(__webpack_require__(/*! ./model/ResponseOk */ "./client/pet_store_api/dist/model/ResponseOk.js"));
 
@@ -5945,6 +6170,113 @@ exports.default = _default;
 
 /***/ }),
 
+/***/ "./client/pet_store_api/dist/model/InlineResponse2002.js":
+/*!***************************************************************!*\
+  !*** ./client/pet_store_api/dist/model/InlineResponse2002.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+/**
+ * The InlineResponse2002 model module.
+ * @module model/InlineResponse2002
+ * @version 0.1.1
+ */
+
+
+var InlineResponse2002 = /*#__PURE__*/function () {
+  /**
+   * Constructs a new <code>InlineResponse2002</code>.
+   * @alias module:model/InlineResponse2002
+   */
+  function InlineResponse2002() {
+    _classCallCheck(this, InlineResponse2002);
+
+    InlineResponse2002.initialize(this);
+  }
+  /**
+   * Initializes the fields of this object.
+   * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
+   * Only for internal use.
+   */
+
+
+  _createClass(InlineResponse2002, null, [{
+    key: "initialize",
+    value: function initialize(obj) {}
+    /**
+     * Constructs a <code>InlineResponse2002</code> from a plain JavaScript object, optionally creating a new instance.
+     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+     * @param {Object} data The plain JavaScript object bearing properties of interest.
+     * @param {module:model/InlineResponse2002} obj Optional instance to populate.
+     * @return {module:model/InlineResponse2002} The populated <code>InlineResponse2002</code> instance.
+     */
+
+  }, {
+    key: "constructFromObject",
+    value: function constructFromObject(data, obj) {
+      if (data) {
+        obj = obj || new InlineResponse2002();
+
+        if (data.hasOwnProperty('id')) {
+          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+        }
+      }
+
+      return obj;
+    }
+  }]);
+
+  return InlineResponse2002;
+}();
+/**
+ * ID
+ * @member {Number} id
+ */
+
+
+InlineResponse2002.prototype['id'] = undefined;
+var _default = InlineResponse2002;
+exports.default = _default;
+
+/***/ }),
+
 /***/ "./client/pet_store_api/dist/model/Order.js":
 /*!**************************************************!*\
   !*** ./client/pet_store_api/dist/model/Order.js ***!
@@ -6125,6 +6457,175 @@ Order.prototype['created_at'] = undefined;
 
 Order.prototype['updated_at'] = undefined;
 var _default = Order;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./client/pet_store_api/dist/model/OrderComment.js":
+/*!*********************************************************!*\
+  !*** ./client/pet_store_api/dist/model/OrderComment.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+/**
+ * The OrderComment model module.
+ * @module model/OrderComment
+ * @version 0.1.1
+ */
+
+
+var OrderComment = /*#__PURE__*/function () {
+  /**
+   * Constructs a new <code>OrderComment</code>.
+   * @alias module:model/OrderComment
+   */
+  function OrderComment() {
+    _classCallCheck(this, OrderComment);
+
+    OrderComment.initialize(this);
+  }
+  /**
+   * Initializes the fields of this object.
+   * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
+   * Only for internal use.
+   */
+
+
+  _createClass(OrderComment, null, [{
+    key: "initialize",
+    value: function initialize(obj) {}
+    /**
+     * Constructs a <code>OrderComment</code> from a plain JavaScript object, optionally creating a new instance.
+     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+     * @param {Object} data The plain JavaScript object bearing properties of interest.
+     * @param {module:model/OrderComment} obj Optional instance to populate.
+     * @return {module:model/OrderComment} The populated <code>OrderComment</code> instance.
+     */
+
+  }, {
+    key: "constructFromObject",
+    value: function constructFromObject(data, obj) {
+      if (data) {
+        obj = obj || new OrderComment();
+
+        if (data.hasOwnProperty('id')) {
+          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+        }
+
+        if (data.hasOwnProperty('pet_id')) {
+          obj['pet_id'] = _ApiClient["default"].convertToType(data['pet_id'], 'Number');
+        }
+
+        if (data.hasOwnProperty('user_id')) {
+          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'Number');
+        }
+
+        if (data.hasOwnProperty('name')) {
+          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+        }
+
+        if (data.hasOwnProperty('avatar')) {
+          obj['avatar'] = _ApiClient["default"].convertToType(data['avatar'], 'String');
+        }
+
+        if (data.hasOwnProperty('comment')) {
+          obj['comment'] = _ApiClient["default"].convertToType(data['comment'], 'String');
+        }
+
+        if (data.hasOwnProperty('created_at')) {
+          obj['created_at'] = _ApiClient["default"].convertToType(data['created_at'], 'String');
+        }
+
+        if (data.hasOwnProperty('updated_at')) {
+          obj['updated_at'] = _ApiClient["default"].convertToType(data['updated_at'], 'String');
+        }
+      }
+
+      return obj;
+    }
+  }]);
+
+  return OrderComment;
+}();
+/**
+ * @member {Number} id
+ */
+
+
+OrderComment.prototype['id'] = undefined;
+/**
+ * @member {Number} pet_id
+ */
+
+OrderComment.prototype['pet_id'] = undefined;
+/**
+ * @member {Number} user_id
+ */
+
+OrderComment.prototype['user_id'] = undefined;
+/**
+ * @member {String} name
+ */
+
+OrderComment.prototype['name'] = undefined;
+/**
+ * @member {String} avatar
+ */
+
+OrderComment.prototype['avatar'] = undefined;
+/**
+ * @member {String} comment
+ */
+
+OrderComment.prototype['comment'] = undefined;
+/**
+ * @member {String} created_at
+ */
+
+OrderComment.prototype['created_at'] = undefined;
+/**
+ * @member {String} updated_at
+ */
+
+OrderComment.prototype['updated_at'] = undefined;
+var _default = OrderComment;
 exports.default = _default;
 
 /***/ }),
@@ -6864,115 +7365,6 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ "./client/pet_store_api/dist/model/RequestFavoriteStore.js":
-/*!*****************************************************************!*\
-  !*** ./client/pet_store_api/dist/model/RequestFavoriteStore.js ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.default = void 0;
-
-var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
-
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-}
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-/**
- * The RequestFavoriteStore model module.
- * @module model/RequestFavoriteStore
- * @version 0.1.1
- */
-
-
-var RequestFavoriteStore = /*#__PURE__*/function () {
-  /**
-   * Constructs a new <code>RequestFavoriteStore</code>.
-   * @alias module:model/RequestFavoriteStore
-   * @param petId {Number} 
-   */
-  function RequestFavoriteStore(petId) {
-    _classCallCheck(this, RequestFavoriteStore);
-
-    RequestFavoriteStore.initialize(this, petId);
-  }
-  /**
-   * Initializes the fields of this object.
-   * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
-   * Only for internal use.
-   */
-
-
-  _createClass(RequestFavoriteStore, null, [{
-    key: "initialize",
-    value: function initialize(obj, petId) {
-      obj['pet_id'] = petId;
-    }
-    /**
-     * Constructs a <code>RequestFavoriteStore</code> from a plain JavaScript object, optionally creating a new instance.
-     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-     * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @param {module:model/RequestFavoriteStore} obj Optional instance to populate.
-     * @return {module:model/RequestFavoriteStore} The populated <code>RequestFavoriteStore</code> instance.
-     */
-
-  }, {
-    key: "constructFromObject",
-    value: function constructFromObject(data, obj) {
-      if (data) {
-        obj = obj || new RequestFavoriteStore();
-
-        if (data.hasOwnProperty('pet_id')) {
-          obj['pet_id'] = _ApiClient["default"].convertToType(data['pet_id'], 'Number');
-        }
-      }
-
-      return obj;
-    }
-  }]);
-
-  return RequestFavoriteStore;
-}();
-/**
- * @member {Number} pet_id
- */
-
-
-RequestFavoriteStore.prototype['pet_id'] = undefined;
-var _default = RequestFavoriteStore;
-exports.default = _default;
-
-/***/ }),
-
 /***/ "./client/pet_store_api/dist/model/RequestOrderStore.js":
 /*!**************************************************************!*\
   !*** ./client/pet_store_api/dist/model/RequestOrderStore.js ***!
@@ -7519,6 +7911,144 @@ RequestPetUpdate.prototype['photo_urls'] = undefined;
 
 RequestPetUpdate.prototype['tags'] = undefined;
 var _default = RequestPetUpdate;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./client/pet_store_api/dist/model/RequestUserEvalution.js":
+/*!*****************************************************************!*\
+  !*** ./client/pet_store_api/dist/model/RequestUserEvalution.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.default = void 0;
+
+var _ApiClient = _interopRequireDefault(__webpack_require__(/*! ../ApiClient */ "./client/pet_store_api/dist/ApiClient.js"));
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+/**
+ * The RequestUserEvalution model module.
+ * @module model/RequestUserEvalution
+ * @version 0.1.1
+ */
+
+
+var RequestUserEvalution = /*#__PURE__*/function () {
+  /**
+   * Constructs a new <code>RequestUserEvalution</code>.
+   * @alias module:model/RequestUserEvalution
+   * @param orderId {Number} 
+   * @param evalution {String} 
+   */
+  function RequestUserEvalution(orderId, evalution) {
+    _classCallCheck(this, RequestUserEvalution);
+
+    RequestUserEvalution.initialize(this, orderId, evalution);
+  }
+  /**
+   * Initializes the fields of this object.
+   * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
+   * Only for internal use.
+   */
+
+
+  _createClass(RequestUserEvalution, null, [{
+    key: "initialize",
+    value: function initialize(obj, orderId, evalution) {
+      obj['order_id'] = orderId;
+      obj['evalution'] = evalution;
+    }
+    /**
+     * Constructs a <code>RequestUserEvalution</code> from a plain JavaScript object, optionally creating a new instance.
+     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+     * @param {Object} data The plain JavaScript object bearing properties of interest.
+     * @param {module:model/RequestUserEvalution} obj Optional instance to populate.
+     * @return {module:model/RequestUserEvalution} The populated <code>RequestUserEvalution</code> instance.
+     */
+
+  }, {
+    key: "constructFromObject",
+    value: function constructFromObject(data, obj) {
+      if (data) {
+        obj = obj || new RequestUserEvalution();
+
+        if (data.hasOwnProperty('user_id')) {
+          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'Number');
+        }
+
+        if (data.hasOwnProperty('order_id')) {
+          obj['order_id'] = _ApiClient["default"].convertToType(data['order_id'], 'Number');
+        }
+
+        if (data.hasOwnProperty('evalution')) {
+          obj['evalution'] = _ApiClient["default"].convertToType(data['evalution'], 'String');
+        }
+
+        if (data.hasOwnProperty('comment')) {
+          obj['comment'] = _ApiClient["default"].convertToType(data['comment'], 'String');
+        }
+      }
+
+      return obj;
+    }
+  }]);
+
+  return RequestUserEvalution;
+}();
+/**
+ * @member {Number} user_id
+ */
+
+
+RequestUserEvalution.prototype['user_id'] = undefined;
+/**
+ * @member {Number} order_id
+ */
+
+RequestUserEvalution.prototype['order_id'] = undefined;
+/**
+ * @member {String} evalution
+ */
+
+RequestUserEvalution.prototype['evalution'] = undefined;
+/**
+ * @member {String} comment
+ */
+
+RequestUserEvalution.prototype['comment'] = undefined;
+var _default = RequestUserEvalution;
 exports.default = _default;
 
 /***/ }),
@@ -8552,6 +9082,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemCard.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemCard.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "item-card",
+  props: ["pet", "delete", "detailLink", 'order'],
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemDetail.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemDetail.vue?vue&type=script&lang=js& ***!
@@ -8603,10 +9181,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "item-detail",
-  props: ["pet"]
+  props: ["pet"],
+  data: function data() {
+    return {
+      topImage: null
+    };
+  },
+  watch: {
+    pet: function pet() {
+      this.topImage = '/storage/pets/' + this.pet.photo_urls[0];
+    }
+  },
+  methods: {
+    changeImage: function changeImage(imgUrl) {
+      this.topImage = '/storage/pets/' + imgUrl;
+    }
+  }
 });
 
 /***/ }),
@@ -8780,54 +9372,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemListCard.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemListCard.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "item-list-card",
-  props: ["pet", "delete", "detailLink"],
-  mounted: function mounted() {}
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Loading.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Loading.vue?vue&type=script&lang=js& ***!
@@ -8975,13 +9519,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       pet: {},
       openConfirmDialog: false,
-      errorMessage: null
+      errorMessage: null,
+      userId: null
     };
   },
   watch: {
@@ -9022,7 +9568,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 if (_this.pet.status !== "available") {}
 
-              case 8:
+                _this.userId = _this.$store.getters['userInfo'] ? _this.$store.getters['userInfo']['user']['id'] : null;
+
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -9041,6 +9589,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.openConfirmDialog = false;
         _this2.pet.status = "pending";
       }, function (error) {
+        _this2.openConfirmDialog = false;
         _this2.errorMessage = error.message;
       });
     },
@@ -9048,10 +9597,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      var opts = {
-        requestFavoriteStore: new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestFavoriteStore(this.pet.id)
-      };
-      userApi.addNewUserFavorite(opts).then(function (data) {}, function (error) {
+      userApi.updateUserFavorite(this.pet.id).then(function (data) {}, function (error) {
         _this3.errorMessage = error.message;
       });
     },
@@ -9059,7 +9605,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(function (data) {}, function (error) {
+      userApi.updateUserFavorite(this.pet.id).then(function (data) {}, function (error) {
         _this4.errorMessage = error.message;
       });
     }
@@ -9167,7 +9713,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "item-list",
   data: function data() {
     return {
       accessToken: "",
@@ -9231,7 +9776,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var tag = this.$route.query["tag"];
       var status = this.$route.query["status"];
       this.$router.push({
-        name: "store-home",
+        name: "home",
         query: {
           status: status,
           category: category,
@@ -9274,13 +9819,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     searchByStatus: function searchByStatus() {
       if (!this.options || this.options == "all") {
         this.$router.replace({
-          name: "store-home"
+          name: "home"
         });
         return;
       }
 
       this.$router.replace({
-        name: "store-home",
+        name: "home",
         query: {
           status: this.options
         }
@@ -9706,11 +10251,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "item-register",
   data: function data() {
     return {
       message: null,
@@ -9720,10 +10262,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       tags: "",
       description: null,
       uploadFile: null,
-      success: false
+      success: false,
+      categories: [],
+      topCategories: []
     };
   },
+  created: function created() {
+    this.getAllCategorys();
+  },
   methods: {
+    getAllCategorys: function getAllCategorys() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var apiInstance;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                apiInstance = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.CategoryApi();
+                _context.next = 3;
+                return apiInstance.getAllCategorys();
+
+              case 3:
+                _this.categories = _context.sent;
+
+                _this.categories.forEach(function (category) {
+                  if (category.parent_id == -1) {
+                    _this.topCategories.push(category);
+                  }
+                });
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getSubCategories: function getSubCategories(parentId) {
+      var subCategories = [];
+      this.categories.forEach(function (category) {
+        if (category.parent_id == parentId) {
+          subCategories.push(category);
+        }
+      });
+      return subCategories;
+    },
     selectedFile: function selectedFile(e) {
       // 選択された File の情報を保存しておく
       e.preventDefault();
@@ -9732,37 +10318,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.upload();
     },
     upload: function upload() {
-      var _this = this;
+      var _this2 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var petApi, data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
-                _context.next = 3;
+                _context2.next = 3;
                 return petApi.uploadImage({
-                  image: _this.uploadFile
+                  image: _this2.uploadFile
                 });
 
               case 3:
-                data = _context.sent;
+                data = _context2.sent;
 
-                _this.photoUrls.push(data.file_name);
+                _this2.photoUrls.push(data.file_name);
 
-                _this.photoUrls.slice();
+                _this2.photoUrls.slice();
 
               case 6:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     },
     register: function register() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!this.name) {
         this.message = "名を入力してください。";
@@ -9801,9 +10387,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       };
       petApi.addNewPet(opts).then(function (data) {
-        _this2.success = true;
+        _this3.success = true;
       }, function (error) {
-        _this2.message = error;
+        _this3.message = error;
       });
     }
   }
@@ -9901,7 +10487,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(function (data) {
+      userApi.updateUserFavorite(this.pet.id).then(function (data) {
         _this2.$router.push("/mypage/favorite");
       }, function (error) {
         _this2.errorMessage = error.message;
@@ -9946,7 +10532,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "my-favorite",
   data: function data() {
     return {
       pets: [],
@@ -10061,8 +10646,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -10118,38 +10701,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    order: function order() {
+    removeItem: function removeItem() {
       var _this2 = this;
 
-      var orderApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.OrderApi();
-      var opts = {
-        requestOrderStore: new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestOrderStore(this.pet.id)
-      };
-      orderApi.addNewOrder(opts).then(function (data) {
-        _this2.openConfirmDialog = false;
-        _this2.pet.status = "pending";
-      }, function (error) {
-        _this2.errorMessage = error.message;
-      });
-    },
-    addFavorite: function addFavorite() {
-      var _this3 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var petApi;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
+                _context2.next = 3;
+                return petApi.deletePetById(_this2.pet.id);
 
-      var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      var opts = {
-        requestFavoriteStore: new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestFavoriteStore(this.pet.id)
-      };
-      userApi.addNewUserFavorite(opts).then(function (data) {}, function (error) {
-        _this3.errorMessage = error.message;
-      });
-    },
-    removeFavorite: function removeFavorite() {
-      var _this4 = this;
+              case 3:
+                _this2.openConfirmDialog = false;
 
-      var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(function (data) {}, function (error) {
-        _this4.errorMessage = error.message;
-      });
+                _this2.$router.replace('/mypage/item');
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 });
@@ -10201,7 +10777,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "my-item",
   data: function data() {
     return {
       pets: [],
@@ -10322,6 +10897,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -10391,24 +10967,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this2.errorMessage = error.message;
       });
     },
-    addFavorite: function addFavorite() {
+    deleteOrder: function deleteOrder() {
       var _this3 = this;
 
-      var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      var opts = {
-        requestFavoriteStore: new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.RequestFavoriteStore(this.pet.id)
-      };
-      userApi.addNewUserFavorite(opts).then(function (data) {}, function (error) {
-        _this3.errorMessage = error.message;
-      });
-    },
-    removeFavorite: function removeFavorite() {
-      var _this4 = this;
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var petApi;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                petApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.PetApi();
+                petApi.deleteOrderByPetId(_this3.pet.id).then(function (data) {
+                  _this3.openConfirmDialog = false;
 
-      var userApi = new pet_store_api__WEBPACK_IMPORTED_MODULE_1__.UserApi();
-      userApi.deleteUserFavoriteByPetId(this.pet.id).then(function (data) {}, function (error) {
-        _this4.errorMessage = error.message;
-      });
+                  _this3.$router.replace('/mypage/order');
+                }, function (error) {
+                  _this3.errorMessage = error.message;
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     }
   }
 });
@@ -10449,7 +11032,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "my-order",
   data: function data() {
     return {
       orders: []
@@ -10474,11 +11056,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
                 pagenation = _context.sent;
-                console.log(pagenation);
 
                 _this.setData(pagenation);
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -10807,7 +11388,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var _CategoryNav__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CategoryNav */ "./resources/js/components/CategoryNav.vue");
 /* harmony import */ var _NavBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./NavBar */ "./resources/js/components/NavBar.vue");
-/* harmony import */ var _ItemListCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ItemListCard */ "./resources/js/components/ItemListCard.vue");
+/* harmony import */ var _ItemCard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ItemCard */ "./resources/js/components/ItemCard.vue");
 /* harmony import */ var _ItemDetail__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ItemDetail */ "./resources/js/components/ItemDetail.vue");
 /* harmony import */ var _ItemDetailComment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ItemDetailComment */ "./resources/js/components/ItemDetailComment.vue");
 /* harmony import */ var _ConfirmDialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ConfirmDialog */ "./resources/js/components/ConfirmDialog.vue");
@@ -10823,7 +11404,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-[_NavBar__WEBPACK_IMPORTED_MODULE_1__.default, _CategoryNav__WEBPACK_IMPORTED_MODULE_0__.default, _ItemListCard__WEBPACK_IMPORTED_MODULE_2__.default, _ItemDetail__WEBPACK_IMPORTED_MODULE_3__.default, _ItemDetailComment__WEBPACK_IMPORTED_MODULE_4__.default, _ConfirmDialog__WEBPACK_IMPORTED_MODULE_5__.default, _Loading__WEBPACK_IMPORTED_MODULE_6__.default, vue2_timeago__WEBPACK_IMPORTED_MODULE_7__.TimeAgo].forEach(function (component) {
+[_NavBar__WEBPACK_IMPORTED_MODULE_1__.default, _CategoryNav__WEBPACK_IMPORTED_MODULE_0__.default, _ItemCard__WEBPACK_IMPORTED_MODULE_2__.default, _ItemDetail__WEBPACK_IMPORTED_MODULE_3__.default, _ItemDetailComment__WEBPACK_IMPORTED_MODULE_4__.default, _ConfirmDialog__WEBPACK_IMPORTED_MODULE_5__.default, _Loading__WEBPACK_IMPORTED_MODULE_6__.default, vue2_timeago__WEBPACK_IMPORTED_MODULE_7__.TimeAgo].forEach(function (component) {
   vue__WEBPACK_IMPORTED_MODULE_8__.default.component(component.name, component);
 });
 
@@ -11111,6 +11692,7 @@ var user = {
     userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
   },
   mutations: {
+    /* {user:{}} */
     userInfo: function userInfo(state, info) {
       state.userInfo = info;
       info ? localStorage.setItem('userInfo', JSON.stringify(info)) : '';
@@ -17216,6 +17798,45 @@ component.options.__file = "resources/js/components/ConfirmDialog.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/ItemCard.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/ItemCard.vue ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ItemCard_vue_vue_type_template_id_3f26a4ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ItemCard.vue?vue&type=template&id=3f26a4ae& */ "./resources/js/components/ItemCard.vue?vue&type=template&id=3f26a4ae&");
+/* harmony import */ var _ItemCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ItemCard.vue?vue&type=script&lang=js& */ "./resources/js/components/ItemCard.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _ItemCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _ItemCard_vue_vue_type_template_id_3f26a4ae___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ItemCard_vue_vue_type_template_id_3f26a4ae___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ItemCard.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ItemDetail.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/ItemDetail.vue ***!
@@ -17290,45 +17911,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/ItemDetailComment.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/ItemListCard.vue":
-/*!**************************************************!*\
-  !*** ./resources/js/components/ItemListCard.vue ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ItemListCard.vue?vue&type=template&id=c9856f28& */ "./resources/js/components/ItemListCard.vue?vue&type=template&id=c9856f28&");
-/* harmony import */ var _ItemListCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ItemListCard.vue?vue&type=script&lang=js& */ "./resources/js/components/ItemListCard.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
-  _ItemListCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__.render,
-  _ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/ItemListCard.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -17974,6 +18556,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ItemCard.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/ItemCard.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemCard.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ItemDetail.vue?vue&type=script&lang=js&":
 /*!*************************************************************************!*\
   !*** ./resources/js/components/ItemDetail.vue?vue&type=script&lang=js& ***!
@@ -18003,22 +18601,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemDetailComment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemDetailComment.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemDetailComment.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemDetailComment_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
-/***/ "./resources/js/components/ItemListCard.vue?vue&type=script&lang=js&":
-/*!***************************************************************************!*\
-  !*** ./resources/js/components/ItemListCard.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemListCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemListCard.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemListCard.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemListCard_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -18404,6 +18986,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ItemCard.vue?vue&type=template&id=3f26a4ae&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/ItemCard.vue?vue&type=template&id=3f26a4ae& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemCard_vue_vue_type_template_id_3f26a4ae___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemCard_vue_vue_type_template_id_3f26a4ae___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemCard_vue_vue_type_template_id_3f26a4ae___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemCard.vue?vue&type=template&id=3f26a4ae& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemCard.vue?vue&type=template&id=3f26a4ae&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/ItemDetail.vue?vue&type=template&id=2b07e022&":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/ItemDetail.vue?vue&type=template&id=2b07e022& ***!
@@ -18434,23 +19033,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemDetailComment_vue_vue_type_template_id_f4ef77c0___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemDetailComment_vue_vue_type_template_id_f4ef77c0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemDetailComment.vue?vue&type=template&id=f4ef77c0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemDetailComment.vue?vue&type=template&id=f4ef77c0&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/ItemListCard.vue?vue&type=template&id=c9856f28&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/components/ItemListCard.vue?vue&type=template&id=c9856f28& ***!
-  \*********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemListCard_vue_vue_type_template_id_c9856f28___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ItemListCard.vue?vue&type=template&id=c9856f28& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemListCard.vue?vue&type=template&id=c9856f28&");
 
 
 /***/ }),
@@ -18974,6 +19556,104 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemCard.vue?vue&type=template&id=3f26a4ae&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemCard.vue?vue&type=template&id=3f26a4ae& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "card mb-4 h-md-150 text-decoration-none",
+      staticStyle: { "min-width": "15rem" }
+    },
+    [
+      _c("img", {
+        staticClass: "bd-placeholder-img  card-img img-fluid",
+        attrs: { src: "/storage/pets/" + _vm.pet.photo_urls[0], height: "150" }
+      }),
+      _vm._v(" "),
+      _c(
+        "router-link",
+        { attrs: { to: { path: _vm.detailLink, query: { id: _vm.pet.id } } } },
+        [
+          _c("div", { staticClass: "card-img-overlay" }, [
+            _c("div", { staticClass: "float-left" }, [
+              _vm._v(_vm._s(_vm.pet.status))
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "float-right" }, [
+              _vm._v(_vm._s(_vm.pet.category.name))
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "card-body" },
+        [
+          _c("h5", { staticClass: "card-title" }, [
+            _vm._v(
+              _vm._s(
+                _vm.pet.name.length > 25
+                  ? _vm.pet.name.substr(0, 25)
+                  : _vm.pet.name
+              )
+            )
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [
+            _vm._v(
+              "\n      " +
+                _vm._s(
+                  _vm.pet.description.length > 30
+                    ? _vm.pet.description.substr(0, 30) + "..."
+                    : _vm.pet.description
+                ) +
+                "\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("time-ago", {
+            staticClass: "float-right",
+            attrs: { locale: "jp", datetime: _vm.pet.updated_at, long: "" }
+          }),
+          _vm._v(" "),
+          _c("p", [_vm._v("comment:" + _vm._s(_vm.pet.comments_count))]),
+          _vm._v(" "),
+          _vm._l(_vm.pet.tags.slice(0, 5), function(tag, key) {
+            return _c(
+              "span",
+              { key: key, staticClass: "badge badge-primary mr-2" },
+              [_vm._v("#" + _vm._s(tag) + "\n    ")]
+            )
+          })
+        ],
+        2
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemDetail.vue?vue&type=template&id=2b07e022&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemDetail.vue?vue&type=template&id=2b07e022& ***!
@@ -18997,21 +19677,48 @@ var render = function() {
           _vm._s(_vm.pet.id) +
           " / " +
           _vm._s(_vm.pet.name) +
-          " / " +
-          _vm._s(_vm.pet.status) +
           "\n    "
       ),
       _c("small", [_vm._v(_vm._s(_vm.pet.status))])
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("img", {
-          staticClass: "img-fluid",
-          staticStyle: { width: "400px" },
-          attrs: { src: "/storage/pets/" + _vm.pet.photo_urls[0], alt: "" }
-        })
+      _c("div", { staticClass: "col-md-5" }, [
+        _vm.pet.photo_urls
+          ? _c("img", {
+              staticClass: "img-fluid",
+              staticStyle: { width: "400px" },
+              attrs: { src: _vm.topImage, alt: "" }
+            })
+          : _vm._e()
       ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-md-1" },
+        _vm._l(_vm.pet.photo_urls, function(url, key) {
+          return _c(
+            "a",
+            {
+              key: key,
+              attrs: { href: "#" },
+              on: {
+                click: function($event) {
+                  return _vm.changeImage(url)
+                }
+              }
+            },
+            [
+              _c("img", {
+                staticClass: "img-fluid img-thumbnail",
+                staticStyle: { "min-width": "40px" },
+                attrs: { src: "/storage/pets/" + url, alt: "" }
+              })
+            ]
+          )
+        }),
+        0
+      ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-6" }, [
         _c("h3", { staticClass: "my-3" }, [_vm._v("Description")]),
@@ -19030,23 +19737,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("h3", { staticClass: "my-2" }, [_vm._v("Related")]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "row" },
-      _vm._l(_vm.pet.photo_urls, function(url, key) {
-        return _c("div", { key: key, staticClass: "col-md-6 col-sm-12 mb-4" }, [
-          _c("a", { attrs: { href: "#" } }, [
-            _c("img", {
-              staticClass: "img-fluid img-thumbnail",
-              attrs: { src: "/storage/pets/" + url, alt: "" }
-            })
-          ])
-        ])
-      }),
-      0
-    )
+    _c("h3", { staticClass: "my-2" }, [_vm._v("Related")])
   ])
 }
 var staticRenderFns = []
@@ -19170,104 +19861,6 @@ var render = function() {
       ])
     ],
     2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemListCard.vue?vue&type=template&id=c9856f28&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ItemListCard.vue?vue&type=template&id=c9856f28& ***!
-  \************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* binding */ render),
-/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "card mb-4 h-md-150 text-decoration-none",
-      staticStyle: { "min-width": "15rem" }
-    },
-    [
-      _c("img", {
-        staticClass: "bd-placeholder-img  card-img img-fluid",
-        attrs: { src: "/storage/pets/" + _vm.pet.photo_urls[0], height: "150" }
-      }),
-      _vm._v(" "),
-      _c(
-        "router-link",
-        { attrs: { to: { path: _vm.detailLink, query: { id: _vm.pet.id } } } },
-        [
-          _c("div", { staticClass: "card-img-overlay" }, [
-            _c("div", { staticClass: "float-left" }, [
-              _vm._v(_vm._s(_vm.pet.status))
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "float-right" }, [
-              _vm._v(_vm._s(_vm.pet.category.name))
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "card-body" },
-        [
-          _c("h5", { staticClass: "card-title" }, [
-            _vm._v(
-              _vm._s(
-                _vm.pet.name.length > 25
-                  ? _vm.pet.name.substr(0, 25)
-                  : _vm.pet.name
-              )
-            )
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v(
-              "\n      " +
-                _vm._s(
-                  _vm.pet.description.length > 30
-                    ? _vm.pet.description.substr(0, 30) + "..."
-                    : _vm.pet.description
-                ) +
-                "\n    "
-            )
-          ]),
-          _vm._v(" "),
-          _c("time-ago", {
-            staticClass: "float-right",
-            attrs: { locale: "jp", datetime: _vm.pet.updated_at, long: "" }
-          }),
-          _vm._v(" "),
-          _c("p", [_vm._v("comment:" + _vm._s(_vm.pet.comments_count))]),
-          _vm._v(" "),
-          _vm._l(_vm.pet.tags.slice(0, 5), function(tag, key) {
-            return _c(
-              "span",
-              { key: key, staticClass: "badge badge-primary mr-2" },
-              [_vm._v("#" + _vm._s(tag) + "\n    ")]
-            )
-          })
-        ],
-        2
-      )
-    ],
-    1
   )
 }
 var staticRenderFns = []
@@ -19474,8 +20067,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.$store.getters["userInfo"],
-              expression: "$store.getters['userInfo']"
+              value: _vm.pet && _vm.userId && _vm.pet.owner.id != _vm.userId,
+              expression: "pet && userId && pet.owner.id != userId"
             }
           ],
           staticClass: "col-12"
@@ -19502,10 +20095,16 @@ var render = function() {
               staticClass: "btn btn-sm btn-outline-secondary",
               on: { click: _vm.addFavorite }
             },
-            [_vm._v("Favorite")]
+            [_vm._v("♡")]
           )
         ]
       ),
+      _vm._v(" "),
+      _vm.errorMessage
+        ? _c("div", { staticClass: "alert alert-info" }, [
+            _vm._v(_vm._s(_vm.errorMessage))
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("confirm-dialog", {
         attrs: {
@@ -19652,12 +20251,8 @@ var render = function() {
         _vm._l(_vm.pets, function(item, key) {
           return _c(
             "div",
-            { key: key, staticClass: "col-sm-3 col-xs-6" },
-            [
-              _c("item-list-card", {
-                attrs: { pet: item, detailLink: "/detail" }
-              })
-            ],
+            { key: key, staticClass: "col" },
+            [_c("item-card", { attrs: { pet: item, detailLink: "/detail" } })],
             1
           )
         }),
@@ -20086,7 +20681,7 @@ var render = function() {
                         _vm._l(_vm.photoUrls, function(photo, key) {
                           return _c("img", {
                             key: key,
-                            attrs: { width: "80", src: photo }
+                            attrs: { width: "80", src: "/storage/tmp/" + photo }
                           })
                         }),
                         0
@@ -20121,27 +20716,43 @@ var render = function() {
                       _c("div", { staticClass: "form-group" }, [
                         _c("label", [_vm._v("category:")]),
                         _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.categoryId,
-                              expression: "categoryId"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text" },
-                          domProps: { value: _vm.categoryId },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.categoryId,
+                                expression: "categoryId"
                               }
-                              _vm.categoryId = $event.target.value
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.categoryId = $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              }
                             }
-                          }
-                        })
+                          },
+                          _vm._l(_vm.topCategories, function(value, key) {
+                            return _c(
+                              "option",
+                              { key: key, domProps: { value: value.id } },
+                              [_vm._v(_vm._s(value.name))]
+                            )
+                          }),
+                          0
+                        )
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
@@ -20312,7 +20923,7 @@ var render = function() {
           "div",
           { key: key, staticClass: "col" },
           [
-            _c("item-list-card", {
+            _c("item-card", {
               attrs: { pet: pet, detailLink: "/mypage/favorite/detail" }
             })
           ],
@@ -20361,33 +20972,30 @@ var render = function() {
     [
       _c("item-detail", { attrs: { pet: _vm.pet } }),
       _vm._v(" "),
-      _c("div", { staticClass: "my-5" }, [
-        _vm._v("comment: " + _vm._s(_vm.pet.comments_count))
-      ]),
-      _vm._v(" "),
-      _c("item-detail-comment", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.$store.getters["userInfo"],
-            expression: "$store.getters['userInfo']"
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-sm btn-outline-secondary",
+          on: {
+            click: function($event) {
+              _vm.openConfirmDialog = true
+            }
           }
-        ],
-        attrs: { pet: _vm.pet }
-      }),
+        },
+        [_vm._v("Delete")]
+      ),
       _vm._v(" "),
       _c("confirm-dialog", {
         attrs: {
           show: _vm.openConfirmDialog,
           content: {
-            title: _vm.$t("message.order"),
-            message: _vm.$t("message.order now"),
-            button: _vm.$t("message.order")
+            title: _vm.$t("message.delete"),
+            message: _vm.$t("message.delete now"),
+            button: _vm.$t("message.delete")
           }
         },
         on: {
-          action: _vm.order,
+          action: _vm.removeItem,
           close: function($event) {
             _vm.openConfirmDialog = false
           }
@@ -20433,7 +21041,7 @@ var render = function() {
             "div",
             { key: key, staticClass: "col" },
             [
-              _c("item-list-card", {
+              _c("item-card", {
                 attrs: { pet: pet, detailLink: "/mypage/item/detail" },
                 on: {
                   delete: function($event) {
@@ -20508,6 +21116,19 @@ var render = function() {
     [
       _c("item-detail", { attrs: { pet: _vm.pet } }),
       _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-sm btn-outline-secondary",
+          on: {
+            click: function($event) {
+              _vm.openConfirmDialog = true
+            }
+          }
+        },
+        [_vm._v("Delete")]
+      ),
+      _vm._v(" "),
       _c("div", { staticClass: "my-5" }, [
         _vm._v("comment: " + _vm._s(_vm.pet.comments_count))
       ]),
@@ -20534,7 +21155,7 @@ var render = function() {
           }
         },
         on: {
-          action: _vm.order,
+          action: _vm.deleteOrder,
           close: function($event) {
             _vm.openConfirmDialog = false
           }
@@ -20578,8 +21199,8 @@ var render = function() {
           "div",
           { key: key, staticClass: "col" },
           [
-            _c("item-list-card", {
-              attrs: { pet: order.pet, detailLink: "/mypage/order/detail" }
+            _c("item-card", {
+              attrs: { pet: order.pet, detailLink: "/mypage/order/detail/" }
             })
           ],
           1
@@ -20644,7 +21265,9 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.name))]),
+      _c("p", { staticClass: "mt-2" }, [
+        _vm._v(_vm._s(_vm.user.name) + "(" + _vm._s(_vm.user.id) + ")10")
+      ]),
       _vm._v(" "),
       _c("p", { staticClass: "mt-2" }, [_vm._v(_vm._s(_vm.user.gender))]),
       _vm._v(" "),

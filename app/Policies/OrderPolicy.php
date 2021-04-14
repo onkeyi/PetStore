@@ -31,4 +31,15 @@ class OrderPolicy
     {
         return Auth::guard('sanctum')->id() === $order->user_id;
     }
+
+    public function deleteOrderByPetId(?User $user,Order $order)
+    {
+        if (!isset($order)) return false;
+        return Auth::guard('sanctum')->id() === $order->user_id;
+    }
+
+    public function evalution(?User $user,Order $order) {
+        if (!isset($order)) return false;
+        return (Auth::guard('sanctum')->id() === $order->user_id && $order->status == 'completed');
+    }
 }

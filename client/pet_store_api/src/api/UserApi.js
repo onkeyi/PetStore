@@ -17,9 +17,10 @@ import Error400 from '../model/Error400';
 import Error500 from '../model/Error500';
 import InlineResponse200 from '../model/InlineResponse200';
 import InlineResponse2001 from '../model/InlineResponse2001';
+import InlineResponse2002 from '../model/InlineResponse2002';
 import RequestAuthLogin from '../model/RequestAuthLogin';
 import RequestAuthRegister from '../model/RequestAuthRegister';
-import RequestFavoriteStore from '../model/RequestFavoriteStore';
+import RequestUserEvalution from '../model/RequestUserEvalution';
 import ResponseOk from '../model/ResponseOk';
 import ResponsePegination from '../model/ResponsePegination';
 import Unexpected from '../model/Unexpected';
@@ -46,17 +47,22 @@ export default class UserApi {
 
 
     /**
-     * お気に入り登録
-     * ユーザーお気に入り登録
+     * 評価
+     * @param {Number} orderId 
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestFavoriteStore} opts.requestFavoriteStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
+     * @param {module:model/RequestUserEvalution} opts.requestUserEvalution 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
      */
-    addNewUserFavoriteWithHttpInfo(opts) {
+    addNewEvalutionWithHttpInfo(orderId, opts) {
       opts = opts || {};
-      let postBody = opts['requestFavoriteStore'];
+      let postBody = opts['requestUserEvalution'];
+      // verify the required parameter 'orderId' is set
+      if (orderId === undefined || orderId === null) {
+        throw new Error("Missing the required parameter 'orderId' when calling addNewEvalution");
+      }
 
       let pathParams = {
+        'orderId': orderId
       };
       let queryParams = {
       };
@@ -67,24 +73,24 @@ export default class UserApi {
 
       let authNames = ['apiKey', 'bearer'];
       let contentTypes = ['applicaiton/json'];
-      let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = Object;
+      let accepts = ['applicaiton/json', 'application/json'];
+      let returnType = InlineResponse2002;
       return this.apiClient.callApi(
-        '/user/favorite', 'POST',
+        '/user/{orderId}/evalution', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType, null
       );
     }
 
     /**
-     * お気に入り登録
-     * ユーザーお気に入り登録
+     * 評価
+     * @param {Number} orderId 
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestFavoriteStore} opts.requestFavoriteStore 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     * @param {module:model/RequestUserEvalution} opts.requestUserEvalution 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
-    addNewUserFavorite(opts) {
-      return this.addNewUserFavoriteWithHttpInfo(opts)
+    addNewEvalution(orderId, opts) {
+      return this.addNewEvalutionWithHttpInfo(orderId, opts)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -174,54 +180,6 @@ export default class UserApi {
      */
     deleteUserById(userId) {
       return this.deleteUserByIdWithHttpInfo(userId)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * お気に入り削除
-     * ユーザーお気に入り削除
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
-     */
-    deleteUserFavoriteByPetIdWithHttpInfo(petId) {
-      let postBody = null;
-      // verify the required parameter 'petId' is set
-      if (petId === undefined || petId === null) {
-        throw new Error("Missing the required parameter 'petId' when calling deleteUserFavoriteByPetId");
-      }
-
-      let pathParams = {
-        'petId': petId
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['apiKey', 'bearer'];
-      let contentTypes = [];
-      let accepts = ['application/json', 'applicaiton/json'];
-      let returnType = ResponseOk;
-      return this.apiClient.callApi(
-        '/user/{petId}/favorite/', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * お気に入り削除
-     * ユーザーお気に入り削除
-     * @param {Number} petId 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
-     */
-    deleteUserFavoriteByPetId(petId) {
-      return this.deleteUserFavoriteByPetIdWithHttpInfo(petId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });
@@ -662,6 +620,54 @@ export default class UserApi {
      */
     updateUserById(userId, opts) {
       return this.updateUserByIdWithHttpInfo(userId, opts)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
+     * お気に入り登録削除
+     * ユーザーお気に入り登録削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
+     */
+    updateUserFavoriteWithHttpInfo(petId) {
+      let postBody = null;
+      // verify the required parameter 'petId' is set
+      if (petId === undefined || petId === null) {
+        throw new Error("Missing the required parameter 'petId' when calling updateUserFavorite");
+      }
+
+      let pathParams = {
+        'petId': petId
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['apiKey', 'bearer'];
+      let contentTypes = [];
+      let accepts = ['application/json', 'applicaiton/json'];
+      let returnType = ResponseOk;
+      return this.apiClient.callApi(
+        '/user/{petId}/favorite/', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * お気に入り登録削除
+     * ユーザーお気に入り登録削除
+     * @param {Number} petId 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
+     */
+    updateUserFavorite(petId) {
+      return this.updateUserFavoriteWithHttpInfo(petId)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

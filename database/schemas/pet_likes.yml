@@ -1,0 +1,11 @@
+pet_likes:
+  columns:
+    pet_id: bigInteger
+    user_id: bigInteger
+    timestamps: true
+  indexes:
+    pet_tag_index:
+      columns:
+        - user_id
+        - pet_id
+      type: primary

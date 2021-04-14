@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addNewPet**](PetApi.md#addNewPet) | **POST** /pet | ペット新規登録
 [**addNewPetComment**](PetApi.md#addNewPetComment) | **POST** /pet/comment | post new comment
+[**deleteOrderByPetId**](PetApi.md#deleteOrderByPetId) | **DELETE** /pet/{petId}/order | ペットオーダー情報削除
 [**deletePetById**](PetApi.md#deletePetById) | **DELETE** /pet/{petId} | ペット情報削除
 [**deletePetCommentById**](PetApi.md#deletePetCommentById) | **DELETE** /pet/{petCommentId}/comment | ペット情報削除
 [**findPetByCategory**](PetApi.md#findPetByCategory) | **GET** /pet/findByCategory | カテゴリで検索
@@ -15,6 +16,7 @@ Method | HTTP request | Description
 [**getPetById**](PetApi.md#getPetById) | **GET** /pet/{petId} | ペット情報取得
 [**getPetComments**](PetApi.md#getPetComments) | **GET** /pet/{petId}/comments | ペットコメント
 [**updatePetById**](PetApi.md#updatePetById) | **PUT** /pet/{petId} | ペット情報更新
+[**updatePetLike**](PetApi.md#updatePetLike) | **PUT** /pet/like | update pet like
 [**uploadImage**](PetApi.md#uploadImage) | **POST** /pet/uploadImage | アップロードペットイメージ
 
 
@@ -126,6 +128,57 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: applicaiton/json
+- **Accept**: applicaiton/json, application/json
+
+
+## deleteOrderByPetId
+
+> ResponseOk deleteOrderByPetId(petId)
+
+ペットオーダー情報削除
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.PetApi();
+let petId = 56; // Number | 
+apiInstance.deleteOrderByPetId(petId).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **petId** | **Number**|  | 
+
+### Return type
+
+[**ResponseOk**](ResponseOk.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: applicaiton/json, application/json
 
 
@@ -590,6 +643,61 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **petId** | **Number**|  | 
  **requestPetUpdate** | [**RequestPetUpdate**](RequestPetUpdate.md)|  | [optional] 
+
+### Return type
+
+[**ResponseOk**](ResponseOk.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey), [bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: applicaiton/json
+- **Accept**: applicaiton/json, application/json
+
+
+## updatePetLike
+
+> ResponseOk updatePetLike(opts)
+
+update pet like
+
+update like
+
+### Example
+
+```javascript
+import PetStoreApi from 'pet_store_api';
+let defaultClient = PetStoreApi.ApiClient.instance;
+// Configure API key authorization: apiKey
+let apiKey = defaultClient.authentications['apiKey'];
+apiKey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apiKey.apiKeyPrefix = 'Token';
+// Configure Bearer (bearer) access token for authorization: bearer
+let bearer = defaultClient.authentications['bearer'];
+bearer.accessToken = "YOUR ACCESS TOKEN"
+
+let apiInstance = new PetStoreApi.PetApi();
+let opts = {
+  'pet': new PetStoreApi.Pet() // Pet | 
+};
+apiInstance.updatePetLike(opts).then((data) => {
+  console.log('API called successfully. Returned data: ' + data);
+}, (error) => {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pet** | [**Pet**](Pet.md)|  | [optional] 
 
 ### Return type
 

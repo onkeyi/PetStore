@@ -56,6 +56,12 @@ class OrderController extends ApiController
         return $this->okResponse($order->delete());
     }
 
+    public function deleteOrderByPetId(Pet $pet) {
+        $order = Order::where('pet_id',$pet->id)->first();
+        $this->authorize('deleteOrderByPetId', $order);
+        return $this->okResponse($order->delete());
+    }
+
     public function inventory()
     {
         $inventory = Pet::select(DB::raw('status, count(status) as count'))

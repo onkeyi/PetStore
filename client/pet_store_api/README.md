@@ -137,13 +137,17 @@ Class | Method | HTTP request | Description
 *PetStoreApi.CategoryApi* | [**getCategoryById**](docs/CategoryApi.md#getCategoryById) | **GET** /category/{categoryId} | カテゴリ取得
 *PetStoreApi.CategoryApi* | [**updateCategoryById**](docs/CategoryApi.md#updateCategoryById) | **PUT** /category/{categoryId} | カテゴリ更新
 *PetStoreApi.OrderApi* | [**addNewOrder**](docs/OrderApi.md#addNewOrder) | **POST** /order | オーダー登録
+*PetStoreApi.OrderApi* | [**addNewOrderComment**](docs/OrderApi.md#addNewOrderComment) | **POST** /order/comment | post new order comment
 *PetStoreApi.OrderApi* | [**deleteOrderById**](docs/OrderApi.md#deleteOrderById) | **DELETE** /order/{orderId} | オーダー削除
+*PetStoreApi.OrderApi* | [**deleteOrderCommentById**](docs/OrderApi.md#deleteOrderCommentById) | **DELETE** /order/{orderCommentId}/comment | Order comment 情報削除
 *PetStoreApi.OrderApi* | [**getAllOrder**](docs/OrderApi.md#getAllOrder) | **GET** /orders | オーダー一覧取得
 *PetStoreApi.OrderApi* | [**getOrderById**](docs/OrderApi.md#getOrderById) | **GET** /order/{orderId} | オーダー取得
+*PetStoreApi.OrderApi* | [**getOrderComments**](docs/OrderApi.md#getOrderComments) | **GET** /order/{petId}/comments | Orderコメント
 *PetStoreApi.OrderApi* | [**getOrderInventory**](docs/OrderApi.md#getOrderInventory) | **GET** /order/inventory | オーダーinventory
 *PetStoreApi.OrderApi* | [**updateOrderById**](docs/OrderApi.md#updateOrderById) | **PUT** /order/{orderId} | オーダー更新
 *PetStoreApi.PetApi* | [**addNewPet**](docs/PetApi.md#addNewPet) | **POST** /pet | ペット新規登録
 *PetStoreApi.PetApi* | [**addNewPetComment**](docs/PetApi.md#addNewPetComment) | **POST** /pet/comment | post new comment
+*PetStoreApi.PetApi* | [**deleteOrderByPetId**](docs/PetApi.md#deleteOrderByPetId) | **DELETE** /pet/{petId}/order | ペットオーダー情報削除
 *PetStoreApi.PetApi* | [**deletePetById**](docs/PetApi.md#deletePetById) | **DELETE** /pet/{petId} | ペット情報削除
 *PetStoreApi.PetApi* | [**deletePetCommentById**](docs/PetApi.md#deletePetCommentById) | **DELETE** /pet/{petCommentId}/comment | ペット情報削除
 *PetStoreApi.PetApi* | [**findPetByCategory**](docs/PetApi.md#findPetByCategory) | **GET** /pet/findByCategory | カテゴリで検索
@@ -153,11 +157,11 @@ Class | Method | HTTP request | Description
 *PetStoreApi.PetApi* | [**getPetById**](docs/PetApi.md#getPetById) | **GET** /pet/{petId} | ペット情報取得
 *PetStoreApi.PetApi* | [**getPetComments**](docs/PetApi.md#getPetComments) | **GET** /pet/{petId}/comments | ペットコメント
 *PetStoreApi.PetApi* | [**updatePetById**](docs/PetApi.md#updatePetById) | **PUT** /pet/{petId} | ペット情報更新
+*PetStoreApi.PetApi* | [**updatePetLike**](docs/PetApi.md#updatePetLike) | **PUT** /pet/like | update pet like
 *PetStoreApi.PetApi* | [**uploadImage**](docs/PetApi.md#uploadImage) | **POST** /pet/uploadImage | アップロードペットイメージ
-*PetStoreApi.UserApi* | [**addNewUserFavorite**](docs/UserApi.md#addNewUserFavorite) | **POST** /user/favorite | お気に入り登録
+*PetStoreApi.UserApi* | [**addNewEvalution**](docs/UserApi.md#addNewEvalution) | **POST** /user/{orderId}/evalution | 評価
 *PetStoreApi.UserApi* | [**deleteUser**](docs/UserApi.md#deleteUser) | **DELETE** /user | ユーザー削除
 *PetStoreApi.UserApi* | [**deleteUserById**](docs/UserApi.md#deleteUserById) | **DELETE** /user/{userId} | ユーザー削除
-*PetStoreApi.UserApi* | [**deleteUserFavoriteByPetId**](docs/UserApi.md#deleteUserFavoriteByPetId) | **DELETE** /user/{petId}/favorite/ | お気に入り削除
 *PetStoreApi.UserApi* | [**findUserByName**](docs/UserApi.md#findUserByName) | **GET** /user/findUserByName | ユーザー検索
 *PetStoreApi.UserApi* | [**getUser**](docs/UserApi.md#getUser) | **GET** /user | ユーザー情報取得
 *PetStoreApi.UserApi* | [**getUserFavorites**](docs/UserApi.md#getUserFavorites) | **GET** /user/favorites | お気に入り一覧取得
@@ -168,6 +172,7 @@ Class | Method | HTTP request | Description
 *PetStoreApi.UserApi* | [**registerNewUser**](docs/UserApi.md#registerNewUser) | **POST** /user | 新規ユーザー登録
 *PetStoreApi.UserApi* | [**updateUser**](docs/UserApi.md#updateUser) | **PUT** /user | ユーザー情報更新
 *PetStoreApi.UserApi* | [**updateUserById**](docs/UserApi.md#updateUserById) | **PUT** /user/{userId} | ユーザー情報更新
+*PetStoreApi.UserApi* | [**updateUserFavorite**](docs/UserApi.md#updateUserFavorite) | **PUT** /user/{petId}/favorite/ | お気に入り登録削除
 *PetStoreApi.UserApi* | [**uploadAvatarImage**](docs/UserApi.md#uploadAvatarImage) | **POST** /user/avatar | アップロードユーザーイメージ
 
 
@@ -178,17 +183,19 @@ Class | Method | HTTP request | Description
  - [PetStoreApi.Error500](docs/Error500.md)
  - [PetStoreApi.InlineResponse200](docs/InlineResponse200.md)
  - [PetStoreApi.InlineResponse2001](docs/InlineResponse2001.md)
+ - [PetStoreApi.InlineResponse2002](docs/InlineResponse2002.md)
  - [PetStoreApi.Order](docs/Order.md)
+ - [PetStoreApi.OrderComment](docs/OrderComment.md)
  - [PetStoreApi.OrderInventory](docs/OrderInventory.md)
  - [PetStoreApi.Pet](docs/Pet.md)
  - [PetStoreApi.PetComment](docs/PetComment.md)
  - [PetStoreApi.RequestAuthLogin](docs/RequestAuthLogin.md)
  - [PetStoreApi.RequestAuthRegister](docs/RequestAuthRegister.md)
- - [PetStoreApi.RequestFavoriteStore](docs/RequestFavoriteStore.md)
  - [PetStoreApi.RequestOrderStore](docs/RequestOrderStore.md)
  - [PetStoreApi.RequestOrderUpdate](docs/RequestOrderUpdate.md)
  - [PetStoreApi.RequestPetStore](docs/RequestPetStore.md)
  - [PetStoreApi.RequestPetUpdate](docs/RequestPetUpdate.md)
+ - [PetStoreApi.RequestUserEvalution](docs/RequestUserEvalution.md)
  - [PetStoreApi.ResponseOk](docs/ResponseOk.md)
  - [PetStoreApi.ResponsePegination](docs/ResponsePegination.md)
  - [PetStoreApi.ResponsePeginationLinks](docs/ResponsePeginationLinks.md)

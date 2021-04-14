@@ -1,0 +1,14 @@
+user_evalutions:
+  columns:
+    id: true
+    user_id: bigInteger
+    order_id:
+      type: bigInteger
+      unique: true
+    evalution:
+      type: enum
+      args: ['good', 'normal', 'bad'] #良い、普通、悪い
+    comment:
+      type: string
+      default: nullable
+    timestamps: true

@@ -12,6 +12,8 @@ use App\Models\PetTag;
 use App\Http\Requests\PetStoreRequest;
 use App\Http\Requests\PetUpdateRequest;
 use App\Http\Requests\PetUploadImageRequest;
+use App\Models\PetLike;
+use App\Http\Requests\PetLikeUpdateRequest;
 
 /**
  * Everything abou you pets.
@@ -236,5 +238,17 @@ class PetController extends ApiController
             'status' => 'error',
             'message' => 'Upload image file failed',
         ], 400);
+    }
+
+    public function updatePetLike(PetLikeUpdateRequest $request,Pet $pet) {
+        $validated = $request->validated();
+        $petLike = PetLike::where(array('pet_id'=>$validated['id'],'user_id'=>$this->userId))->first();
+
+        if (isset($petLike)) {
+            PetLike::where(array('pet_id'=>$validated['id'],'user_id'=>$this->userId))->delete();
+        } else {
+            PetLike::create(array('pet_id' => $validated['id'],'user_id' => $this->userId));
+        }
+        return $this->okResponse();
     }
 }

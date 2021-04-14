@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col" v-for="(order, key) in orders" :key="key">
-          <item-list-card v-bind:pet="order.pet"  detailLink="/mypage/order/detail"/>
+          <item-card v-bind:pet="order.pet"  detailLink="/mypage/order/detail/" />
       </div>
   </div>
 </div>
@@ -13,7 +13,7 @@
 <script>
 import { UserApi, OrderApi } from "pet_store_api";
 export default {
-  name: "my-order",
+
   data: () => ({ orders: [] }),
   created: function () {
     this.loadData();
@@ -22,7 +22,6 @@ export default {
     async loadData() {
       let userApi = new UserApi();
       const pagenation = await userApi.getUserOrders();
-console.log(pagenation);
       this.setData(pagenation);
     },
 

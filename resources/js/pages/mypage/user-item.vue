@@ -5,7 +5,7 @@
     </div>
     <div class="row">
       <div class="col" v-for="(pet, key) in pets" :key="key">
-          <item-list-card v-bind:pet="pet" v-on:delete="openDialog(pet.id)" detailLink="/mypage/item/detail"/>
+          <item-card v-bind:pet="pet" v-on:delete="openDialog(pet.id)" detailLink="/mypage/item/detail"/>
       </div>
     </div>
 
@@ -24,7 +24,6 @@
 <script>
 import { UserApi, PetApi, RequestPetStore } from "pet_store_api";
 export default {
-  name: "my-item",
   data: () => ({ pets: [], openConfirmDialog: false, petId: null }),
   created: function () {
     this.loadData();
