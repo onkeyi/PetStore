@@ -52,7 +52,6 @@ class Handler extends ExceptionHandler
 
     public function handler($request, Throwable $exception)
     {
-
         if ($exception instanceof ApiKeyNotfoundException) {
             return response()->json(
                 [
@@ -98,7 +97,6 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof AuthorizationException) {
-
             return response()->json(
                 [
                     'status' => 'error',

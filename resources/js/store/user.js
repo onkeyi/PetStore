@@ -1,18 +1,19 @@
-
 const user = {
-  state:{
-    userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
-  },
-  mutations:{
-    /* {user:{}} */
-    userInfo(state,info){
-      state.userInfo = info;
-      info ? localStorage.setItem('userInfo', JSON.stringify(info)): '';
-    }
-  },
+    state: {
+        userInfo: localStorage.getItem("userInfo")
+            ? JSON.parse(localStorage.getItem("userInfo"))
+            : null,
+    },
+    mutations: {
+        /* {user:{}} */
+        userInfo(state, info) {
+            state.userInfo = info;
+            info ? localStorage.setItem("userInfo", JSON.stringify(info)) : "";
+        },
+    },
 
-  getters : {
-    userInfo: (state) => state.userInfo
-  }
+    getters: {
+        userInfo: (state) => state.userInfo,
+    },
 };
-export default user
+export default user;

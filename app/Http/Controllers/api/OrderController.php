@@ -10,7 +10,6 @@ use App\Models\pet;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 
-
 class OrderController extends ApiController
 {
     public function getAllOrders()
@@ -19,7 +18,7 @@ class OrderController extends ApiController
             Order::where('user_id', $this->userId)
                 ->with(['pet', 'user'])
                 ->orderBy('updated_at', 'desc')
-                ->paginate(env('APP_PER_PAGE',18))
+                ->paginate(env('APP_PER_PAGE', 18))
         );
     }
 
@@ -44,7 +43,7 @@ class OrderController extends ApiController
         return $this->successResponse($order->load(['pet', 'orderUser']));
     }
 
-    public function updateOrderById(Order $order,OrderUpdateRequest $orderUpdateRequest)
+    public function updateOrderById(Order $order, OrderUpdateRequest $orderUpdateRequest)
     {
         $this->authorize('update', $order); // Pet Owner Only
         return $this->okResponse($order->save($orderUpdateRequest));
@@ -56,8 +55,9 @@ class OrderController extends ApiController
         return $this->okResponse($order->delete());
     }
 
-    public function deleteOrderByPetId(Pet $pet) {
-        $order = Order::where('pet_id',$pet->id)->first();
+    public function deleteOrderByPetId(Pet $pet)
+    {
+        $order = Order::where('pet_id', $pet->id)->first();
         $this->authorize('deleteOrderByPetId', $order);
         return $this->okResponse($order->delete());
     }

@@ -27,33 +27,36 @@ class UserController extends ApiController
         return $this->successResponse(User::where('name', $query['username'])->get());
     }
 
-    public function getUser() {
+    public function getUser()
+    {
         if (!isset($this->userId)) {
             throw new InvalideTokenException;
         }
         return $this->successResponse(
-            User::where('id',$this->userId)->first()
+            User::where('id', $this->userId)->first()
         );
-
     }
 
-    public function getUserPets() {
+    public function getUserPets()
+    {
         return $this->successResponse(
-            Pet::where('user_id',$this->userId)
+            Pet::where('user_id', $this->userId)
                     ->with(['tags', 'category', 'photoUrls','comments','order'])
-                    ->paginate(env('APP_PER_PAGE',18))
+                    ->paginate(env('APP_PER_PAGE', 18))
         );
     }
 
-    public function getUserOrders() {
+    public function getUserOrders()
+    {
         return $this->successResponse(
-            Order::where('user_id',$this->userId)
+            Order::where('user_id', $this->userId)
                     ->with(['user','pet'])
-                    ->paginate(env('APP_PER_PAGE',18))
+                    ->paginate(env('APP_PER_PAGE', 18))
         );
     }
 
-    public function updateUserFavorite(Pet $pet) {
+    public function updateUserFavorite(Pet $pet)
+    {
         $userFavorite = UserFavorite::where(array('pet_id'=>$pet->id,'user_id'=>$this->userId))->first();
         if (isset($userFavorite)) {
             UserFavorite::where(array('pet_id'=>$pet->id,'user_id'=>$this->userId))->delete();
@@ -63,21 +66,22 @@ class UserController extends ApiController
         return $this->okResponse();
     }
 
-    public function getUserFavorites() {
-        $petIds = UserFavorite::where('user_id',$this->userId)->pluck('pet_id');
+    public function getUserFavorites()
+    {
+        $petIds = UserFavorite::where('user_id', $this->userId)->pluck('pet_id');
 
         if (!isset($petIds) || count($petIds) === 0) {
             return $this->successResponse();
         }
         return $this->successResponse(
-            Pet::whereIn('id',$petIds)->with('photoUrls','category','tags')->paginate(env('APP_PER_PAGE',18))
+            Pet::whereIn('id', $petIds)->with('photoUrls', 'category', 'tags')->paginate(env('APP_PER_PAGE', 18))
         );
     }
 
     public function updateUser(UserUpdateRequest $request)
     {
         $validated = $request->validated();
-        $user = User::where('id',$this->userId)->first();
+        $user = User::where('id', $this->userId)->first();
         $user->status = $validated['status'];
         return $this->okResponse($user->save());
     }
@@ -94,7 +98,7 @@ class UserController extends ApiController
 
     public function deleteUser()
     {
-        return $this->okResponse(User::where('id',$this->userId)->delete());
+        return $this->okResponse(User::where('id', $this->userId)->delete());
     }
 
     public function deleteUserById(User $user)
@@ -110,7 +114,7 @@ class UserController extends ApiController
     public function uploadAvatarImage(UserUploadImageRequest $request)
     {
         $uploadImg = $request->file('image');
-        $user = User::where('id',$this->userId)->first();
+        $user = User::where('id', $this->userId)->first();
         if ($uploadImg->isValid()) {
             $imageUploadPath = $uploadImg->store('tmp', 'public');
             // original avatar
@@ -142,7 +146,8 @@ class UserController extends ApiController
         ], 400);
     }
 
-    public function addNewEvalution(UserEvalutionStoreRequest $request,Order $order) {
+    public function addNewEvalution(UserEvalutionStoreRequest $request, Order $order)
+    {
         $this->authorize('evalution', $order);
         $validated = $request->validated();
         if ($order->id != $validated['order_id']) {

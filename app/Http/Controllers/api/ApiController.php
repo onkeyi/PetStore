@@ -10,12 +10,11 @@ use App\Models\User;
 class ApiController extends Controller
 {
     use ApiResponse;
-    var $userId;
+    public $userId;
 
     public function __construct()
     {
         $auth = Auth::guard('sanctum');
         $this->userId = $auth ? $auth->id() : null;
-
     }
 }

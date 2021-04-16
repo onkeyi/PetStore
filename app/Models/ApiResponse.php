@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-
 trait ApiResponse
 {
-
     public function okResponse($okCount = 1)
     {
         return response()->json(array('ok'=>$okCount > 0 ? true : false));
@@ -13,7 +11,6 @@ trait ApiResponse
 
     public function successResponse($data = null, $code = 200)
     {
-
         return response()->json(isset($data) ? $data : [], $code);
     }
 
