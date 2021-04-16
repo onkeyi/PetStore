@@ -15,7 +15,7 @@ class PetCommentController extends ApiController
         $validated = $request->validated();
         $validated['user_id'] = $this->userId;
         // owner
-        $owner = Pet::where(array('id'=>$validated['pet_id'],'user_id'=>$this->userId))->first();
+        $owner = Pet::where(['id'=>$validated['pet_id'],'user_id'=>$this->userId])->first();
         if (!isset($owner)) {
             // check order user
             $order = Order::where('pet_id', $validated['pet_id'])->first();

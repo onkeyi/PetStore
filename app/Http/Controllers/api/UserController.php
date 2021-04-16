@@ -57,11 +57,11 @@ class UserController extends ApiController
 
     public function updateUserFavorite(Pet $pet)
     {
-        $userFavorite = UserFavorite::where(array('pet_id'=>$pet->id,'user_id'=>$this->userId))->first();
+        $userFavorite = UserFavorite::where(['pet_id'=>$pet->id,'user_id'=>$this->userId])->first();
         if (isset($userFavorite)) {
-            UserFavorite::where(array('pet_id'=>$pet->id,'user_id'=>$this->userId))->delete();
+            UserFavorite::where(['pet_id'=>$pet->id,'user_id'=>$this->userId])->delete();
         } else {
-            UserFavorite::create(array('pet_id'=>$pet->id,'user_id'=>$this->userId));
+            UserFavorite::create(['pet_id'=>$pet->id,'user_id'=>$this->userId]);
         }
         return $this->okResponse();
     }

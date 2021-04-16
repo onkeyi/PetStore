@@ -31,7 +31,7 @@ class OrderController extends ApiController
                 $order = Order::create($validated);
                 $pet['status'] = 'pending';
                 $pet['id'] = $validated['pet_id'];
-                Pet::where(array('id'=>$validated['pet_id']))->update($pet);
+                Pet::where(['id'=>$validated['pet_id']])->update($pet);
                 return $order->id;
             }
         );

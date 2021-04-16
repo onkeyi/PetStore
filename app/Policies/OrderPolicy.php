@@ -22,7 +22,7 @@ class OrderPolicy
 
     public function update(?User $user, Order $order)
     {
-        $data = Pet::where(array('pet_id'=>$order->pet_id,'user_id'=>Auth::guard('sanctum')->id()))->get();
+        $data = Pet::where(['pet_id'=>$order->pet_id,'user_id'=>Auth::guard('sanctum')->id()])->get();
         return isset($data) ? true : false;
     }
 

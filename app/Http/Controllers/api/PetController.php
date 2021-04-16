@@ -240,12 +240,12 @@ class PetController extends ApiController
     public function updatePetLike(PetLikeUpdateRequest $request, Pet $pet)
     {
         $validated = $request->validated();
-        $petLike = PetLike::where(array('pet_id'=>$validated['id'],'user_id'=>$this->userId))->first();
+        $petLike = PetLike::where(['pet_id'=>$validated['id'],'user_id'=>$this->userId])->first();
 
         if (isset($petLike)) {
-            PetLike::where(array('pet_id'=>$validated['id'],'user_id'=>$this->userId))->delete();
+            PetLike::where(['pet_id'=>$validated['id'],'user_id'=>$this->userId])->delete();
         } else {
-            PetLike::create(array('pet_id' => $validated['id'],'user_id' => $this->userId));
+            PetLike::create(['pet_id' => $validated['id'],'user_id' => $this->userId]);
         }
         return $this->okResponse();
     }

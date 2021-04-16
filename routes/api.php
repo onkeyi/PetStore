@@ -9,6 +9,7 @@ use App\Http\Controllers\api\TagController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\PetCommentController;
 use App\Http\Controllers\api\PetLikeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
