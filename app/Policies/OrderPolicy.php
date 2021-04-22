@@ -18,28 +18,32 @@ class OrderPolicy
      */
     public function __construct()
     {
-
     }
 
-    public function update(?User $user,Order $order)
+    public function update(?User $user, Order $order)
     {
-        $data = Pet::where(array('pet_id'=>$order->pet_id,'user_id'=>Auth::guard('sanctum')->id()))->get();
+        $data = Pet::where(['pet_id'=>$order->pet_id,'user_id'=>Auth::guard('sanctum')->id()])->get();
         return isset($data) ? true : false;
     }
 
-    public function delete(?User $user,Order $order)
+    public function delete(?User $user, Order $order)
     {
         return Auth::guard('sanctum')->id() === $order->user_id;
     }
 
-    public function deleteOrderByPetId(?User $user,Order $order)
+    public function deleteOrderByPetId(?User $user, Order $order)
     {
-        if (!isset($order)) return false;
+        if (!isset($order)) {
+            return false;
+        }
         return Auth::guard('sanctum')->id() === $order->user_id;
     }
 
-    public function evalution(?User $user,Order $order) {
-        if (!isset($order)) return false;
+    public function evalution(?User $user, Order $order)
+    {
+        if (!isset($order)) {
+            return false;
+        }
         return (Auth::guard('sanctum')->id() === $order->user_id && $order->status == 'completed');
     }
 }

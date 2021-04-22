@@ -6,7 +6,6 @@ use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
 
-
 class CategoryController extends ApiController
 {
     public function getAllCategories()

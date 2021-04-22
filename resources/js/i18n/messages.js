@@ -7,9 +7,8 @@ export default {
             are_you_sure_you_want_log_out: "Are you sure you want to log out?",
             register: "Register",
             close: "Close",
-            pagination: { previous: "Previous", next: "Next" }
-
-        }
+            pagination: { previous: "Previous", next: "Next" },
+        },
     },
     ja: {
         message: {
@@ -19,7 +18,7 @@ export default {
             are_you_sure_you_want_log_out: "ログオフしますか？",
             register: "登録",
             close: "閉じる",
-            pagination: { previous: "前へ", next: "次へ" }
-        }
-    }
-}
+            pagination: { previous: "前へ", next: "次へ" },
+        },
+    },
+};

@@ -22,26 +22,26 @@ class PetPolicy
         //
     }
 
-    public function comments(?User $user = null,Pet $pet)
+    public function comments(?User $user = null, Pet $pet)
     {
         $userId = Auth::guard('sanctum')->id();
         if ($userId === $pet->user_id) {
             return true;
         }
 
-        $checkOrderUser = Order::where(array('pet_id'=>$pet->id,'user_id'=>$userId))->first();
+        $checkOrderUser = Order::where(['pet_id'=>$pet->id,'user_id'=>$userId])->first();
         if (isset($checkOrderUser)) {
             return true;
         }
         return false;
     }
 
-    public function update(?User $user,Pet $pet)
+    public function update(?User $user, Pet $pet)
     {
         return Auth::guard('sanctum')->id() === $pet->user_id;
     }
 
-    public function deletePetById(?User $user,Pet $pet)
+    public function deletePetById(?User $user, Pet $pet)
     {
         return Auth::guard('sanctum')->id() === $pet->user_id;
     }

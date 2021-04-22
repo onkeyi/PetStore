@@ -11,7 +11,8 @@ class UserFavorite extends Model
     use HasFactory;
     protected $fillable = ['pet_id', 'user_id'];
 
-    public function pet() {
+    public function pet()
+    {
         return $this->hasOne(Pet::class, 'id', 'pet_id')->with(['tags', 'photoUrls', 'owner']);
     }
 }
