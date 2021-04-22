@@ -2,13 +2,17 @@ module.exports = function superdebug(output) {
     return function (request) {
         request
             .on("request", (request) => {
-                output("REQUES >>>", `${request.method} : ${request.url}`);
+                output.debug(
+                    "HTTP",
+                    "REQUES >>>",
+                    `${request.method} : ${request.url}`
+                );
             })
             .on("response", (response) => {
-                output("RESPONSE <<<", response.body);
+                output.debug("HTTP", "RESPONSE <<<", response.body);
             })
             .on("error", (error) => {
-                output("ERROR :::", error);
+                output.error("ERROR :::", error);
             });
     };
 };

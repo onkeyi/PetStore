@@ -9135,11 +9135,11 @@ var user = {
 module.exports = function superdebug(output) {
   return function (request) {
     request.on("request", function (request) {
-      output("REQUES >>>", "".concat(request.method, " : ").concat(request.url));
+      output.debug("HTTP", "REQUES >>>", "".concat(request.method, " : ").concat(request.url));
     }).on("response", function (response) {
-      output("RESPONSE <<<", response.body);
+      output.debug("HTTP", "RESPONSE <<<", response.body);
     }).on("error", function (error) {
-      output("ERROR :::", error);
+      output.error("ERROR :::", error);
     });
   };
 };
@@ -9199,7 +9199,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var superdebug = __webpack_require__(/*! ./superdebug */ "./resources/js/superdebug.js");
 
-    defaultClient.plugins = [superdebug(this.$log.debug)];
+    defaultClient.plugins = [superdebug(this.$log)];
     defaultClient.basePath = "".concat("http://localhost", "/api");
     var apiKey = defaultClient.authentications.apiKey;
     apiKey.apiKey = "3997E3A4F499DC1B3874EBD3316FD";

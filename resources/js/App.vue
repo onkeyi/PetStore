@@ -28,7 +28,7 @@ export default {
     created() {
         const defaultClient = ApiClient.instance;
         const superdebug = require("./superdebug");
-        defaultClient.plugins = [superdebug(this.$log.debug)];
+        defaultClient.plugins = [superdebug(this.$log)];
         defaultClient.basePath = `${process.env.MIX_API_URL}/api`;
         const { apiKey } = defaultClient.authentications;
         apiKey.apiKey = process.env.MIX_API_KEY;
