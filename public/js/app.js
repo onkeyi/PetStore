@@ -2472,10 +2472,7 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
   \************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 /* provided dependency */ var Buffer = __webpack_require__(/*! buffer */ "./node_modules/buffer/index.js")["Buffer"];
-
-
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
@@ -2492,15 +2489,15 @@ function _interopRequireDefault(obj) {
 }
 
 function _typeof(obj) {
-  "@babel/helpers - typeof";
+  '@babel/helpers - typeof';
 
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+  if (typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol') {
     _typeof = function _typeof(obj) {
       return typeof obj;
     };
   } else {
     _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
     };
   }
 
@@ -2509,7 +2506,7 @@ function _typeof(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -2518,7 +2515,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -2542,7 +2539,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 */
 
 
-var ApiClient = /*#__PURE__*/function () {
+var ApiClient = /* #__PURE__ */function () {
   function ApiClient() {
     _classCallCheck(this, ApiClient);
     /**
@@ -2559,12 +2556,12 @@ var ApiClient = /*#__PURE__*/function () {
      */
 
     this.authentications = {
-      'apiKey': {
+      apiKey: {
         type: 'apiKey',
-        'in': 'header',
+        "in": 'header',
         name: 'API-KEY'
       },
-      'bearer': {
+      bearer: {
         type: 'bearer'
       } // bearer
 
@@ -2628,7 +2625,7 @@ var ApiClient = /*#__PURE__*/function () {
 
 
   _createClass(ApiClient, [{
-    key: "paramToString",
+    key: 'paramToString',
     value: function paramToString(param) {
       if (param == undefined || param == null) {
         return '';
@@ -2651,7 +2648,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "buildUrl",
+    key: 'buildUrl',
     value:
     /**
      * Builds full URL by appending the given path to the base URL and replacing path parameter place-holders with parameter values.
@@ -2665,7 +2662,7 @@ var ApiClient = /*#__PURE__*/function () {
       var _this = this;
 
       if (!path.match(/^\//)) {
-        path = '/' + path;
+        path = "/".concat(path);
       }
 
       var url = this.basePath + path; // use API (operation, path) base path if defined
@@ -2700,7 +2697,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "isJsonMime",
+    key: 'isJsonMime',
     value: function isJsonMime(contentType) {
       return Boolean(contentType != null && contentType.match(/^application\/json(;.*)?$/i));
     }
@@ -2711,7 +2708,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "jsonPreferredMime",
+    key: 'jsonPreferredMime',
     value: function jsonPreferredMime(contentTypes) {
       for (var i = 0; i < contentTypes.length; i++) {
         if (this.isJsonMime(contentTypes[i])) {
@@ -2728,7 +2725,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "isFileParam",
+    key: 'isFileParam',
     value: function isFileParam(param) {
       // fs.ReadStream in Node.js and Electron (but not in runtime like browserify)
       if (true) {
@@ -2772,7 +2769,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "normalizeParams",
+    key: 'normalizeParams',
     value: function normalizeParams(params) {
       var newParams = {};
 
@@ -2799,7 +2796,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "buildCollectionParam",
+    key: 'buildCollectionParam',
     value: function buildCollectionParam(param, collectionFormat) {
       if (param == null) {
         return null;
@@ -2819,14 +2816,14 @@ var ApiClient = /*#__PURE__*/function () {
           return param.map(this.paramToString, this).join('|');
 
         case 'multi':
-          //return the array directly as SuperAgent will handle it as expected
+          // return the array directly as SuperAgent will handle it as expected
           return param.map(this.paramToString, this);
 
         case 'passthrough':
           return param;
 
         default:
-          throw new Error('Unknown collection format: ' + collectionFormat);
+          throw new Error("Unknown collection format: ".concat(collectionFormat));
       }
     }
     /**
@@ -2836,7 +2833,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "applyAuthToRequest",
+    key: 'applyAuthToRequest',
     value: function applyAuthToRequest(request, authNames) {
       var _this2 = this;
 
@@ -2855,7 +2852,7 @@ var ApiClient = /*#__PURE__*/function () {
             if (auth.accessToken) {
               var localVarBearerToken = typeof auth.accessToken === 'function' ? auth.accessToken() : auth.accessToken;
               request.set({
-                'Authorization': 'Bearer ' + localVarBearerToken
+                Authorization: "Bearer ".concat(localVarBearerToken)
               });
             }
 
@@ -2866,12 +2863,12 @@ var ApiClient = /*#__PURE__*/function () {
               var data = {};
 
               if (auth.apiKeyPrefix) {
-                data[auth.name] = auth.apiKeyPrefix + ' ' + auth.apiKey;
+                data[auth.name] = "".concat(auth.apiKeyPrefix, " ").concat(auth.apiKey);
               } else {
                 data[auth.name] = auth.apiKey;
               }
 
-              if (auth['in'] === 'header') {
+              if (auth["in"] === 'header') {
                 request.set(data);
               } else {
                 request.query(data);
@@ -2883,14 +2880,14 @@ var ApiClient = /*#__PURE__*/function () {
           case 'oauth2':
             if (auth.accessToken) {
               request.set({
-                'Authorization': 'Bearer ' + auth.accessToken
+                Authorization: "Bearer ".concat(auth.accessToken)
               });
             }
 
             break;
 
           default:
-            throw new Error('Unknown authentication type: ' + auth.type);
+            throw new Error("Unknown authentication type: ".concat(auth.type));
         }
       });
     }
@@ -2905,7 +2902,7 @@ var ApiClient = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "deserialize",
+    key: 'deserialize',
     value: function deserialize(response, returnType) {
       if (response == null || returnType == null || response.status == 204) {
         return null;
@@ -2941,7 +2938,7 @@ var ApiClient = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "callApi",
+    key: 'callApi',
     value: function callApi(path, httpMethod, pathParams, queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts, returnType, apiBasePath) {
       var _this3 = this;
 
@@ -2960,7 +2957,7 @@ var ApiClient = /*#__PURE__*/function () {
       this.applyAuthToRequest(request, authNames); // set query parameters
 
       if (httpMethod.toUpperCase() === 'GET' && this.cache === false) {
-        queryParams['_'] = new Date().getTime();
+        queryParams._ = new Date().getTime();
       }
 
       request.query(this.normalizeParams(queryParams)); // set header parameters
@@ -3073,7 +3070,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "hostSettings",
+    key: 'hostSettings',
     value:
     /**
       * Gets an array of host settings
@@ -3081,38 +3078,38 @@ var ApiClient = /*#__PURE__*/function () {
       */
     function hostSettings() {
       return [{
-        'url': "http://localhost/api",
-        'description': "開発サーバーURL"
+        url: 'http://localhost/api',
+        description: '開発サーバーURL'
       }, {
-        'url': "https://product/api",
-        'description': "本番サーバーURL"
+        url: 'https://product/api',
+        description: '本番サーバーURL'
       }];
     }
   }, {
-    key: "getBasePathFromSettings",
+    key: 'getBasePathFromSettings',
     value: function getBasePathFromSettings(index) {
       var variables = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var servers = this.hostSettings(); // check array index out of bound
 
       if (index < 0 || index >= servers.length) {
-        throw new Error("Invalid index " + index + " when selecting the host settings. Must be less than " + servers.length);
+        throw new Error("Invalid index ".concat(index, " when selecting the host settings. Must be less than ").concat(servers.length));
       }
 
       var server = servers[index];
-      var url = server['url']; // go through variable and assign a value
+      var url = server.url; // go through variable and assign a value
 
-      for (var variable_name in server['variables']) {
+      for (var variable_name in server.variables) {
         if (variable_name in variables) {
-          var variable = server['variables'][variable_name];
+          var variable = server.variables[variable_name];
 
-          if (!('enum_values' in variable) || variable['enum_values'].includes(variables[variable_name])) {
-            url = url.replace("{" + variable_name + "}", variables[variable_name]);
+          if (!('enum_values' in variable) || variable.enum_values.includes(variables[variable_name])) {
+            url = url.replace("{".concat(variable_name, "}"), variables[variable_name]);
           } else {
-            throw new Error("The variable `" + variable_name + "` in the host URL has invalid value " + variables[variable_name] + ". Must be " + server['variables'][variable_name]['enum_values'] + ".");
+            throw new Error("The variable `".concat(variable_name, "` in the host URL has invalid value ").concat(variables[variable_name], ". Must be ").concat(server.variables[variable_name].enum_values, "."));
           }
         } else {
           // use default value
-          url = url.replace("{" + variable_name + "}", server['variables'][variable_name]['default_value']);
+          url = url.replace("{".concat(variable_name, "}"), server.variables[variable_name].default_value);
         }
       }
 
@@ -3125,7 +3122,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }], [{
-    key: "canBeJsonified",
+    key: 'canBeJsonified',
     value: function canBeJsonified(str) {
       if (typeof str !== 'string' && _typeof(str) !== 'object') return false;
 
@@ -3137,7 +3134,7 @@ var ApiClient = /*#__PURE__*/function () {
       }
     }
   }, {
-    key: "parseDate",
+    key: 'parseDate',
     value: function parseDate(str) {
       if (isNaN(str)) {
         return new Date(str);
@@ -3156,7 +3153,7 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }, {
-    key: "convertToType",
+    key: 'convertToType',
     value: function convertToType(data, type) {
       if (data === null || data === undefined) return data;
 
@@ -3183,18 +3180,25 @@ var ApiClient = /*#__PURE__*/function () {
           if (type === Object) {
             // generic object, return directly
             return data;
-          } else if (typeof type.constructFromObject === 'function') {
+          }
+
+          if (typeof type.constructFromObject === 'function') {
             // for model type like User and enum class
             return type.constructFromObject(data);
-          } else if (Array.isArray(type)) {
+          }
+
+          if (Array.isArray(type)) {
             // for array type like: ['String']
             var itemType = type[0];
             return data.map(function (item) {
               return ApiClient.convertToType(item, itemType);
             });
-          } else if (_typeof(type) === 'object') {
+          }
+
+          if (_typeof(type) === 'object') {
             // for plain object type like: {'String': 'Integer'}
-            var keyType, valueType;
+            var keyType;
+            var valueType;
 
             for (var k in type) {
               if (type.hasOwnProperty(k)) {
@@ -3215,15 +3219,14 @@ var ApiClient = /*#__PURE__*/function () {
             }
 
             return result;
-          } else {
-            // for unknown type, return the data directly
-            return data;
-          }
+          } // for unknown type, return the data directly
 
+
+          return data;
       }
     }
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj, itemType) {
       if (Array.isArray(data)) {
         for (var i = 0; i < data.length; i++) {
@@ -3294,9 +3297,6 @@ exports.default = _default;
   \******************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
@@ -3320,7 +3320,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -3329,7 +3329,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -3346,9 +3346,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 */
 
 
-var CategoryApi = /*#__PURE__*/function () {
+var CategoryApi = /* #__PURE__ */function () {
   /**
-  * Constructs a new CategoryApi. 
+  * Constructs a new CategoryApi.
   * @alias module:api/CategoryApi
   * @class
   * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
@@ -3361,18 +3361,18 @@ var CategoryApi = /*#__PURE__*/function () {
   }
   /**
    * カテゴリ新規登録
-   * カテゴリ登録 
+   * カテゴリ登録
    * @param {Object} opts Optional parameters
-   * @param {module:model/Category} opts.category 
+   * @param {module:model/Category} opts.category
    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
    */
 
 
   _createClass(CategoryApi, [{
-    key: "addNewCategoryWithHttpInfo",
+    key: 'addNewCategoryWithHttpInfo',
     value: function addNewCategoryWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['category'];
+      var postBody = opts.category;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -3385,14 +3385,14 @@ var CategoryApi = /*#__PURE__*/function () {
     }
     /**
      * カテゴリ新規登録
-     * カテゴリ登録 
+     * カテゴリ登録
      * @param {Object} opts Optional parameters
-     * @param {module:model/Category} opts.category 
+     * @param {module:model/Category} opts.category
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
   }, {
-    key: "addNewCategory",
+    key: 'addNewCategory',
     value: function addNewCategory(opts) {
       return this.addNewCategoryWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -3400,13 +3400,13 @@ var CategoryApi = /*#__PURE__*/function () {
     }
     /**
      * カテゴリ削除
-     * カテゴリ削除 
-     * @param {Number} categoryId 
+     * カテゴリ削除
+     * @param {Number} categoryId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deleteCategoryByIdWithHttpInfo",
+    key: 'deleteCategoryByIdWithHttpInfo',
     value: function deleteCategoryByIdWithHttpInfo(categoryId) {
       var postBody = null; // verify the required parameter 'categoryId' is set
 
@@ -3415,7 +3415,7 @@ var CategoryApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'categoryId': categoryId
+        categoryId: categoryId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3428,13 +3428,13 @@ var CategoryApi = /*#__PURE__*/function () {
     }
     /**
      * カテゴリ削除
-     * カテゴリ削除 
-     * @param {Number} categoryId 
+     * カテゴリ削除
+     * @param {Number} categoryId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deleteCategoryById",
+    key: 'deleteCategoryById',
     value: function deleteCategoryById(categoryId) {
       return this.deleteCategoryByIdWithHttpInfo(categoryId).then(function (response_and_data) {
         return response_and_data.data;
@@ -3446,7 +3446,7 @@ var CategoryApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getAllCategorysWithHttpInfo",
+    key: 'getAllCategorysWithHttpInfo',
     value: function getAllCategorysWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -3465,7 +3465,7 @@ var CategoryApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getAllCategorys",
+    key: 'getAllCategorys',
     value: function getAllCategorys() {
       return this.getAllCategorysWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -3473,13 +3473,13 @@ var CategoryApi = /*#__PURE__*/function () {
     }
     /**
      * カテゴリ取得
-     * カテゴリ取得 
-     * @param {Number} categoryId 
+     * カテゴリ取得
+     * @param {Number} categoryId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Category} and HTTP response
      */
 
   }, {
-    key: "getCategoryByIdWithHttpInfo",
+    key: 'getCategoryByIdWithHttpInfo',
     value: function getCategoryByIdWithHttpInfo(categoryId) {
       var postBody = null; // verify the required parameter 'categoryId' is set
 
@@ -3488,7 +3488,7 @@ var CategoryApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'categoryId': categoryId
+        categoryId: categoryId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3501,13 +3501,13 @@ var CategoryApi = /*#__PURE__*/function () {
     }
     /**
      * カテゴリ取得
-     * カテゴリ取得 
-     * @param {Number} categoryId 
+     * カテゴリ取得
+     * @param {Number} categoryId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
 
   }, {
-    key: "getCategoryById",
+    key: 'getCategoryById',
     value: function getCategoryById(categoryId) {
       return this.getCategoryByIdWithHttpInfo(categoryId).then(function (response_and_data) {
         return response_and_data.data;
@@ -3515,25 +3515,25 @@ var CategoryApi = /*#__PURE__*/function () {
     }
     /**
      * カテゴリ更新
-     * カテゴリ更新 
-     * @param {String} categoryId 
+     * カテゴリ更新
+     * @param {String} categoryId
      * @param {Object} opts Optional parameters
-     * @param {module:model/Category} opts.category 
+     * @param {module:model/Category} opts.category
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "updateCategoryByIdWithHttpInfo",
+    key: 'updateCategoryByIdWithHttpInfo',
     value: function updateCategoryByIdWithHttpInfo(categoryId, opts) {
       opts = opts || {};
-      var postBody = opts['category']; // verify the required parameter 'categoryId' is set
+      var postBody = opts.category; // verify the required parameter 'categoryId' is set
 
       if (categoryId === undefined || categoryId === null) {
         throw new Error("Missing the required parameter 'categoryId' when calling updateCategoryById");
       }
 
       var pathParams = {
-        'categoryId': categoryId
+        categoryId: categoryId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3546,15 +3546,15 @@ var CategoryApi = /*#__PURE__*/function () {
     }
     /**
      * カテゴリ更新
-     * カテゴリ更新 
-     * @param {String} categoryId 
+     * カテゴリ更新
+     * @param {String} categoryId
      * @param {Object} opts Optional parameters
-     * @param {module:model/Category} opts.category 
+     * @param {module:model/Category} opts.category
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "updateCategoryById",
+    key: 'updateCategoryById',
     value: function updateCategoryById(categoryId, opts) {
       return this.updateCategoryByIdWithHttpInfo(categoryId, opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -3574,9 +3574,6 @@ exports.default = CategoryApi;
   !*** ./client/pet_store_api/dist/api/OrderApi.js ***!
   \***************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -3611,7 +3608,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -3620,7 +3617,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -3637,9 +3634,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 */
 
 
-var OrderApi = /*#__PURE__*/function () {
+var OrderApi = /* #__PURE__ */function () {
   /**
-  * Constructs a new OrderApi. 
+  * Constructs a new OrderApi.
   * @alias module:api/OrderApi
   * @class
   * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
@@ -3654,16 +3651,16 @@ var OrderApi = /*#__PURE__*/function () {
    * オーダー登録
    * オーダー登録
    * @param {Object} opts Optional parameters
-   * @param {module:model/RequestOrderStore} opts.requestOrderStore 
+   * @param {module:model/RequestOrderStore} opts.requestOrderStore
    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing HTTP response
    */
 
 
   _createClass(OrderApi, [{
-    key: "addNewOrderWithHttpInfo",
+    key: 'addNewOrderWithHttpInfo',
     value: function addNewOrderWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['requestOrderStore'];
+      var postBody = opts.requestOrderStore;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -3678,12 +3675,12 @@ var OrderApi = /*#__PURE__*/function () {
      * オーダー登録
      * オーダー登録
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestOrderStore} opts.requestOrderStore 
+     * @param {module:model/RequestOrderStore} opts.requestOrderStore
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
 
   }, {
-    key: "addNewOrder",
+    key: 'addNewOrder',
     value: function addNewOrder(opts) {
       return this.addNewOrderWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -3693,15 +3690,15 @@ var OrderApi = /*#__PURE__*/function () {
      * post new order comment
      * comment post
      * @param {Object} opts Optional parameters
-     * @param {module:model/OrderComment} opts.orderComment 
+     * @param {module:model/OrderComment} opts.orderComment
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
 
   }, {
-    key: "addNewOrderCommentWithHttpInfo",
+    key: 'addNewOrderCommentWithHttpInfo',
     value: function addNewOrderCommentWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['orderComment'];
+      var postBody = opts.orderComment;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -3716,12 +3713,12 @@ var OrderApi = /*#__PURE__*/function () {
      * post new order comment
      * comment post
      * @param {Object} opts Optional parameters
-     * @param {module:model/OrderComment} opts.orderComment 
+     * @param {module:model/OrderComment} opts.orderComment
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
   }, {
-    key: "addNewOrderComment",
+    key: 'addNewOrderComment',
     value: function addNewOrderComment(opts) {
       return this.addNewOrderCommentWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -3729,12 +3726,12 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * オーダー削除
-     * @param {Number} orderId 
+     * @param {Number} orderId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deleteOrderByIdWithHttpInfo",
+    key: 'deleteOrderByIdWithHttpInfo',
     value: function deleteOrderByIdWithHttpInfo(orderId) {
       var postBody = null; // verify the required parameter 'orderId' is set
 
@@ -3743,7 +3740,7 @@ var OrderApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'orderId': orderId
+        orderId: orderId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3756,12 +3753,12 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * オーダー削除
-     * @param {Number} orderId 
+     * @param {Number} orderId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deleteOrderById",
+    key: 'deleteOrderById',
     value: function deleteOrderById(orderId) {
       return this.deleteOrderByIdWithHttpInfo(orderId).then(function (response_and_data) {
         return response_and_data.data;
@@ -3769,12 +3766,12 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * Order comment 情報削除
-     * @param {Number} orderCommentId 
+     * @param {Number} orderCommentId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deleteOrderCommentByIdWithHttpInfo",
+    key: 'deleteOrderCommentByIdWithHttpInfo',
     value: function deleteOrderCommentByIdWithHttpInfo(orderCommentId) {
       var postBody = null; // verify the required parameter 'orderCommentId' is set
 
@@ -3783,7 +3780,7 @@ var OrderApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'orderCommentId': orderCommentId
+        orderCommentId: orderCommentId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3796,12 +3793,12 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * Order comment 情報削除
-     * @param {Number} orderCommentId 
+     * @param {Number} orderCommentId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deleteOrderCommentById",
+    key: 'deleteOrderCommentById',
     value: function deleteOrderCommentById(orderCommentId) {
       return this.deleteOrderCommentByIdWithHttpInfo(orderCommentId).then(function (response_and_data) {
         return response_and_data.data;
@@ -3813,7 +3810,7 @@ var OrderApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getAllOrderWithHttpInfo",
+    key: 'getAllOrderWithHttpInfo',
     value: function getAllOrderWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -3832,7 +3829,7 @@ var OrderApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getAllOrder",
+    key: 'getAllOrder',
     value: function getAllOrder() {
       return this.getAllOrderWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -3840,12 +3837,12 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * オーダー取得
-     * @param {Number} orderId 
+     * @param {Number} orderId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Order} and HTTP response
      */
 
   }, {
-    key: "getOrderByIdWithHttpInfo",
+    key: 'getOrderByIdWithHttpInfo',
     value: function getOrderByIdWithHttpInfo(orderId) {
       var postBody = null; // verify the required parameter 'orderId' is set
 
@@ -3854,7 +3851,7 @@ var OrderApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'orderId': orderId
+        orderId: orderId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3867,12 +3864,12 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * オーダー取得
-     * @param {Number} orderId 
+     * @param {Number} orderId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
 
   }, {
-    key: "getOrderById",
+    key: 'getOrderById',
     value: function getOrderById(orderId) {
       return this.getOrderByIdWithHttpInfo(orderId).then(function (response_and_data) {
         return response_and_data.data;
@@ -3881,12 +3878,12 @@ var OrderApi = /*#__PURE__*/function () {
     /**
      * Orderコメント
      * Order comments.
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "getOrderCommentsWithHttpInfo",
+    key: 'getOrderCommentsWithHttpInfo',
     value: function getOrderCommentsWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
@@ -3895,7 +3892,7 @@ var OrderApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'petId': petId
+        petId: petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3909,12 +3906,12 @@ var OrderApi = /*#__PURE__*/function () {
     /**
      * Orderコメント
      * Order comments.
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "getOrderComments",
+    key: 'getOrderComments',
     value: function getOrderComments(petId) {
       return this.getOrderCommentsWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
@@ -3926,7 +3923,7 @@ var OrderApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getOrderInventoryWithHttpInfo",
+    key: 'getOrderInventoryWithHttpInfo',
     value: function getOrderInventoryWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -3945,7 +3942,7 @@ var OrderApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getOrderInventory",
+    key: 'getOrderInventory',
     value: function getOrderInventory() {
       return this.getOrderInventoryWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -3953,24 +3950,24 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * オーダー更新
-     * @param {Number} orderId 
+     * @param {Number} orderId
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
+     * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "updateOrderByIdWithHttpInfo",
+    key: 'updateOrderByIdWithHttpInfo',
     value: function updateOrderByIdWithHttpInfo(orderId, opts) {
       opts = opts || {};
-      var postBody = opts['requestOrderUpdate']; // verify the required parameter 'orderId' is set
+      var postBody = opts.requestOrderUpdate; // verify the required parameter 'orderId' is set
 
       if (orderId === undefined || orderId === null) {
         throw new Error("Missing the required parameter 'orderId' when calling updateOrderById");
       }
 
       var pathParams = {
-        'orderId': orderId
+        orderId: orderId
       };
       var queryParams = {};
       var headerParams = {};
@@ -3983,14 +3980,14 @@ var OrderApi = /*#__PURE__*/function () {
     }
     /**
      * オーダー更新
-     * @param {Number} orderId 
+     * @param {Number} orderId
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate 
+     * @param {module:model/RequestOrderUpdate} opts.requestOrderUpdate
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "updateOrderById",
+    key: 'updateOrderById',
     value: function updateOrderById(orderId, opts) {
       return this.updateOrderByIdWithHttpInfo(orderId, opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4010,9 +4007,6 @@ exports.default = OrderApi;
   !*** ./client/pet_store_api/dist/api/PetApi.js ***!
   \*************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -4049,7 +4043,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -4058,7 +4052,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -4075,9 +4069,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 */
 
 
-var PetApi = /*#__PURE__*/function () {
+var PetApi = /* #__PURE__ */function () {
   /**
-  * Constructs a new PetApi. 
+  * Constructs a new PetApi.
   * @alias module:api/PetApi
   * @class
   * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
@@ -4090,18 +4084,18 @@ var PetApi = /*#__PURE__*/function () {
   }
   /**
    * ペット新規登録
-   * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
+   * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage
    * @param {Object} opts Optional parameters
-   * @param {module:model/RequestPetStore} opts.requestPetStore 
+   * @param {module:model/RequestPetStore} opts.requestPetStore
    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
    */
 
 
   _createClass(PetApi, [{
-    key: "addNewPetWithHttpInfo",
+    key: 'addNewPetWithHttpInfo',
     value: function addNewPetWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['requestPetStore'];
+      var postBody = opts.requestPetStore;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -4114,14 +4108,14 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペット新規登録
-     * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage 
+     * ペット新規登録 - category は　categoriesから選択したID - tags : tagsテーブルにある場合、ID登録、ない場合 tagsテーブルに新規登録 - イメージアップロードは　api/pet/uploadImage
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestPetStore} opts.requestPetStore 
+     * @param {module:model/RequestPetStore} opts.requestPetStore
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Pet}
      */
 
   }, {
-    key: "addNewPet",
+    key: 'addNewPet',
     value: function addNewPet(opts) {
       return this.addNewPetWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4131,15 +4125,15 @@ var PetApi = /*#__PURE__*/function () {
      * post new comment
      * comment post
      * @param {Object} opts Optional parameters
-     * @param {module:model/PetComment} opts.petComment 
+     * @param {module:model/PetComment} opts.petComment
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
 
   }, {
-    key: "addNewPetCommentWithHttpInfo",
+    key: 'addNewPetCommentWithHttpInfo',
     value: function addNewPetCommentWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['petComment'];
+      var postBody = opts.petComment;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -4154,12 +4148,12 @@ var PetApi = /*#__PURE__*/function () {
      * post new comment
      * comment post
      * @param {Object} opts Optional parameters
-     * @param {module:model/PetComment} opts.petComment 
+     * @param {module:model/PetComment} opts.petComment
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
   }, {
-    key: "addNewPetComment",
+    key: 'addNewPetComment',
     value: function addNewPetComment(opts) {
       return this.addNewPetCommentWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4167,12 +4161,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペットオーダー情報削除
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deleteOrderByPetIdWithHttpInfo",
+    key: 'deleteOrderByPetIdWithHttpInfo',
     value: function deleteOrderByPetIdWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
@@ -4181,7 +4175,7 @@ var PetApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'petId': petId
+        petId: petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4194,12 +4188,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペットオーダー情報削除
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deleteOrderByPetId",
+    key: 'deleteOrderByPetId',
     value: function deleteOrderByPetId(petId) {
       return this.deleteOrderByPetIdWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
@@ -4207,12 +4201,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペット情報削除
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deletePetByIdWithHttpInfo",
+    key: 'deletePetByIdWithHttpInfo',
     value: function deletePetByIdWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
@@ -4221,7 +4215,7 @@ var PetApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'petId': petId
+        petId: petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4234,12 +4228,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペット情報削除
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deletePetById",
+    key: 'deletePetById',
     value: function deletePetById(petId) {
       return this.deletePetByIdWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
@@ -4247,12 +4241,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペット情報削除
-     * @param {Number} petCommentId 
+     * @param {Number} petCommentId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deletePetCommentByIdWithHttpInfo",
+    key: 'deletePetCommentByIdWithHttpInfo',
     value: function deletePetCommentByIdWithHttpInfo(petCommentId) {
       var postBody = null; // verify the required parameter 'petCommentId' is set
 
@@ -4261,7 +4255,7 @@ var PetApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'petCommentId': petCommentId
+        petCommentId: petCommentId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4274,12 +4268,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペット情報削除
-     * @param {Number} petCommentId 
+     * @param {Number} petCommentId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deletePetCommentById",
+    key: 'deletePetCommentById',
     value: function deletePetCommentById(petCommentId) {
       return this.deletePetCommentByIdWithHttpInfo(petCommentId).then(function (response_and_data) {
         return response_and_data.data;
@@ -4288,20 +4282,20 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {String} opts.category 
+     * @param {String} opts.sort
+     * @param {String} opts.category
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "findPetByCategoryWithHttpInfo",
+    key: 'findPetByCategoryWithHttpInfo',
     value: function findPetByCategoryWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
       var queryParams = {
-        'sort': opts['sort'],
-        'category': opts['category']
+        sort: opts.sort,
+        category: opts.category
       };
       var headerParams = {};
       var formParams = {};
@@ -4314,13 +4308,13 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * カテゴリで検索
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {String} opts.category 
+     * @param {String} opts.sort
+     * @param {String} opts.category
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "findPetByCategory",
+    key: 'findPetByCategory',
     value: function findPetByCategory(opts) {
       return this.findPetByCategoryWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4329,22 +4323,22 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {String} opts.status 
-     * @param {Number} opts.page 
+     * @param {String} opts.sort
+     * @param {String} opts.status
+     * @param {Number} opts.page
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "findPetByStatusWithHttpInfo",
+    key: 'findPetByStatusWithHttpInfo',
     value: function findPetByStatusWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
       var queryParams = {
-        'sort': opts['sort'],
-        'status': opts['status'],
-        'page': opts['page']
+        sort: opts.sort,
+        status: opts.status,
+        page: opts.page
       };
       var headerParams = {};
       var formParams = {};
@@ -4357,14 +4351,14 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ステータスで検索
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {String} opts.status 
-     * @param {Number} opts.page 
+     * @param {String} opts.sort
+     * @param {String} opts.status
+     * @param {Number} opts.page
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "findPetByStatus",
+    key: 'findPetByStatus',
     value: function findPetByStatus(opts) {
       return this.findPetByStatusWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4374,22 +4368,22 @@ var PetApi = /*#__PURE__*/function () {
      * タグで検索
      * タグで検索
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {String} opts.tag 
-     * @param {Number} opts.page 
+     * @param {String} opts.sort
+     * @param {String} opts.tag
+     * @param {Number} opts.page
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "findPetByTagWithHttpInfo",
+    key: 'findPetByTagWithHttpInfo',
     value: function findPetByTagWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
       var queryParams = {
-        'sort': opts['sort'],
-        'tag': opts['tag'],
-        'page': opts['page']
+        sort: opts.sort,
+        tag: opts.tag,
+        page: opts.page
       };
       var headerParams = {};
       var formParams = {};
@@ -4403,14 +4397,14 @@ var PetApi = /*#__PURE__*/function () {
      * タグで検索
      * タグで検索
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {String} opts.tag 
-     * @param {Number} opts.page 
+     * @param {String} opts.sort
+     * @param {String} opts.tag
+     * @param {Number} opts.page
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "findPetByTag",
+    key: 'findPetByTag',
     value: function findPetByTag(opts) {
       return this.findPetByTagWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4420,20 +4414,20 @@ var PetApi = /*#__PURE__*/function () {
      * ペット一覧取得
      * stagusがavailableはorder可能
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {Number} opts.page 
+     * @param {String} opts.sort
+     * @param {Number} opts.page
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "getAllPetsWithHttpInfo",
+    key: 'getAllPetsWithHttpInfo',
     value: function getAllPetsWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
       var pathParams = {};
       var queryParams = {
-        'sort': opts['sort'],
-        'page': opts['page']
+        sort: opts.sort,
+        page: opts.page
       };
       var headerParams = {};
       var formParams = {};
@@ -4447,13 +4441,13 @@ var PetApi = /*#__PURE__*/function () {
      * ペット一覧取得
      * stagusがavailableはorder可能
      * @param {Object} opts Optional parameters
-     * @param {String} opts.sort 
-     * @param {Number} opts.page 
+     * @param {String} opts.sort
+     * @param {Number} opts.page
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "getAllPets",
+    key: 'getAllPets',
     value: function getAllPets(opts) {
       return this.getAllPetsWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4461,12 +4455,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペット情報取得
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/Pet} and HTTP response
      */
 
   }, {
-    key: "getPetByIdWithHttpInfo",
+    key: 'getPetByIdWithHttpInfo',
     value: function getPetByIdWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
@@ -4475,7 +4469,7 @@ var PetApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'petId': petId
+        petId: petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4488,12 +4482,12 @@ var PetApi = /*#__PURE__*/function () {
     }
     /**
      * ペット情報取得
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Pet}
      */
 
   }, {
-    key: "getPetById",
+    key: 'getPetById',
     value: function getPetById(petId) {
       return this.getPetByIdWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
@@ -4502,12 +4496,12 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ペットコメント
      * Pet comments.
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponsePegination} and HTTP response
      */
 
   }, {
-    key: "getPetCommentsWithHttpInfo",
+    key: 'getPetCommentsWithHttpInfo',
     value: function getPetCommentsWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
@@ -4516,7 +4510,7 @@ var PetApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'petId': petId
+        petId: petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4530,12 +4524,12 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ペットコメント
      * Pet comments.
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponsePegination}
      */
 
   }, {
-    key: "getPetComments",
+    key: 'getPetComments',
     value: function getPetComments(petId) {
       return this.getPetCommentsWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
@@ -4544,24 +4538,24 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ペット情報更新
      * 更新処理
-     * @param {Number} petId 
+     * @param {Number} petId
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
+     * @param {module:model/RequestPetUpdate} opts.requestPetUpdate
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "updatePetByIdWithHttpInfo",
+    key: 'updatePetByIdWithHttpInfo',
     value: function updatePetByIdWithHttpInfo(petId, opts) {
       opts = opts || {};
-      var postBody = opts['requestPetUpdate']; // verify the required parameter 'petId' is set
+      var postBody = opts.requestPetUpdate; // verify the required parameter 'petId' is set
 
       if (petId === undefined || petId === null) {
         throw new Error("Missing the required parameter 'petId' when calling updatePetById");
       }
 
       var pathParams = {
-        'petId': petId
+        petId: petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4575,14 +4569,14 @@ var PetApi = /*#__PURE__*/function () {
     /**
      * ペット情報更新
      * 更新処理
-     * @param {Number} petId 
+     * @param {Number} petId
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestPetUpdate} opts.requestPetUpdate 
+     * @param {module:model/RequestPetUpdate} opts.requestPetUpdate
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "updatePetById",
+    key: 'updatePetById',
     value: function updatePetById(petId, opts) {
       return this.updatePetByIdWithHttpInfo(petId, opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4592,15 +4586,15 @@ var PetApi = /*#__PURE__*/function () {
      * update pet like
      * update like
      * @param {Object} opts Optional parameters
-     * @param {module:model/Pet} opts.pet 
+     * @param {module:model/Pet} opts.pet
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "updatePetLikeWithHttpInfo",
+    key: 'updatePetLikeWithHttpInfo',
     value: function updatePetLikeWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['pet'];
+      var postBody = opts.pet;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -4615,12 +4609,12 @@ var PetApi = /*#__PURE__*/function () {
      * update pet like
      * update like
      * @param {Object} opts Optional parameters
-     * @param {module:model/Pet} opts.pet 
+     * @param {module:model/Pet} opts.pet
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "updatePetLike",
+    key: 'updatePetLike',
     value: function updatePetLike(opts) {
       return this.updatePetLikeWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4630,12 +4624,12 @@ var PetApi = /*#__PURE__*/function () {
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
      * @param {Object} opts Optional parameters
-     * @param {File} opts.image 
+     * @param {File} opts.image
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
 
   }, {
-    key: "uploadImageWithHttpInfo",
+    key: 'uploadImageWithHttpInfo',
     value: function uploadImageWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
@@ -4643,7 +4637,7 @@ var PetApi = /*#__PURE__*/function () {
       var queryParams = {};
       var headerParams = {};
       var formParams = {
-        'image': opts['image']
+        image: opts.image
       };
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['multipart/form-data'];
@@ -4655,12 +4649,12 @@ var PetApi = /*#__PURE__*/function () {
      * アップロードペットイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 petsフォルダへ移動
      * @param {Object} opts Optional parameters
-     * @param {File} opts.image 
+     * @param {File} opts.image
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
 
   }, {
-    key: "uploadImage",
+    key: 'uploadImage',
     value: function uploadImage(opts) {
       return this.uploadImageWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4680,9 +4674,6 @@ exports.default = PetApi;
   !*** ./client/pet_store_api/dist/api/UserApi.js ***!
   \**************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -4723,7 +4714,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -4732,7 +4723,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -4749,9 +4740,9 @@ function _createClass(Constructor, protoProps, staticProps) {
 */
 
 
-var UserApi = /*#__PURE__*/function () {
+var UserApi = /* #__PURE__ */function () {
   /**
-  * Constructs a new UserApi. 
+  * Constructs a new UserApi.
   * @alias module:api/UserApi
   * @class
   * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
@@ -4764,25 +4755,25 @@ var UserApi = /*#__PURE__*/function () {
   }
   /**
    * 評価
-   * @param {Number} orderId 
+   * @param {Number} orderId
    * @param {Object} opts Optional parameters
-   * @param {module:model/RequestUserEvalution} opts.requestUserEvalution 
+   * @param {module:model/RequestUserEvalution} opts.requestUserEvalution
    * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2002} and HTTP response
    */
 
 
   _createClass(UserApi, [{
-    key: "addNewEvalutionWithHttpInfo",
+    key: 'addNewEvalutionWithHttpInfo',
     value: function addNewEvalutionWithHttpInfo(orderId, opts) {
       opts = opts || {};
-      var postBody = opts['requestUserEvalution']; // verify the required parameter 'orderId' is set
+      var postBody = opts.requestUserEvalution; // verify the required parameter 'orderId' is set
 
       if (orderId === undefined || orderId === null) {
         throw new Error("Missing the required parameter 'orderId' when calling addNewEvalution");
       }
 
       var pathParams = {
-        'orderId': orderId
+        orderId: orderId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4795,14 +4786,14 @@ var UserApi = /*#__PURE__*/function () {
     }
     /**
      * 評価
-     * @param {Number} orderId 
+     * @param {Number} orderId
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestUserEvalution} opts.requestUserEvalution 
+     * @param {module:model/RequestUserEvalution} opts.requestUserEvalution
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2002}
      */
 
   }, {
-    key: "addNewEvalution",
+    key: 'addNewEvalution',
     value: function addNewEvalution(orderId, opts) {
       return this.addNewEvalutionWithHttpInfo(orderId, opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -4815,7 +4806,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "deleteUserWithHttpInfo",
+    key: 'deleteUserWithHttpInfo',
     value: function deleteUserWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -4835,7 +4826,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "deleteUser",
+    key: 'deleteUser',
     value: function deleteUser() {
       return this.deleteUserWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -4844,12 +4835,12 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
-     * @param {Number} userId 
+     * @param {Number} userId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "deleteUserByIdWithHttpInfo",
+    key: 'deleteUserByIdWithHttpInfo',
     value: function deleteUserByIdWithHttpInfo(userId) {
       var postBody = null; // verify the required parameter 'userId' is set
 
@@ -4858,7 +4849,7 @@ var UserApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'userId': userId
+        userId: userId
       };
       var queryParams = {};
       var headerParams = {};
@@ -4872,12 +4863,12 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * ユーザー削除
      * ユーザー削除 - softdelete
-     * @param {Number} userId 
+     * @param {Number} userId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "deleteUserById",
+    key: 'deleteUserById',
     value: function deleteUserById(userId) {
       return this.deleteUserByIdWithHttpInfo(userId).then(function (response_and_data) {
         return response_and_data.data;
@@ -4886,12 +4877,12 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * ユーザー検索
      * ユーザー名で検索 - ユーザー名前後一致検索 - 結果がない場合、[]を返す。
-     * @param {String} username 
+     * @param {String} username
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Array.<module:model/User>} and HTTP response
      */
 
   }, {
-    key: "findUserByNameWithHttpInfo",
+    key: 'findUserByNameWithHttpInfo',
     value: function findUserByNameWithHttpInfo(username) {
       var postBody = null; // verify the required parameter 'username' is set
 
@@ -4901,7 +4892,7 @@ var UserApi = /*#__PURE__*/function () {
 
       var pathParams = {};
       var queryParams = {
-        'username': username
+        username: username
       };
       var headerParams = {};
       var formParams = {};
@@ -4914,12 +4905,12 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * ユーザー検索
      * ユーザー名で検索 - ユーザー名前後一致検索 - 結果がない場合、[]を返す。
-     * @param {String} username 
+     * @param {String} username
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Array.<module:model/User>}
      */
 
   }, {
-    key: "findUserByName",
+    key: 'findUserByName',
     value: function findUserByName(username) {
       return this.findUserByNameWithHttpInfo(username).then(function (response_and_data) {
         return response_and_data.data;
@@ -4932,7 +4923,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUserWithHttpInfo",
+    key: 'getUserWithHttpInfo',
     value: function getUserWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -4952,7 +4943,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUser",
+    key: 'getUser',
     value: function getUser() {
       return this.getUserWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -4965,7 +4956,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUserFavoritesWithHttpInfo",
+    key: 'getUserFavoritesWithHttpInfo',
     value: function getUserFavoritesWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -4985,7 +4976,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUserFavorites",
+    key: 'getUserFavorites',
     value: function getUserFavorites() {
       return this.getUserFavoritesWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -4997,7 +4988,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUserOrdersWithHttpInfo",
+    key: 'getUserOrdersWithHttpInfo',
     value: function getUserOrdersWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -5016,7 +5007,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUserOrders",
+    key: 'getUserOrders',
     value: function getUserOrders() {
       return this.getUserOrdersWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -5028,7 +5019,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUserPetsWithHttpInfo",
+    key: 'getUserPetsWithHttpInfo',
     value: function getUserPetsWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -5047,7 +5038,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "getUserPets",
+    key: 'getUserPets',
     value: function getUserPets() {
       return this.getUserPetsWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -5057,15 +5048,15 @@ var UserApi = /*#__PURE__*/function () {
      * ログイン
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
+     * @param {module:model/RequestAuthLogin} opts.requestAuthLogin
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link Object} and HTTP response
      */
 
   }, {
-    key: "loginWithHttpInfo",
+    key: 'loginWithHttpInfo',
     value: function loginWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['requestAuthLogin'];
+      var postBody = opts.requestAuthLogin;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -5080,12 +5071,12 @@ var UserApi = /*#__PURE__*/function () {
      * ログイン
      * ログイン ## Validations   - email: メールアドレスチェック   - password max 20 ## ロジック   - ユーザーToken削除   - 新しいToken成功生成
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestAuthLogin} opts.requestAuthLogin 
+     * @param {module:model/RequestAuthLogin} opts.requestAuthLogin
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
 
   }, {
-    key: "login",
+    key: 'login',
     value: function login(opts) {
       return this.loginWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -5098,7 +5089,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "logoutWithHttpInfo",
+    key: 'logoutWithHttpInfo',
     value: function logoutWithHttpInfo() {
       var postBody = null;
       var pathParams = {};
@@ -5118,7 +5109,7 @@ var UserApi = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "logout",
+    key: 'logout',
     value: function logout() {
       return this.logoutWithHttpInfo().then(function (response_and_data) {
         return response_and_data.data;
@@ -5128,15 +5119,15 @@ var UserApi = /*#__PURE__*/function () {
      * 新規ユーザー登録
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
+     * @param {module:model/RequestAuthRegister} opts.requestAuthRegister
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse200} and HTTP response
      */
 
   }, {
-    key: "registerNewUserWithHttpInfo",
+    key: 'registerNewUserWithHttpInfo',
     value: function registerNewUserWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['requestAuthRegister'];
+      var postBody = opts.requestAuthRegister;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -5151,12 +5142,12 @@ var UserApi = /*#__PURE__*/function () {
      * 新規ユーザー登録
      * 新規ユーザー登録 ## Permission   - None ## Validations   - email: メールアドレスチェック、Usersテーブル重複チェック    - name: 最大40文字 ## Logic   - 登録成功するとメール通知   - 通知メールのURLに email_verity.verity_string   - メールアドレスチェック後email_verified_at更新   - email_verified_atがnullではない場合、認証済みユーザーと認識する。
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestAuthRegister} opts.requestAuthRegister 
+     * @param {module:model/RequestAuthRegister} opts.requestAuthRegister
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse200}
      */
 
   }, {
-    key: "registerNewUser",
+    key: 'registerNewUser',
     value: function registerNewUser(opts) {
       return this.registerNewUserWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -5166,15 +5157,15 @@ var UserApi = /*#__PURE__*/function () {
      * ユーザー情報更新
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Object} opts Optional parameters
-     * @param {module:model/User} opts.user 
+     * @param {module:model/User} opts.user
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "updateUserWithHttpInfo",
+    key: 'updateUserWithHttpInfo',
     value: function updateUserWithHttpInfo(opts) {
       opts = opts || {};
-      var postBody = opts['user'];
+      var postBody = opts.user;
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};
@@ -5189,12 +5180,12 @@ var UserApi = /*#__PURE__*/function () {
      * ユーザー情報更新
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
      * @param {Object} opts Optional parameters
-     * @param {module:model/User} opts.user 
+     * @param {module:model/User} opts.user
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "updateUser",
+    key: 'updateUser',
     value: function updateUser(opts) {
       return this.updateUserWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -5203,24 +5194,24 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * ユーザー情報更新
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
-     * @param {Number} userId 
+     * @param {Number} userId
      * @param {Object} opts Optional parameters
-     * @param {module:model/User} opts.user 
+     * @param {module:model/User} opts.user
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "updateUserByIdWithHttpInfo",
+    key: 'updateUserByIdWithHttpInfo',
     value: function updateUserByIdWithHttpInfo(userId, opts) {
       opts = opts || {};
-      var postBody = opts['user']; // verify the required parameter 'userId' is set
+      var postBody = opts.user; // verify the required parameter 'userId' is set
 
       if (userId === undefined || userId === null) {
         throw new Error("Missing the required parameter 'userId' when calling updateUserById");
       }
 
       var pathParams = {
-        'userId': userId
+        userId: userId
       };
       var queryParams = {};
       var headerParams = {};
@@ -5234,14 +5225,14 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * ユーザー情報更新
      * ユーザー情報更新項目 - ユーザー名更新 - ステータス更新
-     * @param {Number} userId 
+     * @param {Number} userId
      * @param {Object} opts Optional parameters
-     * @param {module:model/User} opts.user 
+     * @param {module:model/User} opts.user
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "updateUserById",
+    key: 'updateUserById',
     value: function updateUserById(userId, opts) {
       return this.updateUserByIdWithHttpInfo(userId, opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -5250,12 +5241,12 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * お気に入り登録削除
      * ユーザーお気に入り登録削除
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/ResponseOk} and HTTP response
      */
 
   }, {
-    key: "updateUserFavoriteWithHttpInfo",
+    key: 'updateUserFavoriteWithHttpInfo',
     value: function updateUserFavoriteWithHttpInfo(petId) {
       var postBody = null; // verify the required parameter 'petId' is set
 
@@ -5264,7 +5255,7 @@ var UserApi = /*#__PURE__*/function () {
       }
 
       var pathParams = {
-        'petId': petId
+        petId: petId
       };
       var queryParams = {};
       var headerParams = {};
@@ -5278,12 +5269,12 @@ var UserApi = /*#__PURE__*/function () {
     /**
      * お気に入り登録削除
      * ユーザーお気に入り登録削除
-     * @param {Number} petId 
+     * @param {Number} petId
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ResponseOk}
      */
 
   }, {
-    key: "updateUserFavorite",
+    key: 'updateUserFavorite',
     value: function updateUserFavorite(petId) {
       return this.updateUserFavoriteWithHttpInfo(petId).then(function (response_and_data) {
         return response_and_data.data;
@@ -5293,12 +5284,12 @@ var UserApi = /*#__PURE__*/function () {
      * アップロードユーザーイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 usersフォルダへ移動 - user avatar 情報更新
      * @param {Object} opts Optional parameters
-     * @param {File} opts.image 
+     * @param {File} opts.image
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/InlineResponse2001} and HTTP response
      */
 
   }, {
-    key: "uploadAvatarImageWithHttpInfo",
+    key: 'uploadAvatarImageWithHttpInfo',
     value: function uploadAvatarImageWithHttpInfo(opts) {
       opts = opts || {};
       var postBody = null;
@@ -5306,7 +5297,7 @@ var UserApi = /*#__PURE__*/function () {
       var queryParams = {};
       var headerParams = {};
       var formParams = {
-        'image': opts['image']
+        image: opts.image
       };
       var authNames = ['apiKey', 'bearer'];
       var contentTypes = ['multipart/form-data'];
@@ -5318,12 +5309,12 @@ var UserApi = /*#__PURE__*/function () {
      * アップロードユーザーイメージ
      * イメージファイルアップロード - tmpフォルダへ保存 - pet 新規登録、修正する成功時、 usersフォルダへ移動 - user avatar 情報更新
      * @param {Object} opts Optional parameters
-     * @param {File} opts.image 
+     * @param {File} opts.image
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/InlineResponse2001}
      */
 
   }, {
-    key: "uploadAvatarImage",
+    key: 'uploadAvatarImage',
     value: function uploadAvatarImage(opts) {
       return this.uploadAvatarImageWithHttpInfo(opts).then(function (response_and_data) {
         return response_and_data.data;
@@ -5343,9 +5334,6 @@ exports.default = UserApi;
   !*** ./client/pet_store_api/dist/index.js ***!
   \********************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -5589,9 +5577,6 @@ function _interopRequireDefault(obj) {
   \*****************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
@@ -5607,7 +5592,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -5616,7 +5601,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -5633,7 +5618,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var Category = /*#__PURE__*/function () {
+var Category = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>Category</code>.
    * @alias module:model/Category
@@ -5651,7 +5636,7 @@ var Category = /*#__PURE__*/function () {
 
 
   _createClass(Category, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>Category</code> from a plain JavaScript object, optionally creating a new instance.
@@ -5662,21 +5647,21 @@ var Category = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new Category();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
 
         if (data.hasOwnProperty('parent_id')) {
-          obj['parent_id'] = _ApiClient["default"].convertToType(data['parent_id'], 'Number');
+          obj.parent_id = _ApiClient["default"].convertToType(data.parent_id, 'Number');
         }
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
       }
 
@@ -5691,17 +5676,17 @@ var Category = /*#__PURE__*/function () {
  */
 
 
-Category.prototype['id'] = undefined;
+Category.prototype.id = undefined;
 /**
  * @member {Number} parent_id
  */
 
-Category.prototype['parent_id'] = undefined;
+Category.prototype.parent_id = undefined;
 /**
  * @member {String} name
  */
 
-Category.prototype['name'] = undefined;
+Category.prototype.name = undefined;
 var _default = Category;
 exports.default = _default;
 
@@ -5712,9 +5697,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/Error400.js ***!
   \*****************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -5731,7 +5713,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -5740,7 +5722,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -5757,7 +5739,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var Error400 = /*#__PURE__*/function () {
+var Error400 = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>Error400</code>.
    * @alias module:model/Error400
@@ -5775,7 +5757,7 @@ var Error400 = /*#__PURE__*/function () {
 
 
   _createClass(Error400, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>Error400</code> from a plain JavaScript object, optionally creating a new instance.
@@ -5786,21 +5768,21 @@ var Error400 = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new Error400();
 
         if (data.hasOwnProperty('status')) {
-          obj['status'] = _ApiClient["default"].convertToType(data['status'], 'String');
+          obj.status = _ApiClient["default"].convertToType(data.status, 'String');
         }
 
         if (data.hasOwnProperty('message')) {
-          obj['message'] = _ApiClient["default"].convertToType(data['message'], 'String');
+          obj.message = _ApiClient["default"].convertToType(data.message, 'String');
         }
 
         if (data.hasOwnProperty('code')) {
-          obj['code'] = _ApiClient["default"].convertToType(data['code'], 'Number');
+          obj.code = _ApiClient["default"].convertToType(data.code, 'Number');
         }
       }
 
@@ -5816,17 +5798,17 @@ var Error400 = /*#__PURE__*/function () {
  */
 
 
-Error400.prototype['status'] = 'error';
+Error400.prototype.status = 'error';
 /**
  * @member {String} message
  */
 
-Error400.prototype['message'] = undefined;
+Error400.prototype.message = undefined;
 /**
  * @member {Number} code
  */
 
-Error400.prototype['code'] = undefined;
+Error400.prototype.code = undefined;
 var _default = Error400;
 exports.default = _default;
 
@@ -5837,9 +5819,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/Error500.js ***!
   \*****************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -5856,7 +5835,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -5865,7 +5844,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -5882,7 +5861,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var Error500 = /*#__PURE__*/function () {
+var Error500 = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>Error500</code>.
    * @alias module:model/Error500
@@ -5900,7 +5879,7 @@ var Error500 = /*#__PURE__*/function () {
 
 
   _createClass(Error500, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>Error500</code> from a plain JavaScript object, optionally creating a new instance.
@@ -5911,21 +5890,21 @@ var Error500 = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new Error500();
 
         if (data.hasOwnProperty('status')) {
-          obj['status'] = _ApiClient["default"].convertToType(data['status'], 'String');
+          obj.status = _ApiClient["default"].convertToType(data.status, 'String');
         }
 
         if (data.hasOwnProperty('message')) {
-          obj['message'] = _ApiClient["default"].convertToType(data['message'], 'String');
+          obj.message = _ApiClient["default"].convertToType(data.message, 'String');
         }
 
         if (data.hasOwnProperty('code')) {
-          obj['code'] = _ApiClient["default"].convertToType(data['code'], 'Number');
+          obj.code = _ApiClient["default"].convertToType(data.code, 'Number');
         }
       }
 
@@ -5941,17 +5920,17 @@ var Error500 = /*#__PURE__*/function () {
  */
 
 
-Error500.prototype['status'] = 'error';
+Error500.prototype.status = 'error';
 /**
  * @member {String} message
  */
 
-Error500.prototype['message'] = undefined;
+Error500.prototype.message = undefined;
 /**
  * @member {Number} code
  */
 
-Error500.prototype['code'] = undefined;
+Error500.prototype.code = undefined;
 var _default = Error500;
 exports.default = _default;
 
@@ -5962,9 +5941,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/InlineResponse200.js ***!
   \**************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -5981,7 +5957,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -5990,7 +5966,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6007,7 +5983,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var InlineResponse200 = /*#__PURE__*/function () {
+var InlineResponse200 = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>InlineResponse200</code>.
    * @alias module:model/InlineResponse200
@@ -6025,7 +6001,7 @@ var InlineResponse200 = /*#__PURE__*/function () {
 
 
   _createClass(InlineResponse200, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>InlineResponse200</code> from a plain JavaScript object, optionally creating a new instance.
@@ -6036,13 +6012,13 @@ var InlineResponse200 = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new InlineResponse200();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
       }
 
@@ -6058,7 +6034,7 @@ var InlineResponse200 = /*#__PURE__*/function () {
  */
 
 
-InlineResponse200.prototype['id'] = undefined;
+InlineResponse200.prototype.id = undefined;
 var _default = InlineResponse200;
 exports.default = _default;
 
@@ -6069,9 +6045,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/InlineResponse2001.js ***!
   \***************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -6088,7 +6061,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -6097,7 +6070,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6114,7 +6087,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var InlineResponse2001 = /*#__PURE__*/function () {
+var InlineResponse2001 = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>InlineResponse2001</code>.
    * @alias module:model/InlineResponse2001
@@ -6132,7 +6105,7 @@ var InlineResponse2001 = /*#__PURE__*/function () {
 
 
   _createClass(InlineResponse2001, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>InlineResponse2001</code> from a plain JavaScript object, optionally creating a new instance.
@@ -6143,13 +6116,13 @@ var InlineResponse2001 = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new InlineResponse2001();
 
         if (data.hasOwnProperty('file_name')) {
-          obj['file_name'] = _ApiClient["default"].convertToType(data['file_name'], 'String');
+          obj.file_name = _ApiClient["default"].convertToType(data.file_name, 'String');
         }
       }
 
@@ -6164,7 +6137,7 @@ var InlineResponse2001 = /*#__PURE__*/function () {
  */
 
 
-InlineResponse2001.prototype['file_name'] = undefined;
+InlineResponse2001.prototype.file_name = undefined;
 var _default = InlineResponse2001;
 exports.default = _default;
 
@@ -6175,9 +6148,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/InlineResponse2002.js ***!
   \***************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -6194,7 +6164,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -6203,7 +6173,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6220,7 +6190,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var InlineResponse2002 = /*#__PURE__*/function () {
+var InlineResponse2002 = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>InlineResponse2002</code>.
    * @alias module:model/InlineResponse2002
@@ -6238,7 +6208,7 @@ var InlineResponse2002 = /*#__PURE__*/function () {
 
 
   _createClass(InlineResponse2002, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>InlineResponse2002</code> from a plain JavaScript object, optionally creating a new instance.
@@ -6249,13 +6219,13 @@ var InlineResponse2002 = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new InlineResponse2002();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
       }
 
@@ -6271,7 +6241,7 @@ var InlineResponse2002 = /*#__PURE__*/function () {
  */
 
 
-InlineResponse2002.prototype['id'] = undefined;
+InlineResponse2002.prototype.id = undefined;
 var _default = InlineResponse2002;
 exports.default = _default;
 
@@ -6282,9 +6252,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/Order.js ***!
   \**************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -6305,7 +6272,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -6314,7 +6281,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6331,7 +6298,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var Order = /*#__PURE__*/function () {
+var Order = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>Order</code>.
    * @alias module:model/Order
@@ -6349,7 +6316,7 @@ var Order = /*#__PURE__*/function () {
 
 
   _createClass(Order, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>Order</code> from a plain JavaScript object, optionally creating a new instance.
@@ -6360,45 +6327,45 @@ var Order = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new Order();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
 
         if (data.hasOwnProperty('pet')) {
-          obj['pet'] = _Pet["default"].constructFromObject(data['pet']);
+          obj.pet = _Pet["default"].constructFromObject(data.pet);
         }
 
         if (data.hasOwnProperty('orderUser')) {
-          obj['orderUser'] = _User["default"].constructFromObject(data['orderUser']);
+          obj.orderUser = _User["default"].constructFromObject(data.orderUser);
         }
 
         if (data.hasOwnProperty('quantity')) {
-          obj['quantity'] = _ApiClient["default"].convertToType(data['quantity'], 'Number');
+          obj.quantity = _ApiClient["default"].convertToType(data.quantity, 'Number');
         }
 
         if (data.hasOwnProperty('status')) {
-          obj['status'] = _ApiClient["default"].convertToType(data['status'], 'String');
+          obj.status = _ApiClient["default"].convertToType(data.status, 'String');
         }
 
         if (data.hasOwnProperty('ship_date')) {
-          obj['ship_date'] = _ApiClient["default"].convertToType(data['ship_date'], 'String');
+          obj.ship_date = _ApiClient["default"].convertToType(data.ship_date, 'String');
         }
 
         if (data.hasOwnProperty('complete')) {
-          obj['complete'] = _ApiClient["default"].convertToType(data['complete'], 'Boolean');
+          obj.complete = _ApiClient["default"].convertToType(data.complete, 'Boolean');
         }
 
         if (data.hasOwnProperty('created_at')) {
-          obj['created_at'] = _ApiClient["default"].convertToType(data['created_at'], 'String');
+          obj.created_at = _ApiClient["default"].convertToType(data.created_at, 'String');
         }
 
         if (data.hasOwnProperty('updated_at')) {
-          obj['updated_at'] = _ApiClient["default"].convertToType(data['updated_at'], 'String');
+          obj.updated_at = _ApiClient["default"].convertToType(data.updated_at, 'String');
         }
       }
 
@@ -6413,49 +6380,49 @@ var Order = /*#__PURE__*/function () {
  */
 
 
-Order.prototype['id'] = undefined;
+Order.prototype.id = undefined;
 /**
  * @member {module:model/Pet} pet
  */
 
-Order.prototype['pet'] = undefined;
+Order.prototype.pet = undefined;
 /**
  * @member {module:model/User} orderUser
  */
 
-Order.prototype['orderUser'] = undefined;
+Order.prototype.orderUser = undefined;
 /**
  * @member {Number} quantity
  * @default 1
  */
 
-Order.prototype['quantity'] = 1;
+Order.prototype.quantity = 1;
 /**
  * @member {String} status
  */
 
-Order.prototype['status'] = undefined;
+Order.prototype.status = undefined;
 /**
  * @member {String} ship_date
  */
 
-Order.prototype['ship_date'] = undefined;
+Order.prototype.ship_date = undefined;
 /**
  * @member {Boolean} complete
  * @default false
  */
 
-Order.prototype['complete'] = false;
+Order.prototype.complete = false;
 /**
  * @member {String} created_at
  */
 
-Order.prototype['created_at'] = undefined;
+Order.prototype.created_at = undefined;
 /**
  * @member {String} updated_at
  */
 
-Order.prototype['updated_at'] = undefined;
+Order.prototype.updated_at = undefined;
 var _default = Order;
 exports.default = _default;
 
@@ -6466,9 +6433,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/OrderComment.js ***!
   \*********************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -6485,7 +6449,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -6494,7 +6458,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6511,7 +6475,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var OrderComment = /*#__PURE__*/function () {
+var OrderComment = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>OrderComment</code>.
    * @alias module:model/OrderComment
@@ -6529,7 +6493,7 @@ var OrderComment = /*#__PURE__*/function () {
 
 
   _createClass(OrderComment, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>OrderComment</code> from a plain JavaScript object, optionally creating a new instance.
@@ -6540,41 +6504,41 @@ var OrderComment = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new OrderComment();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
 
         if (data.hasOwnProperty('pet_id')) {
-          obj['pet_id'] = _ApiClient["default"].convertToType(data['pet_id'], 'Number');
+          obj.pet_id = _ApiClient["default"].convertToType(data.pet_id, 'Number');
         }
 
         if (data.hasOwnProperty('user_id')) {
-          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'Number');
+          obj.user_id = _ApiClient["default"].convertToType(data.user_id, 'Number');
         }
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
 
         if (data.hasOwnProperty('avatar')) {
-          obj['avatar'] = _ApiClient["default"].convertToType(data['avatar'], 'String');
+          obj.avatar = _ApiClient["default"].convertToType(data.avatar, 'String');
         }
 
         if (data.hasOwnProperty('comment')) {
-          obj['comment'] = _ApiClient["default"].convertToType(data['comment'], 'String');
+          obj.comment = _ApiClient["default"].convertToType(data.comment, 'String');
         }
 
         if (data.hasOwnProperty('created_at')) {
-          obj['created_at'] = _ApiClient["default"].convertToType(data['created_at'], 'String');
+          obj.created_at = _ApiClient["default"].convertToType(data.created_at, 'String');
         }
 
         if (data.hasOwnProperty('updated_at')) {
-          obj['updated_at'] = _ApiClient["default"].convertToType(data['updated_at'], 'String');
+          obj.updated_at = _ApiClient["default"].convertToType(data.updated_at, 'String');
         }
       }
 
@@ -6589,42 +6553,42 @@ var OrderComment = /*#__PURE__*/function () {
  */
 
 
-OrderComment.prototype['id'] = undefined;
+OrderComment.prototype.id = undefined;
 /**
  * @member {Number} pet_id
  */
 
-OrderComment.prototype['pet_id'] = undefined;
+OrderComment.prototype.pet_id = undefined;
 /**
  * @member {Number} user_id
  */
 
-OrderComment.prototype['user_id'] = undefined;
+OrderComment.prototype.user_id = undefined;
 /**
  * @member {String} name
  */
 
-OrderComment.prototype['name'] = undefined;
+OrderComment.prototype.name = undefined;
 /**
  * @member {String} avatar
  */
 
-OrderComment.prototype['avatar'] = undefined;
+OrderComment.prototype.avatar = undefined;
 /**
  * @member {String} comment
  */
 
-OrderComment.prototype['comment'] = undefined;
+OrderComment.prototype.comment = undefined;
 /**
  * @member {String} created_at
  */
 
-OrderComment.prototype['created_at'] = undefined;
+OrderComment.prototype.created_at = undefined;
 /**
  * @member {String} updated_at
  */
 
-OrderComment.prototype['updated_at'] = undefined;
+OrderComment.prototype.updated_at = undefined;
 var _default = OrderComment;
 exports.default = _default;
 
@@ -6635,9 +6599,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/OrderInventory.js ***!
   \***********************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -6654,7 +6615,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -6663,7 +6624,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6680,7 +6641,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var OrderInventory = /*#__PURE__*/function () {
+var OrderInventory = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>OrderInventory</code>.
    * @alias module:model/OrderInventory
@@ -6698,7 +6659,7 @@ var OrderInventory = /*#__PURE__*/function () {
 
 
   _createClass(OrderInventory, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>OrderInventory</code> from a plain JavaScript object, optionally creating a new instance.
@@ -6709,21 +6670,21 @@ var OrderInventory = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new OrderInventory();
 
         if (data.hasOwnProperty('available')) {
-          obj['available'] = _ApiClient["default"].convertToType(data['available'], 'Number');
+          obj.available = _ApiClient["default"].convertToType(data.available, 'Number');
         }
 
         if (data.hasOwnProperty('pending')) {
-          obj['pending'] = _ApiClient["default"].convertToType(data['pending'], 'Number');
+          obj.pending = _ApiClient["default"].convertToType(data.pending, 'Number');
         }
 
         if (data.hasOwnProperty('sold')) {
-          obj['sold'] = _ApiClient["default"].convertToType(data['sold'], 'Number');
+          obj.sold = _ApiClient["default"].convertToType(data.sold, 'Number');
         }
       }
 
@@ -6738,17 +6699,17 @@ var OrderInventory = /*#__PURE__*/function () {
  */
 
 
-OrderInventory.prototype['available'] = undefined;
+OrderInventory.prototype.available = undefined;
 /**
  * @member {Number} pending
  */
 
-OrderInventory.prototype['pending'] = undefined;
+OrderInventory.prototype.pending = undefined;
 /**
  * @member {Number} sold
  */
 
-OrderInventory.prototype['sold'] = undefined;
+OrderInventory.prototype.sold = undefined;
 var _default = OrderInventory;
 exports.default = _default;
 
@@ -6759,9 +6720,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/Pet.js ***!
   \************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -6782,7 +6740,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -6791,7 +6749,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6808,7 +6766,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var Pet = /*#__PURE__*/function () {
+var Pet = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>Pet</code>.
    * @alias module:model/Pet
@@ -6826,7 +6784,7 @@ var Pet = /*#__PURE__*/function () {
 
 
   _createClass(Pet, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>Pet</code> from a plain JavaScript object, optionally creating a new instance.
@@ -6837,49 +6795,49 @@ var Pet = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new Pet();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
 
         if (data.hasOwnProperty('status')) {
-          obj['status'] = _ApiClient["default"].convertToType(data['status'], 'String');
+          obj.status = _ApiClient["default"].convertToType(data.status, 'String');
         }
 
         if (data.hasOwnProperty('description')) {
-          obj['description'] = _ApiClient["default"].convertToType(data['description'], 'String');
+          obj.description = _ApiClient["default"].convertToType(data.description, 'String');
         }
 
         if (data.hasOwnProperty('tags')) {
-          obj['tags'] = _ApiClient["default"].convertToType(data['tags'], ['String']);
+          obj.tags = _ApiClient["default"].convertToType(data.tags, ['String']);
         }
 
         if (data.hasOwnProperty('photo_urls')) {
-          obj['photo_urls'] = _ApiClient["default"].convertToType(data['photo_urls'], ['String']);
+          obj.photo_urls = _ApiClient["default"].convertToType(data.photo_urls, ['String']);
         }
 
         if (data.hasOwnProperty('category')) {
-          obj['category'] = _Category["default"].constructFromObject(data['category']);
+          obj.category = _Category["default"].constructFromObject(data.category);
         }
 
         if (data.hasOwnProperty('owner')) {
-          obj['owner'] = _User["default"].constructFromObject(data['owner']);
+          obj.owner = _User["default"].constructFromObject(data.owner);
         }
 
         if (data.hasOwnProperty('comments_count')) {
-          obj['comments_count'] = _ApiClient["default"].convertToType(data['comments_count'], 'Number');
+          obj.comments_count = _ApiClient["default"].convertToType(data.comments_count, 'Number');
         }
 
         if (data.hasOwnProperty('created_at')) {
-          obj['created_at'] = _ApiClient["default"].convertToType(data['created_at'], 'String');
+          obj.created_at = _ApiClient["default"].convertToType(data.created_at, 'String');
         }
       }
 
@@ -6894,52 +6852,52 @@ var Pet = /*#__PURE__*/function () {
  */
 
 
-Pet.prototype['id'] = undefined;
+Pet.prototype.id = undefined;
 /**
  * @member {String} name
  */
 
-Pet.prototype['name'] = undefined;
+Pet.prototype.name = undefined;
 /**
  * @member {String} status
  */
 
-Pet.prototype['status'] = undefined;
+Pet.prototype.status = undefined;
 /**
  * @member {String} description
  */
 
-Pet.prototype['description'] = undefined;
+Pet.prototype.description = undefined;
 /**
  * @member {Array.<String>} tags
  */
 
-Pet.prototype['tags'] = undefined;
+Pet.prototype.tags = undefined;
 /**
  * @member {Array.<String>} photo_urls
  */
 
-Pet.prototype['photo_urls'] = undefined;
+Pet.prototype.photo_urls = undefined;
 /**
  * @member {module:model/Category} category
  */
 
-Pet.prototype['category'] = undefined;
+Pet.prototype.category = undefined;
 /**
  * @member {module:model/User} owner
  */
 
-Pet.prototype['owner'] = undefined;
+Pet.prototype.owner = undefined;
 /**
  * @member {Number} comments_count
  */
 
-Pet.prototype['comments_count'] = undefined;
+Pet.prototype.comments_count = undefined;
 /**
  * @member {String} created_at
  */
 
-Pet.prototype['created_at'] = undefined;
+Pet.prototype.created_at = undefined;
 var _default = Pet;
 exports.default = _default;
 
@@ -6950,9 +6908,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/PetComment.js ***!
   \*******************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -6969,7 +6924,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -6978,7 +6933,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -6995,7 +6950,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var PetComment = /*#__PURE__*/function () {
+var PetComment = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>PetComment</code>.
    * @alias module:model/PetComment
@@ -7013,7 +6968,7 @@ var PetComment = /*#__PURE__*/function () {
 
 
   _createClass(PetComment, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>PetComment</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7024,41 +6979,41 @@ var PetComment = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new PetComment();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
 
         if (data.hasOwnProperty('pet_id')) {
-          obj['pet_id'] = _ApiClient["default"].convertToType(data['pet_id'], 'Number');
+          obj.pet_id = _ApiClient["default"].convertToType(data.pet_id, 'Number');
         }
 
         if (data.hasOwnProperty('user_id')) {
-          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'Number');
+          obj.user_id = _ApiClient["default"].convertToType(data.user_id, 'Number');
         }
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
 
         if (data.hasOwnProperty('avatar')) {
-          obj['avatar'] = _ApiClient["default"].convertToType(data['avatar'], 'String');
+          obj.avatar = _ApiClient["default"].convertToType(data.avatar, 'String');
         }
 
         if (data.hasOwnProperty('comment')) {
-          obj['comment'] = _ApiClient["default"].convertToType(data['comment'], 'String');
+          obj.comment = _ApiClient["default"].convertToType(data.comment, 'String');
         }
 
         if (data.hasOwnProperty('created_at')) {
-          obj['created_at'] = _ApiClient["default"].convertToType(data['created_at'], 'String');
+          obj.created_at = _ApiClient["default"].convertToType(data.created_at, 'String');
         }
 
         if (data.hasOwnProperty('updated_at')) {
-          obj['updated_at'] = _ApiClient["default"].convertToType(data['updated_at'], 'String');
+          obj.updated_at = _ApiClient["default"].convertToType(data.updated_at, 'String');
         }
       }
 
@@ -7073,42 +7028,42 @@ var PetComment = /*#__PURE__*/function () {
  */
 
 
-PetComment.prototype['id'] = undefined;
+PetComment.prototype.id = undefined;
 /**
  * @member {Number} pet_id
  */
 
-PetComment.prototype['pet_id'] = undefined;
+PetComment.prototype.pet_id = undefined;
 /**
  * @member {Number} user_id
  */
 
-PetComment.prototype['user_id'] = undefined;
+PetComment.prototype.user_id = undefined;
 /**
  * @member {String} name
  */
 
-PetComment.prototype['name'] = undefined;
+PetComment.prototype.name = undefined;
 /**
  * @member {String} avatar
  */
 
-PetComment.prototype['avatar'] = undefined;
+PetComment.prototype.avatar = undefined;
 /**
  * @member {String} comment
  */
 
-PetComment.prototype['comment'] = undefined;
+PetComment.prototype.comment = undefined;
 /**
  * @member {String} created_at
  */
 
-PetComment.prototype['created_at'] = undefined;
+PetComment.prototype.created_at = undefined;
 /**
  * @member {String} updated_at
  */
 
-PetComment.prototype['updated_at'] = undefined;
+PetComment.prototype.updated_at = undefined;
 var _default = PetComment;
 exports.default = _default;
 
@@ -7119,9 +7074,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/RequestAuthLogin.js ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -7138,7 +7090,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -7147,7 +7099,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -7164,12 +7116,12 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var RequestAuthLogin = /*#__PURE__*/function () {
+var RequestAuthLogin = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>RequestAuthLogin</code>.
    * @alias module:model/RequestAuthLogin
-   * @param email {String} 
-   * @param password {String} 
+   * @param email {String}
+   * @param password {String}
    */
   function RequestAuthLogin(email, password) {
     _classCallCheck(this, RequestAuthLogin);
@@ -7184,10 +7136,10 @@ var RequestAuthLogin = /*#__PURE__*/function () {
 
 
   _createClass(RequestAuthLogin, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, email, password) {
-      obj['email'] = email;
-      obj['password'] = password;
+      obj.email = email;
+      obj.password = password;
     }
     /**
      * Constructs a <code>RequestAuthLogin</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7198,17 +7150,17 @@ var RequestAuthLogin = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new RequestAuthLogin();
 
         if (data.hasOwnProperty('email')) {
-          obj['email'] = _ApiClient["default"].convertToType(data['email'], 'String');
+          obj.email = _ApiClient["default"].convertToType(data.email, 'String');
         }
 
         if (data.hasOwnProperty('password')) {
-          obj['password'] = _ApiClient["default"].convertToType(data['password'], 'String');
+          obj.password = _ApiClient["default"].convertToType(data.password, 'String');
         }
       }
 
@@ -7223,12 +7175,12 @@ var RequestAuthLogin = /*#__PURE__*/function () {
  */
 
 
-RequestAuthLogin.prototype['email'] = undefined;
+RequestAuthLogin.prototype.email = undefined;
 /**
  * @member {String} password
  */
 
-RequestAuthLogin.prototype['password'] = undefined;
+RequestAuthLogin.prototype.password = undefined;
 var _default = RequestAuthLogin;
 exports.default = _default;
 
@@ -7239,9 +7191,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/RequestAuthRegister.js ***!
   \****************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -7258,7 +7207,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -7267,7 +7216,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -7284,13 +7233,13 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var RequestAuthRegister = /*#__PURE__*/function () {
+var RequestAuthRegister = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>RequestAuthRegister</code>.
    * @alias module:model/RequestAuthRegister
-   * @param name {String} 
-   * @param email {String} 
-   * @param password {String} 
+   * @param name {String}
+   * @param email {String}
+   * @param password {String}
    */
   function RequestAuthRegister(name, email, password) {
     _classCallCheck(this, RequestAuthRegister);
@@ -7305,11 +7254,11 @@ var RequestAuthRegister = /*#__PURE__*/function () {
 
 
   _createClass(RequestAuthRegister, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, name, email, password) {
-      obj['name'] = name;
-      obj['email'] = email;
-      obj['password'] = password;
+      obj.name = name;
+      obj.email = email;
+      obj.password = password;
     }
     /**
      * Constructs a <code>RequestAuthRegister</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7320,21 +7269,21 @@ var RequestAuthRegister = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new RequestAuthRegister();
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
 
         if (data.hasOwnProperty('email')) {
-          obj['email'] = _ApiClient["default"].convertToType(data['email'], 'String');
+          obj.email = _ApiClient["default"].convertToType(data.email, 'String');
         }
 
         if (data.hasOwnProperty('password')) {
-          obj['password'] = _ApiClient["default"].convertToType(data['password'], 'String');
+          obj.password = _ApiClient["default"].convertToType(data.password, 'String');
         }
       }
 
@@ -7349,17 +7298,17 @@ var RequestAuthRegister = /*#__PURE__*/function () {
  */
 
 
-RequestAuthRegister.prototype['name'] = undefined;
+RequestAuthRegister.prototype.name = undefined;
 /**
  * @member {String} email
  */
 
-RequestAuthRegister.prototype['email'] = undefined;
+RequestAuthRegister.prototype.email = undefined;
 /**
  * @member {String} password
  */
 
-RequestAuthRegister.prototype['password'] = undefined;
+RequestAuthRegister.prototype.password = undefined;
 var _default = RequestAuthRegister;
 exports.default = _default;
 
@@ -7370,9 +7319,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/RequestOrderStore.js ***!
   \**************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -7389,7 +7335,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -7398,7 +7344,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -7415,11 +7361,11 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var RequestOrderStore = /*#__PURE__*/function () {
+var RequestOrderStore = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>RequestOrderStore</code>.
    * @alias module:model/RequestOrderStore
-   * @param petId {Number} 
+   * @param petId {Number}
    */
   function RequestOrderStore(petId) {
     _classCallCheck(this, RequestOrderStore);
@@ -7434,9 +7380,9 @@ var RequestOrderStore = /*#__PURE__*/function () {
 
 
   _createClass(RequestOrderStore, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, petId) {
-      obj['pet_id'] = petId;
+      obj.pet_id = petId;
     }
     /**
      * Constructs a <code>RequestOrderStore</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7447,13 +7393,13 @@ var RequestOrderStore = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new RequestOrderStore();
 
         if (data.hasOwnProperty('pet_id')) {
-          obj['pet_id'] = _ApiClient["default"].convertToType(data['pet_id'], 'Number');
+          obj.pet_id = _ApiClient["default"].convertToType(data.pet_id, 'Number');
         }
       }
 
@@ -7468,7 +7414,7 @@ var RequestOrderStore = /*#__PURE__*/function () {
  */
 
 
-RequestOrderStore.prototype['pet_id'] = undefined;
+RequestOrderStore.prototype.pet_id = undefined;
 var _default = RequestOrderStore;
 exports.default = _default;
 
@@ -7479,9 +7425,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/RequestOrderUpdate.js ***!
   \***************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -7498,7 +7441,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -7507,7 +7450,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -7524,12 +7467,12 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var RequestOrderUpdate = /*#__PURE__*/function () {
+var RequestOrderUpdate = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>RequestOrderUpdate</code>.
    * @alias module:model/RequestOrderUpdate
-   * @param petId {Number} 
-   * @param status {Number} 
+   * @param petId {Number}
+   * @param status {Number}
    */
   function RequestOrderUpdate(petId, status) {
     _classCallCheck(this, RequestOrderUpdate);
@@ -7544,10 +7487,10 @@ var RequestOrderUpdate = /*#__PURE__*/function () {
 
 
   _createClass(RequestOrderUpdate, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, petId, status) {
-      obj['pet_id'] = petId;
-      obj['status'] = status;
+      obj.pet_id = petId;
+      obj.status = status;
     }
     /**
      * Constructs a <code>RequestOrderUpdate</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7558,29 +7501,29 @@ var RequestOrderUpdate = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new RequestOrderUpdate();
 
         if (data.hasOwnProperty('pet_id')) {
-          obj['pet_id'] = _ApiClient["default"].convertToType(data['pet_id'], 'Number');
+          obj.pet_id = _ApiClient["default"].convertToType(data.pet_id, 'Number');
         }
 
         if (data.hasOwnProperty('quantity')) {
-          obj['quantity'] = _ApiClient["default"].convertToType(data['quantity'], 'Number');
+          obj.quantity = _ApiClient["default"].convertToType(data.quantity, 'Number');
         }
 
         if (data.hasOwnProperty('status')) {
-          obj['status'] = _ApiClient["default"].convertToType(data['status'], 'Number');
+          obj.status = _ApiClient["default"].convertToType(data.status, 'Number');
         }
 
         if (data.hasOwnProperty('ship_date')) {
-          obj['ship_date'] = _ApiClient["default"].convertToType(data['ship_date'], 'String');
+          obj.ship_date = _ApiClient["default"].convertToType(data.ship_date, 'String');
         }
 
         if (data.hasOwnProperty('complete')) {
-          obj['complete'] = _ApiClient["default"].convertToType(data['complete'], 'Boolean');
+          obj.complete = _ApiClient["default"].convertToType(data.complete, 'Boolean');
         }
       }
 
@@ -7595,29 +7538,29 @@ var RequestOrderUpdate = /*#__PURE__*/function () {
  */
 
 
-RequestOrderUpdate.prototype['pet_id'] = undefined;
+RequestOrderUpdate.prototype.pet_id = undefined;
 /**
  * @member {Number} quantity
  * @default 1
  */
 
-RequestOrderUpdate.prototype['quantity'] = 1;
+RequestOrderUpdate.prototype.quantity = 1;
 /**
  * @member {Number} status
  */
 
-RequestOrderUpdate.prototype['status'] = undefined;
+RequestOrderUpdate.prototype.status = undefined;
 /**
  * @member {String} ship_date
  */
 
-RequestOrderUpdate.prototype['ship_date'] = undefined;
+RequestOrderUpdate.prototype.ship_date = undefined;
 /**
  * @member {Boolean} complete
  * @default false
  */
 
-RequestOrderUpdate.prototype['complete'] = false;
+RequestOrderUpdate.prototype.complete = false;
 var _default = RequestOrderUpdate;
 exports.default = _default;
 
@@ -7628,9 +7571,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/RequestPetStore.js ***!
   \************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -7647,7 +7587,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -7656,7 +7596,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -7673,11 +7613,11 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var RequestPetStore = /*#__PURE__*/function () {
+var RequestPetStore = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>RequestPetStore</code>.
    * @alias module:model/RequestPetStore
-   * @param name {String} 
+   * @param name {String}
    */
   function RequestPetStore(name) {
     _classCallCheck(this, RequestPetStore);
@@ -7692,9 +7632,9 @@ var RequestPetStore = /*#__PURE__*/function () {
 
 
   _createClass(RequestPetStore, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, name) {
-      obj['name'] = name;
+      obj.name = name;
     }
     /**
      * Constructs a <code>RequestPetStore</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7705,29 +7645,29 @@ var RequestPetStore = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new RequestPetStore();
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
 
         if (data.hasOwnProperty('category_id')) {
-          obj['category_id'] = _ApiClient["default"].convertToType(data['category_id'], 'Number');
+          obj.category_id = _ApiClient["default"].convertToType(data.category_id, 'Number');
         }
 
         if (data.hasOwnProperty('photo_urls')) {
-          obj['photo_urls'] = _ApiClient["default"].convertToType(data['photo_urls'], ['String']);
+          obj.photo_urls = _ApiClient["default"].convertToType(data.photo_urls, ['String']);
         }
 
         if (data.hasOwnProperty('tags')) {
-          obj['tags'] = _ApiClient["default"].convertToType(data['tags'], ['String']);
+          obj.tags = _ApiClient["default"].convertToType(data.tags, ['String']);
         }
 
         if (data.hasOwnProperty('description')) {
-          obj['description'] = _ApiClient["default"].convertToType(data['description'], 'String');
+          obj.description = _ApiClient["default"].convertToType(data.description, 'String');
         }
       }
 
@@ -7742,27 +7682,27 @@ var RequestPetStore = /*#__PURE__*/function () {
  */
 
 
-RequestPetStore.prototype['name'] = undefined;
+RequestPetStore.prototype.name = undefined;
 /**
  * @member {Number} category_id
  */
 
-RequestPetStore.prototype['category_id'] = undefined;
+RequestPetStore.prototype.category_id = undefined;
 /**
  * @member {Array.<String>} photo_urls
  */
 
-RequestPetStore.prototype['photo_urls'] = undefined;
+RequestPetStore.prototype.photo_urls = undefined;
 /**
  * @member {Array.<String>} tags
  */
 
-RequestPetStore.prototype['tags'] = undefined;
+RequestPetStore.prototype.tags = undefined;
 /**
  * @member {String} description
  */
 
-RequestPetStore.prototype['description'] = undefined;
+RequestPetStore.prototype.description = undefined;
 var _default = RequestPetStore;
 exports.default = _default;
 
@@ -7773,9 +7713,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/RequestPetUpdate.js ***!
   \*************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -7792,7 +7729,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -7801,7 +7738,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -7818,12 +7755,12 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var RequestPetUpdate = /*#__PURE__*/function () {
+var RequestPetUpdate = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>RequestPetUpdate</code>.
    * @alias module:model/RequestPetUpdate
-   * @param id {Number} 
-   * @param name {String} 
+   * @param id {Number}
+   * @param name {String}
    */
   function RequestPetUpdate(id, name) {
     _classCallCheck(this, RequestPetUpdate);
@@ -7838,10 +7775,10 @@ var RequestPetUpdate = /*#__PURE__*/function () {
 
 
   _createClass(RequestPetUpdate, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, id, name) {
-      obj['id'] = id;
-      obj['name'] = name;
+      obj.id = id;
+      obj.name = name;
     }
     /**
      * Constructs a <code>RequestPetUpdate</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7852,29 +7789,29 @@ var RequestPetUpdate = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new RequestPetUpdate();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
 
         if (data.hasOwnProperty('category_id')) {
-          obj['category_id'] = _ApiClient["default"].convertToType(data['category_id'], 'Number');
+          obj.category_id = _ApiClient["default"].convertToType(data.category_id, 'Number');
         }
 
         if (data.hasOwnProperty('photo_urls')) {
-          obj['photo_urls'] = _ApiClient["default"].convertToType(data['photo_urls'], ['String']);
+          obj.photo_urls = _ApiClient["default"].convertToType(data.photo_urls, ['String']);
         }
 
         if (data.hasOwnProperty('tags')) {
-          obj['tags'] = _ApiClient["default"].convertToType(data['tags'], ['String']);
+          obj.tags = _ApiClient["default"].convertToType(data.tags, ['String']);
         }
       }
 
@@ -7889,27 +7826,27 @@ var RequestPetUpdate = /*#__PURE__*/function () {
  */
 
 
-RequestPetUpdate.prototype['id'] = undefined;
+RequestPetUpdate.prototype.id = undefined;
 /**
  * @member {String} name
  */
 
-RequestPetUpdate.prototype['name'] = undefined;
+RequestPetUpdate.prototype.name = undefined;
 /**
  * @member {Number} category_id
  */
 
-RequestPetUpdate.prototype['category_id'] = undefined;
+RequestPetUpdate.prototype.category_id = undefined;
 /**
  * @member {Array.<String>} photo_urls
  */
 
-RequestPetUpdate.prototype['photo_urls'] = undefined;
+RequestPetUpdate.prototype.photo_urls = undefined;
 /**
  * @member {Array.<String>} tags
  */
 
-RequestPetUpdate.prototype['tags'] = undefined;
+RequestPetUpdate.prototype.tags = undefined;
 var _default = RequestPetUpdate;
 exports.default = _default;
 
@@ -7920,9 +7857,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/RequestUserEvalution.js ***!
   \*****************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -7939,7 +7873,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -7948,7 +7882,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -7965,12 +7899,12 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var RequestUserEvalution = /*#__PURE__*/function () {
+var RequestUserEvalution = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>RequestUserEvalution</code>.
    * @alias module:model/RequestUserEvalution
-   * @param orderId {Number} 
-   * @param evalution {String} 
+   * @param orderId {Number}
+   * @param evalution {String}
    */
   function RequestUserEvalution(orderId, evalution) {
     _classCallCheck(this, RequestUserEvalution);
@@ -7985,10 +7919,10 @@ var RequestUserEvalution = /*#__PURE__*/function () {
 
 
   _createClass(RequestUserEvalution, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, orderId, evalution) {
-      obj['order_id'] = orderId;
-      obj['evalution'] = evalution;
+      obj.order_id = orderId;
+      obj.evalution = evalution;
     }
     /**
      * Constructs a <code>RequestUserEvalution</code> from a plain JavaScript object, optionally creating a new instance.
@@ -7999,25 +7933,25 @@ var RequestUserEvalution = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new RequestUserEvalution();
 
         if (data.hasOwnProperty('user_id')) {
-          obj['user_id'] = _ApiClient["default"].convertToType(data['user_id'], 'Number');
+          obj.user_id = _ApiClient["default"].convertToType(data.user_id, 'Number');
         }
 
         if (data.hasOwnProperty('order_id')) {
-          obj['order_id'] = _ApiClient["default"].convertToType(data['order_id'], 'Number');
+          obj.order_id = _ApiClient["default"].convertToType(data.order_id, 'Number');
         }
 
         if (data.hasOwnProperty('evalution')) {
-          obj['evalution'] = _ApiClient["default"].convertToType(data['evalution'], 'String');
+          obj.evalution = _ApiClient["default"].convertToType(data.evalution, 'String');
         }
 
         if (data.hasOwnProperty('comment')) {
-          obj['comment'] = _ApiClient["default"].convertToType(data['comment'], 'String');
+          obj.comment = _ApiClient["default"].convertToType(data.comment, 'String');
         }
       }
 
@@ -8032,22 +7966,22 @@ var RequestUserEvalution = /*#__PURE__*/function () {
  */
 
 
-RequestUserEvalution.prototype['user_id'] = undefined;
+RequestUserEvalution.prototype.user_id = undefined;
 /**
  * @member {Number} order_id
  */
 
-RequestUserEvalution.prototype['order_id'] = undefined;
+RequestUserEvalution.prototype.order_id = undefined;
 /**
  * @member {String} evalution
  */
 
-RequestUserEvalution.prototype['evalution'] = undefined;
+RequestUserEvalution.prototype.evalution = undefined;
 /**
  * @member {String} comment
  */
 
-RequestUserEvalution.prototype['comment'] = undefined;
+RequestUserEvalution.prototype.comment = undefined;
 var _default = RequestUserEvalution;
 exports.default = _default;
 
@@ -8058,9 +7992,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/ResponseOk.js ***!
   \*******************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -8077,7 +8008,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -8086,7 +8017,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -8103,11 +8034,11 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var ResponseOk = /*#__PURE__*/function () {
+var ResponseOk = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>ResponseOk</code>.
    * @alias module:model/ResponseOk
-   * @param ok {Boolean} 
+   * @param ok {Boolean}
    */
   function ResponseOk(ok) {
     _classCallCheck(this, ResponseOk);
@@ -8122,9 +8053,9 @@ var ResponseOk = /*#__PURE__*/function () {
 
 
   _createClass(ResponseOk, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, ok) {
-      obj['ok'] = ok;
+      obj.ok = ok;
     }
     /**
      * Constructs a <code>ResponseOk</code> from a plain JavaScript object, optionally creating a new instance.
@@ -8135,13 +8066,13 @@ var ResponseOk = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new ResponseOk();
 
         if (data.hasOwnProperty('ok')) {
-          obj['ok'] = _ApiClient["default"].convertToType(data['ok'], 'Boolean');
+          obj.ok = _ApiClient["default"].convertToType(data.ok, 'Boolean');
         }
       }
 
@@ -8156,7 +8087,7 @@ var ResponseOk = /*#__PURE__*/function () {
  */
 
 
-ResponseOk.prototype['ok'] = undefined;
+ResponseOk.prototype.ok = undefined;
 var _default = ResponseOk;
 exports.default = _default;
 
@@ -8167,9 +8098,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/ResponsePegination.js ***!
   \***************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -8188,7 +8116,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -8197,7 +8125,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -8214,7 +8142,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var ResponsePegination = /*#__PURE__*/function () {
+var ResponsePegination = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>ResponsePegination</code>.
    * @alias module:model/ResponsePegination
@@ -8232,7 +8160,7 @@ var ResponsePegination = /*#__PURE__*/function () {
 
 
   _createClass(ResponsePegination, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>ResponsePegination</code> from a plain JavaScript object, optionally creating a new instance.
@@ -8243,61 +8171,61 @@ var ResponsePegination = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new ResponsePegination();
 
         if (data.hasOwnProperty('current_page')) {
-          obj['current_page'] = _ApiClient["default"].convertToType(data['current_page'], 'Number');
+          obj.current_page = _ApiClient["default"].convertToType(data.current_page, 'Number');
         }
 
         if (data.hasOwnProperty('first_page_url')) {
-          obj['first_page_url'] = _ApiClient["default"].convertToType(data['first_page_url'], 'String');
+          obj.first_page_url = _ApiClient["default"].convertToType(data.first_page_url, 'String');
         }
 
         if (data.hasOwnProperty('from')) {
-          obj['from'] = _ApiClient["default"].convertToType(data['from'], 'Number');
+          obj.from = _ApiClient["default"].convertToType(data.from, 'Number');
         }
 
         if (data.hasOwnProperty('last_page')) {
-          obj['last_page'] = _ApiClient["default"].convertToType(data['last_page'], 'Number');
+          obj.last_page = _ApiClient["default"].convertToType(data.last_page, 'Number');
         }
 
         if (data.hasOwnProperty('last_page_url')) {
-          obj['last_page_url'] = _ApiClient["default"].convertToType(data['last_page_url'], 'Number');
+          obj.last_page_url = _ApiClient["default"].convertToType(data.last_page_url, 'Number');
         }
 
         if (data.hasOwnProperty('next_page_url')) {
-          obj['next_page_url'] = _ApiClient["default"].convertToType(data['next_page_url'], 'String');
+          obj.next_page_url = _ApiClient["default"].convertToType(data.next_page_url, 'String');
         }
 
         if (data.hasOwnProperty('path')) {
-          obj['path'] = _ApiClient["default"].convertToType(data['path'], 'String');
+          obj.path = _ApiClient["default"].convertToType(data.path, 'String');
         }
 
         if (data.hasOwnProperty('per_page')) {
-          obj['per_page'] = _ApiClient["default"].convertToType(data['per_page'], 'Number');
+          obj.per_page = _ApiClient["default"].convertToType(data.per_page, 'Number');
         }
 
         if (data.hasOwnProperty('prev_page_url')) {
-          obj['prev_page_url'] = _ApiClient["default"].convertToType(data['prev_page_url'], 'String');
+          obj.prev_page_url = _ApiClient["default"].convertToType(data.prev_page_url, 'String');
         }
 
         if (data.hasOwnProperty('to')) {
-          obj['to'] = _ApiClient["default"].convertToType(data['to'], 'Number');
+          obj.to = _ApiClient["default"].convertToType(data.to, 'Number');
         }
 
         if (data.hasOwnProperty('total')) {
-          obj['total'] = _ApiClient["default"].convertToType(data['total'], 'Number');
+          obj.total = _ApiClient["default"].convertToType(data.total, 'Number');
         }
 
         if (data.hasOwnProperty('links')) {
-          obj['links'] = _ApiClient["default"].convertToType(data['links'], [_ResponsePeginationLinks["default"]]);
+          obj.links = _ApiClient["default"].convertToType(data.links, [_ResponsePeginationLinks["default"]]);
         }
 
         if (data.hasOwnProperty('data')) {
-          obj['data'] = _ApiClient["default"].convertToType(data['data'], [Object]);
+          obj.data = _ApiClient["default"].convertToType(data.data, [Object]);
         }
       }
 
@@ -8312,67 +8240,67 @@ var ResponsePegination = /*#__PURE__*/function () {
  */
 
 
-ResponsePegination.prototype['current_page'] = undefined;
+ResponsePegination.prototype.current_page = undefined;
 /**
  * @member {String} first_page_url
  */
 
-ResponsePegination.prototype['first_page_url'] = undefined;
+ResponsePegination.prototype.first_page_url = undefined;
 /**
  * @member {Number} from
  */
 
-ResponsePegination.prototype['from'] = undefined;
+ResponsePegination.prototype.from = undefined;
 /**
  * @member {Number} last_page
  */
 
-ResponsePegination.prototype['last_page'] = undefined;
+ResponsePegination.prototype.last_page = undefined;
 /**
  * @member {Number} last_page_url
  */
 
-ResponsePegination.prototype['last_page_url'] = undefined;
+ResponsePegination.prototype.last_page_url = undefined;
 /**
  * @member {String} next_page_url
  */
 
-ResponsePegination.prototype['next_page_url'] = undefined;
+ResponsePegination.prototype.next_page_url = undefined;
 /**
  * @member {String} path
  */
 
-ResponsePegination.prototype['path'] = undefined;
+ResponsePegination.prototype.path = undefined;
 /**
  * @member {Number} per_page
  */
 
-ResponsePegination.prototype['per_page'] = undefined;
+ResponsePegination.prototype.per_page = undefined;
 /**
  * @member {String} prev_page_url
  */
 
-ResponsePegination.prototype['prev_page_url'] = undefined;
+ResponsePegination.prototype.prev_page_url = undefined;
 /**
  * @member {Number} to
  */
 
-ResponsePegination.prototype['to'] = undefined;
+ResponsePegination.prototype.to = undefined;
 /**
  * @member {Number} total
  */
 
-ResponsePegination.prototype['total'] = undefined;
+ResponsePegination.prototype.total = undefined;
 /**
  * @member {Array.<module:model/ResponsePeginationLinks>} links
  */
 
-ResponsePegination.prototype['links'] = undefined;
+ResponsePegination.prototype.links = undefined;
 /**
  * @member {Array.<Object>} data
  */
 
-ResponsePegination.prototype['data'] = undefined;
+ResponsePegination.prototype.data = undefined;
 var _default = ResponsePegination;
 exports.default = _default;
 
@@ -8383,9 +8311,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/ResponsePeginationLinks.js ***!
   \********************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -8402,7 +8327,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -8411,7 +8336,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -8428,7 +8353,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var ResponsePeginationLinks = /*#__PURE__*/function () {
+var ResponsePeginationLinks = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>ResponsePeginationLinks</code>.
    * @alias module:model/ResponsePeginationLinks
@@ -8446,7 +8371,7 @@ var ResponsePeginationLinks = /*#__PURE__*/function () {
 
 
   _createClass(ResponsePeginationLinks, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>ResponsePeginationLinks</code> from a plain JavaScript object, optionally creating a new instance.
@@ -8457,21 +8382,21 @@ var ResponsePeginationLinks = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new ResponsePeginationLinks();
 
         if (data.hasOwnProperty('url')) {
-          obj['url'] = _ApiClient["default"].convertToType(data['url'], 'String');
+          obj.url = _ApiClient["default"].convertToType(data.url, 'String');
         }
 
         if (data.hasOwnProperty('label')) {
-          obj['label'] = _ApiClient["default"].convertToType(data['label'], 'String');
+          obj.label = _ApiClient["default"].convertToType(data.label, 'String');
         }
 
         if (data.hasOwnProperty('active')) {
-          obj['active'] = _ApiClient["default"].convertToType(data['active'], 'Boolean');
+          obj.active = _ApiClient["default"].convertToType(data.active, 'Boolean');
         }
       }
 
@@ -8486,17 +8411,17 @@ var ResponsePeginationLinks = /*#__PURE__*/function () {
  */
 
 
-ResponsePeginationLinks.prototype['url'] = undefined;
+ResponsePeginationLinks.prototype.url = undefined;
 /**
  * @member {String} label
  */
 
-ResponsePeginationLinks.prototype['label'] = undefined;
+ResponsePeginationLinks.prototype.label = undefined;
 /**
  * @member {Boolean} active
  */
 
-ResponsePeginationLinks.prototype['active'] = undefined;
+ResponsePeginationLinks.prototype.active = undefined;
 var _default = ResponsePeginationLinks;
 exports.default = _default;
 
@@ -8507,9 +8432,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/Unexpected.js ***!
   \*******************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -8526,7 +8448,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -8535,7 +8457,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -8552,7 +8474,7 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var Unexpected = /*#__PURE__*/function () {
+var Unexpected = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>Unexpected</code>.
    * @alias module:model/Unexpected
@@ -8570,7 +8492,7 @@ var Unexpected = /*#__PURE__*/function () {
 
 
   _createClass(Unexpected, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj) {}
     /**
      * Constructs a <code>Unexpected</code> from a plain JavaScript object, optionally creating a new instance.
@@ -8581,21 +8503,21 @@ var Unexpected = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new Unexpected();
 
         if (data.hasOwnProperty('status')) {
-          obj['status'] = _ApiClient["default"].convertToType(data['status'], 'String');
+          obj.status = _ApiClient["default"].convertToType(data.status, 'String');
         }
 
         if (data.hasOwnProperty('message')) {
-          obj['message'] = _ApiClient["default"].convertToType(data['message'], 'String');
+          obj.message = _ApiClient["default"].convertToType(data.message, 'String');
         }
 
         if (data.hasOwnProperty('code')) {
-          obj['code'] = _ApiClient["default"].convertToType(data['code'], 'Number');
+          obj.code = _ApiClient["default"].convertToType(data.code, 'Number');
         }
       }
 
@@ -8611,17 +8533,17 @@ var Unexpected = /*#__PURE__*/function () {
  */
 
 
-Unexpected.prototype['status'] = 'error';
+Unexpected.prototype.status = 'error';
 /**
  * @member {String} message
  */
 
-Unexpected.prototype['message'] = undefined;
+Unexpected.prototype.message = undefined;
 /**
  * @member {Number} code
  */
 
-Unexpected.prototype['code'] = undefined;
+Unexpected.prototype.code = undefined;
 var _default = Unexpected;
 exports.default = _default;
 
@@ -8632,9 +8554,6 @@ exports.default = _default;
   !*** ./client/pet_store_api/dist/model/User.js ***!
   \*************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
 
 Object.defineProperty(exports, "__esModule", ({
   value: true
@@ -8651,7 +8570,7 @@ function _interopRequireDefault(obj) {
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
+    throw new TypeError('Cannot call a class as a function');
   }
 }
 
@@ -8660,7 +8579,7 @@ function _defineProperties(target, props) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
+    if ('value' in descriptor) descriptor.writable = true;
     Object.defineProperty(target, descriptor.key, descriptor);
   }
 }
@@ -8677,11 +8596,11 @@ function _createClass(Constructor, protoProps, staticProps) {
  */
 
 
-var User = /*#__PURE__*/function () {
+var User = /* #__PURE__ */function () {
   /**
    * Constructs a new <code>User</code>.
    * @alias module:model/User
-   * @param id {Number} 
+   * @param id {Number}
    */
   function User(id) {
     _classCallCheck(this, User);
@@ -8696,9 +8615,9 @@ var User = /*#__PURE__*/function () {
 
 
   _createClass(User, null, [{
-    key: "initialize",
+    key: 'initialize',
     value: function initialize(obj, id) {
-      obj['id'] = id;
+      obj.id = id;
     }
     /**
      * Constructs a <code>User</code> from a plain JavaScript object, optionally creating a new instance.
@@ -8709,53 +8628,53 @@ var User = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "constructFromObject",
+    key: 'constructFromObject',
     value: function constructFromObject(data, obj) {
       if (data) {
         obj = obj || new User();
 
         if (data.hasOwnProperty('id')) {
-          obj['id'] = _ApiClient["default"].convertToType(data['id'], 'Number');
+          obj.id = _ApiClient["default"].convertToType(data.id, 'Number');
         }
 
         if (data.hasOwnProperty('name')) {
-          obj['name'] = _ApiClient["default"].convertToType(data['name'], 'String');
+          obj.name = _ApiClient["default"].convertToType(data.name, 'String');
         }
 
         if (data.hasOwnProperty('email')) {
-          obj['email'] = _ApiClient["default"].convertToType(data['email'], 'String');
+          obj.email = _ApiClient["default"].convertToType(data.email, 'String');
         }
 
         if (data.hasOwnProperty('password')) {
-          obj['password'] = _ApiClient["default"].convertToType(data['password'], 'String');
+          obj.password = _ApiClient["default"].convertToType(data.password, 'String');
         }
 
         if (data.hasOwnProperty('avatar')) {
-          obj['avatar'] = _ApiClient["default"].convertToType(data['avatar'], 'String');
+          obj.avatar = _ApiClient["default"].convertToType(data.avatar, 'String');
         }
 
         if (data.hasOwnProperty('address')) {
-          obj['address'] = _ApiClient["default"].convertToType(data['address'], 'String');
+          obj.address = _ApiClient["default"].convertToType(data.address, 'String');
         }
 
         if (data.hasOwnProperty('phone')) {
-          obj['phone'] = _ApiClient["default"].convertToType(data['phone'], 'String');
+          obj.phone = _ApiClient["default"].convertToType(data.phone, 'String');
         }
 
         if (data.hasOwnProperty('birthday')) {
-          obj['birthday'] = _ApiClient["default"].convertToType(data['birthday'], 'String');
+          obj.birthday = _ApiClient["default"].convertToType(data.birthday, 'String');
         }
 
         if (data.hasOwnProperty('gender')) {
-          obj['gender'] = _ApiClient["default"].convertToType(data['gender'], 'String');
+          obj.gender = _ApiClient["default"].convertToType(data.gender, 'String');
         }
 
         if (data.hasOwnProperty('description')) {
-          obj['description'] = _ApiClient["default"].convertToType(data['description'], 'String');
+          obj.description = _ApiClient["default"].convertToType(data.description, 'String');
         }
 
         if (data.hasOwnProperty('created_at')) {
-          obj['created_at'] = _ApiClient["default"].convertToType(data['created_at'], 'String');
+          obj.created_at = _ApiClient["default"].convertToType(data.created_at, 'String');
         }
       }
 
@@ -8770,57 +8689,57 @@ var User = /*#__PURE__*/function () {
  */
 
 
-User.prototype['id'] = undefined;
+User.prototype.id = undefined;
 /**
  * @member {String} name
  */
 
-User.prototype['name'] = undefined;
+User.prototype.name = undefined;
 /**
  * @member {String} email
  */
 
-User.prototype['email'] = undefined;
+User.prototype.email = undefined;
 /**
  * @member {String} password
  */
 
-User.prototype['password'] = undefined;
+User.prototype.password = undefined;
 /**
  * @member {String} avatar
  */
 
-User.prototype['avatar'] = undefined;
+User.prototype.avatar = undefined;
 /**
  * @member {String} address
  */
 
-User.prototype['address'] = undefined;
+User.prototype.address = undefined;
 /**
  * @member {String} phone
  */
 
-User.prototype['phone'] = undefined;
+User.prototype.phone = undefined;
 /**
  * @member {String} birthday
  */
 
-User.prototype['birthday'] = undefined;
+User.prototype.birthday = undefined;
 /**
  * @member {String} gender
  */
 
-User.prototype['gender'] = undefined;
+User.prototype.gender = undefined;
 /**
  * @member {String} description
  */
 
-User.prototype['description'] = undefined;
+User.prototype.description = undefined;
 /**
  * @member {String} created_at
  */
 
-User.prototype['created_at'] = undefined;
+User.prototype.created_at = undefined;
 var _default = User;
 exports.default = _default;
 
@@ -8878,7 +8797,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var defaultClient = pet_store_api__WEBPACK_IMPORTED_MODULE_1__.ApiClient.instance;
     defaultClient.basePath = "http://localhost" + "/api";
     var apiKey = defaultClient.authentications["apiKey"];
-    apiKey.apiKey = "3997E3A4F499DC1B3874EBD3316FD";
+    apiKey.apiKey = "APIKEY";
     var info = this.$store.getters["userInfo"];
 
     if (info) {
@@ -11363,8 +11282,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_6__.default.prototype.$appName = "CAT";
-vue__WEBPACK_IMPORTED_MODULE_6__.default.prototype.$perPage = "20";
+vue__WEBPACK_IMPORTED_MODULE_6__.default.prototype.$appName = "APPNAME";
+vue__WEBPACK_IMPORTED_MODULE_6__.default.prototype.$perPage = "";
 var app = new vue__WEBPACK_IMPORTED_MODULE_6__.default({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_0__.default,

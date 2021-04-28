@@ -18,7 +18,7 @@ class CreateUserEvalutionsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('order_id')->unique();
             $table->enum('evalution', ['good', 'normal', 'bad']);
-            $table->string('comment');
+            $table->string('comment')->default('nullable');
             $table->timestamps();
         });
     }
