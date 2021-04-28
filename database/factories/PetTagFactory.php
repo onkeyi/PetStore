@@ -22,7 +22,7 @@ class PetTagFactory extends Factory
     public function definition()
     {
         return [
-            "tag_name" => $this->faker->sentence(rand(1,4)),
+            "tag_name" => $this->faker->sentence(rand(1, 4)),
         ];
     }
 }

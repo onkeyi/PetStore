@@ -1,12 +1,12 @@
-import Vue from 'vue';
-import CategoryNav from './CategoryNav';
-import NavBar from './NavBar';
-import ItemCard from './ItemCard';
-import ItemDetail from './ItemDetail';
-import ItemDetailComment from './ItemDetailComment';
-import ConfirmDialog from './ConfirmDialog';
-import Loading from './Loading';
-import { TimeAgo } from 'vue2-timeago'
+import Vue from "vue";
+import { TimeAgo } from "vue2-timeago";
+import CategoryNav from "./CategoryNav";
+import NavBar from "./NavBar";
+import ItemCard from "./ItemCard";
+import ItemDetail from "./ItemDetail";
+import ItemDetailComment from "./ItemDetailComment";
+import ConfirmDialog from "./ConfirmDialog";
+import Loading from "./Loading";
 
 [
     NavBar,
@@ -16,7 +16,7 @@ import { TimeAgo } from 'vue2-timeago'
     ItemDetailComment,
     ConfirmDialog,
     Loading,
-    TimeAgo
-].forEach(component => {
-    Vue.component(component.name, component)
-})
+    TimeAgo,
+].forEach((component) => {
+    Vue.component(component.name, component);
+});

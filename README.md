@@ -1,9 +1,14 @@
 # Pet Store
 
+
 ## Requirements
 ------------
  - PHP >= 7.4
 
+## format source
+``
+./vendor/bin/php-cs-fixer fix -v --diff --diff-format udiff
+``
 ## Install
 ```shell
     git clone https://github.com/onkeyi/PetStore.git

@@ -20,7 +20,6 @@ use App\Http\Requests\PetLikeUpdateRequest;
  */
 class PetController extends ApiController
 {
-
     public function getAllPets()
     {
         $query = Request::all();
@@ -30,7 +29,7 @@ class PetController extends ApiController
             Pet::with(['tags', 'category', 'photoUrls','owner'])
                 ->withCount('comments')
                 ->orderBy('updated_at', $sort)
-                ->paginate(env('APP_PER_PAGE',18))
+                ->paginate(env('APP_PER_PAGE', 18))
         );
     }
 
@@ -132,8 +131,7 @@ class PetController extends ApiController
      */
     public function deletePetById(Pet $pet)
     {
-
-        $this->authorize('deletePetById',$pet);
+        $this->authorize('deletePetById', $pet);
 
         DB::transaction(
             function () use ($pet) {
@@ -161,7 +159,6 @@ class PetController extends ApiController
      */
     public function findByStatus()
     {
-
         $query = Request::all();
         $sort = (isset($query['sort']) && $query['sort'] == 'asc') ? 'asc' : 'desc';
 
@@ -172,7 +169,7 @@ class PetController extends ApiController
             ->with(['tags', 'category', 'photoUrls', 'owner'])
             ->withCount('comments')
             ->orderBy('created_at', $sort)
-            ->paginate(env('APP_PER_PAGE',18));
+            ->paginate(env('APP_PER_PAGE', 18));
     }
 
     /**
@@ -188,7 +185,7 @@ class PetController extends ApiController
         if (!isset($qeury) || !isset($qeury['tag'])) {
             throw new ParameterNotfoundException;
         }
-        $tags = explode(',',$qeury['tag']);
+        $tags = explode(',', $qeury['tag']);
 
         if ($tags && count($tags) > 0) {
             $result =  Pet::with(['tags', 'photoUrls', 'category', 'owner'])
@@ -198,7 +195,7 @@ class PetController extends ApiController
                     function ($query) use ($tags) {
                         $query->whereIn('tag_name', $tags);
                     }
-                )->orderBy('created_at', $sort)->paginate(env('APP_PER_PAGE',18));
+                )->orderBy('created_at', $sort)->paginate(env('APP_PER_PAGE', 18));
             return $this->successResponse($result);
         }
         return $this->successResponse();
@@ -216,7 +213,7 @@ class PetController extends ApiController
             ->with(['tags', 'category', 'photoUrls', 'owner'])
             ->withCount('comments')
             ->orderBy('created_at', $sort)
-            ->paginate(env('APP_PER_PAGE',18));
+            ->paginate(env('APP_PER_PAGE', 18));
     }
 
     /**
@@ -240,14 +237,15 @@ class PetController extends ApiController
         ], 400);
     }
 
-    public function updatePetLike(PetLikeUpdateRequest $request,Pet $pet) {
+    public function updatePetLike(PetLikeUpdateRequest $request, Pet $pet)
+    {
         $validated = $request->validated();
-        $petLike = PetLike::where(array('pet_id'=>$validated['id'],'user_id'=>$this->userId))->first();
+        $petLike = PetLike::where(['pet_id'=>$validated['id'],'user_id'=>$this->userId])->first();
 
         if (isset($petLike)) {
-            PetLike::where(array('pet_id'=>$validated['id'],'user_id'=>$this->userId))->delete();
+            PetLike::where(['pet_id'=>$validated['id'],'user_id'=>$this->userId])->delete();
         } else {
-            PetLike::create(array('pet_id' => $validated['id'],'user_id' => $this->userId));
+            PetLike::create(['pet_id' => $validated['id'],'user_id' => $this->userId]);
         }
         return $this->okResponse();
     }

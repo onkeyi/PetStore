@@ -1,59 +1,61 @@
 <template>
-  <div class="nav-scroller py-1 mb-2">
-    <ul class="nav">
-      <li
-        v-bind:class="'nav-item ' + (value.id == selectedId ? 'active' : '')"
-        v-on:click="loadSubCateogry(value.id, value.parent_id)"
-        v-for="(value, key) in topCategories"
-        :key="key"
-      >
-        <a class="nav-link text-muted" href="#">{{ value.name | uppercase}} </a>
-      </li>
-    </ul>
-  </div>
+    <div class="nav-scroller py-1 mb-2">
+        <ul class="nav">
+            <li
+                v-for="(value, key) in topCategories"
+                :key="key"
+                :class="'nav-item ' + (value.id == selectedId ? 'active' : '')"
+                @click="loadSubCateogry(value.id, value.parent_id)"
+            >
+                <a class="nav-link text-muted" href="#"
+                    >{{ value.name | uppercase }}
+                </a>
+            </li>
+        </ul>
+    </div>
 </template>
 <script>
 import { CategoryApi } from "pet_store_api";
+
 export default {
-  name: "category-nav",
-  data: () => ({
-    categories: [],
-    topCategories: [],
-    subCategories: [],
-    selectedId: null,
-  }),
-  created: function () {
-    this.loadData();
-  },
-  methods: {
-    async loadData() {
-      let apiInstance = new CategoryApi();
-      this.categories = await apiInstance.getAllCategorys();
-      this.categories.forEach((category) => {
-        if (category.parent_id == -1) {
-          this.topCategories.push(category);
-        }
-      });
+    name: "CategoryNav",
+    data: () => ({
+        categories: [],
+        topCategories: [],
+        subCategories: [],
+        selectedId: null,
+    }),
+    created() {
+        this.loadData();
     },
-    loadSubCateogry(id, parentId) {
-      this.selectedId = id;
-      this.subCategories = [];
-      if (parentId != -1) {
-        this.categories.forEach((category) => {
-          if (category.parent_id == parentId) {
-            this.subCategories.push(category);
-          }
-        });
-      }
-      if (this.subCategories.length == 0) {
-        this.$router.push({ query: { category: id } }).catch(()=>{});
-      }
+    methods: {
+        async loadData() {
+            const apiInstance = new CategoryApi();
+            this.categories = await apiInstance.getAllCategorys();
+            this.categories.forEach((category) => {
+                if (category.parent_id == -1) {
+                    this.topCategories.push(category);
+                }
+            });
+        },
+        loadSubCateogry(id, parentId) {
+            this.selectedId = id;
+            this.subCategories = [];
+            if (parentId != -1) {
+                this.categories.forEach((category) => {
+                    if (category.parent_id == parentId) {
+                        this.subCategories.push(category);
+                    }
+                });
+            }
+            if (this.subCategories.length == 0) {
+                this.$router.push({ query: { category: id } }).catch(() => {});
+            }
+        },
     },
-  },
 };
 </script>
 <style scoped>
-
 .nav-scroller {
     position: relative;
     z-index: 2;
@@ -75,8 +77,8 @@ export default {
 }
 
 .nav-scroller .nav-link {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    font-size: .875rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 0.875rem;
 }
 </style>
