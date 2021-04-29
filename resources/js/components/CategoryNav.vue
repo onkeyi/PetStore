@@ -16,7 +16,7 @@
                 </li>
             </ul>
         </div>
-        <div class="nav-scroller" v-if="subCategories">
+        <div class="nav-scroller" v-show="subCategories">
             <ul class="nav">
                 <li
                     v-for="(value, key) in subCategories"
@@ -42,7 +42,7 @@ export default {
     data: () => ({
         categories: [],
         topCategories: [],
-        subCategories: [],
+        subCategories: null,
         selectedId: null,
     }),
     created() {
@@ -69,6 +69,7 @@ export default {
                 });
             }
             if (this.subCategories.length == 0) {
+                this.subCategories = null;
                 this.$router.push({ query: { category: id } }).catch(() => {});
             }
         },
