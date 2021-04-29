@@ -37,13 +37,15 @@
     php artisan db:seed
 ```
 
+## JavaScript build
+```
+cd client/pet_store_api
+npm run build
+cd ../../
+```
 ## Vue フロントエンド　build
 ```
 npm install
-
-cd client/pet_store_api
-npm run build
-
 npm link ./client/pet_store_api
 npm run dev
 
