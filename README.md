@@ -40,6 +40,7 @@
 ## JavaScript build
 ```
 cd client/pet_store_api
+npm install
 npm run build
 cd ../../
 ```
