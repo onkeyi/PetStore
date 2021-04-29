@@ -12,6 +12,10 @@
 ```
 
 ## .env　のデーターベース情報修正
+- MySQL データーベース作成
+```sql
+    create database petstore;
+```
 ```shell
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -30,11 +34,16 @@
     mkdir storage/app/public/pets
     chmod -R 777 storage bootstrap/cache
     php artisan migrate:fresh
-    php artisan seed
+    php artisan db:seed
 ```
 
 ## Vue フロントエンド　build
 ```
+npm install
+
+cd client/pet_store_api
+npm run build
+
 npm link ./client/pet_store_api
 npm run dev
 
