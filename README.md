@@ -35,6 +35,8 @@ $ make init
 ```shell
 $ make serve
 ```
+## 確認
+http://127.0.0.1:8000
 
 ## Swagger Editor
 - https://editor.swagger.io/
