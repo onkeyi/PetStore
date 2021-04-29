@@ -46,7 +46,7 @@ export default {
         });
 
         this.$router.afterEach(async () => {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 500));
             this.$store.commit("setLoading", false);
         });
     },

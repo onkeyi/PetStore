@@ -1,24 +1,44 @@
 <template>
-    <div class="nav-scroller py-1 mb-2">
-        <ul class="nav">
-            <li
-                v-for="(value, key) in topCategories"
-                :key="key"
-                :class="'nav-item ' + (value.id == selectedId ? 'active' : '')"
-                @click="loadSubCateogry(value.id, value.parent_id)"
-            >
-                <a class="nav-link text-muted" href="#"
-                    >{{ value.name | uppercase }}
-                </a>
-            </li>
-        </ul>
+    <div>
+        <div class="nav-scroller">
+            <ul class="nav">
+                <li
+                    v-for="(value, key) in topCategories"
+                    :key="key"
+                    :class="
+                        'nav-item ' + (value.id == selectedId ? 'active' : '')
+                    "
+                    @click="loadSubCategory(value.id, value.parent_id)"
+                >
+                    <a class="nav-link text-muted" href="#"
+                        >{{ value.name | uppercase }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="nav-scroller" v-if="subCategories">
+            <ul class="nav">
+                <li
+                    v-for="(value, key) in subCategories"
+                    :key="key"
+                    :class="
+                        'nav-item ' + (value.id == selectedId ? 'active' : '')
+                    "
+                    @click="loadSubCategoryData(value.id)"
+                >
+                    <a class="nav-link text-muted" href="#"
+                        >{{ value.name | uppercase }}
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 <script>
 import { CategoryApi } from "pet_store_api";
 
 export default {
-    name: "CategoryNav",
+    name: "category-nav",
     data: () => ({
         categories: [],
         topCategories: [],
@@ -38,12 +58,12 @@ export default {
                 }
             });
         },
-        loadSubCateogry(id, parentId) {
+        loadSubCategory(id, parentId) {
             this.selectedId = id;
             this.subCategories = [];
-            if (parentId != -1) {
+            if (parentId == -1) {
                 this.categories.forEach((category) => {
-                    if (category.parent_id == parentId) {
+                    if (category.parent_id == id) {
                         this.subCategories.push(category);
                     }
                 });
@@ -51,6 +71,9 @@ export default {
             if (this.subCategories.length == 0) {
                 this.$router.push({ query: { category: id } }).catch(() => {});
             }
+        },
+        loadSubCategoryData(id) {
+            this.$router.push({ query: { category: id } }).catch(() => {});
         },
     },
 };

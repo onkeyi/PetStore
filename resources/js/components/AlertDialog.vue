@@ -32,7 +32,7 @@
 </template>
 <script>
 export default {
-  name: "AlertDialog",
+  name: "alert-dialog",
   props: ["show", "content",  "close"],
 };
 </script>

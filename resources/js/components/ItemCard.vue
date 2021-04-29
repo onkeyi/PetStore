@@ -6,12 +6,11 @@
         <img
             class="bd-placeholder-img card-img img-fluid"
             :src="'/storage/pets/' + pet.photo_urls[0]"
-            height="150"
         />
         <router-link :to="{ path: detailLink, query: { id: pet.id } }">
             <div class="card-img-overlay">
                 <div class="float-left">
-                    {{ pet.status }}
+                    {{ status[pet.status] }}
                 </div>
                 <span class="float-right">{{ pet.category.name }}</span>
             </div>
@@ -33,7 +32,7 @@
                 :datetime="pet.updated_at"
                 long
             />
-            <p>comment:{{ pet.comments_count }}</p>
+            <p>コメント : {{ pet.comments_count }}</p>
             <span
                 v-for="(tag, key) in pet.tags.slice(0, 5)"
                 :key="key"
@@ -45,8 +44,14 @@
 </template>
 <script>
 export default {
-    name: "ItemCard",
+    name: "item-card",
     props: ["pet", "delete", "detailLink", "order"],
-    mounted() {},
+    data: () => ({
+        status: {
+            available: "取引可能",
+            pending: "保留中",
+            sold: "売り切れ",
+        },
+    }),
 };
 </script>

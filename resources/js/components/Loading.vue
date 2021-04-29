@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-    name: "Loading",
+    name: "loading",
 };
 </script>
 <style>

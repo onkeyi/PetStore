@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Database\Seeders\CategorySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,9 +21,10 @@ class DatabaseSeeder extends Seeder
             'avatar' => "avatar",
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         ]);
+        $this->call(CategorySeeder::class);
         // \App\Models\Admin::factory(1)->create();
         \App\Models\User::factory(10)->create();
-        \App\Models\Category::factory(50)->create();
+        // \App\Models\Category::factory(50)->create();
         \App\Models\PetComment::factory(50)->create();
         $pets = \App\Models\Pet::factory(50)->create();
         foreach ($pets as $pet) {

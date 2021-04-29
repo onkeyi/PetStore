@@ -8,7 +8,7 @@
                 <input
                     v-model="inputTag"
                     type="text"
-                    placeholder="Search"
+                    placeholder="検索"
                     required
                 />
                 <a class="text-muted" type="submit" @click="searchByTag">
@@ -46,7 +46,7 @@
 </template>
 <script>
 export default {
-    name: "NavBar",
+    name: "nav-bar",
     data: () => ({
         userInfo: null,
         inputTag: null,

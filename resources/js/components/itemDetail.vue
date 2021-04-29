@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 class="my-4">
-            ID:{{ pet.id }} / {{ pet.name }}
+            {{ pet.name }}
             <small>{{ pet.status }}</small>
         </h1>
         <div class="row">
@@ -30,9 +30,9 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <h3 class="my-3">Description</h3>
+                <h3 class="my-3">詳細</h3>
                 <p>{{ pet.description }}</p>
-                <h3 class="my-3">Tag</h3>
+                <h3 class="my-3">タグ</h3>
                 <ul>
                     <li v-for="(tag, key) in pet.tags" :key="key">
                         #{{ tag }}
@@ -40,12 +40,12 @@
                 </ul>
             </div>
         </div>
-        <h3 class="my-2">Related</h3>
+        <item-detail-comment :pet="pet" />
     </div>
 </template>
 <script>
 export default {
-    name: "ItemDetail",
+    name: "item-detail",
     props: ["pet"],
     data: () => ({
         topImage: null,

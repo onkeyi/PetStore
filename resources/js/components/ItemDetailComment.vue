@@ -47,7 +47,7 @@
 import { PetApi, PetComment } from "pet_store_api";
 
 export default {
-    name: "ItemDetailComment",
+    name: "item-detail-comment",
     props: ["pet"],
     data: () => ({
         userInfo: null,

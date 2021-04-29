@@ -8,7 +8,7 @@
                         :key="key"
                         :class="
                             'btn btn-outline-secondary ' +
-                            (options == s ? 'active' : '')
+                            (options == key ? 'active' : '')
                         "
                     >
                         <input
@@ -16,9 +16,10 @@
                             class="rating-input"
                             autocomplete="off"
                             type="radio"
-                            :value="s"
+                            :value="key"
                             @change="searchByStatus()"
-                        />{{ s }} - {{ inventory[s] }}
+                        />{{ status[key] }} -
+                        {{ inventory[key] }}
                     </label>
                 </div>
             </div>
@@ -98,7 +99,12 @@ export default {
         inventory: {},
         options: null,
         orderBy: null,
-        status: ["all", "available", "pending", "sold"],
+        status: {
+            all: "全件",
+            available: "取引可能",
+            pending: "保留中",
+            sold: "売り切れ",
+        },
         showStatus: true,
     }),
     watch: {

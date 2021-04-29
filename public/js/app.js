@@ -9224,7 +9224,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return new Promise(function (resolve) {
-                return setTimeout(resolve, 1000);
+                return setTimeout(resolve, 500);
               });
 
             case 2:
@@ -9278,9 +9278,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "CategoryNav",
+  name: "category-nav",
   data: function data() {
     return {
       categories: [],
@@ -9323,15 +9343,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    loadSubCateogry: function loadSubCateogry(id, parentId) {
+    loadSubCategory: function loadSubCategory(id, parentId) {
       var _this2 = this;
 
       this.selectedId = id;
       this.subCategories = [];
 
-      if (parentId != -1) {
+      if (parentId == -1) {
         this.categories.forEach(function (category) {
-          if (category.parent_id == parentId) {
+          if (category.parent_id == id) {
             _this2.subCategories.push(category);
           }
         });
@@ -9344,6 +9364,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         })["catch"](function () {});
       }
+    },
+    loadSubCategoryData: function loadSubCategoryData(id) {
+      this.$router.push({
+        query: {
+          category: id
+        }
+      })["catch"](function () {});
     }
   }
 });
@@ -9408,7 +9435,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ConfirmDialog",
+  name: "confirm-dialog",
   props: ["show", "content", "action", "close"]
 });
 
@@ -9469,11 +9496,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ItemCard",
+  name: "item-card",
   props: ["pet", "delete", "detailLink", "order"],
-  mounted: function mounted() {}
+  data: function data() {
+    return {
+      status: {
+        available: "取引可能",
+        pending: "保留中",
+        sold: "売り切れ"
+      }
+    };
+  }
 });
 
 /***/ }),
@@ -9535,7 +9569,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ItemDetail",
+  name: "item-detail",
   props: ["pet"],
   data: function data() {
     return {
@@ -9623,7 +9657,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "ItemDetailComment",
+  name: "item-detail-comment",
   props: ["pet"],
   data: function data() {
     return {
@@ -9753,7 +9787,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Loading"
+  name: "loading"
 });
 
 /***/ }),
@@ -9816,7 +9850,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "NavBar",
+  name: "nav-bar",
   data: function data() {
     return {
       userInfo: null,
@@ -10088,6 +10122,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -10101,7 +10136,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       inventory: {},
       options: null,
       orderBy: null,
-      status: ["all", "available", "pending", "sold"],
+      status: {
+        all: "全件",
+        available: "取引可能",
+        pending: "保留中",
+        sold: "売り切れ"
+      },
       showStatus: true
     };
   },
@@ -19559,37 +19599,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "nav-scroller py-1 mb-2" }, [
-    _c(
-      "ul",
-      { staticClass: "nav" },
-      _vm._l(_vm.topCategories, function(value, key) {
-        return _c(
-          "li",
-          {
-            key: key,
-            class: "nav-item " + (value.id == _vm.selectedId ? "active" : ""),
-            on: {
-              click: function($event) {
-                return _vm.loadSubCateogry(value.id, value.parent_id)
+  return _c("div", [
+    _c("div", { staticClass: "nav-scroller" }, [
+      _c(
+        "ul",
+        { staticClass: "nav" },
+        _vm._l(_vm.topCategories, function(value, key) {
+          return _c(
+            "li",
+            {
+              key: key,
+              class: "nav-item " + (value.id == _vm.selectedId ? "active" : ""),
+              on: {
+                click: function($event) {
+                  return _vm.loadSubCategory(value.id, value.parent_id)
+                }
               }
-            }
-          },
-          [
-            _c(
-              "a",
-              { staticClass: "nav-link text-muted", attrs: { href: "#" } },
-              [
-                _vm._v(
-                  _vm._s(_vm._f("uppercase")(value.name)) + "\n            "
-                )
-              ]
-            )
-          ]
-        )
-      }),
-      0
-    )
+            },
+            [
+              _c(
+                "a",
+                { staticClass: "nav-link text-muted", attrs: { href: "#" } },
+                [
+                  _vm._v(
+                    _vm._s(_vm._f("uppercase")(value.name)) +
+                      "\n                "
+                  )
+                ]
+              )
+            ]
+          )
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _vm.subCategories
+      ? _c("div", { staticClass: "nav-scroller" }, [
+          _c(
+            "ul",
+            { staticClass: "nav" },
+            _vm._l(_vm.subCategories, function(value, key) {
+              return _c(
+                "li",
+                {
+                  key: key,
+                  class:
+                    "nav-item " + (value.id == _vm.selectedId ? "active" : ""),
+                  on: {
+                    click: function($event) {
+                      return _vm.loadSubCategoryData(value.id)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link text-muted",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _vm._v(
+                        _vm._s(_vm._f("uppercase")(value.name)) +
+                          "\n                "
+                      )
+                    ]
+                  )
+                ]
+              )
+            }),
+            0
+          )
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -19755,7 +19838,7 @@ var render = function() {
     [
       _c("img", {
         staticClass: "bd-placeholder-img card-img img-fluid",
-        attrs: { src: "/storage/pets/" + _vm.pet.photo_urls[0], height: "150" }
+        attrs: { src: "/storage/pets/" + _vm.pet.photo_urls[0] }
       }),
       _vm._v(" "),
       _c(
@@ -19765,7 +19848,9 @@ var render = function() {
           _c("div", { staticClass: "card-img-overlay" }, [
             _c("div", { staticClass: "float-left" }, [
               _vm._v(
-                "\n                " + _vm._s(_vm.pet.status) + "\n            "
+                "\n                " +
+                  _vm._s(_vm.status[_vm.pet.status]) +
+                  "\n            "
               )
             ]),
             _vm._v(" "),
@@ -19809,7 +19894,7 @@ var render = function() {
             attrs: { locale: "jp", datetime: _vm.pet.updated_at, long: "" }
           }),
           _vm._v(" "),
-          _c("p", [_vm._v("comment:" + _vm._s(_vm.pet.comments_count))]),
+          _c("p", [_vm._v("コメント : " + _vm._s(_vm.pet.comments_count))]),
           _vm._v(" "),
           _vm._l(_vm.pet.tags.slice(0, 5), function(tag, key) {
             return _c(
@@ -19848,79 +19933,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("h1", { staticClass: "my-4" }, [
-      _vm._v(
-        "\n        ID:" +
-          _vm._s(_vm.pet.id) +
-          " / " +
-          _vm._s(_vm.pet.name) +
-          "\n        "
-      ),
-      _c("small", [_vm._v(_vm._s(_vm.pet.status))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-5" }, [
-        _vm.pet.photo_urls
-          ? _c("img", {
-              staticClass: "img-fluid",
-              staticStyle: { width: "400px" },
-              attrs: { src: _vm.topImage, alt: "" }
-            })
-          : _vm._e()
+  return _c(
+    "div",
+    [
+      _c("h1", { staticClass: "my-4" }, [
+        _vm._v("\n        " + _vm._s(_vm.pet.name) + "\n        "),
+        _c("small", [_vm._v(_vm._s(_vm.pet.status))])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-md-1" },
-        _vm._l(_vm.pet.photo_urls, function(url, key) {
-          return _c(
-            "a",
-            {
-              key: key,
-              attrs: { href: "#" },
-              on: {
-                click: function($event) {
-                  return _vm.changeImage(url)
-                }
-              }
-            },
-            [
-              _c("img", {
-                staticClass: "img-fluid img-thumbnail",
-                staticStyle: { "min-width": "40px" },
-                attrs: { src: "/storage/pets/" + url, alt: "" }
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-5" }, [
+          _vm.pet.photo_urls
+            ? _c("img", {
+                staticClass: "img-fluid",
+                staticStyle: { width: "400px" },
+                attrs: { src: _vm.topImage, alt: "" }
               })
-            ]
-          )
-        }),
-        0
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("h3", { staticClass: "my-3" }, [_vm._v("Description")]),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.pet.description))]),
-        _vm._v(" "),
-        _c("h3", { staticClass: "my-3" }, [_vm._v("Tag")]),
+            : _vm._e()
+        ]),
         _vm._v(" "),
         _c(
-          "ul",
-          _vm._l(_vm.pet.tags, function(tag, key) {
-            return _c("li", { key: key }, [
-              _vm._v(
-                "\n                    #" + _vm._s(tag) + "\n                "
-              )
-            ])
+          "div",
+          { staticClass: "col-md-1" },
+          _vm._l(_vm.pet.photo_urls, function(url, key) {
+            return _c(
+              "a",
+              {
+                key: key,
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    return _vm.changeImage(url)
+                  }
+                }
+              },
+              [
+                _c("img", {
+                  staticClass: "img-fluid img-thumbnail",
+                  staticStyle: { "min-width": "40px" },
+                  attrs: { src: "/storage/pets/" + url, alt: "" }
+                })
+              ]
+            )
           }),
           0
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("h3", { staticClass: "my-2" }, [_vm._v("Related")])
-  ])
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("h3", { staticClass: "my-3" }, [_vm._v("詳細")]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.pet.description))]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "my-3" }, [_vm._v("タグ")]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(_vm.pet.tags, function(tag, key) {
+              return _c("li", { key: key }, [
+                _vm._v(
+                  "\n                    #" + _vm._s(tag) + "\n                "
+                )
+              ])
+            }),
+            0
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("item-detail-comment", { attrs: { pet: _vm.pet } })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -20135,7 +20218,7 @@ var render = function() {
                     expression: "inputTag"
                   }
                 ],
-                attrs: { type: "text", placeholder: "Search", required: "" },
+                attrs: { type: "text", placeholder: "検索", required: "" },
                 domProps: { value: _vm.inputTag },
                 on: {
                   input: function($event) {
@@ -20345,7 +20428,7 @@ var render = function() {
                     key: key,
                     class:
                       "btn btn-outline-secondary " +
-                      (_vm.options == s ? "active" : "")
+                      (_vm.options == key ? "active" : "")
                   },
                   [
                     _c("input", {
@@ -20359,11 +20442,14 @@ var render = function() {
                       ],
                       staticClass: "rating-input",
                       attrs: { autocomplete: "off", type: "radio" },
-                      domProps: { value: s, checked: _vm._q(_vm.options, s) },
+                      domProps: {
+                        value: key,
+                        checked: _vm._q(_vm.options, key)
+                      },
                       on: {
                         change: [
                           function($event) {
-                            _vm.options = s
+                            _vm.options = key
                           },
                           function($event) {
                             return _vm.searchByStatus()
@@ -20372,9 +20458,9 @@ var render = function() {
                       }
                     }),
                     _vm._v(
-                      _vm._s(s) +
-                        " - " +
-                        _vm._s(_vm.inventory[s]) +
+                      _vm._s(_vm.status[key]) +
+                        " -\n                    " +
+                        _vm._s(_vm.inventory[key]) +
                         "\n                "
                     )
                   ]

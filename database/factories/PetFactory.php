@@ -24,7 +24,7 @@ class PetFactory extends Factory
         return [
             'name' => $this->faker->sentence(rand(1, 4)),
             'user_id' => $this->faker->numberBetween(1, 10),
-            'category_id' => $this->faker->numberBetween(1, 50),
+            'category_id' => $this->faker->numberBetween(1, 25),
             'status' => $this->faker->randomElement(['available', 'pending', 'sold']),
             'description' => $this->faker->realText(255)
         ];

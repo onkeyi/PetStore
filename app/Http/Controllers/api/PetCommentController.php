@@ -35,7 +35,7 @@ class PetCommentController extends ApiController
 
     public function getPetComments(Pet $pet)
     {
-        $this->authorize('comments', $pet);
+        // $this->authorize('comments', $pet);
         return $this->successResponse(
             PetComment::where('pet_id', $pet->id)->with('user')->paginate(env('APP_PER_PAGE', 18))
         );

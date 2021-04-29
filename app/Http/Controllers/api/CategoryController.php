@@ -11,7 +11,7 @@ class CategoryController extends ApiController
     public function getAllCategories()
     {
         return $this->successResponse(
-            Category::orderBy('id', 'desc')
+            Category::orderBy('id', 'asc')
                 ->get()
         );
     }
