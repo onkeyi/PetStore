@@ -28,34 +28,12 @@
 
 ## インストール
 ```shell
-    composer update
-    php artisan key:generate
-    php artisan storage:link
-    mkdir storage/app/public/users
-    mkdir storage/app/public/pets
-    chmod -R 777 storage bootstrap/cache
-    php artisan migrate:fresh
-    php artisan db:seed
-```
-
-## JavaScript build
-```
-cd client/pet_store_api
-npm install
-npm run build
-cd ../../
-```
-## Vue フロントエンド　build
-```
-npm install
-npm link ./client/pet_store_api
-npm run dev
-
+$ make init
 ```
 
 ## サーバー起動
 ```shell
-php artisan serve
+$ make serve
 ```
 
 ## Swagger Editor
