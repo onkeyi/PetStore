@@ -24,7 +24,7 @@ class PetPhotoUrlFactory extends Factory
     {
         return [
             "photo_url" =>
-            $this->faker->image('public/storage/pets', 160, 160, null, false)
+            $this->faker->image(storage_path('app/public/pets'), 160, 160, null, false)
         ];
     }
 }
