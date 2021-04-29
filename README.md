@@ -1,5 +1,6 @@
 # Pet Store
 
+![ペットショップ](https://github.com/onkeyi/PetStore/raw/develop/public/demo.png "DEMO")
 
 ## Requirements
 ------------
